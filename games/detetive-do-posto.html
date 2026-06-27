@@ -1,0 +1,1448 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Detetive do Posto — Treinamento de Qualidade | Linha TL / Farmall</title>
+
+<!--
+  ============================================================================
+  DETETIVE DO POSTO  —  Jogo de treinamento de qualidade por descoberta
+  Linha TL / Farmall (montagem de transmissões) — CNH Industrial
+  Desenvolvido por EDSON SOUZA
+  ----------------------------------------------------------------------------
+  ARQUIVO ÚNICO E AUTOCONTIDO. Abre com duplo clique. Funciona offline.
+  Irmão do jogo "Fazenda da Qualidade": motor separado do conteúdo.
+
+  >>> VOCÊ (EDSON) SÓ PRECISA MEXER EM 2 BLOCOS, LOGO ABAixo NO <script>:
+        1) REGRAS_DE_OURO  → o texto oficial das 9 regras
+        2) CENARIOS         → os postos/fotos e seus desvios
+      O resto é o MOTOR e não precisa ser editado.
+
+  >>> Para adicionar uma FOTO REAL sem programar: aperte a tecla "E"
+      (Modo Edição). Carregue a foto, arraste para marcar os desvios,
+      preencha o painel e clique em "Exportar JSON". Cole o resultado
+      dentro do array CENARIOS.
+  ============================================================================
+-->
+
+<!-- Fontes técnicas via Google Fonts. Se a fábrica estiver SEM internet,
+     o CSS cai automaticamente para fontes do sistema (fallback abaixo). -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+
+<style>
+/* ===========================================================================
+   IDENTIDADE VISUAL — industrial-corporativo CNH Industrial
+   =========================================================================== */
+:root{
+  /* Marcas / equipes */
+  --case:    #cc0000;   /* CASE IH — vermelho        */
+  --nh:      #003087;   /* New Holland — azul        */
+  --colh:    #f5b800;   /* Colheitadeira — dourado   */
+
+  /* Modos (mesma codificação de cores) */
+  --vermelho:#cc0000;
+  --amarelo: #f5b800;
+  --azul:    #003087;
+
+  /* Semáforo da qualidade */
+  --verde:   #1faa59;
+  --amarelo-sem:#f5b800;
+  --vermelho-sem:#cc0000;
+
+  /* Base */
+  --bg:      #14181d;
+  --bg2:     #1c222a;
+  --painel:  #232b35;
+  --linha:   #344150;
+  --texto:   #eef2f6;
+  --texto-2: #9fb0c0;
+  --branco:  #ffffff;
+
+  --fonte-titulo: 'Archivo', system-ui, 'Segoe UI', Roboto, Arial, sans-serif;
+  --fonte-corpo:  'IBM Plex Sans', system-ui, 'Segoe UI', Roboto, Arial, sans-serif;
+  --fonte-mono:   'IBM Plex Mono', ui-monospace, 'Courier New', monospace;
+
+  --raio: 12px;
+  --escala: 1;   /* alterada no Modo TV */
+}
+
+*{ box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent; }
+html,body{ height:100%; }
+body{
+  font-family:var(--fonte-corpo);
+  background:
+    radial-gradient(1200px 700px at 80% -10%, #20262f 0%, transparent 60%),
+    var(--bg);
+  color:var(--texto);
+  overflow-x:hidden;
+  user-select:none;
+}
+
+/* ---- Modo TV: tudo maior para leitura coletiva à distância ---- */
+body.tv{ font-size:calc(20px * var(--escala)); }
+body.tv .tela{ max-width:1500px; }
+body.tv h1{ font-size:64px; }
+body.tv .btn-grande{ font-size:28px; padding:26px 30px; }
+body.tv .timer-num{ font-size:80px; }
+
+/* ===========================================================================
+   LAYOUT GERAL
+   =========================================================================== */
+#app{ min-height:100%; display:flex; flex-direction:column; }
+.tela{
+  width:100%; max-width:980px; margin:0 auto; padding:22px 18px 90px;
+  flex:1; display:none; animation:surge .25s ease;
+}
+.tela.ativa{ display:block; }
+@keyframes surge{ from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:none;} }
+
+.topo-marca{
+  display:flex; align-items:center; gap:12px; justify-content:center;
+  padding:16px 0 6px;
+}
+.faixa-marcas{ display:flex; gap:4px; }
+.faixa-marcas i{ width:34px; height:6px; border-radius:3px; display:block; }
+.faixa-marcas .c1{background:var(--case);} .faixa-marcas .c2{background:var(--nh);} .faixa-marcas .c3{background:var(--colh);}
+
+h1{
+  font-family:var(--fonte-titulo); font-weight:900; letter-spacing:-1px;
+  font-size:clamp(34px,7vw,56px); line-height:1; text-align:center; margin-bottom:6px;
+}
+h1 .sub{ display:block; font-size:.34em; letter-spacing:3px; color:var(--texto-2);
+  font-weight:700; margin-top:10px; text-transform:uppercase; }
+h2{ font-family:var(--fonte-titulo); font-weight:800; font-size:clamp(22px,4.5vw,30px); margin-bottom:4px;}
+.lead{ color:var(--texto-2); text-align:center; max-width:640px; margin:8px auto 22px; line-height:1.5;}
+
+.painel{ background:var(--painel); border:1px solid var(--linha); border-radius:var(--raio); padding:18px; }
+.bloco{ margin-bottom:16px; }
+label.rotulo{ display:block; font-size:13px; letter-spacing:1px; text-transform:uppercase;
+  color:var(--texto-2); margin-bottom:8px; font-weight:600;}
+
+input.campo, select.campo, textarea.campo{
+  width:100%; background:var(--bg2); border:1px solid var(--linha); color:var(--texto);
+  border-radius:10px; padding:14px 14px; font-size:16px; font-family:var(--fonte-corpo);
+}
+textarea.campo{ font-family:var(--fonte-mono); font-size:13px; line-height:1.5; resize:vertical; }
+input.campo:focus, select.campo:focus, textarea.campo:focus{ outline:2px solid var(--colh); }
+
+/* ---- Botões ---- */
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:10px;
+  background:var(--bg2); color:var(--texto); border:1px solid var(--linha);
+  border-radius:10px; padding:14px 18px; font-size:16px; font-weight:600;
+  font-family:var(--fonte-corpo); cursor:pointer; transition:transform .08s, background .15s, border-color .15s;
+}
+.btn:hover{ background:#2b333d; } .btn:active{ transform:scale(.97); }
+.btn.primario{ background:var(--colh); color:#1a1300; border-color:var(--colh); font-weight:800; }
+.btn.primario:hover{ filter:brightness(1.08); }
+.btn-grande{ font-size:20px; padding:20px; border-radius:14px; }
+.btn.fantasma{ background:transparent; }
+.linha-botoes{ display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin-top:18px; }
+
+/* ---- Cartões de seleção de equipe ---- */
+.equipes{ display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+.equipe{
+  border:2px solid var(--linha); border-radius:14px; padding:18px 12px; text-align:center;
+  cursor:pointer; background:var(--bg2); transition:transform .08s, border-color .15s, background .15s;
+}
+.equipe:active{ transform:scale(.97); }
+.equipe .disco{ width:48px; height:48px; border-radius:50%; margin:0 auto 10px; box-shadow:0 0 0 4px rgba(255,255,255,.06);}
+.equipe .nome{ font-family:var(--fonte-titulo); font-weight:800; font-size:16px;}
+.equipe.case .disco{background:var(--case);} .equipe.nh .disco{background:var(--nh);} .equipe.colh .disco{background:var(--colh);}
+.equipe.sel{ border-color:var(--branco); background:#2b333d; box-shadow:0 6px 18px rgba(0,0,0,.35);}
+.equipe.case.sel{ border-color:var(--case);} .equipe.nh.sel{ border-color:var(--nh);} .equipe.colh.sel{ border-color:var(--colh);}
+
+/* ---- Cartões de modo ---- */
+.modos{ display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:14px; }
+.modo-card{
+  border-radius:16px; padding:22px 18px; cursor:pointer; color:#fff; position:relative; overflow:hidden;
+  border:1px solid rgba(255,255,255,.12); transition:transform .1s; min-height:150px;
+  display:flex; flex-direction:column; justify-content:space-between;
+}
+.modo-card:active{ transform:scale(.98); }
+.modo-card.vermelho{ background:linear-gradient(160deg,#e11,#990000); }
+.modo-card.amarelo{ background:linear-gradient(160deg,#ffcf2e,#c79400); color:#1a1300;}
+.modo-card.azul{ background:linear-gradient(160deg,#0a47b8,#002063); }
+.modo-card.campanha{ background:linear-gradient(160deg,#cc0000 0%,#f5b800 50%,#003087 100%); }
+.modo-card .nivel{ font-size:12px; letter-spacing:2px; font-weight:700; text-transform:uppercase; opacity:.85;}
+.modo-card .tit{ font-family:var(--fonte-titulo); font-weight:900; font-size:24px; line-height:1.05; margin:6px 0;}
+.modo-card .desc{ font-size:14px; opacity:.92; line-height:1.35;}
+
+/* ===========================================================================
+   MISSÃO — foto + timer + hotspots
+   =========================================================================== */
+.hud{ display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:12px; flex-wrap:wrap;}
+.hud .info{ font-family:var(--fonte-mono); font-size:14px; color:var(--texto-2);}
+.hud .info b{ color:var(--texto); }
+.timer-wrap{ flex:1; min-width:160px; }
+.timer-barra{ height:14px; background:var(--bg2); border:1px solid var(--linha); border-radius:8px; overflow:hidden;}
+.timer-fill{ height:100%; width:100%; background:var(--verde); transition:width .2s linear, background .3s; }
+.timer-num{ font-family:var(--fonte-mono); font-weight:600; font-size:30px; text-align:right; min-width:74px;}
+
+.placar-mini{ font-family:var(--fonte-mono); font-weight:600; font-size:22px; }
+
+.palco{
+  position:relative; width:100%; border:2px solid var(--linha); border-radius:14px; overflow:hidden;
+  background:#0c0f13; line-height:0; touch-action:manipulation;
+}
+.palco img.foto{ width:100%; height:auto; display:block; }
+.tag-modo{
+  position:absolute; top:10px; right:10px; z-index:5; font-family:var(--fonte-mono); font-weight:600;
+  font-size:12px; letter-spacing:1px; padding:6px 10px; border-radius:8px; color:#fff; text-transform:uppercase;
+}
+.tag-modo.vermelho{background:var(--vermelho);} .tag-modo.amarelo{background:var(--amarelo); color:#1a1300;} .tag-modo.azul{background:var(--azul);}
+
+/* Hotspots — posicionados em % (robusto a qualquer tela) */
+.hotspot{
+  position:absolute; border:2px dashed transparent; border-radius:8px; cursor:pointer; z-index:4;
+}
+.hotspot.achado{
+  border-color:var(--verde); background:rgba(31,170,89,.22);
+  box-shadow:0 0 0 2px rgba(31,170,89,.5);
+}
+.hotspot.errado{
+  border-color:var(--vermelho); background:rgba(204,0,0,.18);
+}
+.marca-clique{
+  position:absolute; width:26px; height:26px; margin:-13px 0 0 -13px; border-radius:50%;
+  z-index:6; pointer-events:none; font-weight:900; display:flex; align-items:center; justify-content:center;
+  font-size:16px; color:#fff; animation:pop .25s ease;
+}
+.marca-clique.ok{ background:var(--verde); }
+.marca-clique.no{ background:var(--vermelho); }
+@keyframes pop{ from{transform:scale(.2); opacity:0;} to{transform:scale(1); opacity:1;} }
+
+.dica-modo{ text-align:center; color:var(--texto-2); margin-top:12px; font-size:14px;}
+
+/* Pop-up de ação (Modo Amarelo) e decisão (Modo Azul) */
+.overlay{
+  position:fixed; inset:0; background:rgba(8,10,13,.82); z-index:50; display:none;
+  align-items:center; justify-content:center; padding:18px;
+}
+.overlay.ativa{ display:flex; }
+.modal{
+  background:var(--painel); border:1px solid var(--linha); border-radius:16px; padding:22px;
+  width:100%; max-width:520px; animation:surge .2s ease; max-height:92vh; overflow:auto;
+}
+.modal h3{ font-family:var(--fonte-titulo); font-size:20px; margin-bottom:6px;}
+.modal .peq{ color:var(--texto-2); font-size:14px; margin-bottom:16px; line-height:1.4;}
+.acoes-grid{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.acao-btn{
+  background:var(--bg2); border:1px solid var(--linha); color:var(--texto); border-radius:12px;
+  padding:16px 12px; cursor:pointer; font-weight:700; font-size:15px; text-align:center; transition:transform .08s;
+}
+.acao-btn:active{ transform:scale(.96); }
+.acao-btn .ico{ font-size:24px; display:block; margin-bottom:6px;}
+.acao-btn.etiquetar{ border-color:var(--amarelo); }
+.acao-btn.chamar_monitor{ border-color:var(--azul); }
+.acao-btn.parar{ border-color:var(--vermelho); }
+.acao-btn.continuar_registro{ border-color:var(--verde); }
+
+.decisao-grid{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.decisao-btn{ border-radius:14px; padding:22px; font-weight:900; font-size:20px; cursor:pointer; border:2px solid; color:#fff;}
+.decisao-btn.aceitar{ background:var(--verde); border-color:var(--verde); }
+.decisao-btn.rejeitar{ background:var(--vermelho); border-color:var(--vermelho); }
+
+/* Feedback (acerto/erro) dentro do modal */
+.feedback{ border-radius:12px; padding:16px; margin-top:14px; line-height:1.5; font-size:15px; }
+.feedback.ok{ background:rgba(31,170,89,.14); border:1px solid var(--verde); }
+.feedback.no{ background:rgba(204,0,0,.14); border:1px solid var(--vermelho); }
+.feedback .regra{ display:block; margin-top:8px; font-family:var(--fonte-mono); font-size:13px; color:var(--colh); }
+
+/* ===========================================================================
+   RESULTADO
+   =========================================================================== */
+.resultado-cab{ text-align:center; margin-bottom:18px; }
+.resultado-cab .selo{
+  width:96px; height:96px; border-radius:50%; margin:0 auto 14px; display:flex; align-items:center; justify-content:center;
+  font-size:52px; box-shadow:0 0 0 6px rgba(255,255,255,.06);
+}
+.pontos-total{ font-family:var(--fonte-mono); font-weight:600; font-size:54px; }
+.calc{ font-family:var(--fonte-mono); font-size:14px; }
+.calc .linha-calc{ display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px dashed var(--linha); }
+.calc .linha-calc.total{ border-bottom:none; font-size:18px; color:var(--colh); padding-top:12px;}
+.lista-desvios{ margin-top:14px; }
+.desvio-item{ display:flex; gap:12px; align-items:flex-start; padding:12px; border-radius:10px; background:var(--bg2); margin-bottom:8px;}
+.desvio-item .bolinha{ width:14px; height:14px; border-radius:50%; margin-top:4px; flex:0 0 auto;}
+.desvio-item.acertou .bolinha{ background:var(--verde);} .desvio-item.errou .bolinha{ background:var(--vermelho);}
+.desvio-item .txt b{ display:block; margin-bottom:2px;} .desvio-item .txt small{ color:var(--texto-2); line-height:1.4; display:block;}
+.desvio-item .txt .regra{ font-family:var(--fonte-mono); color:var(--colh); font-size:12px; margin-top:4px; display:block;}
+
+/* ===========================================================================
+   RANKING
+   =========================================================================== */
+.abas{ display:flex; gap:8px; margin-bottom:16px; justify-content:center; }
+.aba{ padding:10px 16px; border-radius:10px; border:1px solid var(--linha); background:var(--bg2); cursor:pointer; font-weight:700;}
+.aba.sel{ background:#2b333d; border-color:var(--branco); }
+.rank-lista{ display:flex; flex-direction:column; gap:8px; }
+.rank-item{ display:flex; align-items:center; gap:14px; padding:12px 14px; border-radius:10px; background:var(--bg2); border-left:6px solid var(--linha);}
+.rank-item .pos{ font-family:var(--fonte-mono); font-weight:700; font-size:20px; width:38px; color:var(--texto-2);}
+.rank-item .quem{ flex:1; } .rank-item .quem b{ display:block;} .rank-item .quem small{ color:var(--texto-2);}
+.rank-item .pts{ font-family:var(--fonte-mono); font-weight:700; font-size:20px;}
+.rank-item.case{ border-left-color:var(--case);} .rank-item.nh{ border-left-color:var(--nh);} .rank-item.colh{ border-left-color:var(--colh);}
+.vazio{ text-align:center; color:var(--texto-2); padding:30px; }
+
+/* ===========================================================================
+   RODAPÉ / CRÉDITO
+   =========================================================================== */
+.rodape{
+  position:fixed; bottom:0; left:0; right:0; text-align:center; padding:10px;
+  font-size:12px; color:var(--texto-2); background:linear-gradient(transparent, var(--bg) 40%);
+  z-index:20; letter-spacing:1px;
+}
+.rodape b{ color:var(--texto); }
+.btn-canto{ position:fixed; bottom:44px; left:12px; z-index:30; padding:10px 14px; }
+
+/* ===========================================================================
+   MODO EDIÇÃO
+   =========================================================================== */
+#telaEdicao{ max-width:1200px; }
+.ed-grid{ display:grid; grid-template-columns:1.3fr 1fr; gap:18px; align-items:start; }
+@media (max-width:820px){ .ed-grid{ grid-template-columns:1fr; } }
+.ed-palco{ position:relative; border:2px solid var(--linha); border-radius:12px; overflow:hidden; background:#0c0f13; cursor:crosshair; min-height:200px;}
+.ed-palco img{ width:100%; display:block; }
+.ed-hot{ position:absolute; border:2px solid var(--colh); background:rgba(245,184,0,.18); font-family:var(--fonte-mono); font-size:11px; color:#fff; }
+.ed-hot .lbl{ position:absolute; top:-2px; left:-2px; background:var(--colh); color:#1a1300; padding:1px 5px; border-radius:0 0 6px 0; font-weight:700;}
+.ed-novo{ position:absolute; border:2px dashed var(--branco); background:rgba(255,255,255,.12); }
+.ed-lista-hot{ display:flex; flex-direction:column; gap:10px; margin-top:12px; }
+.ed-hot-card{ background:var(--bg2); border:1px solid var(--linha); border-radius:10px; padding:12px;}
+.ed-hot-card .cab{ display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;}
+.ed-hot-card .cab b{ font-family:var(--fonte-mono); }
+.ed-row{ display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:8px;}
+.ed-row.full{ grid-template-columns:1fr; }
+.mini-rotulo{ font-size:11px; color:var(--texto-2); text-transform:uppercase; letter-spacing:1px; margin-bottom:3px; display:block;}
+.placeholder-tag{
+  position:absolute; right:10px; bottom:10px; z-index:5; background:rgba(0,0,0,.6); color:var(--colh);
+  font-family:var(--fonte-mono); font-size:11px; letter-spacing:1px; padding:4px 8px; border-radius:6px; border:1px solid var(--colh);
+}
+
+.aviso{ font-size:13px; color:var(--texto-2); line-height:1.5; }
+.pill{ display:inline-block; background:var(--bg2); border:1px solid var(--linha); border-radius:20px; padding:4px 12px; font-size:12px; font-family:var(--fonte-mono); margin:2px;}
+hr.sep{ border:none; border-top:1px solid var(--linha); margin:16px 0; }
+.cantos-acoes{ display:flex; gap:8px; flex-wrap:wrap; }
+</style>
+</head>
+<body>
+<div id="app">
+
+  <!-- ===================== TELA 1: INICIAL ===================== -->
+  <section id="telaInicial" class="tela ativa">
+    <div class="topo-marca">
+      <div class="faixa-marcas"><i class="c1"></i><i class="c2"></i><i class="c3"></i></div>
+    </div>
+    <h1>DETETIVE DO POSTO<span class="sub">Linha TL / Farmall · Transmissões · CNH Industrial</span></h1>
+    <p class="lead">Você tem poucos segundos para inspecionar o posto, achar os desvios e decidir a ação certa. Treine o olho da qualidade — sem passar defeito adiante.</p>
+
+    <div class="painel">
+      <div class="bloco">
+        <label class="rotulo">1 · Sua equipe</label>
+        <div class="equipes" id="equipes">
+          <div class="equipe case" data-eq="case" onclick="selecionarEquipe('case')"><div class="disco"></div><div class="nome">CASE IH</div></div>
+          <div class="equipe nh"   data-eq="nh"   onclick="selecionarEquipe('nh')"><div class="disco"></div><div class="nome">New Holland</div></div>
+          <div class="equipe colh" data-eq="colh" onclick="selecionarEquipe('colh')"><div class="disco"></div><div class="nome">Colheitadeira</div></div>
+        </div>
+      </div>
+
+      <div class="bloco">
+        <label class="rotulo" for="nomeJogador">2 · Seu nome (colaborador)</label>
+        <input class="campo" id="nomeJogador" type="text" maxlength="28" placeholder="Ex.: João Silva" oninput="salvarConfig()">
+      </div>
+
+      <div class="bloco">
+        <label class="rotulo">3 · Como vai jogar?</label>
+        <div class="linha-botoes" style="margin-top:0; justify-content:flex-start;">
+          <button class="btn" id="btnCelular" onclick="definirTela(false)">📱 Celular (individual)</button>
+          <button class="btn" id="btnTV" onclick="definirTela(true)">📺 TV (coletivo)</button>
+        </div>
+      </div>
+
+      <div class="linha-botoes">
+        <button class="btn primario btn-grande" onclick="irParaModos()">COMEÇAR ▸</button>
+        <button class="btn fantasma" onclick="mostrar('telaRanking'); montarRanking();">🏆 Ranking</button>
+      </div>
+    </div>
+
+    <p class="dica-modo" style="margin-top:18px;">Dica: pressione <b>E</b> a qualquer momento para o <b>Modo Edição</b> (adicionar fotos reais).</p>
+  </section>
+
+  <!-- ===================== TELA 2: SELEÇÃO DE MODO ===================== -->
+  <section id="telaModos" class="tela">
+    <h2 style="text-align:center;">Escolha o desafio</h2>
+    <p class="lead">Cada modo treina um nível do problema. Jogue isolado ou encare a campanha dos 3.</p>
+    <div class="modos">
+      <div class="modo-card vermelho" onclick="iniciarModo('vermelho')">
+        <div><div class="nivel">Nível 1</div><div class="tit">O que está errado?</div></div>
+        <div class="desc">Olhe a foto e clique em <b>todos os desvios</b> do posto antes do tempo acabar.</div>
+      </div>
+      <div class="modo-card amarelo" onclick="iniciarModo('amarelo')">
+        <div><div class="nivel">Nível 2</div><div class="tit">O que você faria agora?</div></div>
+        <div class="desc">Achou o desvio? Escolha a <b>ação certa</b>: etiquetar, chamar monitor, parar ou registrar.</div>
+      </div>
+      <div class="modo-card azul" onclick="iniciarModo('azul')">
+        <div><div class="nivel">Nível 3</div><div class="tit">Aceita ou rejeita?</div></div>
+        <div class="desc">Inspeção de recebimento. Decida e, se rejeitar, aponte o <b>motivo</b>.</div>
+      </div>
+      <div class="modo-card campanha" onclick="iniciarModo('campanha')">
+        <div><div class="nivel">Desafio completo</div><div class="tit">Campanha dos 3</div></div>
+        <div class="desc">Os três níveis em sequência. Pontuação somada. Para quem domina o posto.</div>
+      </div>
+    </div>
+    <div class="linha-botoes">
+      <button class="btn fantasma" onclick="mostrar('telaInicial')">‹ Voltar</button>
+      <button class="btn fantasma" onclick="mostrar('telaRanking'); montarRanking();">🏆 Ranking</button>
+    </div>
+  </section>
+
+  <!-- ===================== TELA 3: BRIEFING ===================== -->
+  <section id="telaBriefing" class="tela">
+    <div style="text-align:center; padding-top:8vh;">
+      <div class="tag-modo" id="briefTag" style="position:static; display:inline-block; margin-bottom:18px;">MODO</div>
+      <h1 id="briefPosto" style="font-size:clamp(26px,6vw,44px);">Posto</h1>
+      <p class="lead" id="briefDesc">Prepare-se.</p>
+      <div class="timer-num" id="briefContagem" style="text-align:center; font-size:72px;">3</div>
+    </div>
+  </section>
+
+  <!-- ===================== TELA 4: MISSÃO ===================== -->
+  <section id="telaMissao" class="tela">
+    <div class="hud">
+      <div class="info"><b id="missaoPosto">Posto</b> · <span id="missaoProgresso">0/0</span></div>
+      <div class="timer-wrap">
+        <div class="timer-barra"><div class="timer-fill" id="timerFill"></div></div>
+      </div>
+      <div class="timer-num" id="timerNum">00</div>
+      <div class="placar-mini" id="placarMini">0</div>
+    </div>
+    <div class="palco" id="palco">
+      <!-- foto + hotspots inseridos via JS -->
+    </div>
+    <p class="dica-modo" id="dicaMissao"></p>
+  </section>
+
+  <!-- ===================== TELA 5: RESULTADO ===================== -->
+  <section id="telaResultado" class="tela">
+    <div class="resultado-cab">
+      <div class="selo" id="resSelo">🎯</div>
+      <h2 id="resTitulo">Missão concluída</h2>
+      <div class="pontos-total" id="resPontos">0</div>
+      <p class="lead" id="resFrase" style="margin-top:4px;">pontos</p>
+    </div>
+    <div class="painel">
+      <label class="rotulo">Como foi a pontuação</label>
+      <div class="calc" id="resCalc"></div>
+      <hr class="sep">
+      <label class="rotulo">Desvios da missão · Regras de Ouro envolvidas</label>
+      <div class="lista-desvios" id="resDesvios"></div>
+    </div>
+    <div class="linha-botoes">
+      <button class="btn primario" id="btnProximo" onclick="proximoOuFim()">Continuar ▸</button>
+      <button class="btn" onclick="mostrar('telaModos')">Trocar de modo</button>
+      <button class="btn fantasma" onclick="mostrar('telaRanking'); montarRanking();">🏆 Ranking</button>
+    </div>
+  </section>
+
+  <!-- ===================== TELA 6: RANKING ===================== -->
+  <section id="telaRanking" class="tela">
+    <h2 style="text-align:center;">🏆 Ranking</h2>
+    <div class="abas">
+      <div class="aba sel" id="abaColab" onclick="trocarAba('colab')">Por colaborador</div>
+      <div class="aba" id="abaEquipe" onclick="trocarAba('equipe')">Por equipe</div>
+    </div>
+    <div class="rank-lista" id="rankLista"></div>
+    <div class="linha-botoes">
+      <button class="btn fantasma" onclick="mostrar('telaModos')">‹ Voltar aos modos</button>
+      <button class="btn" onclick="exportarCasosFazenda()">📤 Exportar casos (Fazenda)</button>
+      <button class="btn fantasma" onclick="limparRanking()">🗑️ Limpar ranking</button>
+    </div>
+  </section>
+
+  <!-- ===================== TELA 7: MODO EDIÇÃO ===================== -->
+  <section id="telaEdicao" class="tela">
+    <h2 style="text-align:center;">🛠️ Modo Edição · Calibração de cenário</h2>
+    <p class="lead">Carregue a foto do posto, <b>arraste sobre a imagem</b> para marcar cada desvio, preencha o painel e exporte o JSON para colar no array <code>CENARIOS</code>.</p>
+    <div class="ed-grid">
+      <div>
+        <div class="cantos-acoes" style="margin-bottom:10px;">
+          <button class="btn" onclick="document.getElementById('edArquivo').click()">🖼️ Carregar foto</button>
+          <input type="file" id="edArquivo" accept="image/*" style="display:none" onchange="edCarregarArquivo(event)">
+          <button class="btn fantasma" onclick="edColarUrl()">🔗 Colar URL/base64</button>
+        </div>
+        <div class="ed-palco" id="edPalco">
+          <div class="vazio">Nenhuma foto carregada. Clique em "Carregar foto".</div>
+        </div>
+        <p class="aviso" style="margin-top:8px;">Arraste com o mouse/dedo sobre a foto para criar um hotspot. As coordenadas são salvas em <b>%</b> (não quebram em outras telas).</p>
+      </div>
+      <div>
+        <div class="painel">
+          <label class="rotulo">Dados do cenário</label>
+          <div class="ed-row">
+            <div><span class="mini-rotulo">ID</span><input class="campo" id="edId" placeholder="posto_07_vermelho"></div>
+            <div><span class="mini-rotulo">Modo</span>
+              <select class="campo" id="edModo" onchange="edRender()">
+                <option value="vermelho">vermelho</option>
+                <option value="amarelo">amarelo</option>
+                <option value="azul">azul</option>
+              </select>
+            </div>
+          </div>
+          <div class="ed-row">
+            <div><span class="mini-rotulo">Posto</span><input class="campo" id="edPosto" placeholder="Posto 07 — Aperto de carcaça"></div>
+            <div><span class="mini-rotulo">Tempo (s)</span><input class="campo" id="edTempo" type="number" value="45"></div>
+          </div>
+
+          <div id="edBlocoAzul" style="display:none;">
+            <hr class="sep">
+            <div class="ed-row">
+              <div><span class="mini-rotulo">Decisão correta</span>
+                <select class="campo" id="edDecisao"><option value="rejeitar">rejeitar</option><option value="aceitar">aceitar</option></select>
+              </div>
+              <div><span class="mini-rotulo">Regra de Ouro</span><input class="campo" id="edAzulRegra" type="number" value="9"></div>
+            </div>
+            <div class="ed-row full"><div><span class="mini-rotulo">Motivo</span><input class="campo" id="edAzulMotivo" placeholder="O-ring desprotegido e fora da embalagem"></div></div>
+            <div class="ed-row full"><div><span class="mini-rotulo">Explicação</span><textarea class="campo" id="edAzulExpl" rows="3"></textarea></div></div>
+          </div>
+        </div>
+
+        <div id="edBlocoHotspots">
+          <label class="rotulo" style="margin-top:16px;">Hotspots de desvio (<span id="edHotCount">0</span>)</label>
+          <div class="ed-lista-hot" id="edListaHot"></div>
+        </div>
+
+        <div class="linha-botoes" style="justify-content:flex-start;">
+          <button class="btn primario" onclick="edExportar()">⬇️ Exportar JSON</button>
+          <button class="btn" onclick="edLimpar()">Limpar</button>
+          <button class="btn fantasma" onclick="sairEdicao()">Sair</button>
+        </div>
+        <div class="bloco" style="margin-top:14px;">
+          <label class="rotulo">JSON do cenário</label>
+          <textarea class="campo" id="edSaida" rows="10" placeholder="O JSON aparece aqui após exportar."></textarea>
+          <button class="btn" style="margin-top:8px;" onclick="edCopiar()">📋 Copiar</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- Modal de ação/decisão/feedback -->
+<div class="overlay" id="overlay"><div class="modal" id="modal"></div></div>
+
+<!-- Botão de áudio e rodapé -->
+<button class="btn fantasma btn-canto" id="btnSom" onclick="alternarSom()" title="Ligar/desligar som">🔊</button>
+<div class="rodape">Desenvolvido por <b>EDSON SOUZA</b> · Detetive do Posto · CNH Industrial — Linha TL / Farmall</div>
+
+<script>
+/* ###########################################################################
+   ###########################################################################
+   ##                                                                       ##
+   ##   BLOCO 1 — REGRAS DE OURO   (EDSON: cole aqui o texto oficial)        ##
+   ##                                                                       ##
+   ##   São 9. O número (1..9) é referenciado pelos cenários no campo       ##
+   ##   "regraOuro". Troque os textos marcados como EDSON PREENCHER.        ##
+   ##                                                                       ##
+   ###########################################################################
+   ########################################################################### */
+const REGRAS_DE_OURO = {
+  1: "Uso sempre o material/insumo especificado no posto (sem substituir por conta própria).", // EDSON PREENCHER
+  2: "Uso sempre a ferramenta correta e calibrada para a operação.",                            // EDSON PREENCHER
+  3: "Sigo todas as etapas da sequência de montagem — não pulo passos.",                        // EDSON PREENCHER
+  4: "Confiro o torque/aperto conforme a especificação antes de liberar.",                       // EDSON PREENCHER
+  5: "Mantenho o posto limpo e organizado (5S) para evitar contaminação e erro.",                // EDSON PREENCHER
+  6: "Identifico e etiqueto peça suspeita/não conforme imediatamente.",                          // EDSON PREENCHER
+  7: "Diante da dúvida, paro e chamo o monitor — não improviso.",                                // EDSON PREENCHER
+  8: "Registro o desvio para rastreabilidade e melhoria contínua.",                              // EDSON PREENCHER
+  9: "NÃO PASSO DEFEITO ADIANTE — o defeito para comigo."                                        // (exemplo já preenchido)
+};
+
+/* ###########################################################################
+   ###########################################################################
+   ##                                                                       ##
+   ##   BLOCO 2 — CENARIOS   (EDSON: aqui ficam os postos / fotos)           ##
+   ##                                                                       ##
+   ##   • Coordenadas dos hotspots em PORCENTAGEM da imagem (0..100).        ##
+   ##   • "imagem": use "PLACEHOLDER" para a bancada desenhada, OU cole a    ##
+   ##     foto real como "data:image/jpeg;base64,...."                       ##
+   ##   • Para gerar um cenário sem programar: tecla E (Modo Edição).        ##
+   ##                                                                       ##
+   ##   Tipos de desvio:  substituicao | ferramenta | etapa | recebimento   ##
+   ##   Ações (modo amarelo): etiquetar | chamar_monitor | parar | continuar_registro
+   ##                                                                       ##
+   ###########################################################################
+   ########################################################################### */
+const CENARIOS = [
+
+  /* ---------- MODO VERMELHO — "O que está errado?" (Nível 1) ---------- */
+  {
+    id: "posto_07_vermelho",
+    modo: "vermelho",
+    posto: "Posto 07 — Aperto de carcaça",
+    tempo: 45,
+    imagem: "PLACEHOLDER",
+    desvios: [
+      { id:"d1", x:14, y:30, w:18, h:18, tipo:"substituicao", titulo:"Cola no lugar de vaselina",
+        acaoCorreta:"parar", regraOuro:1,
+        explicacao:"Cola endurece o O-ring e gera vazamento. A vaselina garante vedação e montagem." },
+      { id:"d2", x:62, y:24, w:16, h:16, tipo:"ferramenta", titulo:"Chave comum em vez do torquímetro",
+        acaoCorreta:"chamar_monitor", regraOuro:2,
+        explicacao:"Sem torquímetro não há controle de aperto. Aperto fora da especificação solta ou rosqueia em falso." },
+      { id:"d3", x:40, y:62, w:18, h:16, tipo:"etapa", titulo:"Etapa de limpeza pulada",
+        acaoCorreta:"continuar_registro", regraOuro:3,
+        explicacao:"Resíduo na superfície contamina a montagem. A etapa de limpeza não pode ser pulada." }
+    ]
+  },
+  {
+    id: "posto_12_vermelho",
+    modo: "vermelho",
+    posto: "Posto 12 — Montagem de eixo",
+    tempo: 40,
+    imagem: "PLACEHOLDER",
+    desvios: [
+      { id:"d1", x:20, y:50, w:16, h:18, tipo:"ferramenta", titulo:"Martelo improvisado para encaixe",
+        acaoCorreta:"parar", regraOuro:2,
+        explicacao:"Bater com martelo danifica o rolamento. Use o dispositivo de prensagem correto." },
+      { id:"d2", x:66, y:40, w:16, h:16, tipo:"substituicao", titulo:"Rolamento de fornecedor não homologado",
+        acaoCorreta:"etiquetar", regraOuro:1,
+        explicacao:"Peça não homologada não tem rastreabilidade nem garantia de qualidade. Etiquetar e segregar." }
+    ]
+  },
+  {
+    id: "posto_03_vermelho",
+    modo: "vermelho",
+    posto: "Posto 03 — Preparação de juntas",
+    tempo: 35,
+    imagem: "PLACEHOLDER",
+    desvios: [
+      { id:"d1", x:30, y:28, w:16, h:16, tipo:"etapa", titulo:"Junta antiga não removida",
+        acaoCorreta:"parar", regraOuro:3,
+        explicacao:"Junta dupla causa vazamento imediato. Remover totalmente a anterior antes de montar." },
+      { id:"d2", x:58, y:60, w:18, h:16, tipo:"substituicao", titulo:"Junta de medida errada",
+        acaoCorreta:"chamar_monitor", regraOuro:1,
+        explicacao:"Medida errada não veda. Confirmar o código da junta com o monitor antes de aplicar." }
+    ]
+  },
+
+  /* ---------- MODO AMARELO — "O que você faria agora?" (Nível 2) ---------- */
+  {
+    id: "posto_07_amarelo",
+    modo: "amarelo",
+    posto: "Posto 07 — Decisão de ação",
+    tempo: 50,
+    imagem: "PLACEHOLDER",
+    desvios: [
+      { id:"d1", x:16, y:32, w:18, h:18, tipo:"substituicao", titulo:"Peça suspeita de contaminação",
+        acaoCorreta:"etiquetar", regraOuro:6,
+        explicacao:"Peça suspeita deve ser identificada/etiquetada e segregada na hora — não pode seguir no fluxo." },
+      { id:"d2", x:60, y:26, w:16, h:16, tipo:"ferramenta", titulo:"Torquímetro fora da validade de calibração",
+        acaoCorreta:"chamar_monitor", regraOuro:7,
+        explicacao:"Ferramenta vencida = medição não confiável. Pare a operação e chame o monitor para troca." },
+      { id:"d3", x:38, y:64, w:18, h:16, tipo:"etapa", titulo:"Pequeno desvio de processo observado",
+        acaoCorreta:"continuar_registro", regraOuro:8,
+        explicacao:"Desvio menor sem risco imediato: pode continuar, mas registre para rastreabilidade e melhoria." }
+    ]
+  },
+  {
+    id: "posto_15_amarelo",
+    modo: "amarelo",
+    posto: "Posto 15 — Linha de vedação",
+    tempo: 45,
+    imagem: "PLACEHOLDER",
+    desvios: [
+      { id:"d1", x:24, y:46, w:16, h:18, tipo:"substituicao", titulo:"Vazamento aparente na carcaça",
+        acaoCorreta:"parar", regraOuro:9,
+        explicacao:"Vazamento é defeito que não pode seguir. PARE a linha — o defeito para com você." },
+      { id:"d2", x:64, y:38, w:16, h:16, tipo:"etapa", titulo:"Etiqueta de inspeção ausente",
+        acaoCorreta:"etiquetar", regraOuro:6,
+        explicacao:"Sem identificação não há rastreabilidade. Etiquete a peça antes de liberar." }
+    ]
+  },
+
+  /* ---------- MODO AZUL — "Aceita ou rejeita?" (Nível 3) ---------- */
+  {
+    id: "receb_oring",
+    modo: "azul",
+    posto: "Recebimento — O-ring",
+    tempo: 20,
+    imagem: "PLACEHOLDER",
+    decisaoCorreta: "rejeitar",
+    motivo: "desprotegida",
+    acaoCorreta: "etiqueta_amarela_logistica",
+    regraOuro: 9,
+    explicacao: "Peça desprotegida pode estar contaminada/danificada. Rejeita na entrada e devolve à logística — não vai pro crib."
+  },
+  {
+    id: "receb_rolamento",
+    modo: "azul",
+    posto: "Recebimento — Rolamento",
+    tempo: 20,
+    imagem: "PLACEHOLDER",
+    decisaoCorreta: "rejeitar",
+    motivo: "enferrujada",
+    acaoCorreta: "etiqueta_amarela_logistica",
+    regraOuro: 6,
+    explicacao: "Rolamento com sinal de ferrugem perde tolerância e vida útil. Rejeita e devolve à logística."
+  },
+  {
+    id: "receb_parafuso_ok",
+    modo: "azul",
+    posto: "Recebimento — Parafusos",
+    tempo: 20,
+    imagem: "PLACEHOLDER",
+    decisaoCorreta: "aceitar",
+    motivo: "",
+    acaoCorreta: "liberar_crib",
+    regraOuro: 8,
+    explicacao: "Embalagem íntegra, lacre e etiqueta de lote presentes. Peça conforme: aceitar e liberar para o crib."
+  }
+];
+
+/* ###########################################################################
+   ##                          FIM DO CONTEÚDO EDITÁVEL                      ##
+   ##  Daqui para baixo é o MOTOR — não precisa editar para adicionar fotos. ##
+   ########################################################################### */
+
+/* ----------------------------- CONFIG / ESTADO ----------------------------- */
+const NOMES_EQUIPE = { case:"CASE IH", nh:"New Holland", colh:"Colheitadeira" };
+const COR_MODO     = { vermelho:"vermelho", amarelo:"amarelo", azul:"azul" };
+const ROTULO_ACAO  = {
+  etiquetar:{ico:"🏷️", txt:"Etiquetar"},
+  chamar_monitor:{ico:"🙋", txt:"Chamar monitor"},
+  parar:{ico:"✋", txt:"Parar a linha"},
+  continuar_registro:{ico:"📝", txt:"Continuar c/ registro"}
+};
+const ROTULO_MOTIVO = {
+  enferrujada:"Enferrujada", desprotegida:"Desprotegida", danificada:"Danificada"
+};
+const PONTOS = { acertoDesvio:100, acertoAcao:50, penalErro:30, bonusTempo:5, acertoDecisao:150, acertoMotivo:50, penalAzul:50 };
+
+let cfg = { equipe:null, nome:"", tv:false, som:true };
+let jogo = null;          // estado da missão atual
+let filaCampanha = [];    // cenários restantes na campanha
+let pontosCampanha = 0;
+let casosResolvidos = []; // gancho p/ exportar à "Fazenda da Qualidade"
+
+/* ----------------------------- ÁUDIO (Web Audio) ----------------------------- */
+let actx = null;
+function audioCtx(){ if(!actx){ try{ actx = new (window.AudioContext||window.webkitAudioContext)(); }catch(e){} } return actx; }
+function bip(freq, dur, tipo, vol){
+  if(!cfg.som) return; const ac = audioCtx(); if(!ac) return;
+  const o = ac.createOscillator(), g = ac.createGain();
+  o.type = tipo||"sine"; o.frequency.value = freq;
+  g.gain.value = vol||0.06;
+  o.connect(g); g.connect(ac.destination);
+  const t = ac.currentTime; o.start(t);
+  g.gain.exponentialRampToValueAtTime(0.0001, t + (dur||0.15));
+  o.stop(t + (dur||0.15));
+}
+const som = {
+  acerto(){ bip(660,0.10,"triangle",0.07); setTimeout(()=>bip(990,0.12,"triangle",0.06),90); },
+  erro(){ bip(200,0.22,"sawtooth",0.05); },
+  tempo(){ bip(150,0.4,"square",0.05); },
+  vitoria(){ [523,659,784,1047].forEach((f,i)=>setTimeout(()=>bip(f,0.18,"triangle",0.07), i*120)); },
+  clique(){ bip(420,0.05,"sine",0.04); }
+};
+function alternarSom(){ cfg.som=!cfg.som; document.getElementById('btnSom').textContent = cfg.som?'🔊':'🔇'; salvarConfig(); if(cfg.som) som.clique(); }
+
+/* ----------------------------- PERSISTÊNCIA ----------------------------- */
+function salvarConfig(){
+  cfg.nome = (document.getElementById('nomeJogador').value||"").trim();
+  try{ localStorage.setItem('dp_cfg', JSON.stringify(cfg)); }catch(e){}
+}
+function carregarConfig(){
+  try{
+    const c = JSON.parse(localStorage.getItem('dp_cfg')||"null");
+    if(c){ cfg = Object.assign(cfg, c); }
+  }catch(e){}
+  if(cfg.nome) document.getElementById('nomeJogador').value = cfg.nome;
+  if(cfg.equipe) selecionarEquipe(cfg.equipe, true);
+  definirTela(!!cfg.tv);
+  document.getElementById('btnSom').textContent = cfg.som?'🔊':'🔇';
+}
+function lerRanking(){ try{ return JSON.parse(localStorage.getItem('dp_rank')||"[]"); }catch(e){ return []; } }
+function gravarRanking(arr){ try{ localStorage.setItem('dp_rank', JSON.stringify(arr)); }catch(e){} }
+
+/* ----------------------------- NAVEGAÇÃO ----------------------------- */
+function mostrar(idTela){
+  document.querySelectorAll('.tela').forEach(t=>t.classList.remove('ativa'));
+  document.getElementById(idTela).classList.add('ativa');
+  window.scrollTo(0,0);
+}
+function selecionarEquipe(eq, silencioso){
+  cfg.equipe = eq;
+  document.querySelectorAll('.equipe').forEach(e=>e.classList.toggle('sel', e.dataset.eq===eq));
+  if(!silencioso){ som.clique(); salvarConfig(); }
+}
+function definirTela(tv){
+  cfg.tv = tv;
+  document.body.classList.toggle('tv', tv);
+  document.getElementById('btnTV').classList.toggle('primario', tv);
+  document.getElementById('btnCelular').classList.toggle('primario', !tv);
+  salvarConfig();
+}
+function irParaModos(){
+  salvarConfig();
+  if(!cfg.equipe){ alert("Escolha sua equipe primeiro."); return; }
+  if(!cfg.nome){ alert("Digite seu nome."); return; }
+  som.clique();
+  mostrar('telaModos');
+}
+
+/* ----------------------------- INÍCIO DE MODO ----------------------------- */
+function cenariosDoModo(modo){ return CENARIOS.filter(c=>c.modo===modo); }
+
+function iniciarModo(modo){
+  som.clique();
+  if(modo==='campanha'){
+    // Um cenário de cada modo, na ordem dos níveis
+    filaCampanha = [];
+    ['vermelho','amarelo','azul'].forEach(m=>{ const lista=cenariosDoModo(m); if(lista[0]) filaCampanha.push(lista[0]); });
+    pontosCampanha = 0;
+    if(!filaCampanha.length){ alert("Sem cenários cadastrados."); return; }
+    jogo = { campanha:true, indice:0 };
+    iniciarCenario(filaCampanha[0]);
+  } else {
+    const lista = cenariosDoModo(modo);
+    if(!lista.length){ alert("Nenhum cenário cadastrado para este modo."); return; }
+    filaCampanha = lista.slice();   // joga todos os cenários do modo em sequência
+    pontosCampanha = 0;
+    jogo = { campanha:false, indice:0 };
+    iniciarCenario(filaCampanha[0]);
+  }
+}
+
+/* ----------------------------- BRIEFING (3s) ----------------------------- */
+function iniciarCenario(cen){
+  jogo.cenario = cen;
+  const tag = document.getElementById('briefTag');
+  tag.className = 'tag-modo ' + COR_MODO[cen.modo];
+  tag.style.position='static'; tag.style.display='inline-block';
+  tag.textContent = 'MODO ' + cen.modo.toUpperCase();
+  document.getElementById('briefPosto').textContent = cen.posto;
+  document.getElementById('briefDesc').textContent =
+    cen.modo==='azul' ? "Inspeção de recebimento — decida em " + cen.tempo + "s."
+                      : "Você tem " + cen.tempo + " segundos. Olho na qualidade!";
+  mostrar('telaBriefing');
+  let n = 3; const el = document.getElementById('briefContagem'); el.textContent = n;
+  som.clique();
+  const it = setInterval(()=>{
+    n--; if(n<=0){ clearInterval(it); montarMissao(cen); } else { el.textContent=n; som.clique(); }
+  }, 900);
+}
+
+/* ----------------------------- IMAGEM PLACEHOLDER (SVG) ----------------------------- */
+/* Gera uma bancada industrial desenhada, marcada "PLACEHOLDER", quando o
+   cenário ainda não tem foto real. Substitua "imagem" por base64 para usar foto. */
+function imagemDoCenario(cen){
+  if(cen.imagem && cen.imagem !== "PLACEHOLDER") return cen.imagem;
+  return placeholderSVG(cen);
+}
+function placeholderSVG(cen){
+  const cor = cen.modo==='vermelho' ? '#cc0000' : cen.modo==='amarelo' ? '#f5b800' : '#003087';
+  const azul = cen.modo==='azul';
+  const pecas = azul
+    ? `<g>
+         <rect x="320" y="150" width="160" height="160" rx="14" fill="#3a4250" stroke="#5a6678" stroke-width="3"/>
+         <circle cx="400" cy="230" r="46" fill="#222a33" stroke="#5a6678" stroke-width="6"/>
+         <text x="400" y="345" fill="#7d8da0" font-family="monospace" font-size="20" text-anchor="middle">PEÇA RECEBIDA</text>
+       </g>`
+    : `<g>
+         <rect x="70"  y="120" width="150" height="120" rx="10" fill="#3a4250" stroke="#5a6678" stroke-width="3"/>
+         <rect x="330" y="90"  width="160" height="130" rx="10" fill="#39414f" stroke="#5a6678" stroke-width="3"/>
+         <rect x="250" y="270" width="170" height="120" rx="10" fill="#363e4b" stroke="#5a6678" stroke-width="3"/>
+         <circle cx="560" cy="180" r="48" fill="#222a33" stroke="#5a6678" stroke-width="6"/>
+         <rect x="520" y="300" width="120" height="70" rx="8" fill="#3a4250" stroke="#5a6678" stroke-width="3"/>
+       </g>`;
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500">
+    <defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1b212a"/><stop offset="1" stop-color="#10151b"/></linearGradient></defs>
+    <rect width="800" height="500" fill="url(#g)"/>
+    <rect x="0" y="400" width="800" height="100" fill="#262d37"/>
+    <line x1="0" y1="400" x2="800" y2="400" stroke="#3a4250" stroke-width="4"/>
+    <rect x="0" y="0" width="800" height="46" fill="${cor}" opacity="0.9"/>
+    <text x="20" y="31" fill="#fff" font-family="monospace" font-size="20" font-weight="bold">${(cen.posto||'POSTO').toUpperCase()}</text>
+    ${pecas}
+    <text x="400" y="470" fill="#566273" font-family="monospace" font-size="16" text-anchor="middle">BANCADA ILUSTRATIVA — SUBSTITUA POR FOTO REAL (Modo Edição)</text>
+    <text x="780" y="490" fill="#3f4856" font-family="monospace" font-size="13" text-anchor="end">PLACEHOLDER</text>
+  </svg>`;
+  return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
+}
+
+/* ----------------------------- MONTAGEM DA MISSÃO ----------------------------- */
+function montarMissao(cen){
+  // estado da missão
+  jogo.restante = cen.tempo;
+  jogo.pontos = 0;
+  jogo.acertos = 0;
+  jogo.errosClique = 0;
+  jogo.resolvidos = [];      // ids de desvios resolvidos corretamente
+  jogo.registroDesvios = []; // p/ tela de resultado
+  jogo.encerrada = false;
+
+  document.getElementById('missaoPosto').textContent = cen.posto;
+  document.getElementById('placarMini').textContent = '0';
+
+  const palco = document.getElementById('palco');
+  palco.innerHTML = '';
+
+  // tag de modo
+  const tag = document.createElement('div');
+  tag.className = 'tag-modo ' + COR_MODO[cen.modo];
+  tag.textContent = cen.modo.toUpperCase();
+  palco.appendChild(tag);
+
+  // foto
+  const img = document.createElement('img');
+  img.className = 'foto'; img.src = imagemDoCenario(cen); img.alt = cen.posto;
+  palco.appendChild(img);
+
+  // marca PLACEHOLDER quando aplicável
+  if(!cen.imagem || cen.imagem==="PLACEHOLDER"){
+    const pl = document.createElement('div'); pl.className='placeholder-tag'; pl.textContent='PLACEHOLDER';
+    palco.appendChild(pl);
+  }
+
+  if(cen.modo==='azul'){
+    montarMissaoAzul(cen, palco);
+  } else {
+    montarMissaoHotspots(cen, palco);
+  }
+
+  mostrar('telaMissao');
+  iniciarTimer(cen);
+}
+
+/* ---- Modos VERMELHO e AMARELO: hotspots sobre a foto ---- */
+function montarMissaoHotspots(cen, palco){
+  document.getElementById('missaoProgresso').textContent = '0/' + cen.desvios.length;
+  document.getElementById('dicaMissao').textContent = cen.modo==='vermelho'
+    ? "Clique em TODOS os desvios. Clicar errado tira pontos."
+    : "Clique no desvio e escolha a AÇÃO CERTA para cada um.";
+
+  // clique no palco que não acertou hotspot = erro (penalidade)
+  palco.onclick = (ev)=>{
+    if(jogo.encerrada) return;
+    if(ev.target.classList.contains('hotspot')) return; // tratado no próprio hotspot
+    // erro de clique
+    jogo.errosClique++;
+    jogo.pontos = Math.max(0, jogo.pontos - PONTOS.penalErro);
+    atualizarPlacar();
+    marcarClique(ev, palco, false);
+    som.erro();
+  };
+
+  cen.desvios.forEach(d=>{
+    const h = document.createElement('div');
+    h.className = 'hotspot';
+    h.style.left = d.x+'%'; h.style.top = d.y+'%'; h.style.width = d.w+'%'; h.style.height = d.h+'%';
+    h.dataset.id = d.id;
+    h.onclick = (ev)=>{
+      ev.stopPropagation();
+      if(jogo.encerrada) return;
+      if(jogo.resolvidos.includes(d.id)) return; // já resolvido
+      if(cen.modo==='vermelho'){
+        resolverHotspotVermelho(d, h);
+      } else {
+        abrirAcao(d, h);
+      }
+    };
+    palco.appendChild(h);
+  });
+}
+
+function resolverHotspotVermelho(d, h){
+  h.classList.add('achado');
+  jogo.resolvidos.push(d.id);
+  jogo.acertos++;
+  jogo.pontos += PONTOS.acertoDesvio;
+  jogo.registroDesvios.push({ desvio:d, acertou:true });
+  registrarCasoResolvido(jogo.cenario, d, 'identificou');
+  atualizarPlacar();
+  document.getElementById('missaoProgresso').textContent = jogo.resolvidos.length + '/' + jogo.cenario.desvios.length;
+  som.acerto();
+  if(jogo.resolvidos.length === jogo.cenario.desvios.length) encerrarMissao(true);
+}
+
+/* ---- Modal de AÇÃO (Modo Amarelo) ---- */
+function abrirAcao(d, h){
+  const acoes = ['etiquetar','chamar_monitor','parar','continuar_registro'];
+  const modal = document.getElementById('modal');
+  modal.innerHTML =
+    `<h3>${d.titulo}</h3>
+     <p class="peq">Você identificou o desvio. <b>Qual a ação correta agora?</b></p>
+     <div class="acoes-grid">
+       ${acoes.map(a=>`<button class="acao-btn ${a}" onclick="responderAcao('${d.id}','${a}')">
+            <span class="ico">${ROTULO_ACAO[a].ico}</span>${ROTULO_ACAO[a].txt}</button>`).join('')}
+     </div>
+     <div id="fbAcao"></div>`;
+  abrirOverlay();
+  jogo._hotAtual = h; jogo._desvioAtual = d;
+}
+function responderAcao(idDesvio, acao){
+  const d = jogo.cenario.desvios.find(x=>x.id===idDesvio);
+  const certo = (acao === d.acaoCorreta);
+  const h = jogo._hotAtual;
+  jogo.resolvidos.push(d.id);
+  const fb = document.getElementById('fbAcao');
+  document.querySelectorAll('.acao-btn').forEach(b=>b.style.pointerEvents='none');
+
+  if(certo){
+    h.classList.add('achado');
+    jogo.acertos++;
+    jogo.pontos += PONTOS.acertoDesvio + PONTOS.acertoAcao;
+    jogo.registroDesvios.push({ desvio:d, acertou:true });
+    registrarCasoResolvido(jogo.cenario, d, 'acao_correta');
+    som.acerto();
+    fb.innerHTML = `<div class="feedback ok">✅ <b>Ação correta:</b> ${ROTULO_ACAO[d.acaoCorreta].txt}.<br>${d.explicacao}
+      <span class="regra">Regra de Ouro ${d.regraOuro}: ${REGRAS_DE_OURO[d.regraOuro]||''}</span></div>`;
+  } else {
+    h.classList.add('errado');
+    jogo.errosClique++;
+    jogo.pontos = Math.max(0, jogo.pontos + PONTOS.acertoDesvio - PONTOS.penalErro);
+    jogo.registroDesvios.push({ desvio:d, acertou:false, acaoEscolhida:acao });
+    som.erro();
+    fb.innerHTML = `<div class="feedback no">❌ A ação certa era <b>${ROTULO_ACAO[d.acaoCorreta].txt}</b>, não ${ROTULO_ACAO[acao].txt}.<br>${d.explicacao}
+      <span class="regra">Regra de Ouro ${d.regraOuro}: ${REGRAS_DE_OURO[d.regraOuro]||''}</span></div>`;
+  }
+  atualizarPlacar();
+  document.getElementById('missaoProgresso').textContent = jogo.resolvidos.length + '/' + jogo.cenario.desvios.length;
+
+  const cont = document.createElement('div');
+  cont.className='linha-botoes';
+  cont.innerHTML = `<button class="btn primario" onclick="fecharOverlayEContinuar()">Continuar ▸</button>`;
+  document.getElementById('modal').appendChild(cont);
+}
+function fecharOverlayEContinuar(){
+  fecharOverlay();
+  if(jogo.resolvidos.length === jogo.cenario.desvios.length) encerrarMissao(true);
+}
+
+/* ---- Modo AZUL: aceita/rejeita ---- */
+function montarMissaoAzul(cen, palco){
+  document.getElementById('missaoProgresso').textContent = 'Decisão';
+  document.getElementById('dicaMissao').textContent = "Inspecione a peça recebida da logística e decida.";
+  palco.onclick = null;
+  // painel de decisão abaixo da foto, sobreposto na parte inferior
+  const barra = document.createElement('div');
+  barra.style.cssText = "position:absolute; left:0; right:0; bottom:0; padding:14px; background:linear-gradient(transparent,#0c0f13 55%);";
+  barra.innerHTML = `<div class="decisao-grid">
+      <button class="decisao-btn aceitar" onclick="responderAzul('aceitar')">✔ ACEITAR</button>
+      <button class="decisao-btn rejeitar" onclick="responderAzul('rejeitar')">✘ REJEITAR</button>
+    </div>`;
+  palco.appendChild(barra);
+}
+function responderAzul(decisao){
+  const cen = jogo.cenario;
+  if(decisao === 'rejeitar' && cen.decisaoCorreta === 'rejeitar'){
+    // pede o motivo
+    const modal = document.getElementById('modal');
+    const motivos = ['enferrujada','desprotegida','danificada'];
+    modal.innerHTML = `<h3>Por que rejeitar?</h3><p class="peq">Aponte o motivo da rejeição.</p>
+      <div class="acoes-grid">
+        ${motivos.map(m=>`<button class="acao-btn" onclick="responderMotivo('${m}')">${ROTULO_MOTIVO[m]}</button>`).join('')}
+      </div>`;
+    abrirOverlay();
+  } else {
+    finalizarAzul(decisao, null);
+  }
+}
+function responderMotivo(motivo){ finalizarAzul('rejeitar', motivo); }
+
+function finalizarAzul(decisao, motivo){
+  const cen = jogo.cenario;
+  const decisaoOk = (decisao === cen.decisaoCorreta);
+  const motivoOk  = decisaoOk && (cen.decisaoCorreta!=='rejeitar' || motivo === cen.motivo);
+  let texto;
+  if(decisaoOk){
+    jogo.pontos += PONTOS.acertoDecisao;
+    if(cen.decisaoCorreta==='rejeitar'){
+      if(motivoOk){ jogo.pontos += PONTOS.acertoMotivo; }
+      else { jogo.pontos = Math.max(0, jogo.pontos - PONTOS.penalAzul); }
+    }
+    jogo.acertos = decisaoOk ? 1 : 0;
+    registrarCasoResolvido(cen, null, 'decisao_correta');
+    som.acerto();
+    texto = `<div class="feedback ok">✅ Decisão correta: <b>${decisao.toUpperCase()}</b>.<br>${cen.explicacao}
+      ${cen.decisaoCorreta==='rejeitar' ? `<br><br>Motivo correto: <b>${ROTULO_MOTIVO[cen.motivo]||cen.motivo}</b> ${motivoOk?'(você acertou)':'(você indicou outro)'}.` : ''}
+      <span class="regra">Regra de Ouro ${cen.regraOuro}: ${REGRAS_DE_OURO[cen.regraOuro]||''}</span></div>`;
+  } else {
+    jogo.errosClique++;
+    jogo.pontos = Math.max(0, jogo.pontos - PONTOS.penalAzul);
+    jogo.acertos = 0;
+    som.erro();
+    texto = `<div class="feedback no">❌ O correto era <b>${cen.decisaoCorreta.toUpperCase()}</b>.<br>${cen.explicacao}
+      <span class="regra">Regra de Ouro ${cen.regraOuro}: ${REGRAS_DE_OURO[cen.regraOuro]||''}</span></div>`;
+  }
+  jogo.registroDesvios.push({
+    desvio:{ titulo: cen.posto + " — " + (cen.decisaoCorreta==='rejeitar'?'rejeitar':'aceitar'),
+             explicacao: cen.explicacao, regraOuro: cen.regraOuro },
+    acertou: decisaoOk && motivoOk
+  });
+
+  const modal = document.getElementById('modal');
+  modal.innerHTML = texto + `<div class="linha-botoes"><button class="btn primario" onclick="fecharOverlay(); encerrarMissao(true);">Continuar ▸</button></div>`;
+  abrirOverlay();
+  atualizarPlacar();
+}
+
+/* ----------------------------- TIMER ----------------------------- */
+function iniciarTimer(cen){
+  atualizarTimer(cen);
+  jogo.timer = setInterval(()=>{
+    if(jogo.encerrada){ clearInterval(jogo.timer); return; }
+    jogo.restante--;
+    atualizarTimer(cen);
+    if(jogo.restante <= 0){ clearInterval(jogo.timer); som.tempo(); encerrarMissao(false); }
+  }, 1000);
+}
+function atualizarTimer(cen){
+  const pct = Math.max(0, jogo.restante/cen.tempo*100);
+  const fill = document.getElementById('timerFill');
+  fill.style.width = pct + '%';
+  fill.style.background = pct>50 ? 'var(--verde)' : pct>25 ? 'var(--amarelo)' : 'var(--vermelho)';
+  document.getElementById('timerNum').textContent = String(Math.max(0,jogo.restante)).padStart(2,'0');
+}
+function atualizarPlacar(){ document.getElementById('placarMini').textContent = jogo.pontos; }
+
+/* ----------------------------- MARCADOR DE CLIQUE ----------------------------- */
+function marcarClique(ev, palco, ok){
+  const r = palco.getBoundingClientRect();
+  const x = (ev.clientX - r.left), y = (ev.clientY - r.top);
+  const m = document.createElement('div');
+  m.className = 'marca-clique ' + (ok?'ok':'no');
+  m.textContent = ok?'✓':'✕';
+  m.style.left = x+'px'; m.style.top = y+'px';
+  palco.appendChild(m);
+  setTimeout(()=>m.remove(), 700);
+}
+
+/* ----------------------------- ENCERRAR + RESULTADO ----------------------------- */
+function encerrarMissao(completou){
+  if(jogo.encerrada) return;
+  jogo.encerrada = true;
+  clearInterval(jogo.timer);
+  fecharOverlay();
+
+  // bônus de tempo (só se a missão foi cumprida)
+  const cen = jogo.cenario;
+  const bonus = completou ? Math.round(jogo.restante * PONTOS.bonusTempo) : 0;
+  jogo.bonusTempo = bonus;
+  jogo.pontos += bonus;
+  pontosCampanha += jogo.pontos;
+
+  if(completou && jogo.errosClique===0) som.vitoria();
+
+  montarResultado(cen, completou);
+  mostrar('telaResultado');
+}
+
+function montarResultado(cen, completou){
+  // selo + título
+  const bom = completou && jogo.errosClique===0;
+  const selo = document.getElementById('resSelo');
+  selo.textContent = completou ? (bom?'🏅':'✅') : '⏱️';
+  selo.style.background = completou ? (bom?'var(--verde)':'rgba(31,170,89,.25)') : 'rgba(204,0,0,.25)';
+  document.getElementById('resTitulo').textContent = completou ? (bom?'Posto impecável!':'Missão concluída') : 'Tempo esgotado';
+  document.getElementById('resPontos').textContent = jogo.pontos;
+  document.getElementById('resFrase').textContent = completou
+    ? 'pontos · ' + (bom?'sem erros 👏':'fique de olho nos erros') : 'pontos · faltou velocidade';
+
+  // cálculo
+  const calc = document.getElementById('resCalc');
+  let linhas = '';
+  if(cen.modo!=='azul'){
+    linhas += linhaCalc('Desvios encontrados ('+jogo.acertos+'×'+PONTOS.acertoDesvio+')', jogo.acertos*PONTOS.acertoDesvio);
+    if(cen.modo==='amarelo'){
+      const acoesCertas = jogo.registroDesvios.filter(r=>r.acertou).length;
+      linhas += linhaCalc('Ações corretas ('+acoesCertas+'×'+PONTOS.acertoAcao+')', acoesCertas*PONTOS.acertoAcao);
+    }
+    linhas += linhaCalc('Erros / cliques errados ('+jogo.errosClique+'×-'+PONTOS.penalErro+')', -jogo.errosClique*PONTOS.penalErro);
+  } else {
+    linhas += linhaCalc('Decisão de recebimento', jogo.acertos? PONTOS.acertoDecisao : -PONTOS.penalAzul);
+  }
+  linhas += linhaCalc('Bônus de tempo ('+ (completou?jogo.restante:0) +'s × '+PONTOS.bonusTempo+')', jogo.bonusTempo);
+  linhas += `<div class="linha-calc total"><span>TOTAL DA MISSÃO</span><span>${jogo.pontos}</span></div>`;
+  calc.innerHTML = linhas;
+
+  // lista de desvios + regras
+  const lista = document.getElementById('resDesvios');
+  lista.innerHTML = '';
+  const fonte = cen.modo==='azul' ? jogo.registroDesvios :
+      cen.desvios.map(d=>{ const r = jogo.registroDesvios.find(x=>x.desvio.id===d.id); return r || {desvio:d, acertou:false, naoAchou:true}; });
+  fonte.forEach(r=>{
+    const d = r.desvio;
+    const item = document.createElement('div');
+    item.className = 'desvio-item ' + (r.acertou?'acertou':'errou');
+    const status = r.acertou ? 'Resolvido corretamente' : (r.naoAchou?'Não encontrado a tempo':'Ação/decisão incorreta');
+    item.innerHTML = `<div class="bolinha"></div><div class="txt">
+        <b>${d.titulo}</b>
+        <small>${status} — ${d.explicacao||''}</small>
+        <span class="regra">Regra de Ouro ${d.regraOuro}: ${REGRAS_DE_OURO[d.regraOuro]||''}</span>
+      </div>`;
+    lista.appendChild(item);
+  });
+
+  // botão "próximo": existe se ainda há cenários na fila
+  jogo.indice = (jogo.indice||0);
+  const temProximo = (jogo.indice + 1) < filaCampanha.length;
+  const btn = document.getElementById('btnProximo');
+  btn.textContent = temProximo ? 'Próximo posto ▸' : 'Finalizar e salvar ▸';
+}
+function linhaCalc(rotulo, valor){
+  const sinal = valor>=0 ? '+' : '';
+  return `<div class="linha-calc"><span>${rotulo}</span><span>${sinal}${valor}</span></div>`;
+}
+
+/* ----------------------------- PRÓXIMO / FIM DA SÉRIE ----------------------------- */
+function proximoOuFim(){
+  som.clique();
+  const temProximo = (jogo.indice + 1) < filaCampanha.length;
+  if(temProximo){
+    jogo.indice++;
+    iniciarCenario(filaCampanha[jogo.indice]);
+  } else {
+    // salva no ranking a pontuação acumulada da série/campanha
+    salvarPontuacao(pontosCampanha);
+    mostrar('telaRanking');
+    montarRanking();
+  }
+}
+
+/* ----------------------------- RANKING ----------------------------- */
+function salvarPontuacao(pontos){
+  const rank = lerRanking();
+  rank.push({ nome:cfg.nome||'Anônimo', equipe:cfg.equipe||'case', pontos:pontos, data: dataHoje() });
+  gravarRanking(rank);
+}
+function dataHoje(){
+  // evita depender de relógio: registra só como rótulo simples
+  try{ return new Date().toLocaleDateString('pt-BR'); }catch(e){ return ''; }
+}
+let abaRank = 'colab';
+function trocarAba(qual){
+  abaRank = qual;
+  document.getElementById('abaColab').classList.toggle('sel', qual==='colab');
+  document.getElementById('abaEquipe').classList.toggle('sel', qual==='equipe');
+  montarRanking();
+}
+function montarRanking(){
+  const rank = lerRanking();
+  const cont = document.getElementById('rankLista');
+  if(!rank.length){ cont.innerHTML = '<div class="vazio">Sem pontuações ainda. Jogue uma missão!</div>'; return; }
+  let itens = [];
+  if(abaRank==='colab'){
+    // melhor pontuação por colaborador
+    const mapa = {};
+    rank.forEach(r=>{ const k=r.nome+'|'+r.equipe; if(!mapa[k]||r.pontos>mapa[k].pontos) mapa[k]={nome:r.nome,equipe:r.equipe,pontos:r.pontos}; });
+    itens = Object.values(mapa).sort((a,b)=>b.pontos-a.pontos).slice(0,20)
+      .map(r=>({cor:r.equipe, titulo:r.nome, sub:NOMES_EQUIPE[r.equipe]||'', pontos:r.pontos}));
+  } else {
+    // soma por equipe
+    const mapa = {};
+    rank.forEach(r=>{ mapa[r.equipe]=(mapa[r.equipe]||0)+r.pontos; });
+    itens = Object.keys(mapa).map(e=>({cor:e, titulo:NOMES_EQUIPE[e]||e, sub:'pontuação acumulada', pontos:mapa[e]}))
+      .sort((a,b)=>b.pontos-a.pontos);
+  }
+  cont.innerHTML = itens.map((r,i)=>`
+    <div class="rank-item ${r.cor}">
+      <div class="pos">${i+1}º</div>
+      <div class="quem"><b>${escapar(r.titulo)}</b><small>${r.sub}</small></div>
+      <div class="pts">${r.pontos}</div>
+    </div>`).join('');
+}
+function limparRanking(){
+  if(confirm('Apagar todo o ranking salvo neste aparelho?')){ gravarRanking([]); montarRanking(); }
+}
+function escapar(s){ return String(s).replace(/[<>&]/g, c=>({'<':'&lt;','>':'&gt;','&':'&amp;'}[c])); }
+
+/* ----------------------------- GANCHO: FAZENDA DA QUALIDADE ----------------------------- */
+/* Cada caso resolvido corretamente vira uma "carta" exportável para reaproveitar
+   no jogo "Fazenda da Qualidade". Aqui só registramos e exportamos como JSON. */
+function registrarCasoResolvido(cen, desvio, tipoResolucao){
+  casosResolvidos.push({
+    cenarioId: cen.id, posto: cen.posto, modo: cen.modo,
+    desvio: desvio ? { id:desvio.id, titulo:desvio.titulo, tipo:desvio.tipo } : null,
+    regraOuro: desvio ? desvio.regraOuro : cen.regraOuro,
+    resolucao: tipoResolucao,
+    jogador: cfg.nome, equipe: cfg.equipe
+  });
+}
+function exportarCasosFazenda(){
+  if(!casosResolvidos.length){ alert('Nenhum caso resolvido nesta sessão ainda.'); return; }
+  const pacote = { origem:"detetive-do-posto", versao:1, casos: casosResolvidos };
+  baixarJSON(pacote, 'casos-fazenda.json');
+}
+function baixarJSON(obj, nome){
+  const blob = new Blob([JSON.stringify(obj,null,2)], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href=url; a.download=nome; a.click();
+  setTimeout(()=>URL.revokeObjectURL(url), 1000);
+}
+
+/* ----------------------------- OVERLAY ----------------------------- */
+function abrirOverlay(){ document.getElementById('overlay').classList.add('ativa'); }
+function fecharOverlay(){ document.getElementById('overlay').classList.remove('ativa'); }
+
+/* ###########################################################################
+   ##                       MODO EDIÇÃO / CALIBRAÇÃO                         ##
+   ##  Tecla "E" abre. Carrega foto, arrasta p/ marcar hotspots, exporta.   ##
+   ########################################################################### */
+let ed = { imagem:null, hotspots:[], arrastando:null };
+
+document.addEventListener('keydown', (e)=>{
+  if(e.key==='e' || e.key==='E'){
+    const tag = (document.activeElement && document.activeElement.tagName)||'';
+    if(tag==='INPUT' || tag==='TEXTAREA' || tag==='SELECT') return; // não atrapalha digitação
+    abrirEdicao();
+  }
+});
+function abrirEdicao(){ mostrar('telaEdicao'); edAtualizarBlocoAzul(); edRender(); }
+function sairEdicao(){ mostrar('telaInicial'); }
+
+function edAtualizarBlocoAzul(){
+  const azul = document.getElementById('edModo').value==='azul';
+  document.getElementById('edBlocoAzul').style.display = azul?'block':'none';
+  document.getElementById('edBlocoHotspots').style.display = azul?'none':'block';
+}
+document.getElementById('edModo').addEventListener('change', edAtualizarBlocoAzul);
+
+function edCarregarArquivo(ev){
+  const f = ev.target.files[0]; if(!f) return;
+  const r = new FileReader();
+  r.onload = ()=>{ ed.imagem = r.result; ed.hotspots=[]; edRender(); };
+  r.readAsDataURL(f);
+}
+function edColarUrl(){
+  const v = prompt('Cole a URL da imagem ou um data:image/...;base64,...');
+  if(v){ ed.imagem = v.trim(); ed.hotspots=[]; edRender(); }
+}
+
+function edRender(){
+  edAtualizarBlocoAzul();
+  const palco = document.getElementById('edPalco');
+  palco.innerHTML = '';
+  if(!ed.imagem){ palco.innerHTML = '<div class="vazio">Nenhuma foto carregada. Clique em "Carregar foto".</div>'; return; }
+  const img = document.createElement('img');
+  img.src = ed.imagem; img.draggable=false;
+  palco.appendChild(img);
+  // hotspots já criados
+  ed.hotspots.forEach((h,i)=>{
+    const el = document.createElement('div');
+    el.className='ed-hot';
+    el.style.left=h.x+'%'; el.style.top=h.y+'%'; el.style.width=h.w+'%'; el.style.height=h.h+'%';
+    el.innerHTML = `<span class="lbl">${i+1}</span>`;
+    palco.appendChild(el);
+  });
+  edBindArrasto(palco);
+  edRenderListaHot();
+}
+
+function edBindArrasto(palco){
+  const ponto = (ev)=>{
+    const r = palco.getBoundingClientRect();
+    const cx = (ev.touches? ev.touches[0].clientX : ev.clientX);
+    const cy = (ev.touches? ev.touches[0].clientY : ev.clientY);
+    return { x: clamp((cx-r.left)/r.width*100), y: clamp((cy-r.top)/r.height*100) };
+  };
+  const inicio = (ev)=>{
+    if(document.getElementById('edModo').value==='azul') return; // azul não usa hotspot
+    ev.preventDefault();
+    const p = ponto(ev);
+    ed.arrastando = { x0:p.x, y0:p.y };
+    let prov = document.createElement('div'); prov.className='ed-novo'; prov.id='edNovo';
+    palco.appendChild(prov);
+  };
+  const mover = (ev)=>{
+    if(!ed.arrastando) return;
+    const p = ponto(ev);
+    const x = Math.min(ed.arrastando.x0,p.x), y = Math.min(ed.arrastando.y0,p.y);
+    const w = Math.abs(p.x-ed.arrastando.x0), h = Math.abs(p.y-ed.arrastando.y0);
+    const prov = document.getElementById('edNovo');
+    if(prov){ prov.style.left=x+'%'; prov.style.top=y+'%'; prov.style.width=w+'%'; prov.style.height=h+'%'; }
+  };
+  const fim = (ev)=>{
+    if(!ed.arrastando) return;
+    const p = ponto(ev.changedTouches? {clientX:ev.changedTouches[0].clientX, clientY:ev.changedTouches[0].clientY} : ev);
+    const x = Math.min(ed.arrastando.x0,p.x), y = Math.min(ed.arrastando.y0,p.y);
+    const w = Math.abs(p.x-ed.arrastando.x0), h = Math.abs(p.y-ed.arrastando.y0);
+    ed.arrastando = null;
+    const prov = document.getElementById('edNovo'); if(prov) prov.remove();
+    if(w>2 && h>2){
+      ed.hotspots.push({ id:'d'+(ed.hotspots.length+1),
+        x:round1(x), y:round1(y), w:round1(w), h:round1(h),
+        tipo:'substituicao', titulo:'', acaoCorreta:'etiquetar', regraOuro:1, explicacao:'' });
+    }
+    edRender();
+  };
+  palco.onmousedown = inicio; palco.onmousemove = mover; window.addEventListener('mouseup', fim, {once:true});
+  palco.ontouchstart = inicio; palco.ontouchmove = mover; palco.ontouchend = fim;
+}
+
+function edRenderListaHot(){
+  document.getElementById('edHotCount').textContent = ed.hotspots.length;
+  const lista = document.getElementById('edListaHot');
+  const tipos = ['substituicao','ferramenta','etapa','recebimento'];
+  const acoes = ['etiquetar','chamar_monitor','parar','continuar_registro'];
+  lista.innerHTML = ed.hotspots.map((h,i)=>`
+    <div class="ed-hot-card">
+      <div class="cab"><b>Hotspot ${i+1}</b> <button class="btn fantasma" style="padding:4px 10px" onclick="edRemoverHot(${i})">remover</button></div>
+      <div class="ed-row">
+        <div><span class="mini-rotulo">Tipo</span>
+          <select class="campo" onchange="edCampo(${i},'tipo',this.value)">${tipos.map(t=>`<option ${h.tipo===t?'selected':''}>${t}</option>`).join('')}</select></div>
+        <div><span class="mini-rotulo">Ação correta</span>
+          <select class="campo" onchange="edCampo(${i},'acaoCorreta',this.value)">${acoes.map(a=>`<option ${h.acaoCorreta===a?'selected':''}>${a}</option>`).join('')}</select></div>
+      </div>
+      <div class="ed-row">
+        <div><span class="mini-rotulo">Título</span><input class="campo" value="${escapar(h.titulo)}" oninput="edCampo(${i},'titulo',this.value)"></div>
+        <div><span class="mini-rotulo">Regra Ouro (1-9)</span><input class="campo" type="number" min="1" max="9" value="${h.regraOuro}" oninput="edCampo(${i},'regraOuro',+this.value)"></div>
+      </div>
+      <div class="ed-row full"><div><span class="mini-rotulo">Explicação</span><textarea class="campo" rows="2" oninput="edCampo(${i},'explicacao',this.value)">${escapar(h.explicacao)}</textarea></div></div>
+      <div class="aviso">x:${h.x}% y:${h.y}% w:${h.w}% h:${h.h}%</div>
+    </div>`).join('');
+}
+function edCampo(i,campo,valor){ ed.hotspots[i][campo]=valor; if(campo==='titulo'){/*não re-render p/ não perder foco*/} }
+function edRemoverHot(i){ ed.hotspots.splice(i,1); edRender(); }
+function edLimpar(){ if(confirm('Limpar foto e hotspots?')){ ed.imagem=null; ed.hotspots=[]; document.getElementById('edSaida').value=''; edRender(); } }
+
+function edExportar(){
+  const modo = document.getElementById('edModo').value;
+  const base = {
+    id: document.getElementById('edId').value || ('cenario_'+modo),
+    modo: modo,
+    posto: document.getElementById('edPosto').value || 'Posto',
+    tempo: +document.getElementById('edTempo').value || 40,
+    imagem: ed.imagem || 'PLACEHOLDER'
+  };
+  let obj;
+  if(modo==='azul'){
+    obj = Object.assign(base, {
+      decisaoCorreta: document.getElementById('edDecisao').value,
+      motivo: document.getElementById('edAzulMotivo').value,
+      acaoCorreta: 'etiqueta_amarela_logistica',
+      regraOuro: +document.getElementById('edAzulRegra').value || 9,
+      explicacao: document.getElementById('edAzulExpl').value
+    });
+  } else {
+    obj = Object.assign(base, { desvios: ed.hotspots.map(h=>({
+      id:h.id, x:h.x, y:h.y, w:h.w, h:h.h, tipo:h.tipo, titulo:h.titulo,
+      acaoCorreta:h.acaoCorreta, regraOuro:+h.regraOuro, explicacao:h.explicacao
+    })) });
+  }
+  document.getElementById('edSaida').value = JSON.stringify(obj, null, 2);
+  alert('JSON gerado abaixo. Copie e cole dentro do array CENARIOS no topo do arquivo.');
+}
+function edCopiar(){
+  const ta = document.getElementById('edSaida'); ta.select();
+  try{ document.execCommand('copy'); alert('Copiado!'); }catch(e){ alert('Selecione e copie manualmente.'); }
+}
+
+/* ----------------------------- UTILS ----------------------------- */
+function clamp(v){ return Math.max(0, Math.min(100, v)); }
+function round1(v){ return Math.round(v*10)/10; }
+
+/* ----------------------------- BOOT ----------------------------- */
+carregarConfig();
+</script>
+</body>
+</html>
