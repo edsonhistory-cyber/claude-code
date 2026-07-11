@@ -453,6 +453,65 @@ a.btn { text-decoration: none; display: inline-block; text-align: center; }
 .scene-media .scene-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 400ms ease; }
 .scene-media .scene-photo.on { opacity: 1; }
 
+/* ── MAPA REAL (OpenStreetMap) com pinos 3D ───────────────────────────── */
+.map-canvas { perspective: 1200px; }
+.map-real {
+  position: relative; width: 100%; aspect-ratio: 1; overflow: hidden;
+  border-radius: 12px;
+  transform: rotateX(9deg);
+  transform-style: preserve-3d;
+  transition: transform 500ms ease;
+  box-shadow: 0 30px 50px -28px rgba(0, 0, 0, .85);
+}
+.map-canvas:hover .map-real { transform: rotateX(0deg); }
+.map-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.map-route { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none;
+  filter: drop-shadow(0 1px 1px rgba(0,0,0,.5)); }
+.map-pin {
+  position: absolute; transform: translate(-50%, -100%);
+  background: none; border: 0; cursor: pointer; padding: 0;
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  filter: drop-shadow(0 6px 5px rgba(0, 0, 0, .45));
+  transition: transform 180ms ease;
+}
+.map-pin:hover { transform: translate(-50%, -100%) scale(1.25); z-index: 3; }
+.pin-head {
+  width: 20px; height: 20px; border-radius: 50% 50% 50% 0;
+  transform: rotate(-45deg);
+  background: linear-gradient(135deg, #38bdf8, #0369a1);
+  border: 2px solid #eaf6ff;
+}
+.map-pin.danger .pin-head { background: linear-gradient(135deg, #f87171, #b91c1c); }
+.map-pin.visited .pin-head { background: linear-gradient(135deg, #34d399, #047857); }
+.pin-label {
+  font-family: var(--font-mono); font-size: .62rem; font-weight: 700;
+  color: #10233a; background: rgba(255, 255, 255, .92);
+  padding: 1px 6px; border-radius: 8px;
+}
+.map-attrib {
+  position: absolute; right: 6px; bottom: 4px; z-index: 2;
+  font-size: .6rem; color: #223; background: rgba(255, 255, 255, .75);
+  padding: 1px 6px; border-radius: 6px;
+}
+
+/* ── Comandos com profundidade 3D ─────────────────────────────────────── */
+.central-grid { perspective: 1400px; }
+.central-card { transform-style: preserve-3d; will-change: transform; }
+.central-card:hover {
+  transform: translateY(-8px) rotateX(5deg) scale(1.03);
+  box-shadow: 0 26px 44px -18px rgba(0, 0, 0, .75),
+    0 0 0 1px color-mix(in srgb, var(--accent) 55%, transparent);
+}
+.btn { box-shadow: inset 0 1px 0 rgba(255, 255, 255, .12), 0 3px 8px -3px rgba(0, 0, 0, .5); }
+.btn:active { transform: translateY(2px) scale(.99); box-shadow: inset 0 2px 5px rgba(0, 0, 0, .4); }
+.stop-card:hover, .row-card:hover:not(.locked), .episode-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 24px -12px rgba(0, 0, 0, .7);
+}
+@media (prefers-reduced-motion: reduce) {
+  .map-real, .central-card, .map-pin, .btn, .stop-card, .row-card, .episode-card { transition: none !important; transform: none !important; }
+}
+
 /* fotos forenses das evidências (geradas por IA em build-time) */
 .row-thumb {
   width: 52px; height: 52px; object-fit: cover; border-radius: 8px;

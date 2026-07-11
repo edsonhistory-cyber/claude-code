@@ -7,7 +7,7 @@ import { sceneMedia } from '../art.js';
 import { getCase, getPack, collectEvidence, unlockDocument, addScore } from '../caseState.js';
 import { sfx, ambience } from '../audioManager.js';
 
-export function render() {
+export async function render() {
   const pack = getPack();
   const { body } = screenShell('Mapa', `CENTRAL › MAPA — ${pack.map_title || 'ROTA DO CASO'}`);
   ambience('cidade');
@@ -15,7 +15,7 @@ export function render() {
 
   const wrap = el('div', 'map-wrap');
   const svgBox = el('div', 'panel map-canvas');
-  svgBox.innerHTML = routeSvg(stops);
+  svgBox.innerHTML = routeSvg(stops); // fallback imediato (sem rede)
   const list = el('div', 'map-stops');
   for (const stop of stops) {
     const visited = getCase().visited.includes(stop.id);
@@ -27,10 +27,56 @@ export function render() {
   wrap.append(svgBox, list);
   body.append(wrap);
 
-  svgBox.querySelectorAll('[data-stop]').forEach((n) => {
+  const bind = () => svgBox.querySelectorAll('[data-stop]').forEach((n) => {
     n.style.cursor = 'pointer';
     n.onclick = () => { const stop = stops.find((x) => x.id === n.dataset.stop); if (stop) openLocation(stop); };
   });
+  bind();
+
+  // Mapa REAL (OpenStreetMap baixado na build): troca o desenho pelo mapa de
+  // ruas de Curitiba com as paradas nas coordenadas geográficas verdadeiras.
+  const geoStops = stops.filter((s) => s.geo);
+  if (pack.map_geo && geoStops.length) {
+    const meta = await fetch(pack.map_geo.meta).then((r) => (r.ok ? r.json() : null)).catch(() => null);
+    if (meta) {
+      svgBox.innerHTML = realMap(pack.map_geo.image, meta, stops);
+      const img = svgBox.querySelector('.map-photo');
+      img.onerror = () => { svgBox.innerHTML = routeSvg(stops); bind(); };
+      bind();
+    }
+  }
+}
+
+// Projeção Web Mercator: lat/lon → % dentro da imagem do mapa estático
+function proj(lat, lon, meta) {
+  const n = 256 * 2 ** meta.zoom;
+  const px = (v) => ((v + 180) / 360) * n;
+  const py = (la) => {
+    const r = (la * Math.PI) / 180;
+    return ((1 - Math.log(Math.tan(r) + 1 / Math.cos(r)) / Math.PI) / 2) * n;
+  };
+  const x = ((px(lon) - px(meta.center[1])) / meta.size) * 100 + 50;
+  const y = ((py(lat) - py(meta.center[0])) / meta.size) * 100 + 50;
+  return [x, y];
+}
+
+function realMap(image, meta, stops) {
+  const s = getCase();
+  const pts = stops.filter((st) => st.geo).map((st) => ({ st, p: proj(st.geo[0], st.geo[1], meta) }));
+  const route = pts.filter(({ st }) => !st.off_route).map(({ p }, i) => `${i ? 'L' : 'M'}${p[0]} ${p[1]}`).join(' ');
+  return `<div class="map-real">
+    <img class="map-photo" src="${image}" alt="Mapa de Curitiba (OpenStreetMap)">
+    <svg class="map-route" viewBox="0 0 100 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="${route}" fill="none" stroke="#0f8a4d" stroke-width=".7" stroke-linejoin="round" stroke-linecap="round" opacity=".35"/>
+      <path d="${route}" fill="none" stroke="#2fbf6e" stroke-width=".3" stroke-dasharray="1.2 1.1" stroke-linecap="round" opacity=".9"/>
+    </svg>
+    ${pts.map(({ st, p }) => `
+      <button class="map-pin${st.danger ? ' danger' : ''}${s.visited.includes(st.id) ? ' visited' : ''}"
+              style="left:${p[0]}%; top:${p[1]}%" data-stop="${st.id}" title="${st.name}">
+        <span class="pin-head"></span><span class="pin-label">${st.id}</span>
+      </button>`).join('')}
+    <span class="map-attrib">© OpenStreetMap contributors · ODbL</span>
+  </div>`;
 }
 
 function routeSvg(stops) {

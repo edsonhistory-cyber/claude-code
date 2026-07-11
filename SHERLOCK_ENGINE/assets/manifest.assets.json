@@ -157,6 +157,15 @@
       "scene": "garagem"
     }
   ],
+  "maps": [
+    {
+      "id": "map_cwb",
+      "center": [-25.4099, -49.274],
+      "zoom": 14,
+      "size": 1024,
+      "target": "assets/images/map/"
+    }
+  ],
   "scene_style": "photorealistic photograph, cinematic wide shot, detective thriller atmosphere, rich colors, volumetric light, high detail, no people, no text, no watermark",
   "scenes_ai": [
     { "id": "ai_corredor", "seed": 5101, "scene": "corredor", "prompt": "empty corridor inside a Brazilian courthouse at night, polished granite floor reflecting emergency lights, security cameras on the ceiling, wooden doors with brass plaques" },

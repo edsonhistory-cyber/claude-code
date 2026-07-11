@@ -171,13 +171,29 @@ async function fetchPollinations(item) {
   return 1;
 }
 
-const providers = { wikimedia: fetchWikimedia, openverse: fetchOpenverse, freesound: fetchFreesound, pixabay: fetchPixabay, pollinations: fetchPollinations };
+// ── Mapa real (OpenStreetMap renderizado pelo Wikimedia Maps, sem chave) ──
+// Uma imagem única + meta JSON; o jogo projeta lat/lon → pixel no cliente.
+async function fetchStaticMap(item) {
+  const [lat, lon] = item.center;
+  const size = item.size ?? 1024;
+  const url = `https://maps.wikimedia.org/img/osm-intl,${item.zoom},${lat},${lon},${size}x${size}@2x.png`;
+  await download(url, item.target, `${item.id}.png`, item);
+  if (!DRY) {
+    await writeFile(path.join(root, item.target, `${item.id}.json`),
+      JSON.stringify({ center: item.center, zoom: item.zoom, size }, null, 2));
+  }
+  await credit([item.id, path.join(item.target, `${item.id}.png`), 'Wikimedia Maps (estilo osm-intl)', '© OpenStreetMap contributors', 'ODbL', 'https://www.openstreetmap.org/copyright']);
+  return 1;
+}
+
+const providers = { wikimedia: fetchWikimedia, openverse: fetchOpenverse, freesound: fetchFreesound, pixabay: fetchPixabay, pollinations: fetchPollinations, staticmap: fetchStaticMap };
 
 const portraits = (manifest.portraits || []).map((p) => ({ source: 'pollinations', portrait: p.id, _style: manifest.portrait_style, ...p }));
 const objects = (manifest.objects || []).map((o) => ({ source: 'pollinations', object: o.id, target: 'assets/images/objects/', _style: manifest.object_style, ...o }));
 const scenesAi = (manifest.scenes_ai || []).map((s) => ({ source: 'pollinations', target: 'assets/images/scenes_ai/', width: 1280, height: 720, _style: manifest.scene_style, ...s }));
+const maps = (manifest.maps || []).map((m) => ({ source: 'staticmap', ...m }));
 let ok = 0, fail = 0;
-for (const item of [...scenesAi, ...(manifest.images || []), ...portraits, ...objects, ...(manifest.audio || [])]) {
+for (const item of [...maps, ...scenesAi, ...(manifest.images || []), ...portraits, ...objects, ...(manifest.audio || [])]) {
   const fn = providers[item.source];
   if (!fn) { console.warn('sem provedor:', item.source); continue; }
   try {
