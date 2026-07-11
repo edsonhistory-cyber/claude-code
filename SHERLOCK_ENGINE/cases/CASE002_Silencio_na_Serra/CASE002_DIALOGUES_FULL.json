@@ -1,0 +1,97 @@
+{
+  "schema": "CASE002_DIALOGUES_FULL",
+  "version": "1.0",
+  "case": "SRR-0904",
+  "dialogue_tree": {
+    "IVO_REZENDE": {
+      "intro": "Eu cuido dos freios e da iluminação. Viagem tranquila, até o mirante.",
+      "topics": {
+        "painel": {
+          "question": "Quem desligou o disjuntor do vagão 2 às 14:52?",
+          "answers": [
+            {
+              "id": "I1",
+              "text": "Deve ter sido oscilação da rede na serra.",
+              "truth": "falso",
+              "stress": "+20"
+            },
+            {
+              "id": "I2",
+              "text": "Não sei. Eu estava na cabine com o Davi.",
+              "truth": "falso",
+              "stress": "+15"
+            }
+          ],
+          "unlock_if": [
+            "DOC104"
+          ]
+        },
+        "tunel": {
+          "question": "Onde você estava durante o Túnel Roça Nova?",
+          "answers": [
+            {
+              "id": "I3",
+              "text": "Na cabine, como sempre. Nunca toquei naquele painel.",
+              "truth": "falso",
+              "unlock": "Contradição 02"
+            }
+          ],
+          "unlock_if": [
+            "EV104"
+          ]
+        }
+      }
+    },
+    "CAMILA_FONTES": {
+      "intro": "Sou advogada. Só respondo o que me convém — e me convém colaborar.",
+      "topics": {
+        "fundacao": {
+          "question": "Qual a sua relação com a Fundação Pinhal?",
+          "answers": [
+            {
+              "id": "C1",
+              "text": "Presto serviços à Fundação. Doações são legais... quando bem documentadas.",
+              "truth": "parcial",
+              "unlock": "DOC109"
+            }
+          ],
+          "unlock_if": [
+            "DOC107"
+          ]
+        }
+      }
+    },
+    "DAVI_PRADO": {
+      "intro": "Trinta anos de serra. Nunca perdi um passageiro. Até hoje.",
+      "topics": {
+        "cabine": {
+          "question": "O Ivo ficou com você na cabine o tempo todo?",
+          "answers": [
+            {
+              "id": "D1",
+              "text": "Na subida, sim. No túnel... ele disse que ia verificar um disjuntor.",
+              "truth": "verdadeiro",
+              "unlock": "DOC105"
+            }
+          ],
+          "unlock_if": [
+            "DOC104"
+          ]
+        }
+      }
+    }
+  },
+  "conversation_rules": {
+    "max_questions_per_round": 5,
+    "allow_repeat": true,
+    "memory_enabled": true,
+    "stress_affects_answers": true,
+    "evidence_unlocks_new_topics": true
+  },
+  "voice_tags": {
+    "ivo": "grave",
+    "camila": "calma",
+    "davi": "firme"
+  },
+  "cinematic_triggers": []
+}

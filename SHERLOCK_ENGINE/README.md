@@ -1,7 +1,9 @@
-# Sherlock Engine — Pacote de Projeto
+# Sherlock Engine — 1.0.0-rc
 
-Jogo de detetive cooperativo, offline, pt‑BR. Caso 001: **"A Última Parada"** (CWB‑1447), em Curitiba.
-Este pacote reúne **o brief de implementação + todos os JSONs de design** já organizados na árvore de pastas, prontos para abrir no **Claude Code**.
+Jogo de detetive cooperativo, **offline**, pt‑BR — motor multi-caso completo (M1–M5).
+**Dois casos jogáveis**: CASE001 **"A Última Parada"** (CWB‑1447, Curitiba) e
+CASE002 **"Silêncio na Serra"** (SRR‑0904, trem Serra Verde → Morretes), ligados
+pelo fio da campanha (a organização por trás da lavagem de dinheiro).
 
 ## Como jogar (jogo completo ✅ — M1 + M2)
 ```bash
@@ -57,10 +59,21 @@ sala de troféus e arquivo de casos com melhores pontuações. A carreira vive e
 `localStorage` separada do save do caso (carry_over do CAMPAIGN.json). Episódios
 futuros apontam para o Sherlock Studio, onde o conteúdo pode ser criado.
 
+## Motor multi-caso (M5 ✅ — Release Candidate)
+Todo o conteúdo de um caso vive num **CONTENT_PACK** (`cases/<caso>/CASEXXX_CONTENT_PACK.json`):
+paradas do mapa e hotspots, resultados de OSINT, bancadas do laboratório, GEOINT
+(gráfico + satélite), elenco/depoimentos/contradições, fatores de dedução MMO,
+ciclo de tokens dos dossiês, enigmas (tipos genéricos: `sequence`, `input`,
+`choice`, `frames`, `compare`) e opções do júri. As telas são 100% data-driven —
+para criar um caso novo: 7 JSONs + 1 pack (o Sherlock Studio ajuda), registrar em
+`js/database.js` (CASE_DIRS/CASE_FILES) e no CAMPAIGN.json.
+
+Validação por caso: `node tools/validate_case.mjs CASE001` · `CASE002` (0 erros em ambos).
+
 ## Contexto do projeto
 1. `docs/BRIEF.md` — regras de ouro, plano de milestones e estratégia de assets.
-2. M1 (motor), M2 (gameplay), M3 (Sherlock Studio) e M4 (Campanha) implementados.
-3. Próximo: M5 Release Candidate (conteúdo do CASE002, polimento, empacotamento).
+2. Roadmap completo: M1 motor · M2 gameplay · M3 Sherlock Studio · M4 Campanha · M5 RC multi-caso.
+3. Próximos episódios (CASE003 "Operação Eclipse", CASE004 "O Colecionador"): criar via Studio + content pack.
 
 ## Estrutura
 - `docs/BRIEF.md` — instruções de implementação (a fonte do plano).

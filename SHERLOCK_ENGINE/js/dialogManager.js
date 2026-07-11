@@ -1,66 +1,40 @@
 /**
- * dialogManager.js — Interrogatórios (HUMINT): funde a árvore do caso
- * (CASE001_DIALOGUES_FULL) com os humores do DIALOGOS.json e os gatilhos de
- * estresse do HUMINT.json. Apresentar evidências muda o comportamento e pode
- * desbloquear contradições e novas evidências.
+ * dialogManager.js — Interrogatórios (HUMINT), multi-caso: a árvore vem do
+ * alias CASE_DIALOGUES, os depoimentos avulsos/perfis/contradições vêm do
+ * CONTENT_PACK do caso ativo. Fallbacks: DIALOGOS.json e HUMINT.json.
  */
 import { getModule } from './database.js';
-import { getCase, collectEvidence, hasReq, addScore } from './caseState.js';
+import { getCase, getPack, collectEvidence, addScore } from './caseState.js';
 import { emit } from './eventManager.js';
-
-// Personagens interrogáveis: chave da árvore do caso + id de PERSONAGENS
-export const INTERROGATABLE = [
-  { key: 'SERGIO_BENTO', pid: 'P002', dlg: 'sergio' },
-  { key: 'RENATA_SALGADO', pid: 'P004', dlg: 'renata' },
-  { key: 'DILIA_KARAS', pid: 'P003', dlg: 'dilia' },
-  { key: 'BIANCA_ALCANTARA', pid: 'P007', dlg: 'bianca' },
-  { key: 'WANDA_KRUGER', pid: 'P006', dlg: null },
-  { key: 'ALDO_MEIRELES', pid: 'P005', dlg: null },
-  { key: 'KLAUS_VOGEL', pid: 'P008', dlg: null },
-];
-
-// Falas extras dos personagens sem árvore no caso (testemunhas/red herrings) —
-// derivadas dos red_herrings do CASE001_FULL e do world state.
-const EXTRA_STATEMENTS = {
-  WANDA_KRUGER: {
-    intro: 'Eu ofereci meu chá de ervas ao Otávio no Jardim Botânico. Ele recusou — disse que só bebia o próprio café.',
-    flag: 'cha_recusado',
-    note: 'Wanda conhece plantas tóxicas, mas o chá foi recusado.',
-  },
-  ALDO_MEIRELES: {
-    intro: 'Sim, discuti com o Otávio no Jardim Botânico. Sociedade desfeita é ferida aberta. Depois disso fui embora de táxi.',
-    flag: 'aldo_discussao',
-    note: 'Aldo admite a discussão e diz que não voltou ao ônibus.',
-  },
-  KLAUS_VOGEL: {
-    intro: 'Meu nome verdadeiro não é Vogel. Sou detetive particular — fui contratado para vigiar o Otávio, não para machucá-lo.',
-    flag: 'klaus_identidade',
-    note: 'Klaus usa nome falso, mas é detetive particular.',
-  },
-  BIANCA_ALCANTARA: {
-    intro: 'Eu gravei praticamente toda a viagem. Pode ficar com o cartão de memória — tem horas de vídeo aí, inclusive perto daquela parada estranha.',
-    flag: 'bianca_video',
-    note: 'Bianca entregou o cartão com os vídeos da viagem.',
-  },
-};
 
 const runtimeStress = {}; // key -> estresse atual da sessão
 
+export function interrogatable() {
+  return getPack().interrogatable || [];
+}
+
+function findCharacter(pid) {
+  const packChar = (getPack().characters || []).find((x) => x.id === pid);
+  if (packChar) return packChar;
+  return (getModule('SHERLOCK_ENGINE_PERSONAGENS')?.personagens || []).find((x) => x.id === pid);
+}
+
 export function characterName(key) {
-  const item = INTERROGATABLE.find((c) => c.key === key);
-  const p = (getModule('SHERLOCK_ENGINE_PERSONAGENS')?.personagens || []).find((x) => x.id === item?.pid);
-  return p?.nome || key;
+  const item = interrogatable().find((c) => c.key === key);
+  return findCharacter(item?.pid)?.nome || key;
 }
 
 export function characterRole(key) {
-  const item = INTERROGATABLE.find((c) => c.key === key);
-  const p = (getModule('SHERLOCK_ENGINE_PERSONAGENS')?.personagens || []).find((x) => x.id === item?.pid);
-  return p?.papel || '';
+  const item = interrogatable().find((c) => c.key === key);
+  return findCharacter(item?.pid)?.papel || '';
+}
+
+function profiles() {
+  return getPack().behavior_profiles || getModule('SHERLOCK_ENGINE_HUMINT')?.behavior_profiles || [];
 }
 
 function baseline(key) {
-  const profiles = getModule('SHERLOCK_ENGINE_HUMINT')?.behavior_profiles || [];
-  const prof = profiles.find((p) => characterName(key) === p.character);
+  const prof = profiles().find((p) => characterName(key) === p.character);
   return prof?.baseline?.stress ?? 40;
 }
 
@@ -77,20 +51,22 @@ export function moodFor(key) {
   return 'neutro';
 }
 
-/** Fala de humor do DIALOGOS.json para o estado atual. */
+/** Fala de humor: moods do pack (por key) ou do DIALOGOS.json (CASE001). */
 export function moodLine(key) {
-  const item = INTERROGATABLE.find((c) => c.key === key);
-  const chars = getModule('SHERLOCK_ENGINE_DIALOGOS')?.personagens || [];
-  const c = chars.find((x) => x.id === item?.dlg);
-  if (!c) return null;
-  const mood = moodFor(key);
-  return c.interrogatorio[mood] || c.interrogatorio.neutro;
+  const packMoods = (getPack().moods || {})[key];
+  if (packMoods) return packMoods[moodFor(key)] || packMoods.neutro;
+  const item = interrogatable().find((c) => c.key === key);
+  const c = (getModule('SHERLOCK_ENGINE_DIALOGOS')?.personagens || []).find((x) => x.id === item?.dlg);
+  return c ? (c.interrogatorio[moodFor(key)] || c.interrogatorio.neutro) : null;
+}
+
+export function hasTree(key) {
+  return !!(getModule('CASE_DIALOGUES')?.dialogue_tree || {})[key];
 }
 
 /** Tópicos disponíveis (árvore do caso) com estado de trava. */
 export function topicsFor(key) {
-  const tree = getModule('CASE001_DIALOGUES_FULL')?.dialogue_tree || {};
-  const topics = tree[key]?.topics || {};
+  const topics = (getModule('CASE_DIALOGUES')?.dialogue_tree || {})[key]?.topics || {};
   return Object.entries(topics).map(([id, t]) => ({
     id,
     question: t.question,
@@ -108,8 +84,8 @@ function reqMet(req) {
 }
 
 export function intro(key) {
-  const tree = getModule('CASE001_DIALOGUES_FULL')?.dialogue_tree || {};
-  return tree[key]?.intro || EXTRA_STATEMENTS[key]?.intro || '…';
+  const tree = getModule('CASE_DIALOGUES')?.dialogue_tree || {};
+  return tree[key]?.intro || (getPack().witness_statements || {})[key]?.intro || '…';
 }
 
 /** Faz uma pergunta; retorna a resposta escolhida conforme o humor. */
@@ -120,7 +96,6 @@ export function ask(key, topicId) {
   const tag = `${key}:${topicId}`;
   const first = !s.topicsAsked.includes(tag);
   if (first) s.topicsAsked.push(tag);
-  // sob pressão o personagem tende à resposta mais defensiva (última)
   const idx = moodFor(key) === 'neutro' ? 0 : topic.answers.length - 1;
   const ans = topic.answers[idx];
   if (ans.stress) bumpStress(key, parseInt(ans.stress, 10) || 0);
@@ -129,16 +104,15 @@ export function ask(key, topicId) {
   return { ...ans, mood: moodFor(key) };
 }
 
-/** Apresenta uma evidência coletada — gatilhos do HUMINT.json. */
+/** Apresenta uma evidência coletada — gatilhos do perfil comportamental. */
 export function presentEvidence(key, evId) {
   const s = getCase();
   const tag = `${key}:${evId}`;
   if (s.presented.includes(tag)) return { repeat: true, text: 'Já apresentado. Nada de novo.' };
   s.presented.push(tag);
 
-  const evName = (getModule('CASE001_EVIDENCES_FULL')?.evidences || []).find((e) => e.id === evId)?.name || evId;
-  const profiles = getModule('SHERLOCK_ENGINE_HUMINT')?.behavior_profiles || [];
-  const prof = profiles.find((p) => p.character === characterName(key));
+  const evName = (getModule('CASE_EVIDENCES')?.evidences || []).find((e) => e.id === evId)?.name || evId;
+  const prof = profiles().find((p) => p.character === characterName(key));
   let reaction = `${characterName(key)} observa "${evName}" em silêncio.`;
 
   for (const trig of prof?.triggers || []) {
@@ -149,25 +123,29 @@ export function presentEvidence(key, evId) {
       reaction = `${characterName(key)} se altera visivelmente. (${trig.effect})`;
     }
     if (/contradi/i.test(trig.effect)) {
-      unlockContradiction(key);
+      unlockContradiction();
       reaction = `${characterName(key)} gagueja. Uma contradição foi registrada no dossiê.`;
     }
   }
-  // fibra/luvas em cima do "nunca toquei nela" → Contradição 01 (árvore do caso)
-  if (key === 'SERGIO_BENTO' && (evId === 'EV002' || evId === 'EV001') && s.topicsAsked.includes('SERGIO_BENTO:garrafa')) {
-    unlockContradiction(key);
-    reaction = 'Sérgio disse que nunca tocou na garrafa — a análise de fibras diz o contrário. Contradição 01 registrada.';
+
+  // contradição decisiva do pack: personagem + tópico perguntado + evidência-chave
+  const cRule = getPack().contradiction;
+  if (cRule && key === cRule.character && (cRule.evidences || []).includes(evId) && s.topicsAsked.includes(cRule.requiresTopic)) {
+    unlockContradiction();
+    reaction = cRule.reaction || reaction;
   }
   return { text: reaction, mood: moodFor(key), stress: getStress(key) };
 }
 
-function unlockContradiction(key) {
+function unlockContradiction() {
   const s = getCase();
-  if (!s.contradictions.includes('Contradição 01')) {
-    s.contradictions.push('Contradição 01');
+  const cRule = getPack().contradiction || {};
+  const name = cRule.name || 'Contradição';
+  if (!s.contradictions.includes(name)) {
+    s.contradictions.push(name);
     addScore(25, 'Contradição desbloqueada');
-    emit('UI_TOAST', { text: '⚡ Contradição 01 desbloqueada', kind: 'success' });
-    emit('UI_CINEMATIC', { id: 'CIN002' });
+    emit('UI_TOAST', { text: `⚡ ${name} desbloqueada`, kind: 'success' });
+    if (cRule.cinematic) emit('UI_CINEMATIC', { id: cRule.cinematic });
   }
 }
 
@@ -178,12 +156,14 @@ function applyUnlock(key, unlock) {
       s.documents.push(unlock);
       emit('UI_TOAST', { text: `📄 Documento desbloqueado: ${unlock}`, kind: 'info' });
     }
-  } else if (unlock === 'KM18') {
-    s.flags.km18_confirmado = true;
-    emit('UI_TOAST', { text: '📍 KM18 confirmado por testemunha', kind: 'info' });
-    emit('UI_CINEMATIC', { id: 'CIN003' });
   } else if (/contradi/i.test(unlock)) {
-    unlockContradiction(key);
+    unlockContradiction();
+  } else {
+    // desbloqueio simbólico (ex.: "KM18"): vira flag e pode tocar cinemática
+    s.flags[`${unlock.toLowerCase()}_confirmado`] = true;
+    emit('UI_TOAST', { text: `📍 ${unlock} confirmado por testemunha`, kind: 'info' });
+    const cin = (getPack().unlock_cinematics || {})[unlock];
+    if (cin) emit('UI_CINEMATIC', { id: cin });
   }
 }
 
@@ -191,18 +171,17 @@ function bumpStress(key, delta) {
   runtimeStress[key] = Math.max(0, Math.min(120, getStress(key) + delta));
 }
 
-/** Conversa com testemunhas sem árvore: solta o depoimento e seta a flag. */
+/** Depoimento de testemunha sem árvore (witness_statements do pack). */
 export function witnessStatement(key) {
   const s = getCase();
-  const extra = EXTRA_STATEMENTS[key];
+  const extra = (getPack().witness_statements || {})[key];
   if (!extra) return null;
   if (extra.flag && !s.flags[extra.flag]) {
     s.flags[extra.flag] = true;
     addScore(10, `Depoimento registrado: ${characterName(key)}`);
     emit('UI_TOAST', { text: `📝 ${extra.note}`, kind: 'info' });
   }
-  // Bianca entrega o vídeo quando questionada
-  if (key === 'BIANCA_ALCANTARA') collectEvidence('EV003', 'Vídeo da Bianca');
+  if (extra.gives_evidence) collectEvidence(extra.gives_evidence.id, extra.gives_evidence.nome);
   if (!s.interrogated.includes(key)) s.interrogated.push(key);
   return extra.intro;
 }
@@ -212,6 +191,3 @@ export function markInterrogated(key) {
   if (!s.interrogated.includes(key)) s.interrogated.push(key);
   emit('INTERROGATION_FINISHED', { character: key });
 }
-
-// Bianca também entrega o vídeo pela árvore? Ela não tem árvore no caso; via witnessStatement.
-export { EXTRA_STATEMENTS };

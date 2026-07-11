@@ -13,7 +13,7 @@ import { makeZip } from './zip.js';
 
 // chaves canônicas dos 7 arquivos do caso (internamente sempre CASE001_*;
 // na exportação o prefixo vira o id do caso novo)
-const CANON = CASE_FILES.CASE001;
+const CANON = Object.values(CASE_FILES.CASE001).filter((n) => n !== 'CASE001_CONTENT_PACK');
 
 const data = {};          // engine-data + arquivos do caso (chaves canônicas)
 let caseId = 'CASE001';

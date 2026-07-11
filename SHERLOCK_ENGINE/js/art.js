@@ -108,14 +108,76 @@ const SCENES = {
   'central': () => svg(`${ground('#060d18')}
     ${[0,1,2].map((i)=>`<rect x="${70+i*95}" y="70" width="75" height="90" rx="4" fill="#0b1e30" stroke="#00C2FF" stroke-width="1" opacity=".9"/>`).join('')}
     ${[0,1,2].map((i)=>glow(107+i*95, 115, 30, '#00C2FF', .12)).join('')}`, 'noite'),
+
+  // ── CASE002 · Serra do Mar ─────────────────────────────────────────────
+  'serra': () => svg(`${ground('#0c2418')}
+    <path d="M0 190 L70 90 L130 160 L200 60 L270 150 L330 80 L400 190 Z" fill="#12362a"/>
+    <path d="M0 190 L100 130 L180 180 L260 120 L340 175 L400 150 L400 240 L0 240 Z" fill="#0d2c20"/>
+    ${train(50, 176, .8)}
+    <path d="M20 176 L120 173 L380 162" stroke="#3a3a3a" stroke-width="3" fill="none"/>
+    ${glow(200, 60, 60, '#7fe3ff', .06)}`, 'dia'),
+
+  'trem': () => svg(`${ground('#101820')}${train(70, 120, 1.1)}
+    <path d="M0 178 L400 168" stroke="#3a3a3a" stroke-width="4" fill="none"/>
+    <path d="M0 184 L400 174" stroke="#2a2a2a" stroke-width="2" fill="none"/>
+    ${glow(200, 140, 90, '#E0B658', .06)}`, 'tarde'),
+
+  'túnel': () => svg(`
+    <rect width="400" height="240" fill="#05090f"/>
+    <path d="M80 240 L80 110 Q200 10 320 110 L320 240" fill="#0b131c" stroke="#22303c" stroke-width="5"/>
+    <path d="M120 240 L120 130 Q200 55 280 130 L280 240" fill="#02050a"/>
+    <circle cx="200" cy="150" r="9" fill="#E0B658" opacity=".9"/>
+    ${glow(200, 150, 30, '#E0B658', .35)}
+    <text x="200" y="95" font-size="11" fill="#5c6f80" text-anchor="middle" font-family="monospace">TÚNEL ROÇA NOVA</text>`, 'noite'),
+
+  'estação': () => svg(`${ground('#141018')}
+    <rect x="60" y="100" width="280" height="90" fill="#241a20" stroke="#6b4e35" stroke-width="2"/>
+    <path d="M40 100 L200 50 L360 100" fill="none" stroke="#6b4e35" stroke-width="6"/>
+    <rect x="180" y="140" width="40" height="50" fill="#0b1e30"/>
+    ${[0,1].map((i)=>`<rect x="${95+i*190}" y="125" width="30" height="34" fill="#123a5c" stroke="#7fe3ff" stroke-width="1"/>`).join('')}
+    <text x="200" y="122" font-size="11" fill="#E0B658" text-anchor="middle" font-family="monospace">MORRETES</text>
+    <path d="M0 205 L400 198" stroke="#3a3a3a" stroke-width="3" fill="none"/>`, 'por_do_sol'),
+
+  'rio': () => svg(`${ground('#0c2418')}
+    <path d="M0 150 Q100 130 170 160 Q260 195 400 170 L400 240 L0 240 Z" fill="#0d3246"/>
+    <path d="M0 156 Q100 136 170 166 Q260 200 400 176" stroke="#7fe3ff" stroke-width="1.5" fill="none" opacity=".5"/>
+    <path d="M40 130 L70 60 L100 130 M300 120 L335 50 L370 120" stroke="#2F8B57" stroke-width="6" fill="none"/>
+    ${glow(200, 170, 70, '#00C2FF', .07)}`, 'dia'),
+
+  'mirante da serra': () => svg(`${ground('#131a24')}
+    <path d="M0 190 L90 70 L180 140 L280 40 L400 150 L400 240 L0 240 Z" fill="#152b3d"/>
+    <rect x="40" y="150" width="80" height="8" rx="3" fill="#c9d4da"/>
+    ${[0,1,2].map((i)=>`<rect x="${48+i*24}" y="158" width="5" height="20" fill="#c9d4da"/>`).join('')}
+    <circle cx="320" cy="45" r="16" fill="#ff9d5c"/>
+    ${glow(320, 45, 36, '#ff9d5c', .3)}
+    <path d="M180 140 Q230 170 280 200" stroke="#0d3246" stroke-width="10" fill="none"/>`, 'por_do_sol'),
 };
+
+// Trem da Serra Verde (locomotiva + vagão panorâmico)
+function train(x = 70, y = 120, scale = 1) {
+  return `<g transform="translate(${x},${y}) scale(${scale})">
+    <rect x="0" y="8" width="90" height="40" rx="6" fill="#7a1f1f"/>
+    <rect x="8" y="0" width="34" height="14" rx="3" fill="#5c1515"/>
+    <rect x="14" y="16" width="20" height="14" rx="2" fill="#0b1e30"/>
+    <rect x="96" y="12" width="150" height="36" rx="5" fill="#1d4a38"/>
+    ${[0,1,2,3].map((i)=>`<rect x="${104+i*36}" y="18" width="26" height="16" rx="2" fill="#123a5c"/>`).join('')}
+    <text x="171" y="45" font-size="9" fill="#E0B658" text-anchor="middle" font-family="monospace">SERRA VERDE</text>
+    ${[22, 60, 120, 160, 200, 232].map((cx)=>`<circle cx="${cx}" cy="52" r="8" fill="#111" stroke="#333" stroke-width="2.5"/>`).join('')}
+  </g>`;
+}
 
 const ALIASES = {
   'rua 24 horas': ['rua 24', '24 horas', 'r24'], 'jardim botânico': ['jardim botanico', 'jb', 'estufa'],
   'mon': ['museu oscar niemeyer', 'olho'], 'km18': ['km 18', 'acostamento', 'parada não programada', 'porta-volumes'],
   'ópera de arame': ['opera de arame', 'opa'], 'parque barigui': ['barigui', 'lixeira'],
-  'parque tanguá': ['tangua', 'mirante', 'cascata'], 'ônibus': ['onibus', 'bus', 'garrafa térmica', 'otávio bandeira', 'linha turismo'],
+  'parque tanguá': ['tangua', 'cascata'], 'ônibus': ['onibus', 'bus', 'garrafa térmica', 'otávio bandeira', 'linha turismo'],
   'central': ['central de operações'],
+  'serra': ['serra do mar', 'marumbi', 'silêncio na serra', 'silencio na serra'],
+  'trem': ['vagão', 'vagao', 'serra verde', 'litorina', 'pátio ferroviário', 'patio ferroviario'],
+  'túnel': ['tunel', 'roça nova', 'roca nova'],
+  'estação': ['estacao', 'morretes'],
+  'rio': ['nhundiaquara', 'ponte'],
+  'mirante da serra': ['mirante'],
 };
 
 export function sceneArt(place = '') {
@@ -136,10 +198,27 @@ const PORTRAIT_STYLE = {
   P006: { color: '#5c8b64', trait: 'chapeu' },    // Wanda — bióloga
   P007: { color: '#8a6fd1', trait: 'celular' },   // Bianca — influencer
   P008: { color: '#4a6a8a', trait: 'oculos' },    // Klaus — detetive
+  // CASE002 — Silêncio na Serra
+  P101: { color: '#8896a2', trait: 'gravata' },   // Heitor — contador (vítima)
+  P102: { color: '#a3527c', trait: 'oculos' },    // Camila — advogada
+  P103: { color: '#7a1f1f', trait: 'bone' },      // Ivo — ferroviário
+  P104: { color: '#8a6fd1', trait: 'celular' },   // Sofia — fotógrafa
+  P105: { color: '#6b4e35', trait: 'chapeu' },    // Ernesto — colecionador
+  P106: { color: '#5c8b64', trait: 'coque' },     // Marta — irmã da vítima
+  P107: { color: '#4a6a8a', trait: 'gravata' },   // Davi — chefe de trem
 };
 
+// fallback determinístico para elencos futuros sem estilo definido
+function styleFor(pid) {
+  if (PORTRAIT_STYLE[pid]) return PORTRAIT_STYLE[pid];
+  const palette = ['#2F8B57', '#E0B658', '#c05f7c', '#8a6fd1', '#4a6a8a', '#7a6248'];
+  const traits = ['bone', 'oculos', 'coque', 'chapeu', 'celular', 'gravata'];
+  const h = [...String(pid)].reduce((a, c) => a + c.charCodeAt(0), 0);
+  return { color: palette[h % palette.length], trait: traits[h % traits.length] };
+}
+
 export function portrait(pid, nome = '') {
-  const st = PORTRAIT_STYLE[pid] || { color: '#44586a', trait: null };
+  const st = styleFor(pid);
   const traits = {
     bone: `<path d="M30 34 Q50 18 70 34 L70 40 L26 40 Z" fill="${st.color}" stroke="#08131F"/>`,
     gravata: `<path d="M47 78 L50 92 L53 78 Z" fill="#C0392B"/>`,

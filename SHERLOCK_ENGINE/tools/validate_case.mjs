@@ -10,10 +10,14 @@ import { readFile, readdir } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { runIntegrityChecks } from '../js/validators.js';
+import { CASE_DIRS, CASE_FILES, CASE_KINDS } from '../js/database.js';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const caseId = process.argv[2] || 'CASE001';
-const CASE_DIRS = { CASE001: 'cases/CASE001_A_Ultima_Parada' };
+if (!CASE_DIRS[caseId]) {
+  console.error(`Caso desconhecido: ${caseId}. Disponíveis: ${Object.keys(CASE_DIRS).join(', ')}`);
+  process.exit(1);
+}
 
 async function loadDir(dir, data) {
   for (const f of await readdir(path.join(root, dir))) {
@@ -30,7 +34,9 @@ async function loadDir(dir, data) {
 const data = {};
 Object.defineProperty(data, '__parseErrors', { value: [], enumerable: false });
 await loadDir('engine-data', data);
-await loadDir(CASE_DIRS[caseId], data); // design_source/ é subpasta — readdir não desce nela
+await loadDir(CASE_DIRS.CASE001, data); // âncora dos módulos required
+if (caseId !== 'CASE001') await loadDir(CASE_DIRS[caseId], data);
+for (const kind of CASE_KINDS) data[`CASE_${kind}`] = data[CASE_FILES[caseId][kind]] ?? null;
 
 const report = runIntegrityChecks(data);
 report.errors.unshift(...data.__parseErrors.map((e) => `JSON inválido: ${e}`));

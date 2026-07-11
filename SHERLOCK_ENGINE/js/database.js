@@ -7,7 +7,14 @@
 import { runIntegrityChecks } from './validators.js';
 
 const ENGINE_DATA_DIR = 'engine-data';
-export const CASE_DIRS = { CASE001: 'cases/CASE001_A_Ultima_Parada' };
+export const CASE_DIRS = {
+  CASE001: 'cases/CASE001_A_Ultima_Parada',
+  CASE002: 'cases/CASE002_Silencio_na_Serra',
+};
+
+// Aliases canônicos: as telas leem SEMPRE por alias (CASE_EVENTS, CASE_PACK…)
+// e a engine aponta os aliases para os arquivos do caso selecionado.
+export const CASE_KINDS = ['FULL', 'EVENTS', 'EVIDENCES', 'DOCUMENTS', 'DIALOGUES', 'WORLD', 'IMAGES', 'PACK'];
 
 // Lista explícita (fetch não enumera diretórios). Mantida em ordem alfabética;
 // a ordem de inicialização lógica vem de SHERLOCK_MASTER.startup_sequence.
@@ -68,16 +75,28 @@ export const ENGINE_FILES = [
   'SHERLOCK_MASTER_PROJECT',
 ];
 
+// Mapa tipo → nome de arquivo por caso (fetch não enumera diretórios)
 export const CASE_FILES = {
-  CASE001: [
-    'CASE001_COMPLETE_WORLD_STATE',
-    'CASE001_DIALOGUES_FULL',
-    'CASE001_DOCUMENTS_FULL',
-    'CASE001_EVENTS_FULL',
-    'CASE001_EVIDENCES_FULL',
-    'CASE001_IMAGES_FULL',
-    'SHERLOCK_ENGINE_CASE001_FULL',
-  ],
+  CASE001: {
+    FULL: 'SHERLOCK_ENGINE_CASE001_FULL',
+    EVENTS: 'CASE001_EVENTS_FULL',
+    EVIDENCES: 'CASE001_EVIDENCES_FULL',
+    DOCUMENTS: 'CASE001_DOCUMENTS_FULL',
+    DIALOGUES: 'CASE001_DIALOGUES_FULL',
+    WORLD: 'CASE001_COMPLETE_WORLD_STATE',
+    IMAGES: 'CASE001_IMAGES_FULL',
+    PACK: 'CASE001_CONTENT_PACK',
+  },
+  CASE002: {
+    FULL: 'CASE002_FULL',
+    EVENTS: 'CASE002_EVENTS_FULL',
+    EVIDENCES: 'CASE002_EVIDENCES_FULL',
+    DOCUMENTS: 'CASE002_DOCUMENTS_FULL',
+    DIALOGUES: 'CASE002_DIALOGUES_FULL',
+    WORLD: 'CASE002_COMPLETE_WORLD_STATE',
+    IMAGES: 'CASE002_IMAGES_FULL',
+    PACK: 'CASE002_CONTENT_PACK',
+  },
 };
 
 const store = {};       // nome do arquivo (sem .json) -> objeto
@@ -93,15 +112,20 @@ async function fetchJson(path, name, failures) {
   }
 }
 
-/** Carrega engine-data + arquivos do caso. Retorna o relatório de integridade. */
+/** Carrega engine-data + arquivos do caso (aliases CASE_*). Retorna o relatório. */
 export async function loadAll(caseId = 'CASE001', onProgress = () => {}) {
   const failures = [];
   const caseDir = CASE_DIRS[caseId];
   if (!caseDir) throw new Error(`404_CASE_NOT_FOUND: ${caseId}`);
 
+  // CASE001 é a âncora da campanha e satisfaz os módulos required do
+  // MASTER_PROJECT; o caso selecionado entra por cima, via aliases CASE_*.
   const jobs = [
     ...ENGINE_FILES.map((n) => [`${ENGINE_DATA_DIR}/${n}.json`, n]),
-    ...CASE_FILES[caseId].map((n) => [`${caseDir}/${n}.json`, n]),
+    ...Object.values(CASE_FILES.CASE001).map((n) => [`${CASE_DIRS.CASE001}/${n}.json`, n]),
+    ...(caseId !== 'CASE001'
+      ? Object.values(CASE_FILES[caseId]).map((n) => [`${caseDir}/${n}.json`, n])
+      : []),
   ];
   let done = 0;
   await Promise.all(
@@ -109,6 +133,10 @@ export async function loadAll(caseId = 'CASE001', onProgress = () => {}) {
       fetchJson(path, name, failures).then(() => onProgress(++done, jobs.length, name))
     )
   );
+
+  for (const kind of CASE_KINDS) {
+    store[`CASE_${kind}`] = store[CASE_FILES[caseId][kind]] ?? null;
+  }
 
   report = runIntegrityChecks(store);
   for (const f of failures) report.errors.unshift(`Falha ao carregar ${f}`);
@@ -145,9 +173,10 @@ export function getById(id) {
     ['SHERLOCK_ENGINE_OBJETOS', 'objetos'],
     ['SHERLOCK_ENGINE_DOCUMENTOS', 'documentos'],
     ['SHERLOCK_ENGINE_ENIGMAS', 'enigmas'],
-    ['CASE001_EVIDENCES_FULL', 'evidences'],
-    ['CASE001_DOCUMENTS_FULL', 'documents'],
-    ['CASE001_EVENTS_FULL', 'timeline'],
+    ['CASE_PACK', 'characters'],
+    ['CASE_EVIDENCES', 'evidences'],
+    ['CASE_DOCUMENTS', 'documents'],
+    ['CASE_EVENTS', 'timeline'],
   ];
   for (const [mod, coll] of sources) {
     const hit = (store[mod]?.[coll] || []).find((x) => x.id === id);

@@ -2,7 +2,7 @@
  * screens/campaign.js — QG da campanha "Sherlock Chronicles" (campaign_hub):
  * seleção de episódios, carreira (patente/XP/reputação) e sala de troféus.
  */
-import { getModule } from '../database.js';
+import { getModule, CASE_FILES } from '../database.js';
 import { el, screenShell } from '../uiManager.js';
 import { episodes, getCareer, levelInfo } from '../campaign.js';
 import { sceneArt } from '../art.js';
@@ -11,7 +11,7 @@ import { sfx, ambience } from '../audioManager.js';
 
 const EPISODE_ART = {
   CASE001: 'rua 24 horas',
-  CASE002: 'parque tanguá',   // serra: usa o pôr do sol do mirante como teaser
+  CASE002: 'serra',
   CASE003: 'mon',
   CASE004: 'central',
 };
@@ -89,7 +89,7 @@ function openEpisode(ep) {
     emit('UI_TOAST', { text: `🔒 ${ep.title}: ${ep.unlock}.`, kind: 'warn' });
     return;
   }
-  if (ep.id !== 'CASE001') {
+  if (!CASE_FILES[ep.id]) { // episódio sem conteúdo instalado em cases/
     emit('UI_TOAST', { text: `🎬 ${ep.title} está em produção — crie o conteúdo no Sherlock Studio e coloque em cases/.`, kind: 'info' });
     return;
   }

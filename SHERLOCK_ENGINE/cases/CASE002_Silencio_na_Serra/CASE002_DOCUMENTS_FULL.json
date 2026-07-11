@@ -1,0 +1,121 @@
+{
+  "schema": "CASE002_DOCUMENTS_FULL",
+  "version": "1.0",
+  "case": "SRR-0904",
+  "documents": [
+    {
+      "id": "DOC101",
+      "title": "Laudo Cadavérico Preliminar",
+      "type": "Laudo Médico-Legal",
+      "author": "Legista",
+      "classification": "Confidencial",
+      "summary": "Asfixia mecânica por constrição: sulco fino e horizontal no pescoço, compatível com garrote. Sem sinais de luta — a vítima foi atacada por trás, no escuro."
+    },
+    {
+      "id": "DOC102",
+      "title": "Laudo de Fibras",
+      "type": "Laboratório",
+      "summary": "Fibras de nylon 6 trançado encontradas no sulco são idênticas às da corda recuperada no rio e às aderidas às luvas de serviço.",
+      "related": [
+        "EV101",
+        "EV102"
+      ]
+    },
+    {
+      "id": "DOC103",
+      "title": "Manifesto do Serra Verde",
+      "type": "Operacional",
+      "summary": "Lista de passageiros por vagão. Vagão 2 (panorâmico): Heitor, Sofia, Ernesto. Vagão 1: Camila e mais 12. Tripulação: Davi (chefe), Ivo (auxiliar).",
+      "fields": [
+        "Nome",
+        "Vagão",
+        "Embarque"
+      ]
+    },
+    {
+      "id": "DOC104",
+      "title": "Registro do Painel de Energia",
+      "type": "Registro Técnico",
+      "summary": "Acionamento MANUAL do disjuntor do vagão 2 às 14:52; religamento às 14:56. Acesso restrito à tripulação.",
+      "related": [
+        "EV104"
+      ]
+    },
+    {
+      "id": "DOC105",
+      "title": "Diário de Operação",
+      "type": "Registro",
+      "summary": "Davi anota: \"Ivo na cabine durante toda a travessia da serra.\" A rasura sobre o horário 14:50 é visível a olho nu."
+    },
+    {
+      "id": "DOC106",
+      "title": "Ficha Funcional de Ivo Rezende",
+      "type": "RH",
+      "classification": "Restrito",
+      "summary": "Auxiliar ferroviário desde 2019. Transferido para a linha da serra em 2024, semanas depois de renegociar dívidas pessoais.",
+      "related": [
+        "P103"
+      ]
+    },
+    {
+      "id": "DOC107",
+      "title": "Notícia — Fundação Pinhal",
+      "type": "Notícia",
+      "summary": "\"Fundação Pinhal multiplica doações na serra\": ONG recém-criada movimenta valores incompatíveis com sua estrutura. Codinomes citados em nota fiscal: MUSEU, JARDINEIRO, RODAS e MAQUINISTA."
+    },
+    {
+      "id": "DOC108",
+      "title": "Caderno de Heitor Salles",
+      "type": "Manuscrito",
+      "summary": "Contabilidade paralela em código. Última página, sublinhado três vezes, um alerta cifrado.",
+      "related": [
+        "P101"
+      ]
+    },
+    {
+      "id": "DOC109",
+      "title": "Extrato — Compra de Dívida",
+      "type": "Financeiro",
+      "summary": "A Fundação Pinhal quitou integralmente as dívidas de um funcionário ferroviário em março. Beneficiário indicado apenas por codinome: MAQUINISTA.",
+      "related": [
+        "DOC107"
+      ]
+    },
+    {
+      "id": "DOC110",
+      "title": "Relatório Final do Caso",
+      "type": "Conclusão",
+      "summary": "Consolidação de todas as provas para a Sala do Júri.",
+      "requires": [
+        "EV101",
+        "EV102",
+        "EV103",
+        "EV104"
+      ]
+    }
+  ],
+  "index": {
+    "medical": [
+      "DOC101",
+      "DOC102"
+    ],
+    "operational": [
+      "DOC103",
+      "DOC104",
+      "DOC105"
+    ],
+    "historical": [
+      "DOC106"
+    ],
+    "financial": [
+      "DOC107",
+      "DOC109"
+    ],
+    "intelligence": [
+      "DOC108"
+    ],
+    "final": [
+      "DOC110"
+    ]
+  }
+}

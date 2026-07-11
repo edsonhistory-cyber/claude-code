@@ -1,13 +1,13 @@
 /**
- * screens/jury.js — Sala do Júri: cofre dos 4 códigos (PER-77/INT-40/CAM-19/
- * ARQ-02) e acusação final (suspeito + local + método).
+ * screens/jury.js — Sala do Júri multi-caso: cofre com códigos dos dossiês do
+ * pack e acusação com opções do pack (jury.suspects/locations/methods).
  *
- * REGRA DE OURO Nº 1: a solução permanece em base64 e só é decodificada AQUI,
- * dentro de verdict(), no clique de "EMITIR VEREDITO". Nunca é logada.
+ * REGRA DE OURO Nº 1: a solução permanece em base64 (CASE_FULL.final_solution)
+ * e só é decodificada AQUI, no clique de "EMITIR VEREDITO". Nunca é logada.
  */
 import { getModule } from '../database.js';
 import { screenShell, el, toast, modal } from '../uiManager.js';
-import { getCase, openSafe, juryRequirementsMet, addScore, solveEnigma, rankForScore, DOSSIERS } from '../caseState.js';
+import { getCase, getPack, getDossiers, openSafe, juryRequirementsMet, addScore, solveEnigma, rankForScore } from '../caseState.js';
 import { emit } from '../eventManager.js';
 import { portrait } from '../art.js';
 import { sfx, ambience, speak } from '../audioManager.js';
@@ -22,14 +22,14 @@ export function render() {
   renderAccusation(body, s);
 }
 
-// ── Cofre ────────────────────────────────────────────────────────────────────
 function renderSafe(body, s) {
+  const dossiers = getDossiers();
   const box = el('div', 'panel safe-panel');
   box.append(el('h2', 'panel-title', '🔐 COFRE DA SALA DO JÚRI'));
-  box.append(el('p', '', 'Quatro dossiês, quatro códigos. Complete os enigmas de cada dossiê para obter os códigos e destravar a acusação.'));
+  box.append(el('p', '', `${Object.keys(dossiers).length} dossiês, ${Object.keys(dossiers).length} códigos. Complete os enigmas de cada dossiê para obter os códigos e destravar a acusação.`));
 
   const grid = el('div', 'safe-grid');
-  for (const [key, d] of Object.entries(DOSSIERS)) {
+  for (const d of Object.values(dossiers)) {
     const got = s.codes.includes(d.code);
     const solved = d.enigmas.filter((e) => s.enigmasSolved.includes(e)).length;
     const slot = el('div', `card safe-slot${got ? ' ok' : ''}`);
@@ -44,37 +44,33 @@ function renderSafe(body, s) {
   box.append(el('p', tlOk ? 'row-tag ok' : 'muted', tlOk ? '✔ Linha do tempo reconstruída' : '🔒 A acusação também exige a linha do tempo correta.'));
 
   if (juryRequirementsMet()) {
-    const open = el('button', 'btn btn-primary', 'INSERIR OS 4 CÓDIGOS E ABRIR O COFRE');
+    const open = el('button', 'btn btn-primary', `INSERIR OS ${Object.keys(dossiers).length} CÓDIGOS E ABRIR O COFRE`);
     open.onclick = () => { sfx('unlock'); openSafe(); toast('🔓 Cofre aberto! A Sala do Júri está liberada. +100', 'success'); render(); };
     box.append(open);
   } else {
-    box.append(el('p', 'muted', `Códigos obtidos: ${s.codes.length}/4.`));
+    box.append(el('p', 'muted', `Códigos obtidos: ${s.codes.length}/${Object.keys(dossiers).length}.`));
   }
   body.append(box);
 }
 
-// ── Acusação ─────────────────────────────────────────────────────────────────
+function characterById(pid) {
+  return (getPack().characters || []).find((p) => p.id === pid)
+    || (getModule('SHERLOCK_ENGINE_PERSONAGENS')?.personagens || []).find((p) => p.id === pid);
+}
+
 function renderAccusation(body, s) {
-  const people = (getModule('SHERLOCK_ENGINE_PERSONAGENS')?.personagens || []).filter((p) => p.id !== 'P001' && !p.id.match(/P0(09|1\d|20)/));
-  const stops = getModule('SHERLOCK_ENGINE_GEOINT')?.route?.stops || [];
-  const locations = [...stops.filter((x) => x.id !== 'KM18').map((x) => x.name), 'KM18 / Ônibus'];
-  const methods = [
-    'Veneno no café da garrafa térmica',
-    'Chá de ervas envenenado',
-    'Queda do mirante',
-    'Medicamento adulterado',
-    'Asfixia durante a parada',
-  ];
+  const jury = getPack().jury || {};
+  const people = (jury.suspects || []).map(characterById).filter(Boolean);
 
   const wrap = el('div', 'jury-wrap');
   const col1 = section('1 · QUEM?', people.map((p) => ({ id: p.nome, html: `<div class="suspect-portrait">${portrait(p.id)}</div><b>${p.nome}</b><span class="muted">${p.papel}</span>` })), 'suspect');
-  const col2 = section('2 · ONDE?', locations.map((l) => ({ id: l, html: `<b>${l}</b>` })), 'location');
-  const col3 = section('3 · COMO?', methods.map((m) => ({ id: m, html: `<b>${m}</b>` })), 'method');
+  const col2 = section('2 · ONDE?', (jury.locations || []).map((l) => ({ id: l, html: `<b>${l}</b>` })), 'location');
+  const col3 = section('3 · COMO?', (jury.methods || []).map((m) => ({ id: m, html: `<b>${m}</b>` })), 'method');
   wrap.append(col1, col2, col3);
   body.append(wrap);
 
   const bar = el('div', 'panel jury-bar');
-  const resume = el('div', 'mono', summaryText());
+  const resume = el('div', 'mono', `ACUSAÇÃO: ${pick.suspect ?? '________'} · ${pick.location ?? '________'} · ${pick.method ?? '________'}`);
   const btn = el('button', 'btn btn-primary', 'EMITIR VEREDITO');
   btn.onclick = () => {
     if (!pick.suspect || !pick.location || !pick.method) return toast('Selecione suspeito, local e método.', 'warn');
@@ -92,10 +88,6 @@ function renderAccusation(body, s) {
       sec.append(b);
     }
     return sec;
-  }
-
-  function summaryText() {
-    return `ACUSAÇÃO: ${pick.suspect ?? '________'} · ${pick.location ?? '________'} · ${pick.method ?? '________'}`;
   }
 }
 
@@ -116,7 +108,7 @@ function verdict() {
   // Decodificação da solução lacrada — só aqui, só agora.
   let solution;
   try {
-    const sealed = getModule('SHERLOCK_ENGINE_CASE001_FULL')?.final_solution;
+    const sealed = getModule('CASE_FULL')?.final_solution;
     solution = JSON.parse(new TextDecoder().decode(Uint8Array.from(atob(sealed.data), (c) => c.charCodeAt(0))));
   } catch {
     return toast('Falha ao abrir o envelope lacrado da solução.', 'warn');
@@ -134,7 +126,8 @@ function verdict() {
 
   if (okSuspect && okLocation && okMethod) {
     s.solved = true;
-    solveEnigma('EN010');
+    const finalEnigma = getPack().final_enigma;
+    if (finalEnigma) solveEnigma(finalEnigma);
     addScore(getModule('SHERLOCK_ENGINE_GAMEPLAY')?.score?.acusacao_correta ?? 300, 'Acusação correta');
     emit('CASE_SOLVED', { score: s.score });
     speak(dialogos.sucesso || 'O tribunal aceita a acusação.', { pitch: 0.75, rate: 0.95 });
@@ -146,7 +139,7 @@ function verdict() {
       <p><b>Local:</b> ${solution.location}<br><b>Método:</b> ${solution.method}</p>
       <p><b>Provas decisivas:</b></p><ul>${(solution.proofs || []).map((p) => `<li>${p}</li>`).join('')}</ul>
       <p class="muted">"${dialogos.sucesso || ''}"</p>`;
-    modal('⚖ VEREDITO — CASO CWB-1447 ENCERRADO', content, [
+    modal(`⚖ VEREDITO — CASO ${getModule('CASE_FULL')?.case?.id ?? ''} ENCERRADO`, content, [
       { label: 'VER RESULTADO', primary: true, onClick: () => emit('UI_GOTO', { state: 'RESULTADO' }) },
     ]);
   } else {
@@ -156,7 +149,7 @@ function verdict() {
     const hints = [];
     if (!okSuspect) hints.push('o autor não corresponde às provas físicas');
     if (!okLocation) hints.push('o local não bate com a cadeia de custódia');
-    if (!okMethod) hints.push('o método contradiz o laudo toxicológico');
+    if (!okMethod) hints.push('o método contradiz os laudos');
     modal('⚖ ACUSAÇÃO REJEITADA', `<div class="verdict-stamp bad">REJEITADA</div>
       <p>"${dialogos.falha || 'Evidências insuficientes.'}"</p>
       <p class="muted">O júri observa que ${hints.join('; ')}.</p>`, []);

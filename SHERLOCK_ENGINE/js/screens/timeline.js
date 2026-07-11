@@ -14,7 +14,7 @@ export function render() {
   const { body } = screenShell('Linha do Tempo', 'CENTRAL › LINHA DO TEMPO');
   ambience('central');
   const s = getCase();
-  const events = getModule('CASE001_EVENTS_FULL')?.timeline || [];
+  const events = getModule('CASE_EVENTS')?.timeline || [];
 
   if (s.timelineDone) {
     const done = el('div', 'panel timeline-done');

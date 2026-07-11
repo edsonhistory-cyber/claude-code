@@ -7,13 +7,24 @@ import { getModule } from './database.js';
 import { emit } from './eventManager.js';
 
 let autosaveTimer = null;
+let activeCaseId = 'CASE001';
+
+/** Define o caso ativo — cada caso tem seu próprio slot de save. */
+export function setActiveCase(caseId) {
+  activeCaseId = caseId || 'CASE001';
+}
 
 function cfg() {
-  return getModule('SHERLOCK_ENGINE_SAVE')?.storage ?? {
+  const base = getModule('SHERLOCK_ENGINE_SAVE')?.storage ?? {
     save_key: 'sherlock_case001_save',
     autosave_interval_seconds: 60,
     backup_slots: 5,
   };
+  // CASE001 mantém a chave original do design; os demais ganham sufixo
+  const save_key = activeCaseId === 'CASE001'
+    ? base.save_key
+    : `sherlock_${activeCaseId.toLowerCase()}_save`;
+  return { ...base, save_key };
 }
 
 function emptySave() {

@@ -1,23 +1,26 @@
 /**
- * screens/mural.js — Mural de investigação: suspeição MMO por suspeito
- * (deductionEngine) + conexões entre pistas validadas pelo knowledge_graph.
+ * screens/mural.js — Mural multi-caso: suspeição MMO (fatores do pack) e
+ * conexões validadas pelo knowledge_graph (pack.knowledge_graph ou DATABASE).
  */
 import { getModule } from '../database.js';
 import { screenShell, el, toast } from '../uiManager.js';
-import { getCase, addScore } from '../caseState.js';
+import { getCase, getPack, hasReq, addScore } from '../caseState.js';
 import { computeSuspicion, hypothesisState } from '../deductionEngine.js';
 import { portrait } from '../art.js';
 import { sfx, ambience } from '../audioManager.js';
 
 let linkFrom = null;
 
+function characterById(pid) {
+  return (getPack().characters || []).find((p) => p.id === pid)
+    || (getModule('SHERLOCK_ENGINE_PERSONAGENS')?.personagens || []).find((p) => p.id === pid);
+}
+
 export function render() {
   const { body } = screenShell('Mural', 'CENTRAL › MURAL DE INVESTIGAÇÃO');
   ambience('central');
   const s = getCase();
-  const deduction = getModule('SHERLOCK_ENGINE_DEDUCTION');
-  const suspicion = computeSuspicion(deduction);
-  const people = getModule('SHERLOCK_ENGINE_PERSONAGENS')?.personagens || [];
+  const suspicion = computeSuspicion(getModule('SHERLOCK_ENGINE_DEDUCTION'));
 
   const top = el('div', 'panel mural-status');
   top.innerHTML = `<span>Hipótese principal: <b>${hypothesisState()}</b></span>
@@ -25,10 +28,9 @@ export function render() {
     <span>Conexões: <b>${s.muralLinks.length}</b></span>`;
   body.append(top);
 
-  // ── suspeitos com barra MMO ──
   const grid = el('div', 'mural-suspects');
   for (const [pid, data] of Object.entries(suspicion)) {
-    const p = people.find((x) => x.id === pid);
+    const p = characterById(pid);
     const card = el('div', `card mural-suspect${data.eliminated ? ' eliminated' : ''}`);
     card.innerHTML = `<div class="suspect-portrait">${portrait(pid)}</div>
       <b>${p?.nome || pid}</b><span class="muted">${p?.papel || ''}</span>
@@ -40,9 +42,8 @@ export function render() {
   }
   body.append(grid);
 
-  // ── conexões entre pistas (validação pelo knowledge_graph) ──
-  const kg = getModule('SHERLOCK_ENGINE_DATABASE')?.knowledge_graph || [];
-  const nodes = availableNodes(s);
+  const kg = getPack().knowledge_graph || getModule('SHERLOCK_ENGINE_DATABASE')?.knowledge_graph || [];
+  const nodes = (getPack().mural_nodes || []).filter((n) => !n.need || hasReq(n.need));
   const linkPanel = el('div', 'panel list-panel');
   linkPanel.append(el('h2', 'panel-title', 'CONECTAR PISTAS'));
   linkPanel.append(el('p', 'muted', linkFrom ? `Origem: ${linkFrom.label}. Escolha o destino…` : 'Escolha duas pistas para propor uma conexão. Conexões corretas valem +5.'));
@@ -66,17 +67,6 @@ export function render() {
     linkPanel.append(done);
   }
   body.append(linkPanel);
-}
-
-function availableNodes(s) {
-  const nodes = [];
-  const has = (id) => s.collected.includes(id);
-  if (has('EV001')) nodes.push({ id: 'OBJ001', label: 'Garrafa térmica' }, { id: 'EV001', label: 'Veneno no café' });
-  if (has('EV002')) nodes.push({ id: 'OBJ003', label: 'Luvas azuis' }, { id: 'EV002', label: 'Fibra azul' });
-  if (has('EV003')) nodes.push({ id: 'EV003', label: 'Vídeo da Bianca' });
-  if (s.documents.includes('DOC004')) nodes.push({ id: 'DOC004', label: 'Tacógrafo' });
-  nodes.push({ id: 'P002', label: 'Sérgio Bento' }, { id: 'LOC004', label: 'KM18' });
-  return nodes;
 }
 
 function tryLink(a, b, kg, s) {

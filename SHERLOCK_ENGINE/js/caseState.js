@@ -6,30 +6,25 @@
 import { getModule } from './database.js';
 import { emit } from './eventManager.js';
 
-// Dossiês → enigmas (ciclo de tokens do CASE001: cada dossiê tem enigmas livres
-// e no máximo um gate pelo token recebido — CAMPO recebe ROTAS como bônus, sem gate,
-// exatamente o "ciclo sem deadlock" do design).
-export const DOSSIERS = {
-  PERICIA: { nome: 'Perícia', enigmas: ['EN007', 'EN001'], code: 'PER-77', emits: 'CAFE', receives: 'KM18' },
-  INTELIGENCIA: { nome: 'Inteligência', enigmas: ['EN002', 'EN006', 'EN008'], code: 'INT-40', emits: 'RODAS', receives: 'CAFE' },
-  ARQUIVO: { nome: 'Arquivo', enigmas: ['EN009'], code: 'ARQ-02', emits: 'ROTAS', receives: 'RODAS' },
-  CAMPO: { nome: 'Campo', enigmas: ['EN003', 'EN004', 'EN005'], code: 'CAM-19', emits: 'KM18', receives: 'ROTAS' },
-};
+// Dossiês, gates de enigma e regras de progressão vêm do CONTENT_PACK do caso
+// ativo (alias CASE_PACK) — a engine é multi-caso (CORE.supports_new_cases).
+export function getPack() {
+  return getModule('CASE_PACK') || {};
+}
 
-// Gates de enigma (pré-requisitos além do token do dossiê)
-export const ENIGMA_GATES = {
-  EN001: { token: 'KM18', needs: ['tox_done'], hintLocked: 'Requer o token KM18 (Campo) e a toxicologia concluída.' },
-  EN002: { needs: ['doc:DOC008'], hintLocked: 'Requer a Planilha de Codinomes (DOC008 — pesquise no OSINT).' },
-  EN003: { needs: ['ev:EV004'], hintLocked: 'Requer o tacógrafo coletado no ônibus.' },
-  EN004: {},
-  EN005: { needs: ['contradicao'], hintLocked: 'Requer a Contradição 01 (confronte Sérgio com a análise de fibras).' },
-  EN006: { needs: ['ev:EV003'], hintLocked: 'Requer o vídeo da Bianca (converse com ela nos Interrogatórios).' },
-  EN007: { needs: ['ev:EV001', 'ev:EV002', 'fib_done'], hintLocked: 'Requer garrafa e luvas coletadas e a microscopia de fibras.' },
-  EN008: { token: 'CAFE', hintLocked: 'Requer o token CAFE (Perícia).' },
-  EN009: { token: 'RODAS', needs: ['doc:DOC003'], hintLocked: 'Requer o token RODAS (Inteligência) e o Manifesto lido.' },
-};
+export function getDossiers() {
+  return getPack().dossiers || {};
+}
 
-const state = {
+export function gateFor(id) {
+  return (getPack().enigma_gates || {})[id] || {};
+}
+
+export function gateHint(id) {
+  return gateFor(id).hintLocked || 'Pré-requisitos pendentes para este enigma.';
+}
+
+const EMPTY = () => ({
   act: 1,
   score: 0,
   collected: [],        // EV001..EV004 (+ objetos coletáveis OBJxxx)
@@ -54,12 +49,20 @@ const state = {
   muralLinks: [],       // conexões feitas no mural
   suspicion: {},        // P00x -> 0..100 (deductionEngine)
   flags: {},            // avulsos
-};
+});
+
+let state = EMPTY();
 
 export function getCase() { return state; }
 
 export function hydrate(saved) {
+  state = EMPTY();
   if (saved && typeof saved === 'object') Object.assign(state, saved);
+}
+
+/** Zera o estado ao trocar de caso. */
+export function reset() {
+  state = EMPTY();
 }
 
 export function addScore(points, reason) {
@@ -98,7 +101,7 @@ export function hasReq(req) {
 }
 
 export function enigmaUnlocked(id) {
-  const gate = ENIGMA_GATES[id] || {};
+  const gate = gateFor(id);
   if (gate.token && !state.tokens.includes(gate.token)) return false;
   return (gate.needs || []).every(hasReq);
 }
@@ -109,7 +112,7 @@ export function solveEnigma(id) {
   addScore(scoreCfg().resolver_enigma ?? 50, `Enigma resolvido: ${id}`);
   emit('TOKEN_UNLOCKED', { token: id });
   // dossiê completo → código do cofre + token emitido para o próximo dossiê
-  for (const [key, d] of Object.entries(DOSSIERS)) {
+  for (const [key, d] of Object.entries(getDossiers())) {
     if (d.enigmas.every((e) => state.enigmasSolved.includes(e)) && !state.codes.includes(d.code)) {
       state.codes.push(d.code);
       if (!state.tokens.includes(d.emits)) state.tokens.push(d.emits);
@@ -147,14 +150,21 @@ export function openSafe() {
 }
 
 export function juryRequirementsMet() {
-  return state.codes.length === 4 && state.timelineDone;
+  return state.codes.length === Object.keys(getDossiers()).length && state.timelineDone;
+}
+
+// requisito com prefixo en: também é aceito nas regras de progressão do pack
+function progressReq(req) {
+  if (req.startsWith('en:')) return state.enigmasSolved.includes(req.slice(3));
+  return hasReq(req);
 }
 
 export function updateAct() {
-  // ACT1 Embarque → ACT2 KM18 (tacógrafo/parada) → ACT3 Laboratório (toxicologia) → ACT4 Júri
+  // regras do pack (acts_progress): ato 2/3 por condição, ato 4 = cofre aberto
+  const rules = getPack().acts_progress || {};
   let act = 1;
-  if (state.collected.includes('EV004') || state.enigmasSolved.includes('EN004')) act = 2;
-  if (state.analyzed.includes('tox_done')) act = 3;
+  if ((rules.act2 || []).some(progressReq)) act = 2;
+  if ((rules.act3 || []).some(progressReq)) act = 3;
   if (state.safeOpened) act = 4;
   if (act !== state.act) {
     state.act = act;
@@ -163,7 +173,7 @@ export function updateAct() {
 }
 
 export function rankForScore(score) {
-  const ranks = getModule('SHERLOCK_ENGINE_CASE001_FULL')?.completion?.score_rank || {};
+  const ranks = getModule('CASE_FULL')?.completion?.score_rank || {};
   const sorted = Object.entries(ranks).map(([k, v]) => [Number(k), v]).sort((a, b) => b[0] - a[0]);
   for (const [min, title] of sorted) if (score >= min) return title;
   return 'Investigador em Treinamento';

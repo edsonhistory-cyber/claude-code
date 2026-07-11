@@ -1,0 +1,54 @@
+{
+  "schema": "CASE002_IMAGES_FULL",
+  "version": "1.0",
+  "case": "SRR-0904",
+  "style": {
+    "quality": "SVG procedural",
+    "look": "Serra do Mar: verde profundo + dourado da tarde",
+    "aspect_default": "16:9"
+  },
+  "categories": {
+    "locations": [
+      {
+        "id": "IMG_S001",
+        "name": "Estação Curitiba",
+        "views": [
+          "plataforma"
+        ]
+      },
+      {
+        "id": "IMG_S002",
+        "name": "Serra do Mar",
+        "views": [
+          "trem",
+          "mata"
+        ]
+      },
+      {
+        "id": "IMG_S003",
+        "name": "Túnel Roça Nova",
+        "views": [
+          "boca",
+          "interior"
+        ]
+      },
+      {
+        "id": "IMG_S004",
+        "name": "Ponte do Nhundiaquara",
+        "views": [
+          "rio"
+        ]
+      },
+      {
+        "id": "IMG_S005",
+        "name": "Estação Morretes",
+        "views": [
+          "fachada"
+        ]
+      }
+    ]
+  },
+  "statistics": {
+    "total": 5
+  }
+}

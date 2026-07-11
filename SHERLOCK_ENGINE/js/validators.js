@@ -80,14 +80,17 @@ export function runIntegrityChecks(data) {
   const warnings = [];
 
   const get = (name) => data[name];
+  // aliases CASE_* apontam para o caso ativo; sem alias, cai no CASE001
+  const getCase = (kind, legacy) => data[`CASE_${kind}`] ?? data[legacy];
   const masterProject = get('SHERLOCK_MASTER_PROJECT');
-  const caseFull = get('SHERLOCK_ENGINE_CASE001_FULL');
+  const caseFull = getCase('FULL', 'SHERLOCK_ENGINE_CASE001_FULL');
+  const pack = getCase('PACK', 'CASE001_CONTENT_PACK');
   const gameplay = get('SHERLOCK_ENGINE_GAMEPLAY');
   const database = get('SHERLOCK_ENGINE_DATABASE');
-  const evidences = get('CASE001_EVIDENCES_FULL');
-  const events = get('CASE001_EVENTS_FULL');
-  const dialogues = get('CASE001_DIALOGUES_FULL');
-  const caseDocs = get('CASE001_DOCUMENTS_FULL');
+  const evidences = getCase('EVIDENCES', 'CASE001_EVIDENCES_FULL');
+  const events = getCase('EVENTS', 'CASE001_EVENTS_FULL');
+  const dialogues = getCase('DIALOGUES', 'CASE001_DIALOGUES_FULL');
+  const caseDocs = getCase('DOCUMENTS', 'CASE001_DOCUMENTS_FULL');
 
   // ── 1. Módulos obrigatórios do MASTER_PROJECT presentes ──────────────────
   if (masterProject?.modules) {
@@ -120,7 +123,9 @@ export function runIntegrityChecks(data) {
   if (database?.entities) {
     for (const group of Object.values(database.entities)) addIds(group);
   }
-  const tokens = (gameplay?.multiplayer?.shared_tokens || []).map(norm);
+  addIds(pack?.characters); // elenco específico do caso (packs pós-CASE001)
+  // tokens do ciclo: o pack do caso manda; sem pack, vale o GAMEPLAY global
+  const tokens = (pack?.tokens || gameplay?.multiplayer?.shared_tokens || []).map(norm);
   for (const t of tokens) known.add(t);
 
   // ── 3. IDs duplicados dentro de cada coleção ─────────────────────────────
@@ -173,7 +178,9 @@ export function runIntegrityChecks(data) {
 
   // ── 6. Ciclo de tokens dos 4 dossiês (sem deadlock estrutural) ───────────
   const deps = caseFull?.dependencies || [];
-  const roles = (gameplay?.multiplayer?.roles || []).map(norm);
+  const roles = (Object.keys(pack?.dossiers || {}).length
+    ? Object.keys(pack.dossiers)
+    : gameplay?.multiplayer?.roles || []).map(norm);
   if (deps.length !== 4) {
     errors.push(`CASE001.dependencies: esperado ciclo de 4 arestas, encontrado ${deps.length}.`);
   } else {

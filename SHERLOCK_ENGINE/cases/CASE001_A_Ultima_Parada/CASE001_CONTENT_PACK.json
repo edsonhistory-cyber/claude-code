@@ -1,0 +1,1072 @@
+{
+  "schema": "CASE_CONTENT_PACK",
+  "version": "1.0",
+  "case": "CASE001",
+  "opening_cinematic": "CIN001",
+  "tokens": [
+    "CAFE",
+    "RODAS",
+    "KM18",
+    "ROTAS"
+  ],
+  "dossiers": {
+    "PERICIA": {
+      "nome": "Perícia",
+      "enigmas": [
+        "EN007",
+        "EN001"
+      ],
+      "code": "PER-77",
+      "emits": "CAFE",
+      "receives": "KM18"
+    },
+    "INTELIGENCIA": {
+      "nome": "Inteligência",
+      "enigmas": [
+        "EN002",
+        "EN006",
+        "EN008"
+      ],
+      "code": "INT-40",
+      "emits": "RODAS",
+      "receives": "CAFE"
+    },
+    "ARQUIVO": {
+      "nome": "Arquivo",
+      "enigmas": [
+        "EN009"
+      ],
+      "code": "ARQ-02",
+      "emits": "ROTAS",
+      "receives": "RODAS"
+    },
+    "CAMPO": {
+      "nome": "Campo",
+      "enigmas": [
+        "EN003",
+        "EN004",
+        "EN005"
+      ],
+      "code": "CAM-19",
+      "emits": "KM18",
+      "receives": "ROTAS"
+    }
+  },
+  "enigma_gates": {
+    "EN001": {
+      "token": "KM18",
+      "needs": [
+        "tox_done"
+      ],
+      "hintLocked": "Requer o token KM18 (Campo) e a toxicologia concluída."
+    },
+    "EN002": {
+      "needs": [
+        "doc:DOC008"
+      ],
+      "hintLocked": "Requer a Planilha de Codinomes (DOC008 — pesquise no OSINT)."
+    },
+    "EN003": {
+      "needs": [
+        "ev:EV004"
+      ],
+      "hintLocked": "Requer o tacógrafo coletado no ônibus."
+    },
+    "EN004": {},
+    "EN005": {
+      "needs": [
+        "contradicao"
+      ],
+      "hintLocked": "Requer a Contradição 01 (confronte Sérgio com a análise de fibras)."
+    },
+    "EN006": {
+      "needs": [
+        "ev:EV003"
+      ],
+      "hintLocked": "Requer o vídeo da Bianca (converse com ela nos Interrogatórios)."
+    },
+    "EN007": {
+      "needs": [
+        "ev:EV001",
+        "ev:EV002",
+        "fib_done"
+      ],
+      "hintLocked": "Requer garrafa e luvas coletadas e a microscopia de fibras."
+    },
+    "EN008": {
+      "token": "CAFE",
+      "hintLocked": "Requer o token CAFE (Perícia)."
+    },
+    "EN009": {
+      "token": "RODAS",
+      "needs": [
+        "doc:DOC003"
+      ],
+      "hintLocked": "Requer o token RODAS (Inteligência) e o Manifesto lido."
+    }
+  },
+  "acts_progress": {
+    "act2": [
+      "ev:EV004",
+      "en:EN004"
+    ],
+    "act3": [
+      "tox_done"
+    ]
+  },
+  "stops": [
+    {
+      "id": "R24",
+      "name": "Rua 24 Horas",
+      "time": "14:00",
+      "scene": "rua 24 horas",
+      "ambience": "cidade",
+      "pos": [
+        70,
+        200
+      ]
+    },
+    {
+      "id": "JB",
+      "name": "Jardim Botânico",
+      "time": "15:20",
+      "scene": "jardim botânico",
+      "ambience": "parque",
+      "pos": [
+        150,
+        235
+      ]
+    },
+    {
+      "id": "MON",
+      "name": "Museu Oscar Niemeyer",
+      "time": "15:35",
+      "scene": "mon",
+      "ambience": "cidade",
+      "pos": [
+        205,
+        130
+      ]
+    },
+    {
+      "id": "BUS",
+      "name": "Ônibus (pátio da perícia)",
+      "time": "—",
+      "scene": "ônibus",
+      "ambience": "cidade",
+      "pos": [
+        280,
+        210
+      ],
+      "off_route": true
+    },
+    {
+      "id": "KM18",
+      "name": "Parada não programada",
+      "time": "15:47",
+      "scene": "km18",
+      "ambience": "cidade",
+      "pos": [
+        320,
+        90
+      ],
+      "danger": true
+    },
+    {
+      "id": "OPA",
+      "name": "Ópera de Arame",
+      "time": "16:05",
+      "scene": "ópera de arame",
+      "ambience": "parque",
+      "pos": [
+        235,
+        60
+      ]
+    },
+    {
+      "id": "BAR",
+      "name": "Parque Barigui",
+      "time": "16:45",
+      "scene": "parque barigui",
+      "ambience": "agua",
+      "pos": [
+        110,
+        70
+      ]
+    },
+    {
+      "id": "TAN",
+      "name": "Parque Tanguá",
+      "time": "17:50",
+      "scene": "parque tanguá",
+      "ambience": "agua",
+      "pos": [
+        165,
+        30
+      ]
+    }
+  ],
+  "hotspots": {
+    "R24": [
+      {
+        "nome": "Bilheteria (Dília Karas)",
+        "desc": "A cobradora guarda o manifesto de passageiros.",
+        "action": {
+          "type": "doc",
+          "id": "DOC003",
+          "toast": "📄 Manifesto da Linha Turismo obtido (DOC003)",
+          "already": "O manifesto já está com você."
+        }
+      },
+      {
+        "nome": "Câmera CAM001 — Entrada",
+        "desc": "Cobre o embarque das 14:00.",
+        "action": {
+          "type": "note",
+          "toast": "Registro das 14:00: todos os passageiros embarcaram. Nada anômalo."
+        }
+      }
+    ],
+    "JB": [
+      {
+        "nome": "Estufa e canteiros",
+        "desc": "Wanda examinava as plantas por aqui.",
+        "action": {
+          "type": "flag",
+          "flag": "planta_vista",
+          "score": 5,
+          "reason": "Planta Espirradeira observada",
+          "toast": "🌿 Espirradeira (Nerium oleander): tóxica. Wanda a apontou para o grupo — anote no mural."
+        }
+      },
+      {
+        "nome": "Local da discussão",
+        "desc": "Aldo e Otávio discutiram aqui às 15:20.",
+        "action": {
+          "type": "flag",
+          "flag": "discussao_vista",
+          "toast": "Testemunhas ouviram Aldo gritar sobre \"sociedade roubada\". Ele saiu em seguida."
+        }
+      }
+    ],
+    "MON": [
+      {
+        "nome": "Espelho d’água",
+        "desc": "Bianca filmava o \"olho\" às 15:35.",
+        "action": {
+          "type": "note",
+          "toast": "🎥 Bianca filmou o grupo aqui. O vídeo pode conter algo — fale com ela nos Interrogatórios."
+        }
+      },
+      {
+        "nome": "Homem de sobretudo",
+        "desc": "Um passageiro fotografava discretamente.",
+        "action": {
+          "type": "flag",
+          "flag": "klaus_visto",
+          "toast": "“Klaus Vogel” fotografava Otávio em segredo. Interrogue-o."
+        }
+      }
+    ],
+    "BUS": [
+      {
+        "nome": "Porta-volumes",
+        "desc": "A garrafa térmica de Otávio viajava aqui.",
+        "action": {
+          "type": "evidence",
+          "id": "EV001",
+          "nome": "Garrafa térmica",
+          "toast": "🧾 EV001 Garrafa térmica coletada — envie ao Laboratório.",
+          "already": "A garrafa já foi recolhida pela perícia."
+        }
+      },
+      {
+        "nome": "Cabine do motorista",
+        "desc": "O tacógrafo registra cada parada.",
+        "action": {
+          "type": "evidence",
+          "id": "EV004",
+          "nome": "Tacógrafo",
+          "doc": "DOC004",
+          "toast": "🧾 EV004 Tacógrafo coletado. Disco digitalizado (DOC004) disponível.",
+          "already": "O tacógrafo já está na Central."
+        }
+      },
+      {
+        "nome": "Assento 5 (Renata)",
+        "desc": "Gravador e blocos de nota.",
+        "action": {
+          "type": "doc",
+          "id": "DOC009",
+          "toast": "📄 Transcrição de escuta obtida (DOC009): \"Otávio assinaria a delação amanhã.\"",
+          "already": "Nada de novo no assento."
+        }
+      }
+    ],
+    "KM18": [
+      {
+        "nome": "Acostamento",
+        "desc": "Marcas de pneu e uma pegada de tênis.",
+        "action": {
+          "type": "flag",
+          "flag": "pegada_vista",
+          "score": 5,
+          "reason": "Pegada fotografada",
+          "sfx": "camera_shutter",
+          "toast": "📷 Pegada de tênis fotografada. Solo intacto além dela: ninguém desceu além do motorista."
+        }
+      },
+      {
+        "nome": "Placa KM 18",
+        "desc": "Ponto exato da parada não programada.",
+        "action": {
+          "type": "flag",
+          "flag": "km18_confirmado",
+          "toast": "📍 Posição registrada. Compare com o tacógrafo no GEOINT."
+        }
+      }
+    ],
+    "OPA": [
+      {
+        "nome": "Palco e passarela",
+        "desc": "Parada das 16:05 — sem incidentes.",
+        "action": {
+          "type": "note",
+          "toast": "O guia confirma: passeio normal aqui. Otávio bebia café da própria garrafa."
+        }
+      }
+    ],
+    "BAR": [
+      {
+        "nome": "Lixeira próxima ao lago",
+        "desc": "Uma testemunha viu algo azul ser descartado às 16:45.",
+        "action": {
+          "type": "evidence",
+          "id": "EV002",
+          "nome": "Luvas nitrílicas azuis",
+          "toast": "🧾 EV002 Luvas nitrílicas azuis coletadas na lixeira!",
+          "already": "A lixeira já foi vasculhada."
+        }
+      },
+      {
+        "nome": "Capivaras do lago",
+        "desc": "Impassíveis, como sempre.",
+        "action": {
+          "type": "note",
+          "toast": "🦫 As capivaras não colaboram com a investigação."
+        }
+      }
+    ],
+    "TAN": [
+      {
+        "nome": "Mirante — cena da morte",
+        "desc": "Otávio caiu aqui às 17:50.",
+        "action": {
+          "type": "doc",
+          "id": "DOC001",
+          "toast": "📄 Laudo cadavérico preliminar (DOC001): intoxicação por glicosídeo cardíaco.",
+          "already": "A cena já foi periciada e está lacrada."
+        }
+      },
+      {
+        "nome": "Copo térmico da vítima",
+        "desc": "Caído junto ao corpo.",
+        "action": {
+          "type": "flag",
+          "flag": "xicara_vista",
+          "toast": "☕ Resíduo de café no copo. A garrafa é a origem provável — confirme na Toxicologia."
+        }
+      }
+    ]
+  },
+  "osint": [
+    {
+      "match": "sb\\s*fretamentos",
+      "title": "Registro empresarial — SB Fretamentos ME",
+      "source": "Empresas (SRC002)",
+      "body": "CNPJ ativo desde 2018. Objeto: fretamento e turismo. Sócio-administrador com iniciais S.B.; endereço fiscal na região do KM18. Histórico: contrato rescindido com a Bandeira Urbanismo em 2019.",
+      "unlock": "DOC006",
+      "unlockLabel": "Registro Funcional de Sérgio Bento (DOC006)",
+      "enigma": "EN008"
+    },
+    {
+      "match": "linha\\s*turismo\\s*2019|2019",
+      "title": "Notícia (2019) — \"Mudança na Linha Turismo gera questionamentos\"",
+      "source": "Notícias (SRC001)",
+      "body": "A alteração de rota aprovada em 2019 valorizou terrenos ao longo do novo trajeto. A reportagem cita lobby da Bandeira Urbanismo e a demissão de um funcionário do setor de rotas que se opôs à mudança.",
+      "unlock": "DOC007",
+      "unlockLabel": "Recorte de Jornal 2019 (DOC007)"
+    },
+    {
+      "match": "ot[áa]vio|bandeira\\s*urbanismo",
+      "title": "Histórico empresarial — Otávio Bandeira",
+      "source": "Empresas (SRC002) · Imóveis (SRC003)",
+      "body": "Fundador da Bandeira Urbanismo. Especulação imobiliária ligada à rota da Linha Turismo (2019). Planilha financeira anexada usa codinomes internos: MUSEU, JARDINEIRO e RODAS.",
+      "unlock": "DOC008",
+      "unlockLabel": "Planilha de Codinomes (DOC008)"
+    },
+    {
+      "match": "renata|salgado|dela[çc][ãa]o",
+      "title": "Perfil profissional — Renata Salgado",
+      "source": "Imprensa (SRC001) · Telefonia (SRC005)",
+      "body": "Jornalista investigativa. Metadados telefônicos mostram ligações diárias para Otávio na última semana. Uma escuta judicial (anexa) registra: \"a delação seria assinada amanhã\".",
+      "unlock": "DOC009",
+      "unlockLabel": "Escuta Telefônica (DOC009)"
+    },
+    {
+      "match": "klaus|vogel",
+      "title": "Cadastro profissional — \"Klaus Vogel\"",
+      "source": "Redes Sociais (SRC004)",
+      "body": "Nome sem registros anteriores a 2024 — alias. CRECI de detetive particular ativo em outro nome. Contratante recente: espólio de um ex-sócio da Bandeira Urbanismo."
+    },
+    {
+      "match": "aldo|meireles",
+      "title": "Processo judicial — Meireles × Bandeira",
+      "source": "Registros (SRC002)",
+      "body": "Ação de dissolução de sociedade (2021), julgada improcedente. Aldo declarou publicamente que Otávio \"roubou a empresa\". Sem antecedentes violentos."
+    }
+  ],
+  "interrogatable": [
+    {
+      "key": "SERGIO_BENTO",
+      "pid": "P002",
+      "dlg": "sergio"
+    },
+    {
+      "key": "RENATA_SALGADO",
+      "pid": "P004",
+      "dlg": "renata"
+    },
+    {
+      "key": "DILIA_KARAS",
+      "pid": "P003",
+      "dlg": "dilia"
+    },
+    {
+      "key": "BIANCA_ALCANTARA",
+      "pid": "P007",
+      "dlg": "bianca"
+    },
+    {
+      "key": "WANDA_KRUGER",
+      "pid": "P006"
+    },
+    {
+      "key": "ALDO_MEIRELES",
+      "pid": "P005"
+    },
+    {
+      "key": "KLAUS_VOGEL",
+      "pid": "P008"
+    }
+  ],
+  "witness_statements": {
+    "WANDA_KRUGER": {
+      "intro": "Eu ofereci meu chá de ervas ao Otávio no Jardim Botânico. Ele recusou — disse que só bebia o próprio café.",
+      "flag": "cha_recusado",
+      "note": "Wanda conhece plantas tóxicas, mas o chá foi recusado."
+    },
+    "ALDO_MEIRELES": {
+      "intro": "Sim, discuti com o Otávio no Jardim Botânico. Sociedade desfeita é ferida aberta. Depois disso fui embora de táxi.",
+      "flag": "aldo_discussao",
+      "note": "Aldo admite a discussão e diz que não voltou ao ônibus."
+    },
+    "KLAUS_VOGEL": {
+      "intro": "Meu nome verdadeiro não é Vogel. Sou detetive particular — fui contratado para vigiar o Otávio, não para machucá-lo.",
+      "flag": "klaus_identidade",
+      "note": "Klaus usa nome falso, mas é detetive particular."
+    },
+    "BIANCA_ALCANTARA": {
+      "intro": "Eu gravei praticamente toda a viagem. Pode ficar com o cartão de memória — tem horas de vídeo aí, inclusive perto daquela parada estranha.",
+      "flag": "bianca_video",
+      "note": "Bianca entregou o cartão com os vídeos da viagem.",
+      "gives_evidence": {
+        "id": "EV003",
+        "nome": "Vídeo da Bianca"
+      }
+    }
+  },
+  "contradiction": {
+    "character": "SERGIO_BENTO",
+    "requiresTopic": "SERGIO_BENTO:garrafa",
+    "evidences": [
+      "EV001",
+      "EV002"
+    ],
+    "name": "Contradição 01",
+    "cinematic": "CIN002",
+    "reaction": "Sérgio disse que nunca tocou na garrafa — a análise de fibras diz o contrário. Contradição 01 registrada.",
+    "enigma": "EN005"
+  },
+  "lab": {
+    "tabs": [
+      {
+        "id": "tox",
+        "nome": "Toxicologia",
+        "test": {
+          "name": "Cromatografia (TOX002)",
+          "ms": 2200
+        },
+        "sample": {
+          "title": "EV001 Garrafa térmica",
+          "needs": [
+            "ev:EV001"
+          ],
+          "lockMsg": "Colete a garrafa no porta-volumes do ônibus (Mapa)."
+        },
+        "effects": {
+          "analyzed": "tox_done",
+          "unlockDoc": "DOC002",
+          "score": 15,
+          "reason": "Laudo toxicológico emitido",
+          "toast": "🧪 Vestígios de glicosídeo cardíaco no café! Laudo DOC002 emitido.",
+          "speak": "Confirmado. Glicosídeo cardíaco no café da garrafa térmica."
+        },
+        "results": [
+          "Vestígios de glicosídeo cardíaco no café",
+          "Microfibra azul na tampa",
+          "Digitais parciais"
+        ],
+        "note": "Laudo DOC002 arquivado em Evidências."
+      },
+      {
+        "id": "afis",
+        "nome": "Digitais",
+        "test": {
+          "name": "Scanner AFIS (AFIS001)",
+          "ms": 1800
+        },
+        "sample": {
+          "title": "EV001 Garrafa térmica — digitais parciais",
+          "needs": [
+            "ev:EV001"
+          ],
+          "lockMsg": "Requer a garrafa térmica coletada."
+        },
+        "effects": {
+          "analyzed": "afis_done",
+          "score": 15,
+          "reason": "Digitais processadas",
+          "toast": "🖐 Digitais parciais: compatibilidade de 62% com o motorista. Insuficiente sozinha — cruze com as fibras."
+        },
+        "results": [
+          "Fragmento compatível (62%) com Sérgio Bento",
+          "Qualidade insuficiente para laudo conclusivo isolado"
+        ],
+        "note": "Use no interrogatório junto com outras provas."
+      },
+      {
+        "id": "fib",
+        "nome": "Fibras",
+        "test": {
+          "name": "Microscopia comparada (FIB001)",
+          "ms": 2000
+        },
+        "sample": {
+          "title": "EV002 Luvas azuis × microfibra da tampa",
+          "needs": [
+            "ev:EV001",
+            "ev:EV002"
+          ],
+          "lockMsg": "Requer a garrafa (EV001) e as luvas do Barigui (EV002)."
+        },
+        "effects": {
+          "analyzed": "fib_done"
+        },
+        "enigma": "EN007",
+        "results": [
+          "Fibras da luva idênticas à microfibra da tampa",
+          "Mesmo composto tóxico em ambas"
+        ],
+        "note": "Chave FIBRA registrada no dossiê da Perícia."
+      },
+      {
+        "id": "docsc",
+        "nome": "Documentoscopia",
+        "test": {
+          "name": "Luz UV + infravermelho",
+          "ms": 1600
+        },
+        "sample": {
+          "title": "DOC004 Disco do tacógrafo — autenticidade",
+          "needs": [
+            "doc:DOC004"
+          ],
+          "lockMsg": "Requer o disco do tacógrafo (colete o tacógrafo na cabine do ônibus)."
+        },
+        "effects": {
+          "analyzed": "docsc_done",
+          "unlockDoc": "DOC005",
+          "score": 15,
+          "reason": "Documentoscopia concluída",
+          "toast": "📄 Disco autêntico, sem rasuras: a parada de 6 min às 15:47 é real. Diário de bordo (DOC005) anexado."
+        },
+        "results": [
+          "Disco íntegro e autêntico",
+          "Registro do diário de bordo não menciona a parada"
+        ],
+        "note": "A omissão no diário é relevante — anote no mural."
+      }
+    ]
+  },
+  "geoint": {
+    "tach": {
+      "title": "DISCO DO TACÓGRAFO — VELOCIDADE × HORA",
+      "needs": [
+        "ev:EV004"
+      ],
+      "lockMsg": "🔒 Colete o tacógrafo na cabine do ônibus (Mapa → Ônibus).",
+      "hint": "Regra GEO001: parada > 5 minutos fora da rota gera anomalia. Clique no trecho anômalo.",
+      "doneMsg": "✔ EN003: parada de 6 min às 15:47 identificada.",
+      "enigma": "EN003",
+      "points": [
+        [
+          "14:00",
+          0
+        ],
+        [
+          "14:10",
+          40
+        ],
+        [
+          "15:00",
+          55
+        ],
+        [
+          "15:20",
+          0
+        ],
+        [
+          "15:30",
+          50
+        ],
+        [
+          "15:35",
+          0
+        ],
+        [
+          "15:40",
+          48
+        ],
+        [
+          "15:47",
+          0
+        ],
+        [
+          "15:53",
+          0
+        ],
+        [
+          "16:00",
+          52
+        ],
+        [
+          "16:05",
+          0
+        ],
+        [
+          "16:20",
+          50
+        ],
+        [
+          "16:45",
+          0
+        ],
+        [
+          "17:10",
+          45
+        ],
+        [
+          "17:50",
+          0
+        ]
+      ],
+      "segments": [
+        {
+          "id": "jb",
+          "at": 2.6,
+          "w": 26
+        },
+        {
+          "id": "km18",
+          "at": 6.7,
+          "w": 30,
+          "correct": true,
+          "label": "6 MIN · 0 km/h"
+        },
+        {
+          "id": "opa",
+          "at": 9.7,
+          "w": 24
+        },
+        {
+          "id": "bar",
+          "at": 11.7,
+          "w": 24
+        }
+      ],
+      "wrongMsg": "Trecho normal: paradas programadas têm registro de ponto. (-20)",
+      "okMsg": "🔓 EN003 resolvido! Parada de 6 minutos às 15:47 — velocidade zero, sem falha mecânica."
+    },
+    "sat": {
+      "title": "IMAGEM DE SATÉLITE — ROTA DA LINHA TURISMO",
+      "hint": "Marque o ponto onde o ônibus saiu da rota oficial (traço ciano).",
+      "doneMsg": "✔ EN004: parada irregular marcada no KM18.",
+      "enigma": "EN004",
+      "terrain": "urban",
+      "route": "M40 200 L110 215 L170 130 L235 70 L110 80 L165 40",
+      "detour": "M235 70 L300 95",
+      "marks": [
+        {
+          "id": "jb",
+          "x": 170,
+          "y": 130
+        },
+        {
+          "id": "mon",
+          "x": 235,
+          "y": 70
+        },
+        {
+          "id": "km18",
+          "x": 300,
+          "y": 95,
+          "correct": true,
+          "label": "⚠ KM18"
+        },
+        {
+          "id": "bar",
+          "x": 110,
+          "y": 80
+        }
+      ],
+      "wrongMsg": "O GPS mostra o ônibus sobre a rota oficial neste ponto. (-20)",
+      "okMsg": "🔓 EN004 resolvido! Desvio marcado: acostamento do KM18, 15:47.",
+      "bonus": {
+        "token": "ROTAS",
+        "flag": "rota2019_vista",
+        "score": 15,
+        "reason": "Rotas comparadas (2019 × atual)",
+        "btn": "SOBREPOR ROTA DE 2019 (token ROTAS)",
+        "btnDone": "✔ ROTA DE 2019 COMPARADA",
+        "lockMsg": "🔒 Comparação com a rota de 2019 requer o token ROTAS (Arquivo).",
+        "toast": "🗺 A rota de 2019 passava exatamente pelo KM18. A mudança que Otávio patrocinou tirou o ponto da empresa de fretamento local.",
+        "overlay": "M170 130 L300 95 L360 60",
+        "overlayLabel": "ROTA 2019"
+      }
+    }
+  },
+  "enigmas": {
+    "EN001": {
+      "type": "sequence",
+      "attach": {
+        "kind": "evidence",
+        "ref": "EV001"
+      },
+      "btn": "ESCANEAR QR OCULTO",
+      "btnDone": "✔ QR DECIFRADO",
+      "title": "EN001 — QR da Garrafa",
+      "prompt": "O scanner recupera o QR parcialmente apagado da tampa. Os fragmentos formam a chave química do laudo — reordene:",
+      "answer": "GLICOSIDEO",
+      "okMsg": "🔓 EN001 resolvido! Chave: GLICOSIDEO",
+      "wrongMsg": "Sequência incorreta. O scanner reinicia.",
+      "doneMsg": "O QR já foi decifrado: chave GLICOSIDEO."
+    },
+    "EN002": {
+      "type": "input",
+      "attach": {
+        "kind": "document",
+        "ref": "DOC008"
+      },
+      "btn": "DECIFRAR (CÉSAR)",
+      "btnDone": "✔ CIFRA QUEBRADA",
+      "title": "EN002 — Cifra de César",
+      "prompt": "Texto cifrado: <b class=\"mono\">GHODFDR</b><br>Cifra de César — cada letra foi deslocada. Descubra a palavra original (dica: G→D…):",
+      "answer": "DELACAO",
+      "okMsg": "🔓 EN002 resolvido! A planilha aponta para a DELAÇÃO.",
+      "wrongMsg": "Não confere. Tente outro deslocamento. (-20)",
+      "doneMsg": "A cifra já foi quebrada: DELACAO."
+    },
+    "EN005": {
+      "type": "choice",
+      "attach": {
+        "kind": "interrogation",
+        "ref": "SERGIO_BENTO"
+      },
+      "btn": "REGISTRAR CONTRADIÇÃO NO DOSSIÊ (EN005)",
+      "title": "EN005 — Quebra de Álibi",
+      "prompt": "Qual par de declarações forma a <b>contradição decisiva</b> (a que liga o suspeito à arma do crime)?",
+      "options": [
+        "“Achei que havia um problema no freio.”<br><span class=\"muted\">×</span> Tacógrafo: sem falha mecânica registrada.",
+        "“Nunca toquei nela.” (garrafa)<br><span class=\"muted\">×</span> Fibras da luva idênticas à microfibra da tampa.",
+        "“Foi verificação de rotina.”<br><span class=\"muted\">×</span> Dília: “a parada não fazia parte da rota”."
+      ],
+      "correct": 1,
+      "okMsg": "🔓 EN005 resolvido! Álibi de Sérgio formalmente quebrado.",
+      "wrongMsg": "Contradição relevante, mas não decisiva. (-20)"
+    },
+    "EN006": {
+      "type": "frames",
+      "attach": {
+        "kind": "evidence",
+        "ref": "EV003"
+      },
+      "btn": "ANALISAR QUADRO A QUADRO",
+      "btnDone": "✔ VULTO LOCALIZADO",
+      "title": "EN006 — Vídeo da Bianca",
+      "prompt": "8 quadros extraídos do cartão da Bianca (MON → KM18). Um deles mostra um <b>vulto de manga verde</b>. Clique nele.",
+      "times": [
+        "15:35",
+        "15:38",
+        "15:41",
+        "15:44",
+        "15:47",
+        "15:50",
+        "15:53",
+        "15:56"
+      ],
+      "correct": 4,
+      "markColor": "#2F8B57",
+      "okMsg": "🔓 EN006 resolvido! O vulto aparece às 15:47 — hora exata da parada.",
+      "wrongMsg": "Nada neste quadro. (-20)",
+      "doneMsg": "O vulto já foi localizado no quadro 15:47."
+    },
+    "EN007": {
+      "type": "compare",
+      "attach": {
+        "kind": "lab",
+        "ref": "fib"
+      },
+      "btn": "COMPARAR PADRÕES (EN007)",
+      "title": "EN007 — Comparação de Fibras",
+      "prompt": "Microscópio: à esquerda, a <b>microfibra da tampa da garrafa</b>. Qual amostra da luva tem o MESMO padrão (trama e cor)?",
+      "reference": {
+        "waves": 3,
+        "color": "#3b6ea5"
+      },
+      "options": [
+        {
+          "waves": 5,
+          "color": "#3b6ea5"
+        },
+        {
+          "waves": 3,
+          "color": "#3b6ea5"
+        },
+        {
+          "waves": 3,
+          "color": "#7a5c3b"
+        }
+      ],
+      "correct": 1,
+      "okMsg": "🔓 EN007 resolvido! Fibras idênticas: a luva tocou a garrafa.",
+      "wrongMsg": "Padrões divergem. (-20)"
+    },
+    "EN008": {
+      "type": "choice",
+      "attach": {
+        "kind": "osint"
+      },
+      "btn": "RELACIONAR COM UM SUSPEITO (EN008)",
+      "btnDone": "✔ EN008: relação confirmada",
+      "title": "EN008 — Relacionar SB Fretamentos",
+      "prompt": "\"SB Fretamentos\" — iniciais S.B., sede próxima ao KM18, rescisão com a Bandeira Urbanismo em 2019. <b>A quem pertence?</b>",
+      "options": [
+        "Klaus Vogel",
+        "Sérgio Bento",
+        "Aldo Meireles",
+        "Renata Salgado"
+      ],
+      "correct": 1,
+      "okMsg": "🔓 EN008 resolvido! SB = Sérgio Bento: motivo financeiro ligado à rota.",
+      "wrongMsg": "As iniciais e o endereço não batem. (-20)"
+    },
+    "EN009": {
+      "type": "choice",
+      "attach": {
+        "kind": "document",
+        "ref": "DOC003"
+      },
+      "btn": "CRUZAR REEMBARQUE",
+      "btnDone": "✔ AUSÊNCIA CONFIRMADA",
+      "title": "EN009 — Manifesto",
+      "prompt": "Cruzando embarque × reembarque do manifesto: <b>quem NÃO voltou ao ônibus</b> no Jardim Botânico?",
+      "options": [
+        "Renata Salgado",
+        "Aldo Meireles",
+        "Klaus Vogel",
+        "Wanda Kruger"
+      ],
+      "correct": 1,
+      "okMsg": "🔓 EN009 resolvido! Aldo saiu no Jardim Botânico — sem oportunidade.",
+      "wrongMsg": "O manifesto diz o contrário. (-20)",
+      "doneMsg": "Já confirmado: Aldo Meireles não reembarcou."
+    }
+  },
+  "doc_extras": {
+    "DOC008": "<div class=\"cipher\">Linha final da planilha, cifrada:<br><b class=\"mono\">FODYH: GHODFDR</b></div>",
+    "DOC003": "<table class=\"manifest\"><tr><th>Passageiro</th><th>Embarque 14:00</th><th>Reembarque 15:30 (JB)</th></tr><tr><td>Otávio Bandeira</td><td>✔</td><td>✔</td></tr><tr><td>Renata Salgado</td><td>✔</td><td>✔</td></tr><tr><td>Wanda Kruger</td><td>✔</td><td>✔</td></tr><tr><td>Aldo Meireles</td><td>✔</td><td>—</td></tr><tr><td>Klaus Vogel</td><td>✔</td><td>✔</td></tr><tr><td>Bianca Alcântara</td><td>✔</td><td>✔</td></tr></table>",
+    "DOC001_speak": "A ingestão ocorreu aproximadamente às dezesseis horas. O veneno estava presente no café da vítima."
+  },
+  "deduction": {
+    "factors": {
+      "P002": {
+        "Motivo": [
+          "doc:DOC006",
+          "osint:sb fretamentos"
+        ],
+        "Meios": [
+          "en:EN007",
+          "en:EN001"
+        ],
+        "Oportunidade": [
+          "en:EN003",
+          "en:EN004",
+          "en:EN006"
+        ],
+        "Alibi": [
+          "contradicao"
+        ]
+      },
+      "P004": {
+        "Motivo": [
+          "doc:DOC009"
+        ],
+        "Meios": [],
+        "Oportunidade": [],
+        "Alibi": []
+      },
+      "P005": {
+        "Motivo": [
+          "doc:DOC007"
+        ],
+        "Meios": [],
+        "Oportunidade": [
+          "en:EN009"
+        ],
+        "Alibi": []
+      },
+      "P006": {
+        "Motivo": [],
+        "Meios": [
+          "flag:cha_recusado"
+        ],
+        "Oportunidade": [],
+        "Alibi": []
+      },
+      "P008": {
+        "Motivo": [
+          "flag:klaus_identidade"
+        ],
+        "Meios": [],
+        "Oportunidade": [],
+        "Alibi": []
+      }
+    },
+    "eliminations": [
+      {
+        "id": "R002",
+        "suspect": "P006",
+        "when": [
+          "en:EN001",
+          "flag:cha_recusado"
+        ],
+        "note": "Chá recusado + veneno no café eliminam Wanda como autora."
+      },
+      {
+        "id": "R003",
+        "suspect": "P005",
+        "when": [
+          "en:EN009"
+        ],
+        "note": "O manifesto prova que Aldo não reembarcou — sem oportunidade."
+      },
+      {
+        "id": "R004",
+        "suspect": "P004",
+        "when": [
+          "doc:DOC009"
+        ],
+        "note": "A escuta confirma: Renata precisava de Otávio vivo."
+      }
+    ],
+    "critical_enigmas": [
+      "EN001",
+      "EN003",
+      "EN006",
+      "EN007"
+    ]
+  },
+  "mural_nodes": [
+    {
+      "id": "OBJ001",
+      "label": "Garrafa térmica",
+      "need": "ev:EV001"
+    },
+    {
+      "id": "EV001",
+      "label": "Veneno no café",
+      "need": "ev:EV001"
+    },
+    {
+      "id": "OBJ003",
+      "label": "Luvas azuis",
+      "need": "ev:EV002"
+    },
+    {
+      "id": "EV002",
+      "label": "Fibra azul",
+      "need": "ev:EV002"
+    },
+    {
+      "id": "EV003",
+      "label": "Vídeo da Bianca",
+      "need": "ev:EV003"
+    },
+    {
+      "id": "DOC004",
+      "label": "Tacógrafo",
+      "need": "doc:DOC004"
+    },
+    {
+      "id": "P002",
+      "label": "Sérgio Bento"
+    },
+    {
+      "id": "LOC004",
+      "label": "KM18"
+    }
+  ],
+  "jury": {
+    "suspects": [
+      "P002",
+      "P003",
+      "P004",
+      "P005",
+      "P006",
+      "P007",
+      "P008"
+    ],
+    "locations": [
+      "Rua 24 Horas",
+      "Jardim Botânico",
+      "Museu Oscar Niemeyer",
+      "Ópera de Arame",
+      "Parque Barigui",
+      "Parque Tanguá",
+      "KM18 / Ônibus"
+    ],
+    "methods": [
+      "Veneno no café da garrafa térmica",
+      "Chá de ervas envenenado",
+      "Queda do mirante",
+      "Medicamento adulterado",
+      "Asfixia durante a parada"
+    ]
+  },
+  "final_enigma": "EN010",
+  "map_title": "LINHA TURISMO",
+  "unlock_cinematics": {
+    "KM18": "CIN003"
+  }
+}

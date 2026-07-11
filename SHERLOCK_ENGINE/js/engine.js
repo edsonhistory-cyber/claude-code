@@ -7,7 +7,7 @@ import * as db from './database.js';
 import * as events from './eventManager.js';
 import * as save from './saveManager.js';
 import * as ui from './uiManager.js';
-import { getCase, hydrate, rankForScore } from './caseState.js';
+import { getCase, hydrate, reset as resetCase, rankForScore, getPack } from './caseState.js';
 import * as campaign from './campaign.js';
 import * as scrCampaign from './screens/campaign.js';
 import { initAria } from './aria.js';
@@ -68,7 +68,7 @@ function setState(next, screen = null) {
 function render() {
   switch (engine.state) {
     case 'BOOT': return ui.renderBoot();
-    case 'LOGIN': stopAmbience(); return ui.renderLogin(db.getModule('SHERLOCK_ENGINE_CASE001_FULL')?.case);
+    case 'LOGIN': stopAmbience(); return ui.renderLogin(db.getModule('CASE_FULL')?.case);
     case 'CAMPANHA': return scrCampaign.render(engine.player);
     case 'CENTRAL': ambience('central'); return ui.renderCentral(engine.player);
     case 'INVESTIGACAO': return (SCREENS[normKey(engine.screen)] || scrMap).render();
@@ -135,11 +135,21 @@ export function startGame(player) {
   setState('CAMPANHA');
 }
 
-/** Abre um episódio a partir do QG (cinemática de abertura na 1ª vez). */
-function enterEpisode() {
+/** Abre um episódio a partir do QG: carrega o caso, o save dele e a cinemática. */
+async function enterEpisode(caseId = 'CASE001') {
+  if (caseId !== engine.caseId) {
+    const report = await loadCase(caseId); // religa os aliases CASE_* e valida
+    if (report.errors.length) console.warn(`[caso] ${caseId} carregou com ${report.errors.length} erro(s) de integridade`);
+  }
+  save.setActiveCase(caseId);
+  resetCase();
+  engine.save = save.loadGame();
+  engine.save.profile.player_name = engine.player;
+  if (engine.save.case) hydrate(engine.save.case);
   const enter = () => { setState('CENTRAL'); save.saveGame({ ...engine.save, case: getCase() }); };
   const isNew = !getCase().collected.length && !getCase().visited.length;
-  if (isNew) playCinematic('CIN001', enter);
+  const cin = getPack().opening_cinematic;
+  if (isNew && cin) playCinematic(cin, enter);
   else enter();
 }
 
@@ -149,7 +159,7 @@ events.subscribe('UI_OPEN_CARD', ({ card }) => {
   if (normKey(card) === 'SALA DO JURI') setState('JURI');
   else setState('INVESTIGACAO', card);
 });
-events.subscribe('UI_SELECT_EPISODE', () => enterEpisode());
+events.subscribe('UI_SELECT_EPISODE', ({ caseId }) => enterEpisode(caseId));
 events.subscribe('UI_BACK', () => setState(engine.state === 'CENTRAL' ? 'CAMPANHA' : 'CENTRAL'));
 events.subscribe('UI_HOME', () => setState('CENTRAL'));
 events.subscribe('UI_GOTO', ({ state }) => setState(state));

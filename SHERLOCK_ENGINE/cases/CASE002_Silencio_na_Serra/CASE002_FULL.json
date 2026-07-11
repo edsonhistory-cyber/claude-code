@@ -1,0 +1,111 @@
+{
+  "schema": "CASE002_FULL",
+  "version": "1.0",
+  "case": {
+    "id": "SRR-0904",
+    "title": "Silêncio na Serra",
+    "status": "Playable",
+    "city": "Serra do Mar - PR",
+    "objective": "Descobrir quem matou Heitor Salles durante a travessia do trem Serra Verde para Morretes."
+  },
+  "acts": [
+    {
+      "id": "ACT1",
+      "title": "Embarque",
+      "goal": "Conhecer os passageiros do vagão panorâmico e obter o manifesto.",
+      "unlock": [
+        "Mapa",
+        "Dossiês",
+        "Manifesto"
+      ]
+    },
+    {
+      "id": "ACT2",
+      "title": "O Túnel",
+      "goal": "Explicar os 4 minutos de escuridão no Túnel Roça Nova.",
+      "unlock": [
+        "Registro do painel",
+        "Foto de longa exposição",
+        "Depoimentos"
+      ]
+    },
+    {
+      "id": "ACT3",
+      "title": "Laboratório",
+      "goal": "Ligar a corda do rio às luvas de serviço.",
+      "unlock": [
+        "Laudo",
+        "Corda",
+        "Luvas de serviço"
+      ]
+    },
+    {
+      "id": "ACT4",
+      "title": "Sala do Júri",
+      "goal": "Apresentar suspeito, local e método."
+    }
+  ],
+  "critical_path": [
+    "Registro do painel de energia",
+    "Túnel Roça Nova",
+    "Foto de longa exposição",
+    "Corda de nylon",
+    "Luvas de serviço",
+    "Ficha funcional",
+    "Sala do Júri"
+  ],
+  "red_herrings": [
+    {
+      "character": "Camila Fontes",
+      "reason": "Advogada da organização, mas o manifesto a mantém no vagão 1."
+    },
+    {
+      "character": "Ernesto Gruber",
+      "reason": "Discussão pública por causa da mala, porém sem acesso ao painel."
+    },
+    {
+      "character": "Marta Salles",
+      "reason": "Herdeira do irmão, porém nem embarcou no trem."
+    }
+  ],
+  "dependencies": [
+    {
+      "from": "PERICIA",
+      "to": "INTELIGENCIA",
+      "token": "FIBRA"
+    },
+    {
+      "from": "INTELIGENCIA",
+      "to": "ARQUIVO",
+      "token": "TRILHOS"
+    },
+    {
+      "from": "ARQUIVO",
+      "to": "CAMPO",
+      "token": "LUZES"
+    },
+    {
+      "from": "CAMPO",
+      "to": "PERICIA",
+      "token": "TUNEL"
+    }
+  ],
+  "final_solution": {
+    "sealed": true,
+    "encoding": "base64",
+    "note": "Solução lacrada. Decodificada apenas na Sala do Júri, no momento do veredito.",
+    "data": "eyJzdXNwZWN0IjogIkl2byBSZXplbmRlIiwgImxvY2F0aW9uIjogIlTDum5lbCBSb8OnYSBOb3ZhIC8gVmFnw6NvIDIiLCAibWV0aG9kIjogIkdhcnJvdGUgY29tIGNvcmRhIGRlIG55bG9uIG5vIGVzY3VybyIsICJwcm9vZnMiOiBbIlJlZ2lzdHJvIGRvIHBhaW5lbCBkZSBlbmVyZ2lhIiwgIkZvdG8gZGUgbG9uZ2EgZXhwb3Npw6fDo28iLCAiRmlicmFzIGRlIG55bG9uIGlkw6pudGljYXMiLCAiQ29yZGEgcmVjdXBlcmFkYSBubyByaW8iLCAiRMOtdmlkYSBjb21wcmFkYSBwZWxhIEZ1bmRhw6fDo28gUGluaGFsIl19"
+  },
+  "completion": {
+    "required": [
+      "4 códigos do cofre",
+      "Linha do tempo correta",
+      "Acusação correta"
+    ],
+    "score_rank": {
+      "560": "Detetive de Elite",
+      "460": "Investigador Sênior",
+      "360": "Caso Resolvido"
+    }
+  }
+}
