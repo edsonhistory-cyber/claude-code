@@ -1264,6 +1264,7 @@
       "Interrogue os convidados; apresente provas para expor a anfitriã.",
       "Cheque lances no <b>GEOINT</b> e a rede no <b>OSINT</b>.",
       "Feche o <b>Mural</b>, a <b>Linha do Tempo</b> e a <b>Sala do Júri</b>."
-    ]
+    ],
+    "victim_pid": "P301"
   }
 }

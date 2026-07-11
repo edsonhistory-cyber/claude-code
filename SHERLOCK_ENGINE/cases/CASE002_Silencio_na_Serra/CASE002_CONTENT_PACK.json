@@ -1315,6 +1315,7 @@
       "Interrogue passageiros e equipe; apresente provas.",
       "Investigue a fundação no <b>OSINT</b> e o painel de energia no <b>GEOINT</b>.",
       "Monte o <b>Mural</b>, a <b>Linha do Tempo</b> e acuse na <b>Sala do Júri</b>."
-    ]
+    ],
+    "victim_pid": "P101"
   }
 }

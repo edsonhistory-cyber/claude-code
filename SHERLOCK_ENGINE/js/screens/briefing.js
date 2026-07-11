@@ -4,7 +4,7 @@
  * Aparece ao abrir um episódio novo (após a cinemática). Sempre pulável.
  */
 import { getPack } from '../caseState.js';
-import { crimeScene } from '../art.js';
+import { crimeScene, portrait } from '../art.js';
 import { sfx, ambience, speak } from '../audioManager.js';
 
 export function playBriefing(onDone = () => {}) {
@@ -25,7 +25,10 @@ export function playBriefing(onDone = () => {}) {
         <h1>${b.title}</h1>
         <p class="briefing-meta mono">${b.local} · ${b.data}</p>
       </div>
-      <div class="briefing-victim"><span class="row-tag danger">VÍTIMA</span> ${b.victim}</div>
+      <div class="briefing-victim">
+        ${b.victim_pid ? `<div class="briefing-victim-photo">${portrait(b.victim_pid)}</div>` : ''}
+        <div><span class="row-tag danger">VÍTIMA</span><br>${b.victim}</div>
+      </div>
       <p class="briefing-synopsis">${b.synopsis}</p>
       <div class="briefing-howto">
         <h2 class="panel-title">COMO CONDUZIR A INVESTIGAÇÃO</h2>

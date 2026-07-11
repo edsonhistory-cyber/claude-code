@@ -515,7 +515,8 @@ a.btn { text-decoration: none; display: inline-block; text-align: center; }
 /* ── Briefing: ponto de partida / cena do crime ───────────────────────── */
 .briefing-screen {
   position: absolute; inset: 0; z-index: 60; display: flex; flex-direction: column;
-  background: linear-gradient(180deg, #0a0e1a, #12152b);
+  /* véu que desvanece para revelar o fundo de Curitiba (araucária/petit-pavé/gralha) */
+  background: linear-gradient(180deg, rgba(10, 14, 26, .92) 0%, rgba(18, 21, 43, .72) 50%, rgba(20, 33, 31, .10) 100%);
   animation: fade-in .4s ease;
 }
 .briefing-screen.cine-out { animation: fade-out .35s ease forwards; }
@@ -536,7 +537,12 @@ a.btn { text-decoration: none; display: inline-block; text-align: center; }
 .briefing-code { color: var(--accent); font-size: .8rem; letter-spacing: .18em; }
 .briefing-body h1 { font-size: clamp(1.8rem, 5vw, 2.6rem); margin: 4px 0 2px; }
 .briefing-meta { color: rgba(242, 245, 247, .55); font-size: .82rem; }
-.briefing-victim { margin: 14px 0 10px; font-size: 1.05rem; }
+.briefing-victim { margin: 14px 0 10px; font-size: 1.05rem; display: flex; align-items: center; gap: 12px; }
+.briefing-victim-photo { width: 62px; height: 62px; flex: none; }
+.briefing-victim-photo svg { width: 100%; height: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,.4); }
+.briefing-victim-photo { position: relative; isolation: isolate; }
+.briefing-victim-photo .portrait-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; border-radius: 8px; opacity: 0; transition: opacity .4s; }
+.briefing-victim-photo .portrait-photo.on { opacity: 1; }
 .briefing-synopsis { font-size: 1.08rem; line-height: 1.7; color: rgba(242, 245, 247, .92); max-width: 66ch; }
 .briefing-howto { margin-top: 20px; }
 .briefing-howto ol { margin: 8px 0 0; padding-left: 22px; }
