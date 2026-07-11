@@ -318,7 +318,7 @@
 /* mural */
 .mural-status { max-width: 1100px; margin: 0 auto 14px; padding: 12px 18px; display: flex; gap: 24px; flex-wrap: wrap; }
 .mural-suspects { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 14px; max-width: 1100px; margin: 0 auto 16px; }
-.mural-suspect { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 14px; }
+.mural-suspect { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 14px; height: auto; overflow: hidden; }
 .mural-suspect.eliminated { opacity: .55; }
 .mural-suspect .stress-bar { width: 100%; }
 .mural-fact { font-size: .72rem; font-family: var(--font-mono); color: rgba(242,245,247,.6); }
@@ -511,6 +511,62 @@ a.btn { text-decoration: none; display: inline-block; text-align: center; }
 @media (prefers-reduced-motion: reduce) {
   .map-real, .central-card, .map-pin, .btn, .stop-card, .row-card, .episode-card { transition: none !important; transform: none !important; }
 }
+
+/* ── Quadro de cortiça (Mural estilo sala de dedução) ─────────────────── */
+.cork-board {
+  position: relative; z-index: 2; isolation: isolate;
+  height: 420px; margin-top: 10px;
+  border-radius: 10px;
+  border: 10px solid #4e372a;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(0,0,0,.10) 0 2px, transparent 3px),
+    radial-gradient(circle at 70% 60%, rgba(0,0,0,.08) 0 2px, transparent 3px),
+    radial-gradient(circle at 45% 80%, rgba(255,255,255,.05) 0 2px, transparent 3px),
+    linear-gradient(135deg, #a97c50, #8c6239 55%, #9a6f45);
+  box-shadow: inset 0 0 40px rgba(0, 0, 0, .35), 0 16px 30px -18px rgba(0,0,0,.7);
+  overflow: hidden;
+}
+.cork-board .threads { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.cork-board .threads line { stroke: #e11d48; stroke-width: .55; filter: drop-shadow(0 1px 0 rgba(0,0,0,.5)); }
+.pin-note {
+  position: absolute; transform: rotate(-2deg);
+  max-width: 150px; padding: 8px 10px 7px;
+  background: #fdf3c9; color: #3a2c14; font-weight: 600; font-size: .74rem;
+  border: 0; border-radius: 2px; line-height: 1.25; text-align: left;
+  box-shadow: 0 6px 10px -4px rgba(0, 0, 0, .55);
+}
+.pin-note::before {
+  content: ""; position: absolute; top: -5px; left: 50%; margin-left: -5px;
+  width: 10px; height: 10px; border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #ff7d7d, #b91c1c 70%);
+  box-shadow: 0 2px 3px rgba(0, 0, 0, .5);
+}
+.pin-note.n1 { transform: rotate(2.5deg); background: #d7ecff; }
+.pin-note.n2 { transform: rotate(-4deg); background: #ffe1ea; }
+.pin-note.n3 { transform: rotate(3deg); background: #e3ffd9; }
+.pin-note.n4 { transform: rotate(-1deg); background: #fff0d0; }
+.pin-note:hover { transform: rotate(0deg) scale(1.08); z-index: 4; }
+.pin-note.active { outline: 2px solid #e11d48; z-index: 4; }
+
+/* polaroids dos suspeitos no mural */
+.mural-suspect { position: relative; }
+.mural-suspect .suspect-portrait {
+  background: #fff; padding: 6px 6px 14px; border-radius: 3px;
+  box-shadow: 0 8px 14px -6px rgba(0, 0, 0, .6);
+  transform: rotate(-2deg);
+}
+.mural-suspect:nth-child(2n) .suspect-portrait { transform: rotate(2deg); }
+.mural-suspect .suspect-portrait::before {
+  content: ""; position: absolute; top: -4px; left: 50%; margin-left: -5px; z-index: 3;
+  width: 10px; height: 10px; border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #9ec5ff, #1d4ed8 70%);
+  box-shadow: 0 2px 3px rgba(0, 0, 0, .5);
+}
+
+/* miniaturas de cena na linha do tempo */
+.evt-thumb { width: 74px; height: 46px; flex: none; border-radius: 6px; overflow: hidden; display: inline-block; }
+.evt-thumb .scene-media { height: 100%; }
+.timeline-final li { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
 
 /* ── Mapa de Personagens (interrogatórios densos) ─────────────────────── */
 .victim-dossier {

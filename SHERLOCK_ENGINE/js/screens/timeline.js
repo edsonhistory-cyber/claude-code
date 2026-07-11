@@ -3,6 +3,7 @@
  * (CASE001_EVENTS_FULL.timeline). Ordem correta → +80 pts (GAMEPLAY.score).
  */
 import { getModule } from '../database.js';
+import { sceneMedia } from '../art.js';
 import { screenShell, el, toast } from '../uiManager.js';
 import { getCase, completeTimeline, addScore } from '../caseState.js';
 import { sfx, ambience } from '../audioManager.js';
@@ -20,7 +21,7 @@ export function render() {
     const done = el('div', 'panel timeline-done');
     done.append(el('h2', 'panel-title', '✔ CRONOLOGIA RECONSTRUÍDA'));
     const list = el('ol', 'timeline-final');
-    for (const evt of events) list.append(el('li', '', `<b class="mono">${evt.time}</b> ${evt.title} <span class="muted">· ${evt.location}</span>`));
+    for (const evt of events) list.append(el('li', '', `<span class="evt-thumb">${sceneMedia(evt.location)}</span><b class="mono">${evt.time}</b> ${evt.title} <span class="muted">· ${evt.location}</span>`));
     done.append(list);
     body.append(done);
     return;
@@ -33,7 +34,7 @@ export function render() {
   left.append(el('h2', 'panel-title', 'EVENTOS FORA DE ORDEM'));
   left.append(el('p', 'muted', 'Clique nos eventos na ordem em que aconteceram. Os horários estão ocultos — use o que você descobriu.'));
   for (const evt of pool) {
-    const b = el('button', 'card row-card', `<b>${evt.title}</b><span class="muted">${evt.location}</span>`);
+    const b = el('button', 'card row-card', `<span class="evt-thumb">${sceneMedia(evt.location)}</span><b>${evt.title}</b><span class="muted">${evt.location}</span>`);
     b.onclick = () => { sfx('click'); pool = pool.filter((x) => x.id !== evt.id); placed.push(evt); render(); };
     left.append(b);
   }
