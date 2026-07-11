@@ -13,7 +13,7 @@ import * as scrCampaign from './screens/campaign.js';
 import { initAria } from './aria.js';
 import { playCinematic } from './cinematics.js';
 import { ambience, stopAmbience } from './audioManager.js';
-import { setScenePhotos } from './art.js';
+import { setScenePhotos, setPortraitPhotos } from './art.js';
 
 import * as scrMap from './screens/map.js';
 import * as scrLab from './screens/lab.js';
@@ -89,6 +89,7 @@ export async function loadCase(caseId) {
     ui.bootLog(null, (done / total) * 70);
   });
   setScenePhotos(db.getModule('SCENE_PHOTOS')); // fotos reais, se baixadas na build
+  setPortraitPhotos(db.getModule('PORTRAIT_PHOTOS')); // retratos IA, se gerados na build
   console.groupCollapsed(`[boot] Relatório de integridade — ${caseId}`);
   console.table(report.stats);
   for (const w of report.warnings) console.warn('aviso:', w);

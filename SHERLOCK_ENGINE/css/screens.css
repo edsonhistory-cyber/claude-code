@@ -431,3 +431,8 @@ a.btn { text-decoration: none; display: inline-block; text-align: center; }
 .scene-media { isolation: isolate; }
 .scene-media .scene-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 400ms ease; }
 .scene-media .scene-photo.on { opacity: 1; }
+
+/* retrato gerado por IA sobreposto à silhueta SVG (mesma lógica das cenas) */
+.suspect-portrait { position: relative; isolation: isolate; }
+.suspect-portrait .portrait-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; border-radius: 10px; box-shadow: 0 4px 14px rgba(0,0,0,.35); opacity: 0; transition: opacity 400ms ease; }
+.suspect-portrait .portrait-photo.on { opacity: 1; }

@@ -24,11 +24,12 @@ const UA = 'SherlockEngine/1.0 (jogo educacional offline; build-time asset fetch
 
 const manifest = JSON.parse(await readFile(path.join(root, 'assets/manifest.assets.json'), 'utf-8'));
 const CREDITS = path.join(root, 'assets/CREDITS.md');
-await writeFile(CREDITS, '# Créditos e licenças de assets\n\nGerado por `tools/fetch_assets.mjs` (busca em build-time; runtime 100% offline).\n\n| id | arquivo | fonte | autor | licença | url |\n|----|---------|-------|-------|---------|-----|\n');
+if (!DRY) await writeFile(CREDITS, '# Créditos e licenças de assets\n\nGerado por `tools/fetch_assets.mjs` (busca em build-time; runtime 100% offline).\n\n| id | arquivo | fonte | autor | licença | url |\n|----|---------|-------|-------|---------|-----|\n');
 
-const credit = (row) => appendFile(CREDITS, `| ${row.map((x) => String(x).replaceAll('|', '/')).join(' | ')} |\n`);
+const credit = (row) => (DRY ? Promise.resolve() : appendFile(CREDITS, `| ${row.map((x) => String(x).replaceAll('|', '/')).join(' | ')} |\n`));
 
 const sceneManifest = {}; // cena → caminho da 1ª foto BAIXADA COM SUCESSO
+const portraitManifest = {}; // personagem (P001…) → caminho do retrato gerado por IA
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -54,7 +55,10 @@ async function download(url, target, name, item) {
   await mkdir(dir, { recursive: true });
   const file = path.join(dir, name);
   const rel = `${target.replace(/\/$/, '')}/${name}`;
-  const ok = () => { if (item?.scene && !sceneManifest[item.scene]) sceneManifest[item.scene] = rel; };
+  const ok = () => {
+    if (item?.scene && !sceneManifest[item.scene]) sceneManifest[item.scene] = rel;
+    if (item?.portrait && !portraitManifest[item.portrait]) portraitManifest[item.portrait] = rel;
+  };
   if (DRY) { console.log('  [dry-run]', url, '->', rel); ok(); return name; }
   if (existsSync(file)) { console.log('  já existe:', rel); ok(); return name; }
   const res = await fetchWithRetry(url);
@@ -154,10 +158,24 @@ async function fetchPixabay(item) {
   return n;
 }
 
-const providers = { wikimedia: fetchWikimedia, openverse: fetchOpenverse, freesound: fetchFreesound, pixabay: fetchPixabay };
+// ── Pollinations.ai: retratos GERADOS POR IA (sem rostos reais — BRIEF §5.1) ──
+// Sem chave; a geração pode levar ~10-30s por imagem, o retry cobre 5xx/429.
+async function fetchPollinations(item) {
+  const style = manifest.portrait_style ? `, ${manifest.portrait_style}` : '';
+  const prompt = encodeURIComponent(`${item.prompt}${style}`);
+  const url = `https://image.pollinations.ai/prompt/${prompt}?width=768&height=768&seed=${item.seed ?? 42}&nologo=true&model=flux`;
+  const target = item.target || 'assets/images/portraits/';
+  const name = `${item.id}.jpg`;
+  await download(url, target, name, { ...item, portrait: item.id });
+  await credit([item.id, path.join(target, name), 'Pollinations.ai (imagem gerada por IA)', 'modelo FLUX', 'saída de IA — uso livre', 'https://pollinations.ai']);
+  return 1;
+}
 
+const providers = { wikimedia: fetchWikimedia, openverse: fetchOpenverse, freesound: fetchFreesound, pixabay: fetchPixabay, pollinations: fetchPollinations };
+
+const portraits = (manifest.portraits || []).map((p) => ({ source: 'pollinations', ...p }));
 let ok = 0, fail = 0;
-for (const item of [...(manifest.images || []), ...(manifest.audio || [])]) {
+for (const item of [...(manifest.images || []), ...portraits, ...(manifest.audio || [])]) {
   const fn = providers[item.source];
   if (!fn) { console.warn('sem provedor:', item.source); continue; }
   try {
@@ -173,6 +191,11 @@ if (Object.keys(sceneManifest).length && !DRY) {
   await mkdir(path.join(root, 'assets/images/scenes'), { recursive: true });
   await writeFile(path.join(root, 'assets/images/scenes/manifest.json'), JSON.stringify(sceneManifest, null, 2));
   console.log(`Manifest de cenas: ${Object.keys(sceneManifest).length} fotos substituirão as ilustrações SVG no jogo.`);
+}
+if (Object.keys(portraitManifest).length && !DRY) {
+  await mkdir(path.join(root, 'assets/images/portraits'), { recursive: true });
+  await writeFile(path.join(root, 'assets/images/portraits/manifest.json'), JSON.stringify(portraitManifest, null, 2));
+  console.log(`Manifest de retratos: ${Object.keys(portraitManifest).length} personagens com retrato gerado por IA.`);
 }
 console.log(`\nConcluído: ${ok} itens ok, ${fail} falharam.${DRY ? ' (dry-run: nada foi gravado)' : ''}`);
 if (fail) console.log('Rede restrita? Liberar: commons.wikimedia.org, upload.wikimedia.org, api.openverse.org, freesound.org, cdn.freesound.org, pixabay.com, cdn.pixabay.com');

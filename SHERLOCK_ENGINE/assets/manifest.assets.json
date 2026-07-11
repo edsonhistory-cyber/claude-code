@@ -53,9 +53,16 @@
       "id": "bus_linha",
       "query": "Linha Turismo Curitiba ônibus",
       "source": "wikimedia",
-      "max": 8,
+      "max": 10,
       "target": "assets/images/bus/",
       "scene": "ônibus"
+    },
+    {
+      "id": "bus_linha2",
+      "query": "Curitiba double decker tourist bus",
+      "source": "wikimedia",
+      "max": 6,
+      "target": "assets/images/bus/"
     },
     {
       "id": "city",
@@ -65,6 +72,14 @@
       "max": 10,
       "target": "assets/images/city/",
       "scene": "central"
+    },
+    {
+      "id": "loc_km18",
+      "query": "BR-277 rodovia Paraná",
+      "source": "wikimedia",
+      "max": 4,
+      "target": "assets/images/locations/km18/",
+      "scene": "km18"
     },
     {
       "id": "loc_serra",
@@ -97,7 +112,133 @@
       "max": 4,
       "target": "assets/images/locations/rio/",
       "scene": "rio"
+    },
+    {
+      "id": "loc_tunel",
+      "query": "Estrada de Ferro Curitiba Paranaguá túnel",
+      "source": "wikimedia",
+      "max": 4,
+      "target": "assets/images/locations/tunel/",
+      "scene": "túnel"
+    },
+    {
+      "id": "loc_mirante",
+      "query": "Serra do Mar Paraná mirante",
+      "source": "wikimedia",
+      "max": 5,
+      "target": "assets/images/locations/mirante/",
+      "scene": "mirante da serra"
+    },
+    {
+      "id": "loc_forum",
+      "query": "Palácio da Justiça Curitiba",
+      "source": "wikimedia",
+      "max": 5,
+      "target": "assets/images/locations/forum/",
+      "scene": "fórum"
+    },
+    {
+      "id": "loc_paiol",
+      "query": "Teatro do Paiol Curitiba",
+      "source": "wikimedia",
+      "max": 5,
+      "target": "assets/images/locations/paiol/",
+      "scene": "paiol"
+    },
+    {
+      "id": "loc_corredor",
+      "query": "courthouse corridor interior",
+      "source": "openverse",
+      "license": "cc0,cc-by",
+      "max": 4,
+      "target": "assets/images/locations/corredor/",
+      "scene": "corredor"
+    },
+    {
+      "id": "loc_subsolo",
+      "query": "dark basement archive storage",
+      "source": "openverse",
+      "license": "cc0,cc-by",
+      "max": 4,
+      "target": "assets/images/locations/subsolo/",
+      "scene": "subsolo"
+    },
+    {
+      "id": "loc_casarao",
+      "query": "Castelo do Batel Curitiba",
+      "source": "wikimedia",
+      "max": 5,
+      "target": "assets/images/locations/casarao/",
+      "scene": "casarão"
+    },
+    {
+      "id": "loc_leilao",
+      "query": "auction house interior",
+      "source": "openverse",
+      "license": "cc0,cc-by",
+      "max": 4,
+      "target": "assets/images/locations/leilao/",
+      "scene": "salão de leilões"
+    },
+    {
+      "id": "loc_galeria",
+      "query": "art gallery interior paintings",
+      "source": "openverse",
+      "license": "cc0,cc-by",
+      "max": 4,
+      "target": "assets/images/locations/galeria/",
+      "scene": "galeria"
+    },
+    {
+      "id": "loc_jardim_inverno",
+      "query": "winter garden conservatory interior plants",
+      "source": "openverse",
+      "license": "cc0,cc-by",
+      "max": 4,
+      "target": "assets/images/locations/jardim_inverno/",
+      "scene": "jardim de inverno"
+    },
+    {
+      "id": "loc_garagem",
+      "query": "classic car collection garage",
+      "source": "openverse",
+      "license": "cc0,cc-by",
+      "max": 4,
+      "target": "assets/images/locations/garagem/",
+      "scene": "garagem"
     }
+  ],
+  "portrait_style": "colorful stylized digital painting, bust portrait facing slightly toward viewer, neutral expression, plain dark teal studio background, warm cinematic lighting, detective mystery game character art, highly detailed, no text, no watermark",
+  "portraits": [
+    { "id": "P001", "seed": 4101, "prompt": "58 year old Brazilian businessman, gray-streaked combed hair, navy suit and dark tie, confident weathered face" },
+    { "id": "P002", "seed": 4102, "prompt": "48 year old Brazilian bus driver, olive skin, short dark hair, green uniform shirt and driver cap" },
+    { "id": "P003", "seed": 4103, "prompt": "45 year old Brazilian woman fare collector, dark hair in a bun, yellow uniform blouse, kind tired eyes" },
+    { "id": "P004", "seed": 4104, "prompt": "35 year old Brazilian woman journalist, shoulder-length dark hair, rose blazer, holding a reporter microphone, sharp gaze" },
+    { "id": "P005", "seed": 4105, "prompt": "55 year old Brazilian businessman, rectangular glasses, receding gray hair, brown suit, stern expression" },
+    { "id": "P006", "seed": 4106, "prompt": "60 year old Brazilian woman field biologist, wide sun hat, khaki field vest, gray hair, gentle smile" },
+    { "id": "P007", "seed": 4107, "prompt": "24 year old Brazilian woman social media influencer, purple-dyed hair, holding a smartphone, trendy lilac jacket" },
+    { "id": "P008", "seed": 4108, "prompt": "50 year old private detective of German descent, round glasses, beige trench coat, salt-and-pepper short beard" },
+    { "id": "P101", "seed": 4201, "prompt": "52 year old Brazilian accountant, gray suit and tie, thinning brown hair, cautious expression, leather briefcase strap on shoulder" },
+    { "id": "P102", "seed": 4202, "prompt": "38 year old Brazilian woman lawyer, elegant dark blazer, thin glasses, straight black hair, composed confident look" },
+    { "id": "P103", "seed": 4203, "prompt": "40 year old Brazilian railway maintenance worker, orange hi-vis vest, work cap, stubble beard, guarded eyes" },
+    { "id": "P104", "seed": 4204, "prompt": "29 year old Brazilian woman photographer, camera hanging on neck strap, brown curly hair, green field jacket, adventurous look" },
+    { "id": "P105", "seed": 4205, "prompt": "65 year old antique collector, tweed jacket with vest, fedora hat, white mustache, old-fashioned glasses" },
+    { "id": "P106", "seed": 4206, "prompt": "50 year old Brazilian woman, graying hair in a bun, knitted cardigan, worried grieving expression" },
+    { "id": "P107", "seed": 4207, "prompt": "45 year old train conductor, navy railway uniform with peaked cap, thick mustache, dependable friendly look" },
+    { "id": "P201", "seed": 4301, "prompt": "35 year old Brazilian security guard, dark navy uniform shirt with badge, very short hair, earnest honest face" },
+    { "id": "P202", "seed": 4302, "prompt": "42 year old Brazilian woman forensic expert, white lab coat, hair tied back, analytical piercing gaze" },
+    { "id": "P203", "seed": 4303, "prompt": "48 year old Brazilian prosecutor, black suit, red tie, slicked-back dark hair, ambitious expression" },
+    { "id": "P204", "seed": 4304, "prompt": "23 year old Brazilian woman forensic intern, white lab coat over a hoodie, round glasses, ponytail, curious eyes" },
+    { "id": "P205", "seed": 4305, "prompt": "58 year old electrician, blue work overalls, tool belt, gray beard, holding a small flashlight" },
+    { "id": "P206", "seed": 4306, "prompt": "44 year old Brazilian lawyer of Lebanese descent, tailored charcoal suit, trimmed dark beard, calm calculating look" },
+    { "id": "P207", "seed": 4307, "prompt": "46 year old Brazilian woman police chief, formal dark police blazer with insignia, short curly hair, authoritative expression" },
+    { "id": "P301", "seed": 4401, "prompt": "55 year old Brazilian auctioneer, black tuxedo with bow tie, silver hair, charismatic showman smile" },
+    { "id": "P302", "seed": 4402, "prompt": "62 year old elegant Brazilian woman art patron, pearl necklace, silver hair in an updo, deep green velvet dress, enigmatic smile" },
+    { "id": "P303", "seed": 4403, "prompt": "32 year old Brazilian heir, designer suit without tie, luxury watch, carefully styled hair, entitled smirk" },
+    { "id": "P304", "seed": 4404, "prompt": "47 year old Brazilian woman art collector, bold red dress, large statement earrings, sharp confident gaze" },
+    { "id": "P305", "seed": 4405, "prompt": "66 year old Brazilian catholic priest, black cassock with white clerical collar, kind wrinkled face, white hair" },
+    { "id": "P306", "seed": 4406, "prompt": "50 year old event coordinator, gray suit, discreet earpiece, holding a clipboard, attentive posture" },
+    { "id": "P307", "seed": 4407, "prompt": "26 year old Brazilian woman camera operator, headphones around neck, black t-shirt, professional video camera on shoulder" }
   ],
   "audio": [
     {
@@ -142,9 +283,9 @@
     }
   ],
   "notes": {
-    "retratos_suspeitos": "NAO baixar rostos reais (privacidade/licenca). Gerar arte-chave a partir de SHERLOCK_ENGINE_PROMPTS.json ou usar silhuetas + ficha.",
+    "retratos_personagens": "Gerados por IA (Pollinations.ai, sem rostos reais — resolve a restrição de privacidade do BRIEF §5.1). Prompts neutros: descrevem só aparência/profissão, nunca papel na trama.",
     "sfx_ui": "Nao baixar: sintetizar clique/scanner/unlock/cofre no audioManager.js (Web Audio).",
     "vozes": "SpeechSynthesis pt-BR, sem download.",
-    "cenas": "Itens com \"scene\" alimentam assets/images/scenes/manifest.json — o jogo troca a ilustração SVG pela 1ª foto baixada de cada cena."
+    "cenas": "Itens com \"scene\" alimentam assets/images/scenes/manifest.json — o jogo troca a ilustração SVG pela 1ª foto baixada de cada cena. Retratos alimentam assets/images/portraits/manifest.json."
   }
 }

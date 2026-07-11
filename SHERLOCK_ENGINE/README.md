@@ -49,7 +49,12 @@ imagens**: cards da Central, episódios do QG, locais do mapa e cinemáticas mos
 cenas ilustradas dos pontos do caso, e os retratos dos personagens são coloridos.
 Rodando `node tools/fetch_assets.mjs` com internet, as **fotos reais** (Wikimedia/
 Openverse) entram em `assets/images/scenes/manifest.json` e **substituem as
-ilustrações automaticamente** — sem tocar em código.
+ilustrações automaticamente** — sem tocar em código. Vale para os 4 casos:
+Linha Turismo (CASE001), trem/estação/túnel da Serra (CASE002), Palácio da
+Justiça e Teatro do Paiol (CASE003) e Castelo do Batel (CASE004).
+Os **retratos dos 29 personagens são gerados por IA** (Pollinations.ai, modelo
+FLUX — sem rostos reais, prompts neutros sem spoiler) e entram em
+`assets/images/portraits/manifest.json`, sobrepondo as silhuetas SVG.
 
 ## Assets (opcional, build-time)
 A arte atual é 100% procedural (SVG). Com internet, baixe fotos reais de Curitiba e áudios CC0:

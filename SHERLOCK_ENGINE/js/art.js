@@ -287,6 +287,12 @@ export function setScenePhotos(manifest) {
   scenePhotos = manifest && typeof manifest === 'object' ? manifest : null;
 }
 
+// Retratos gerados por IA (build-time): assets/images/portraits/manifest.json
+let portraitPhotos = null;
+export function setPortraitPhotos(manifest) {
+  portraitPhotos = manifest && typeof manifest === 'object' ? manifest : null;
+}
+
 /** Cena como mídia: SVG colorido por baixo e foto real por cima (quando o
  *  manifest aponta uma foto). Se o arquivo faltar, o SVG permanece — sem
  *  imagem quebrada. */
@@ -346,6 +352,10 @@ function styleFor(pid) {
 
 export function portrait(pid, nome = '') {
   const st = styleFor(pid);
+  const photo = portraitPhotos?.[pid];
+  const overlay = photo
+    ? `<img class="portrait-photo" src="${photo}" alt="${nome || pid}" loading="lazy" onload="this.classList.add('on')" onerror="this.remove()">`
+    : '';
   const h = [...String(pid)].reduce((a, c) => a + c.charCodeAt(0), 0);
   const skin = ['#e8b58c', '#d49a6a', '#b97a50', '#f0c8a0', '#a05c38'][h % 5];
   const hair = ['#2d2118', '#4a2c17', '#6b4423', '#1a1a2e', '#8a8a94'][(h >> 2) % 5];
@@ -379,5 +389,5 @@ export function portrait(pid, nome = '') {
     <path d="M42 62 Q50 70 58 62 L58 74 L42 74 Z" fill="${skin}" opacity=".9"/>
     ${traits[st.trait] || ''}
     <rect width="100" height="100" rx="10" fill="none" stroke="${st.color}" stroke-width="2" stroke-opacity=".85"/>
-  </svg>`;
+  </svg>${overlay}`;
 }
