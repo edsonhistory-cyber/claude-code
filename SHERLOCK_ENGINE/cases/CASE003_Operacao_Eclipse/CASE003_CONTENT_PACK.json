@@ -522,6 +522,22 @@
     {
       "key": "DONA_CIDA",
       "pid": "P222"
+    },
+    {
+      "key": "PRADO_LIMA",
+      "pid": "P221"
+    },
+    {
+      "key": "BETO_LIRA",
+      "pid": "P223"
+    },
+    {
+      "key": "MARCIA_TOLEDO",
+      "pid": "P224"
+    },
+    {
+      "key": "INSP_SOUTO",
+      "pid": "P225"
     }
   ],
   "witness_statements": {
@@ -548,6 +564,26 @@
       "intro": "Jaleco no lixo do subsolo, dobradinho como roupa de domingo. Quem joga fora não dobra, meu filho.",
       "flag": "cida_jaleco",
       "note": "Dona Cida encontrou o jaleco dobrado no lixo do subsolo."
+    },
+    "PRADO_LIMA": {
+      "intro": "Se aquelas provas caírem, quatrocentas páginas de denúncia viram confete. O apagão não atacou um guarda, atacou um julgamento. Tragam-me a cadeia de custódia intacta.",
+      "flag": "prado_julgamento",
+      "note": "O juiz enquadrou o crime como ataque ao mega-julgamento."
+    },
+    "BETO_LIRA": {
+      "intro": "O backup noturno roda 21:00 em ponto, há três anos, sem falhar. Na noite do apagão ele 'pulou' — mas o log mostra que ALGUÉM pausou o serviço às 20:58. Pausou. Com senha de administrador.",
+      "flag": "beto_backup",
+      "note": "O estagiário provou: o backup foi pausado manualmente com senha de admin."
+    },
+    "MARCIA_TOLEDO": {
+      "intro": "Protocolei a nulidade às 16h porque a defesa monitora VÍCIOS, detetive. Se me perguntam como eu 'sabia' do apagão: não sabia. Mas alguém do seu lado do balcão sabia — e me telefonou às 15:40.",
+      "flag": "marcia_telefonema",
+      "note": "A advogada revelou: recebeu um telefonema interno às 15:40 antecipando 'vícios' nas provas."
+    },
+    "INSP_SOUTO": {
+      "intro": "O remanejamento veio 'de cima', por memorando sem assinatura digital. Vinte anos de guarda e nunca vi escala mudar na véspera. Guardei o papel — periciem a impressora.",
+      "flag": "souto_memorando",
+      "note": "O inspetor entregou o memorando apócrifo que isolou Téo no plantão."
     }
   },
   "moods": {

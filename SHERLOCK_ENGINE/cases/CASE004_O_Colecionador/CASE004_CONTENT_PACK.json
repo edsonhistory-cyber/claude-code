@@ -514,6 +514,22 @@
     {
       "key": "MAX_BARCELLOS",
       "pid": "P321"
+    },
+    {
+      "key": "CHEF_AMADEU",
+      "pid": "P322"
+    },
+    {
+      "key": "VITO_SERRA",
+      "pid": "P323"
+    },
+    {
+      "key": "LEO_SANDRI",
+      "pid": "P324"
+    },
+    {
+      "key": "BIBI_MORAES",
+      "pid": "P325"
     }
   ],
   "witness_statements": {
@@ -540,6 +556,26 @@
       "intro": "Balcão é confessionário, detetive. Trinta comandas, trinta álibis — e o do herdeiro tem carimbo de hora.",
       "flag": "max_comandas",
       "note": "Max confirmou pelas comandas: Bruno não deixou o bar."
+    },
+    "CHEF_AMADEU": {
+      "intro": "Minha brigada não sobe ao palco — avental branco aparece no escuro, detetive. Mas às 21:50 alguém usou o elevador de serviço SEM pedir a chave na cozinha. Ele desce sozinho quando chamado de cima.",
+      "flag": "amadeu_elevador",
+      "note": "O chef notou o elevador de serviço chamado de cima às 21:50."
+    },
+    "VITO_SERRA": {
+      "intro": "Credencial de palco: leiloeiro, cerimonial, anfitriã. Mas o passe da CASA — o master — não registra log. Está no quadro de chaves do escritório. Estava, aliás.",
+      "flag": "vito_passe",
+      "note": "O segurança revelou: o passe master da casa sumiu do quadro do escritório."
+    },
+    "LEO_SANDRI": {
+      "intro": "Autentiquei três peças que o mercado dava por 'desaparecidas' desde 2019. Proveniência? 'Coleção particular'. Eu assino laudos, não perguntas — mas vocês deviam perguntar.",
+      "flag": "sandri_pecas",
+      "note": "O marchand confirmou peças desaparecidas circulando nos leilões da casa."
+    },
+    "BIBI_MORAES": {
+      "intro": "Minha coluna fotografa TUDO. No blecaute usei o infravermelho da nova câmera — moderninha, não? A mesa 1 tem uma cadeira vazia que ninguém explicou. A foto está no meu editor.",
+      "flag": "bibi_infravermelho",
+      "note": "A colunista fotografou a cadeira 1 da mesa 1 vazia durante o blecaute."
     }
   },
   "moods": {

@@ -536,6 +536,22 @@
     {
       "key": "OLGA_STEINER",
       "pid": "P121"
+    },
+    {
+      "key": "NANDO_CRUZ",
+      "pid": "P122"
+    },
+    {
+      "key": "FRANZ_KELLER",
+      "pid": "P123"
+    },
+    {
+      "key": "ALUISIO_FRANCO",
+      "pid": "P124"
+    },
+    {
+      "key": "RUTE_CAMPOS",
+      "pid": "P125"
     }
   ],
   "witness_statements": {
@@ -562,6 +578,26 @@
       "intro": "Servi dezoito cafés e um chá antes do túnel. Quando as luzes voltaram, um assento do panorâmico estava vazio — e eu sei qual.",
       "flag": "olga_assento",
       "note": "Olga confirmou o assento vazio no vagão panorâmico após o túnel."
+    },
+    "NANDO_CRUZ": {
+      "intro": "A porta de comunicação do vagão 2 estava destravada — contra protocolo. Só a equipe tem a chave quadrada. Conferi as quatro que existem: uma passou a viagem 'esquecida' no gancho da cabine.",
+      "flag": "nando_porta",
+      "note": "O guarda-freios achou a porta destravada e uma chave de serviço fora do lugar."
+    },
+    "FRANZ_KELLER": {
+      "intro": "Mein Gott, a foto! Eu fotografava o vale quando ficou escuro. No vidro, o reflexo: alguém atravessou entre os vagões AGACHADO. Levem o cartão — só devolvam as fotos das orquídeas.",
+      "flag": "franz_reflexo",
+      "note": "O turista registrou um vulto agachado cruzando entre vagões no escuro."
+    },
+    "ALUISIO_FRANCO": {
+      "intro": "Lacrei o vagão 2 em doze minutos e não deixei ninguém descer antes da lista pronta. A cadeia de custódia desta ocorrência é de livro — usem-na.",
+      "flag": "franco_custodia",
+      "note": "O delegado de Morretes garantiu a custódia impecável do vagão."
+    },
+    "RUTE_CAMPOS": {
+      "intro": "O bilhete 43 foi pago em dinheiro, na janela dos fundos, por um homem de boné que não levantou a cabeça. Vendi milhares de bilhetes — quem esconde o rosto, esconde o resto.",
+      "flag": "rute_bilhete",
+      "note": "A bilheteira descreveu a compra anônima do assento 43."
     }
   },
   "moods": {

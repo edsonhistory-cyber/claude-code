@@ -541,6 +541,22 @@
     {
       "key": "BEL_NUNES",
       "pid": "P421"
+    },
+    {
+      "key": "SEU_ERNANI",
+      "pid": "P422"
+    },
+    {
+      "key": "VIVI_COSTA",
+      "pid": "P423"
+    },
+    {
+      "key": "AUGUSTO_WILDE",
+      "pid": "P424"
+    },
+    {
+      "key": "SR_OTACILIO",
+      "pid": "P425"
     }
   ],
   "witness_statements": {
@@ -567,6 +583,26 @@
       "intro": "Base, contorno, peruca — 34 minutos de cadeira. O Caio não levantou nem pra alongar. Cronometrado.",
       "flag": "bel_cronometro",
       "note": "Bel cronometrou: Caio na maquiagem das 20:40 às 21:14."
+    },
+    "SEU_ERNANI": {
+      "intro": "Trinta e cinco anos soprando texto. A deixa do efeito neve caiu FORA do compasso — dois versos antes. Anotei no caderno de ponto na hora, com a data. Ponto não erra, ponto registra.",
+      "flag": "ernani_caderno",
+      "note": "O ponto registrou a deixa adiantada no caderno, em tempo real."
+    },
+    "VIVI_COSTA": {
+      "intro": "O seguro do espetáculo cobre 'acidente técnico' integralmente e 'dolo' em nada. Adivinhe qual laudo a produção prefere? Mas eu não assino mentira: auditem a apólice e o inquérito juntos.",
+      "flag": "vivi_apolice",
+      "note": "A produtora expôs o conflito de interesse da apólice de seguro."
+    },
+    "AUGUSTO_WILDE": {
+      "intro": "Escrevi na estreia: 'o monólogo final tem a assinatura de outro século'. Estilo não se plagia impunemente, detetive — compare os manuscritos. A crítica agradece; a justiça, imagino, também.",
+      "flag": "wilde_estilo",
+      "note": "O crítico apontou a divergência de estilo do texto premiado."
+    },
+    "SR_OTACILIO": {
+      "intro": "Porta de palco é funil: tudo passa por mim. Às 16:35 a direção entrou com uma bolsa de ferramentas — 'ajuste de cena', disse. Direção com ferramenta eu vi duas vezes na vida. As duas deram notícia.",
+      "flag": "otacilio_bolsa",
+      "note": "O porteiro viu a direção entrar com bolsa de ferramentas às 16:35."
     }
   },
   "moods": {

@@ -544,6 +544,22 @@
     {
       "key": "JOAO_FERRAZ",
       "pid": "P024"
+    },
+    {
+      "key": "HELOISA_VARGAS",
+      "pid": "P021"
+    },
+    {
+      "key": "CARLOS_ANDRADE",
+      "pid": "P022"
+    },
+    {
+      "key": "ICARO_NUNES",
+      "pid": "P025"
+    },
+    {
+      "key": "ANTONIO_SALES",
+      "pid": "P026"
     }
   ],
   "witness_statements": {
@@ -580,6 +596,26 @@
       "intro": "Café do Otávio? Pingado, sem açúcar, todo dia às 13:40. Hoje ele passou reto — a garrafa já veio cheia.",
       "flag": "joao_cafe",
       "note": "João confirmou: hoje a garrafa térmica NÃO foi enchida no quiosque."
+    },
+    "HELOISA_VARGAS": {
+      "intro": "Coordeno a força-tarefa dos casos conectados. A escuta de 09/07 foi autorizada por mim — e o que ela gravou faz desta morte a ponta de um novelo. Puxe com cuidado.",
+      "flag": "heloisa_forca_tarefa",
+      "note": "A delegada confirmou a ligação entre os casos da rede."
+    },
+    "CARLOS_ANDRADE": {
+      "intro": "Cheguei ao pátio 18:04. A empresa queria 'recolher o veículo para higienização' — neguei e lacrei. O disco do tacógrafo estava DENTRO do aparelho, intacto. Quase foi lavado com o resto.",
+      "flag": "andrade_lacre",
+      "note": "O tenente impediu a empresa de limpar o ônibus — o tacógrafo sobreviveu por 20 minutos."
+    },
+    "ICARO_NUNES": {
+      "intro": "Sem lesão de defesa, sem hesitação no gole. Quem envenenou aquele café era alguém de quem a vítima aceitaria um favor de rotina. Procure na intimidade, não na multidão.",
+      "flag": "icaro_perfil",
+      "note": "O perito apontou: o veneno veio de alguém da confiança da vítima."
+    },
+    "ANTONIO_SALES": {
+      "intro": "O rascunho da delação está no cofre da redação e lá fica. Mas anote: Otávio revisou o texto com a Renata TRÊS vezes esta semana. Quem sabia disso? Quem ele temia?",
+      "flag": "sales_rascunho",
+      "note": "O repórter confirmou: a delação estava pronta e revisada."
     }
   },
   "contradiction": {
