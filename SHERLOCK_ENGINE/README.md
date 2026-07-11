@@ -43,6 +43,14 @@ Validação headless (mesmos checks do boot, para CI/build):
 node tools/validate_case.mjs CASE001
 ```
 
+## Visual colorido + fotos reais
+A interface é **colorida por módulo** (cada tela da Central tem sua cor) e **cheia de
+imagens**: cards da Central, episódios do QG, locais do mapa e cinemáticas mostram
+cenas ilustradas dos pontos do caso, e os retratos dos personagens são coloridos.
+Rodando `node tools/fetch_assets.mjs` com internet, as **fotos reais** (Wikimedia/
+Openverse) entram em `assets/images/scenes/manifest.json` e **substituem as
+ilustrações automaticamente** — sem tocar em código.
+
 ## Assets (opcional, build-time)
 A arte atual é 100% procedural (SVG). Com internet, baixe fotos reais de Curitiba e áudios CC0:
 ```bash

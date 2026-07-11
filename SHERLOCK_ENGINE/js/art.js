@@ -5,11 +5,12 @@
  * substituem estes cenários automaticamente (fallback gracioso).
  */
 
+// céus VIVOS (o dono pediu cor, não preto e branco)
 const SKY = {
-  dia: ['#0e2a44', '#123a5c'],
-  tarde: ['#1b2f4d', '#5c3a2e'],
-  por_do_sol: ['#2a1e3f', '#b4562e'],
-  noite: ['#060d18', '#0d1b2e'],
+  dia: ['#2f7fd4', '#8fd8f7'],
+  tarde: ['#5b4bc4', '#f6a25c'],
+  por_do_sol: ['#8e2d6b', '#ffb46b'],
+  noite: ['#241b56', '#3b2f7d'],
 };
 
 function svg(inner, sky = 'dia', vb = '0 0 400 240') {
@@ -24,7 +25,7 @@ function svg(inner, sky = 'dia', vb = '0 0 400 240') {
     ${inner}</svg>`;
 }
 
-const ground = (color = '#0a1826') => `<rect y="190" width="400" height="50" fill="${color}"/>`;
+const ground = (color = '#2b7a4b') => `<rect y="190" width="400" height="50" fill="${color}"/>`;
 const glow = (cx, cy, r, color, o = .5) => `<circle cx="${cx}" cy="${cy}" r="${r}" fill="${color}" opacity="${o}" filter="blur(6px)"/>`;
 
 // Ônibus da Linha Turismo (verde e amarelo, 2 andares)
@@ -266,12 +267,32 @@ const ALIASES = {
   'mirante da serra': ['mirante'],
 };
 
-export function sceneArt(place = '') {
+function sceneKey(place = '') {
   const q = String(place).toLowerCase();
-  for (const [key, fn] of Object.entries(SCENES)) {
-    if (q.includes(key) || (ALIASES[key] || []).some((a) => q.includes(a))) return fn();
+  for (const key of Object.keys(SCENES)) {
+    if (q.includes(key) || (ALIASES[key] || []).some((a) => q.includes(a))) return key;
   }
-  return SCENES['central']();
+  return 'central';
+}
+
+export function sceneArt(place = '') {
+  return SCENES[sceneKey(place)]();
+}
+
+// ── Fotos reais (build-time): assets/images/scenes/manifest.json ────────────
+// Quando o dono roda tools/fetch_assets.mjs com internet, o manifest mapeia
+// cena → foto e as ilustrações são substituídas automaticamente.
+let scenePhotos = null;
+export function setScenePhotos(manifest) {
+  scenePhotos = manifest && typeof manifest === 'object' ? manifest : null;
+}
+
+/** Cena como mídia: foto real se existir no manifest, senão SVG colorido. */
+export function sceneMedia(place = '') {
+  const key = sceneKey(place);
+  const photo = scenePhotos?.[key];
+  if (photo) return `<div class="scene-media"><img src="${photo}" alt="${key}"></div>`;
+  return `<div class="scene-media">${SCENES[key]()}</div>`;
 }
 
 // ── Retratos-silhueta (sem rostos reais — BRIEF §5.1) ────────────────────────
@@ -321,21 +342,38 @@ function styleFor(pid) {
 
 export function portrait(pid, nome = '') {
   const st = styleFor(pid);
+  const h = [...String(pid)].reduce((a, c) => a + c.charCodeAt(0), 0);
+  const skin = ['#e8b58c', '#d49a6a', '#b97a50', '#f0c8a0', '#a05c38'][h % 5];
+  const hair = ['#2d2118', '#4a2c17', '#6b4423', '#1a1a2e', '#8a8a94'][(h >> 2) % 5];
   const traits = {
-    bone: `<path d="M30 34 Q50 18 70 34 L70 40 L26 40 Z" fill="${st.color}" stroke="#08131F"/>`,
-    gravata: `<path d="M47 78 L50 92 L53 78 Z" fill="#C0392B"/>`,
-    coque: `<circle cx="50" cy="22" r="9" fill="#3a2c20"/>`,
-    microfone: `<rect x="66" y="60" width="5" height="22" rx="2" fill="#aab"/><circle cx="68.5" cy="56" r="6" fill="#333" stroke="#aab"/>`,
-    oculos: `<g stroke="#dfe8ee" stroke-width="2" fill="none"><circle cx="41" cy="42" r="7"/><circle cx="59" cy="42" r="7"/><line x1="48" y1="42" x2="52" y2="42"/></g>`,
-    chapeu: `<ellipse cx="50" cy="30" rx="24" ry="6" fill="#3f5a44"/><rect x="38" y="14" width="24" height="16" rx="4" fill="#3f5a44"/>`,
-    celular: `<rect x="65" y="56" width="10" height="18" rx="2" fill="#0b1e30" stroke="#7fe3ff"/>`,
+    bone: `<path d="M30 32 Q50 15 70 32 L70 38 L26 38 Z" fill="${st.color}" stroke="#1a1030" stroke-width="1.5"/>`,
+    gravata: `<path d="M47 74 L50 92 L53 74 Z" fill="#f43f5e"/>`,
+    coque: `<circle cx="50" cy="20" r="9" fill="${hair}"/>`,
+    microfone: `<rect x="66" y="60" width="5" height="22" rx="2" fill="#cbd5e1"/><circle cx="68.5" cy="56" r="6" fill="#334155" stroke="#cbd5e1"/>`,
+    oculos: `<g stroke="#1a1030" stroke-width="2.4" fill="rgba(255,255,255,.18)"><circle cx="42" cy="41" r="7"/><circle cx="58" cy="41" r="7"/><line x1="49" y1="41" x2="51" y2="41"/></g>`,
+    chapeu: `<ellipse cx="50" cy="28" rx="24" ry="6" fill="${st.color}"/><rect x="38" y="12" width="24" height="16" rx="4" fill="${st.color}" stroke="#1a1030"/>`,
+    celular: `<rect x="65" y="56" width="10" height="18" rx="2" fill="#111827" stroke="#7dd3fc" stroke-width="1.5"/>`,
   };
   return `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-    <defs><radialGradient id="pbg${pid}" cx=".5" cy=".35"><stop offset="0" stop-color="${st.color}" stop-opacity=".35"/><stop offset="1" stop-color="#0b1e30"/></radialGradient></defs>
-    <rect width="100" height="100" rx="8" fill="url(#pbg${pid})"/>
-    <circle cx="50" cy="40" r="16" fill="#1c2f42"/>
-    <path d="M22 92 Q50 58 78 92 L78 100 L22 100 Z" fill="#1c2f42"/>
+    <defs>
+      <radialGradient id="pbg${pid}" cx=".5" cy=".3">
+        <stop offset="0" stop-color="${st.color}"/>
+        <stop offset="1" stop-color="#312e81"/>
+      </radialGradient>
+      <linearGradient id="pcl${pid}" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="${st.color}"/>
+        <stop offset="1" stop-color="#1e1b4b"/>
+      </linearGradient>
+    </defs>
+    <rect width="100" height="100" rx="10" fill="url(#pbg${pid})"/>
+    <circle cx="50" cy="30" r="30" fill="rgba(255,255,255,.14)"/>
+    <path d="M32 30 Q50 10 68 30 L68 40 Q50 30 32 40 Z" fill="${hair}"/>
+    <circle cx="50" cy="39" r="15" fill="${skin}"/>
+    <circle cx="44" cy="38" r="1.8" fill="#1a1030"/><circle cx="56" cy="38" r="1.8" fill="#1a1030"/>
+    <path d="M46 46 Q50 49 54 46" stroke="#1a1030" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+    <path d="M22 96 Q50 58 78 96 L78 100 L22 100 Z" fill="url(#pcl${pid})"/>
+    <path d="M42 62 Q50 70 58 62 L58 74 L42 74 Z" fill="${skin}" opacity=".9"/>
     ${traits[st.trait] || ''}
-    <rect width="100" height="100" rx="8" fill="none" stroke="${st.color}" stroke-opacity=".5"/>
+    <rect width="100" height="100" rx="10" fill="none" stroke="${st.color}" stroke-width="2" stroke-opacity=".85"/>
   </svg>`;
 }

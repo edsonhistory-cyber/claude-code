@@ -5,7 +5,7 @@
 import { getModule, CASE_FILES } from '../database.js';
 import { el, screenShell } from '../uiManager.js';
 import { episodes, getCareer, levelInfo } from '../campaign.js';
-import { sceneArt } from '../art.js';
+import { sceneMedia } from '../art.js';
 import { emit } from '../eventManager.js';
 import { sfx, ambience } from '../audioManager.js';
 
@@ -40,7 +40,7 @@ export function render(player) {
     const card = el('button', `card episode-card ${ep.status}`);
     const statusTag = { done: '✔ CONCLUÍDO', available: 'DISPONÍVEL', locked: `🔒 ${ep.unlock}` }[ep.status];
     card.innerHTML = `
-      <div class="episode-art">${sceneArt(EPISODE_ART[ep.id] || 'central')}</div>
+      <div class="episode-art">${sceneMedia(EPISODE_ART[ep.id] || 'central')}</div>
       <div class="episode-meta">
         <span class="row-id">${ep.id}</span><b>${ep.title}</b>
         <span class="muted">${ep.city || 'Local confidencial'}</span>

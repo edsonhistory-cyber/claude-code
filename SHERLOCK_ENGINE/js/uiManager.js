@@ -4,6 +4,7 @@
  * As telas de investigação vivem em js/screens/*.js.
  */
 import { getModule, t } from './database.js';
+import { sceneMedia } from './art.js';
 import { emit, subscribe } from './eventManager.js';
 import { getCase } from './caseState.js';
 import { sfx, toggleMute, isMuted } from './audioManager.js';
@@ -12,15 +13,15 @@ import { requestHint, ariaSay } from './aria.js';
 const app = () => document.getElementById('app');
 
 export const CARD_INFO = {
-  'Mapa': { icon: '🗺', desc: 'Rota da Linha Turismo, locais e coleta de evidências.' },
-  'Laboratório': { icon: '🧪', desc: 'Toxicologia, digitais, fibras e documentoscopia.' },
-  'Mural': { icon: '📌', desc: 'Suspeitos, suspeição MMO e conexões entre pistas.' },
-  'Linha do Tempo': { icon: '🕑', desc: 'Reconstrua a cronologia de 14:00 às 18:30.' },
-  'OSINT': { icon: '🔎', desc: 'Fontes abertas: empresas, notícias e registros.' },
-  'GEOINT': { icon: '📡', desc: 'Tacógrafo, satélite e análise de rotas.' },
-  'Interrogatórios': { icon: '🎙', desc: 'Depoimentos, estresse e contradições (HUMINT).' },
-  'Evidências': { icon: '🧾', desc: 'Inventário, documentos e cadeia de custódia.' },
-  'Sala do Júri': { icon: '⚖', desc: 'Cofre de 4 códigos e acusação final.' },
+  'Mapa': { icon: '🗺', desc: 'Locais do caso e coleta de evidências.', color: 'var(--c-mapa)' },
+  'Laboratório': { icon: '🧪', desc: 'Bancadas forenses e laudos.', color: 'var(--c-lab)' },
+  'Mural': { icon: '📌', desc: 'Suspeitos, suspeição MMO e conexões.', color: 'var(--c-mural)' },
+  'Linha do Tempo': { icon: '🕑', desc: 'Reconstrua a cronologia do caso.', color: 'var(--c-tempo)' },
+  'OSINT': { icon: '🔎', desc: 'Fontes abertas: empresas, notícias e registros.', color: 'var(--c-osint)' },
+  'GEOINT': { icon: '📡', desc: 'Registros técnicos e análise geoespacial.', color: 'var(--c-geoint)' },
+  'Interrogatórios': { icon: '🎙', desc: 'Depoimentos, estresse e contradições (HUMINT).', color: 'var(--c-interro)' },
+  'Evidências': { icon: '🧾', desc: 'Inventário, documentos e cadeia de custódia.', color: 'var(--c-evid)' },
+  'Sala do Júri': { icon: '⚖', desc: 'Cofre de 4 códigos e acusação final.', color: 'var(--c-juri)' },
 };
 
 const normKey = (s) => String(s).normalize('NFD').replace(/[̀-ͯ]/g, '').toUpperCase().trim();
@@ -117,9 +118,12 @@ export function modal(title, contentNode, actions = []) {
 // ── Relógio do mundo por ato (CASE001 world state) ──────────────────────────
 const ACT_TIME = { 1: '14:00', 2: '15:47', 3: '16:45', 4: '18:30' };
 
-export function screenShell(title, breadcrumb) {
+export function screenShell(title, breadcrumb, accent) {
   const s = getCase();
   const root = el('div', 'screen');
+  // cor de destaque da tela: tudo que usa var(--accent) fica colorido por módulo
+  const color = accent || cardInfo(title).color;
+  if (color) root.style.setProperty('--accent', color);
   const header = el('header', 'screen-header');
   header.append(el('div', 'breadcrumb', breadcrumb));
   const hud = el('div', 'hud');
@@ -205,25 +209,31 @@ export function renderLogin(caseInfo) {
   user.focus();
 }
 
-// ── CENTRAL 3×3 ──────────────────────────────────────────────────────────────
+// ── CENTRAL 3×3 (cards coloridos com imagem do caso) ────────────────────────
 export function renderCentral(player) {
   const ui = getModule('SHERLOCK_ENGINE_UI');
   const central = (ui?.screens || []).find((sc) => sc.id === 'CENTRAL');
   const cards = central?.cards || Object.keys(CARD_INFO);
   const s = getCase();
+  const stops = getModule('CASE_PACK')?.stops || [];
   const { body } = screenShell('Central', `CENTRAL DE OPERAÇÕES · ${player || 'Detetive'}`);
   const grid = el('div', 'central-grid');
-  for (const name of cards) {
+  cards.forEach((name, i) => {
     const info = cardInfo(name);
     const card = el('button', 'card central-card');
+    if (info.color) card.style.setProperty('--accent', info.color);
     const badge = badgeFor(name, s);
-    card.append(el('div', 'card-icon', info.icon));
-    card.append(el('div', 'card-title', name));
-    card.append(el('div', 'card-desc', info.desc));
-    if (badge) card.append(el('div', `card-badge ${badge.cls || ''}`, badge.text));
+    // cada card mostra uma imagem de local do caso ativo (fotos reais quando baixadas)
+    const scene = stops.length ? stops[i % stops.length].scene : 'central';
+    card.append(el('div', 'card-art', sceneMedia(scene)));
+    const meta = el('div', 'card-meta');
+    meta.append(el('div', 'card-title', `${info.icon} ${name}`));
+    meta.append(el('div', 'card-desc', info.desc));
+    if (badge) meta.append(el('div', `card-badge ${badge.cls || ''}`, badge.text));
+    card.append(meta);
     card.onclick = () => { sfx('click'); emit('UI_OPEN_CARD', { card: name }); };
     grid.append(card);
-  }
+  });
   body.append(grid);
 }
 

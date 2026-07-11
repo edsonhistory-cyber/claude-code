@@ -160,6 +160,13 @@ export async function loadAll(caseId = 'CASE001', onProgress = () => {}) {
     store[`CASE_${kind}`] = store[CASE_FILES[caseId][kind]] ?? null;
   }
 
+  // fotos reais (opcionais, geradas pelo tools/fetch_assets.mjs em build-time)
+  if (!('SCENE_PHOTOS' in store)) {
+    store.SCENE_PHOTOS = await fetch('assets/images/scenes/manifest.json')
+      .then((r) => (r.ok ? r.json() : null))
+      .catch(() => null);
+  }
+
   report = runIntegrityChecks(store);
   for (const f of failures) report.errors.unshift(`Falha ao carregar ${f}`);
 

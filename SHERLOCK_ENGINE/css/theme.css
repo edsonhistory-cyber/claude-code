@@ -2,19 +2,29 @@
    Fontes ainda não baixadas (build futura em assets/fonts) — stacks com fallback local. */
 
 :root {
-  --bg: #08131F;
-  --panel: #122435;
-  --accent: #00C2FF;
-  --warning: #E0B658;
-  --danger: #C0392B;
-  --success: #2F8B57;
-  --text: #F2F5F7;
-  --radius: 10px;
+  --bg: #0d1230;
+  --panel: #1a2145;
+  --accent: #38bdf8;
+  --warning: #fbbf24;
+  --danger: #f43f5e;
+  --success: #34d399;
+  --text: #F5F7FF;
+  --radius: 12px;
   --shadow: 0 10px 30px rgba(0, 0, 0, .35);
   --font-display: "Bebas Neue", "Oswald", "Arial Narrow", Impact, sans-serif;
   --font-body: "Oswald", "Segoe UI", Roboto, Arial, sans-serif;
   --font-mono: "Courier Prime", "Special Elite", "Courier New", monospace;
   --transition: 300ms ease;
+  /* paleta viva das telas (uma cor por módulo da Central) */
+  --c-mapa: #34d399;
+  --c-lab: #c084fc;
+  --c-mural: #f472b6;
+  --c-tempo: #fbbf24;
+  --c-osint: #22d3ee;
+  --c-geoint: #60a5fa;
+  --c-interro: #fb7185;
+  --c-evid: #facc15;
+  --c-juri: #fb923c;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -27,14 +37,16 @@ html, body {
   overflow: hidden;
 }
 
-/* textura discreta de "ops room": gradiente radial + grade */
+/* fundo aurora: camadas coloridas sobre azul profundo */
 body {
   background:
-    radial-gradient(1200px 700px at 70% -10%, rgba(0, 194, 255, .08), transparent 60%),
-    radial-gradient(900px 500px at 10% 110%, rgba(0, 194, 255, .05), transparent 60%),
-    repeating-linear-gradient(0deg, transparent 0 39px, rgba(242, 245, 247, .025) 39px 40px),
-    repeating-linear-gradient(90deg, transparent 0 39px, rgba(242, 245, 247, .025) 39px 40px),
-    var(--bg);
+    radial-gradient(1100px 650px at 80% -10%, rgba(168, 85, 247, .22), transparent 60%),
+    radial-gradient(900px 560px at -10% 20%, rgba(34, 211, 238, .18), transparent 55%),
+    radial-gradient(1000px 600px at 50% 115%, rgba(251, 146, 60, .14), transparent 60%),
+    radial-gradient(700px 420px at 105% 75%, rgba(52, 211, 153, .14), transparent 55%),
+    repeating-linear-gradient(0deg, transparent 0 39px, rgba(245, 247, 255, .02) 39px 40px),
+    repeating-linear-gradient(90deg, transparent 0 39px, rgba(245, 247, 255, .02) 39px 40px),
+    linear-gradient(160deg, #101440, #0d1230 55%, #131033);
 }
 
 #app { height: 100%; }
@@ -43,8 +55,9 @@ body {
 @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
 
 .panel {
-  background: linear-gradient(160deg, rgba(18, 36, 53, .92), rgba(18, 36, 53, .75));
-  border: 1px solid rgba(0, 194, 255, .18);
+  background: linear-gradient(160deg, rgba(28, 34, 74, .92), rgba(22, 27, 60, .78));
+  border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+  border-top: 3px solid color-mix(in srgb, var(--accent) 75%, transparent);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   backdrop-filter: blur(8px); /* glassmorphism do UI.json */
@@ -56,7 +69,7 @@ body {
   letter-spacing: .12em;
   color: var(--text);
   background: transparent;
-  border: 1px solid rgba(0, 194, 255, .4);
+  border: 1px solid color-mix(in srgb, var(--accent) 50%, transparent);
   border-radius: var(--radius);
   padding: .6em 1.4em;
   cursor: pointer;
@@ -64,20 +77,23 @@ body {
 }
 .btn:hover:not(:disabled) {
   border-color: var(--accent);
-  box-shadow: 0 0 18px rgba(0, 194, 255, .35);
+  box-shadow: 0 0 18px color-mix(in srgb, var(--accent) 40%, transparent);
   transform: translateY(-1px);
 }
 .btn:disabled { opacity: .4; cursor: not-allowed; }
-.btn-primary { background: rgba(0, 194, 255, .15); border-color: var(--accent); }
-.btn-ghost { border-color: transparent; opacity: .8; }
-.btn-ghost:hover { border-color: rgba(0, 194, 255, .4); opacity: 1; }
+.btn-primary {
+  background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 35%, transparent), color-mix(in srgb, var(--accent) 15%, transparent));
+  border-color: var(--accent);
+}
+.btn-ghost { border-color: transparent; opacity: .85; }
+.btn-ghost:hover { border-color: color-mix(in srgb, var(--accent) 50%, transparent); opacity: 1; }
 
 .input {
   width: 100%;
   padding: .7em .9em;
-  background: rgba(8, 19, 31, .8);
+  background: rgba(13, 18, 48, .85);
   color: var(--text);
-  border: 1px solid rgba(0, 194, 255, .25);
+  border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
   border-radius: var(--radius);
   font-family: var(--font-mono);
   font-size: 1rem;
@@ -86,5 +102,5 @@ body {
 .input:focus {
   outline: none;
   border-color: var(--accent);
-  box-shadow: 0 0 12px rgba(0, 194, 255, .25);
+  box-shadow: 0 0 12px color-mix(in srgb, var(--accent) 30%, transparent);
 }

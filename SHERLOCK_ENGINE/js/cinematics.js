@@ -4,7 +4,7 @@
  */
 import { getModule } from './database.js';
 import { speak, sfx } from './audioManager.js';
-import { sceneArt } from './art.js';
+import { sceneMedia } from './art.js';
 
 let playing = false;
 
@@ -36,7 +36,7 @@ export function playCinematic(id, onEnd = () => {}) {
     if (i >= shots.length) return end();
     const shot = shots[i++];
     const place = shot.location || shot.target || '';
-    stage.innerHTML = `<div class="cine-art kenburns">${sceneArt(place)}</div>`;
+    stage.innerHTML = `<div class="cine-art kenburns">${sceneMedia(place)}</div>`;
     caption.textContent = `${scene.title} — ${place}${shot.time ? ' · ' + shot.time : ''}`;
     timer = setTimeout(showShot, perShot);
   }

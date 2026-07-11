@@ -3,7 +3,7 @@
  * CONTENT_PACK (multi-caso). Ações de hotspot: doc | evidence | flag | note.
  */
 import { screenShell, el, toast, modal } from '../uiManager.js';
-import { sceneArt } from '../art.js';
+import { sceneMedia } from '../art.js';
 import { getCase, getPack, collectEvidence, unlockDocument, addScore } from '../caseState.js';
 import { sfx, ambience } from '../audioManager.js';
 
@@ -83,7 +83,7 @@ function openLocation(stop) {
   ambience(stop.ambience || 'cidade');
 
   const content = el('div', 'location-view');
-  content.innerHTML = `<div class="location-art">${sceneArt(stop.scene || stop.name)}</div>`;
+  content.innerHTML = `<div class="location-art">${sceneMedia(stop.scene || stop.name)}</div>`;
   const spots = el('div', 'hotspots');
   for (const h of (getPack().hotspots || {})[stop.id] || []) {
     const b = el('button', 'card hotspot');

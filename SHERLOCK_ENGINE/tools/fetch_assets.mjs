@@ -28,11 +28,15 @@ await writeFile(CREDITS, '# Créditos e licenças de assets\n\nGerado por `tools
 
 const credit = (row) => appendFile(CREDITS, `| ${row.map((x) => String(x).replaceAll('|', '/')).join(' | ')} |\n`);
 
-async function download(url, target, name) {
+const sceneManifest = {}; // cena → caminho da 1ª foto baixada (lido pelo jogo)
+
+async function download(url, target, name, item) {
   const dir = path.join(root, target);
   await mkdir(dir, { recursive: true });
   const file = path.join(dir, name);
-  if (DRY) { console.log('  [dry-run]', url, '->', path.relative(root, file)); return name; }
+  const rel = `${target.replace(/\/$/, '')}/${name}`;
+  if (item?.scene && !sceneManifest[item.scene]) sceneManifest[item.scene] = rel;
+  if (DRY) { console.log('  [dry-run]', url, '->', rel); return name; }
   const res = await fetch(url, { headers: { 'User-Agent': UA } });
   if (!res.ok) throw new Error(`HTTP ${res.status} em ${url}`);
   await pipeline(Readable.fromWeb(res.body), createWriteStream(file));
@@ -63,7 +67,7 @@ async function fetchWikimedia(item) {
     const author = (meta.Artist?.value || 'desconhecido').replace(/<[^>]+>/g, '').trim().slice(0, 60);
     const ext = path.extname(new URL(info.thumburl || info.url).pathname) || '.jpg';
     const name = `${item.id}_${++n}${ext}`;
-    await download(info.thumburl || info.url, item.target, name);
+    await download(info.thumburl || info.url, item.target, name, item);
     await credit([item.id, path.join(item.target, name), 'Wikimedia Commons', author, license, info.descriptionurl || info.url]);
   }
   if (!n) throw new Error('nenhum resultado livre');
@@ -83,7 +87,7 @@ async function fetchOpenverse(item) {
   for (const r of data.results || []) {
     const ext = path.extname(new URL(r.url).pathname) || '.jpg';
     const name = `${item.id}_${++n}${ext}`;
-    await download(r.url, item.target, name);
+    await download(r.url, item.target, name, item);
     await credit([item.id, path.join(item.target, name), `Openverse (${r.source})`, r.creator || 'desconhecido', r.license?.toUpperCase(), r.foreign_landing_url || r.url]);
   }
   if (!n) throw new Error('nenhum resultado');
@@ -104,7 +108,7 @@ async function fetchFreesound(item) {
   let n = 0;
   for (const r of data.results || []) {
     const name = `${item.id}_${++n}_${slug(r.name)}.mp3`;
-    await download(r.previews['preview-hq-mp3'], item.target, name);
+    await download(r.previews['preview-hq-mp3'], item.target, name, item);
     await credit([item.id, path.join(item.target, name), 'Freesound', r.username, 'CC0', r.url]);
   }
   if (!n) throw new Error('nenhum CC0 encontrado');
@@ -122,7 +126,7 @@ async function fetchPixabay(item) {
   let n = 0;
   for (const r of data.hits || []) {
     const name = `${item.id}_${++n}.jpg`;
-    await download(r.largeImageURL, item.target, name);
+    await download(r.largeImageURL, item.target, name, item);
     await credit([item.id, path.join(item.target, name), 'Pixabay', r.user, 'Pixabay License', r.pageURL]);
   }
   if (!n) throw new Error('nenhum resultado');
@@ -143,6 +147,11 @@ for (const item of [...(manifest.images || []), ...(manifest.audio || [])]) {
     console.error(`falhou: ${item.id} — ${e.message}`);
     fail++;
   }
+}
+if (Object.keys(sceneManifest).length && !DRY) {
+  await mkdir(path.join(root, 'assets/images/scenes'), { recursive: true });
+  await writeFile(path.join(root, 'assets/images/scenes/manifest.json'), JSON.stringify(sceneManifest, null, 2));
+  console.log(`Manifest de cenas: ${Object.keys(sceneManifest).length} fotos substituirão as ilustrações SVG no jogo.`);
 }
 console.log(`\nConcluído: ${ok} itens ok, ${fail} falharam.${DRY ? ' (dry-run: nada foi gravado)' : ''}`);
 if (fail) console.log('Rede restrita? Liberar: commons.wikimedia.org, upload.wikimedia.org, api.openverse.org, freesound.org, cdn.freesound.org, pixabay.com, cdn.pixabay.com');
