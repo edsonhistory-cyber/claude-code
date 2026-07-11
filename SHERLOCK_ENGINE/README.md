@@ -9,9 +9,11 @@ com a **campanha "Sherlock Chronicles" inteira jogável (5 episódios)**:
 | CASE002 | **Silêncio na Serra** (SRR‑0904) — trem Serra Verde → Morretes | Lavagem de dinheiro |
 | CASE003 | **Operação Eclipse** (ECL‑2112) — apagão no Fórum | Manipulação de provas |
 | CASE004 | **O Colecionador** (COL‑0077) — leilão no Batel | A rede criminosa (final) |
+| CASE005 | **O Último Ato** (ATO‑0555) — estreia no Teatro Guaíra | Epílogo: o preço do aplauso |
 
-Os quatro casos se conectam: os codinomes MUSEU · JARDINEIRO · RODAS · MAQUINISTA
-atravessam a campanha até o desmascaramento do Colecionador no episódio final.
+Os quatro primeiros casos se conectam: os codinomes MUSEU · JARDINEIRO · RODAS · MAQUINISTA
+atravessam a campanha até o desmascaramento do Colecionador — e o CASE005 fecha
+a temporada com um crime de bastidor no palco mais famoso de Curitiba.
 
 ## Como jogar (jogo completo ✅ — M1 + M2)
 ```bash
