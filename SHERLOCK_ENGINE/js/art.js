@@ -234,6 +234,60 @@ const SCENES = {
     <rect x="330" y="60" width="30" height="130" fill="#141b24" stroke="#3a4a5a"/>
     <text x="345" y="52" font-size="8" fill="#587a94" text-anchor="middle" font-family="monospace">ELEVADOR</text>
     ${glow(345, 125, 20, '#E0B658', .15)}`, 'noite'),
+
+  // ── CASE005 — Teatro Guaíra (O Último Ato) ────────────────────────────
+  'teatro': () => svg(`${ground('#1a1626')}
+    <rect x="60" y="60" width="280" height="130" rx="4" fill="#241d33" stroke="#4a3a63"/>
+    ${[0,1,2,3,4].map((i)=>`<rect x="${84+i*52}" y="80" width="30" height="70" rx="14" fill="#141020" stroke="#6b5590"/>`).join('')}
+    <rect x="140" y="34" width="120" height="26" rx="4" fill="#3a2d52"/>
+    <text x="200" y="52" font-size="12" fill="#E0B658" text-anchor="middle" font-family="monospace">GUAÍRA</text>
+    ${glow(200, 120, 90, '#b46bff', .10)}`, 'noite'),
+
+  'palco': () => svg(`
+    <rect width="400" height="240" fill="#120c18"/>
+    <path d="M0 0 L60 0 L30 240 L0 240 Z" fill="#7a1f2f"/>
+    <path d="M400 0 L340 0 L370 240 L400 240 Z" fill="#7a1f2f"/>
+    <rect y="190" width="400" height="50" fill="#3a2a1c"/>
+    <line x1="80" y1="0" x2="80" y2="60" stroke="#555" stroke-width="2"/>
+    <line x1="320" y1="0" x2="320" y2="60" stroke="#555" stroke-width="2"/>
+    <rect x="70" y="58" width="260" height="8" rx="3" fill="#222"/>
+    <text x="200" y="82" font-size="9" fill="#c05f5f" text-anchor="middle" font-family="monospace">VARA 7</text>
+    ${glow(200, 150, 60, '#ffd27f', .30)}
+    <circle cx="200" cy="150" r="26" fill="rgba(255,220,150,.16)"/>`, 'noite'),
+
+  'coxia': () => svg(`
+    <rect width="400" height="240" fill="#100d16"/>
+    <path d="M40 0 L90 0 L90 240 L40 240 Z" fill="#4a1420"/>
+    <path d="M120 0 L150 0 L150 240 L120 240 Z" fill="#2a2333"/>
+    ${[180, 210, 240].map((x)=>`<line x1="${x}" y1="0" x2="${x}" y2="200" stroke="#3d3450" stroke-width="3"/>`).join('')}
+    <rect x="260" y="120" width="110" height="70" rx="4" fill="#1a1524" stroke="#3d3450"/>
+    <text x="315" y="112" font-size="8" fill="#8a7fa8" text-anchor="middle" font-family="monospace">MESA DA DIREÇÃO</text>
+    ${glow(315, 155, 26, '#7fd3ff', .12)}`, 'noite'),
+
+  'camarim': () => svg(`
+    <rect width="400" height="240" fill="#1b1420"/>
+    <rect x="120" y="50" width="160" height="120" rx="6" fill="#0d0a12" stroke="#57406b"/>
+    ${[0,1,2,3,4].map((i)=>`<circle cx="${138+i*31}" cy="44" r="6" fill="#ffd98a"/>`).join('')}
+    ${[0,1,2,3,4].map((i)=>`<circle cx="${138+i*31}" cy="176" r="6" fill="#ffd98a"/>`).join('')}
+    <rect x="100" y="176" width="200" height="14" rx="4" fill="#3a2d47"/>
+    ${glow(200, 110, 70, '#ffca7a', .14)}`, 'noite'),
+
+  'urdimento': () => svg(`
+    <rect width="400" height="240" fill="#0c0a12"/>
+    ${[70, 130, 190, 250, 310].map((x, i)=>`<line x1="${x}" y1="0" x2="${x}" y2="240" stroke="#2c2740" stroke-width="${i===3?4:2}"/>`).join('')}
+    <rect x="40" y="100" width="320" height="10" rx="3" fill="#241f36" stroke="#443a5e"/>
+    ${[80, 140, 200, 260, 320].map((x)=>`<rect x="${x-8}" y="112" width="16" height="34" rx="2" fill="#39304f"/>`).join('')}
+    <rect x="242" y="112" width="16" height="34" rx="2" fill="#7a1f2f"/>
+    <text x="250" y="160" font-size="9" fill="#c05f5f" text-anchor="middle" font-family="monospace">⚠ VARA 7</text>
+    ${glow(250, 128, 30, '#ff8a8a', .12)}`, 'noite'),
+
+  'praça santos andrade': () => svg(`${ground('#274a33')}
+    <rect x="130" y="70" width="140" height="90" rx="4" fill="#3d3548" stroke="#6b5f85"/>
+    ${[0,1,2,3].map((i)=>`<rect x="${146+i*30}" y="90" width="16" height="50" rx="7" fill="#181226"/>`).join('')}
+    <text x="200" y="62" font-size="9" fill="#cabde0" text-anchor="middle" font-family="monospace">UFPR</text>
+    <circle cx="70" cy="150" r="26" fill="#2F8B57"/><rect x="66" y="150" width="8" height="40" fill="#5c4326"/>
+    <circle cx="330" cy="150" r="26" fill="#2F8B57"/><rect x="326" y="150" width="8" height="40" fill="#5c4326"/>
+    ${glow(200, 110, 80, '#9fd8ff', .10)}`, 'noite'),
 };
 
 // Trem da Serra Verde (locomotiva + vagão panorâmico)
@@ -265,6 +319,12 @@ const ALIASES = {
   'estação': ['estacao', 'morretes'],
   'rio': ['nhundiaquara', 'ponte'],
   'mirante da serra': ['mirante'],
+  'teatro': ['guaíra', 'guaira', 'último ato', 'ultimo ato', 'foyer'],
+  'palco': ['marca 7', 'monólogo', 'monologo'],
+  'coxia': ['bastidores', 'mesa da direção', 'mesa da direcao', 'contrarregra'],
+  'camarim': ['camarins', 'espelho'],
+  'urdimento': ['vara 7', 'passarela técnica', 'passarela tecnica', 'contrapeso'],
+  'praça santos andrade': ['praca santos andrade', 'santos andrade', 'ufpr'],
 };
 
 function sceneKey(place = '') {

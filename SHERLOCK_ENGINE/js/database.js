@@ -12,6 +12,7 @@ export const CASE_DIRS = {
   CASE002: 'cases/CASE002_Silencio_na_Serra',
   CASE003: 'cases/CASE003_Operacao_Eclipse',
   CASE004: 'cases/CASE004_O_Colecionador',
+  CASE005: 'cases/CASE005_O_Ultimo_Ato',
 };
 
 // Aliases canônicos: as telas leem SEMPRE por alias (CASE_EVENTS, CASE_PACK…)
@@ -118,6 +119,16 @@ export const CASE_FILES = {
     WORLD: 'CASE004_COMPLETE_WORLD_STATE',
     IMAGES: 'CASE004_IMAGES_FULL',
     PACK: 'CASE004_CONTENT_PACK',
+  },
+  CASE005: {
+    FULL: 'CASE005_FULL',
+    EVENTS: 'CASE005_EVENTS_FULL',
+    EVIDENCES: 'CASE005_EVIDENCES_FULL',
+    DOCUMENTS: 'CASE005_DOCUMENTS_FULL',
+    DIALOGUES: 'CASE005_DIALOGUES_FULL',
+    WORLD: 'CASE005_COMPLETE_WORLD_STATE',
+    IMAGES: 'CASE005_IMAGES_FULL',
+    PACK: 'CASE005_CONTENT_PACK',
   },
 };
 

@@ -27,6 +27,11 @@
       "id": "CASE004",
       "title": "O Colecionador",
       "unlock": "Concluir CASE003"
+    },
+    {
+      "id": "CASE005",
+      "title": "O Último Ato",
+      "unlock": "Concluir CASE004"
     }
   ],
   "global_story": {
@@ -35,7 +40,8 @@
       "Corrupção",
       "Lavagem de dinheiro",
       "Manipulação de provas",
-      "Rede criminosa"
+      "Rede criminosa",
+      "O preço do aplauso"
     ]
   },
   "progression": {

@@ -1,7 +1,7 @@
 # Sherlock Engine — 1.0.0
 
 Jogo de detetive cooperativo, **offline**, pt‑BR — motor multi-caso completo (M1–M5)
-com a **campanha "Sherlock Chronicles" inteira jogável (4 episódios)**:
+com a **campanha "Sherlock Chronicles" inteira jogável (5 episódios)**:
 
 | # | Caso | Fio da campanha |
 |---|------|-----------------|
@@ -89,12 +89,12 @@ ciclo de tokens dos dossiês, enigmas (tipos genéricos: `sequence`, `input`,
 para criar um caso novo: 7 JSONs + 1 pack (o Sherlock Studio ajuda), registrar em
 `js/database.js` (CASE_DIRS/CASE_FILES) e no CAMPAIGN.json.
 
-Validação por caso: `node tools/validate_case.mjs CASE001 … CASE004` (0 erros nos quatro).
+Validação por caso: `node tools/validate_case.mjs CASE001 … CASE005` (0 erros nos cinco).
 
 ## Contexto do projeto
 1. `docs/BRIEF.md` — regras de ouro, plano de milestones e estratégia de assets.
-2. Roadmap completo: M1 motor · M2 gameplay · M3 Sherlock Studio · M4 Campanha · M5 multi-caso — e os 4 episódios autorados.
-3. Casos novos (CASE005+): 7 JSONs + 1 content pack (o Studio ajuda) + registro em `js/database.js` e no CAMPAIGN.json.
+2. Roadmap completo: M1 motor · M2 gameplay · M3 Sherlock Studio · M4 Campanha · M5 multi-caso — e os 5 episódios autorados.
+3. Casos novos (CASE006+): 7 JSONs + 1 content pack (o Studio ajuda) + registro em `js/database.js` e no CAMPAIGN.json.
 
 ## Estrutura
 - `docs/BRIEF.md` — instruções de implementação (a fonte do plano).

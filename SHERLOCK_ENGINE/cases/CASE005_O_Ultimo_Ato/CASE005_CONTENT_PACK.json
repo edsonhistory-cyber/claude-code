@@ -1,0 +1,1124 @@
+{
+  "schema": "CASE_CONTENT_PACK",
+  "version": "1.0",
+  "case": "CASE005",
+  "map_title": "TEATRO GUAÍRA · NOITE DE ESTREIA",
+  "osint_placeholder": "Ex.: \"Marina Vaz\", \"plágio\", \"Otelo Ramos\"…",
+  "final_enigma": "EN410",
+  "tokens": [
+    "CABO",
+    "DEIXA",
+    "PLAGIO",
+    "VARA"
+  ],
+  "characters": [
+    {
+      "id": "P401",
+      "nome": "Vicente Aranha",
+      "papel": "Vítima",
+      "profissao": "Ator principal"
+    },
+    {
+      "id": "P402",
+      "nome": "Marina Vaz",
+      "papel": "Suspeita",
+      "profissao": "Diretora do espetáculo"
+    },
+    {
+      "id": "P403",
+      "nome": "Caio Falcão",
+      "papel": "Suspeito aparente",
+      "profissao": "Ator substituto"
+    },
+    {
+      "id": "P404",
+      "nome": "Lia Menezes",
+      "papel": "Testemunha-chave",
+      "profissao": "Chefe de palco"
+    },
+    {
+      "id": "P405",
+      "nome": "Gregor Elias",
+      "papel": "Red Herring",
+      "profissao": "Maquinista cênico"
+    },
+    {
+      "id": "P406",
+      "nome": "Sônia Aranha",
+      "papel": "Suspeita aparente",
+      "profissao": "Empresária e esposa da vítima"
+    },
+    {
+      "id": "P407",
+      "nome": "Tito Rocha",
+      "papel": "Testemunha",
+      "profissao": "Iluminador"
+    }
+  ],
+  "dossiers": {
+    "PERICIA": {
+      "nome": "Perícia",
+      "enigmas": [
+        "EN407",
+        "EN401"
+      ],
+      "code": "PER-31",
+      "emits": "CABO",
+      "receives": "VARA"
+    },
+    "INTELIGENCIA": {
+      "nome": "Inteligência",
+      "enigmas": [
+        "EN402",
+        "EN406",
+        "EN408"
+      ],
+      "code": "INT-88",
+      "emits": "DEIXA",
+      "receives": "CABO"
+    },
+    "ARQUIVO": {
+      "nome": "Arquivo",
+      "enigmas": [
+        "EN409"
+      ],
+      "code": "ARQ-54",
+      "emits": "PLAGIO",
+      "receives": "DEIXA"
+    },
+    "CAMPO": {
+      "nome": "Campo",
+      "enigmas": [
+        "EN403",
+        "EN404",
+        "EN405"
+      ],
+      "code": "CAM-06",
+      "emits": "VARA",
+      "receives": "PLAGIO"
+    }
+  },
+  "enigma_gates": {
+    "EN401": {
+      "token": "VARA",
+      "needs": [
+        "meca_done"
+      ],
+      "hintLocked": "Requer o token VARA (Campo) e a mecânica cênica concluída."
+    },
+    "EN402": {
+      "needs": [
+        "doc:DOC408"
+      ],
+      "hintLocked": "Requer a Carta de Vicente (DOC408 — recolha no camarim)."
+    },
+    "EN403": {
+      "needs": [
+        "ev:EV404"
+      ],
+      "hintLocked": "Requer o script anotado coletado na mesa da direção."
+    },
+    "EN404": {},
+    "EN405": {
+      "needs": [
+        "contradicao"
+      ],
+      "hintLocked": "Requer a Contradição 05 (confronte Marina com o script da direção)."
+    },
+    "EN406": {
+      "needs": [
+        "ev:EV403"
+      ],
+      "hintLocked": "Requer a gravação da coxia (converse com Tito nos Interrogatórios)."
+    },
+    "EN407": {
+      "needs": [
+        "ev:EV401",
+        "meca_done"
+      ],
+      "hintLocked": "Requer o pino serrado e a mecânica cênica."
+    },
+    "EN408": {
+      "token": "CABO",
+      "hintLocked": "Requer o token CABO (Perícia)."
+    },
+    "EN409": {
+      "token": "DEIXA",
+      "needs": [
+        "doc:DOC403"
+      ],
+      "hintLocked": "Requer o token DEIXA (Inteligência) e a escala da equipe lida."
+    }
+  },
+  "acts_progress": {
+    "act2": [
+      "ev:EV404",
+      "en:EN404"
+    ],
+    "act3": [
+      "meca_done"
+    ]
+  },
+  "stops": [
+    {
+      "id": "TEA",
+      "name": "Teatro Guaíra — foyer",
+      "time": "19:00",
+      "scene": "teatro",
+      "ambience": "cidade",
+      "pos": [
+        60,
+        60
+      ],
+      "geo": [
+        -25.4295,
+        -49.267
+      ]
+    },
+    {
+      "id": "CMR",
+      "name": "Camarins",
+      "time": "19:40",
+      "scene": "camarim",
+      "ambience": "central",
+      "pos": [
+        90,
+        170
+      ]
+    },
+    {
+      "id": "COX",
+      "name": "Coxia — bastidores",
+      "time": "20:55",
+      "scene": "coxia",
+      "ambience": "lab",
+      "pos": [
+        180,
+        120
+      ]
+    },
+    {
+      "id": "URD",
+      "name": "Urdimento (vara 7)",
+      "time": "20:57",
+      "scene": "urdimento",
+      "ambience": "juri",
+      "pos": [
+        260,
+        60
+      ],
+      "danger": true
+    },
+    {
+      "id": "PAL",
+      "name": "Palco principal",
+      "time": "21:14",
+      "scene": "palco",
+      "ambience": "juri",
+      "pos": [
+        230,
+        160
+      ]
+    },
+    {
+      "id": "DIR",
+      "name": "Mesa da direção (lacrada)",
+      "time": "—",
+      "scene": "coxia",
+      "ambience": "lab",
+      "pos": [
+        140,
+        220
+      ],
+      "off_route": true
+    },
+    {
+      "id": "PSA",
+      "name": "Praça Santos Andrade",
+      "time": "21:40",
+      "scene": "praça santos andrade",
+      "ambience": "cidade",
+      "pos": [
+        330,
+        190
+      ]
+    }
+  ],
+  "hotspots": {
+    "TEA": [
+      {
+        "nome": "Bilheteria e credenciais",
+        "desc": "Escala da equipe e passes de área.",
+        "action": {
+          "type": "doc",
+          "id": "DOC403",
+          "toast": "📄 Escala da equipe obtida (DOC403) — acesso ao urdimento restrito a três.",
+          "already": "A escala já está com você."
+        }
+      },
+      {
+        "nome": "Bar do foyer",
+        "desc": "Movimentação antes da sessão.",
+        "action": {
+          "type": "note",
+          "toast": "Ninguém deixou o teatro entre o 3º sinal e a queda — o sabotador assistiu à própria cena."
+        }
+      }
+    ],
+    "CMR": [
+      {
+        "nome": "Camarim de Vicente",
+        "desc": "Espelho, flores e uma carta inacabada.",
+        "action": {
+          "type": "doc",
+          "id": "DOC408",
+          "toast": "📄 Carta de Vicente recolhida (DOC408): \"amanhã, na coletiva, tudo vem à luz\" — e uma palavra cifrada.",
+          "already": "O camarim já foi inventariado."
+        }
+      },
+      {
+        "nome": "Camarim do substituto",
+        "desc": "Caio se preparava para o 2º ato.",
+        "action": {
+          "type": "flag",
+          "flag": "caio_camarim",
+          "score": 5,
+          "reason": "Álibi do substituto",
+          "toast": "A maquiadora confirma: Caio na cadeira das 20:40 às 21:14 — espelho, cronômetro e testemunha."
+        }
+      }
+    ],
+    "COX": [
+      {
+        "nome": "Mesa da contrarregra",
+        "desc": "O roteiro de deixas da noite.",
+        "action": {
+          "type": "doc",
+          "id": "DOC404",
+          "toast": "📄 Roteiro de deixas obtido (DOC404): o efeito neve da vara 7 foi ADIANTADO na véspera.",
+          "already": "O roteiro já está na Central."
+        }
+      },
+      {
+        "nome": "Cabos e travas",
+        "desc": "A trava da vara 7 e o que sobrou nela.",
+        "action": {
+          "type": "evidence",
+          "id": "EV402",
+          "nome": "Luva de cabo cortada",
+          "toast": "🧾 EV402 Luva de cabo cortada coletada — corte de alicate, não desgaste.",
+          "already": "A trava já foi periciada."
+        }
+      }
+    ],
+    "URD": [
+      {
+        "nome": "Vara 7 — contrapeso",
+        "desc": "O ponto exato da ruptura.",
+        "action": {
+          "type": "evidence",
+          "id": "EV401",
+          "nome": "Pino de segurança serrado",
+          "doc": "DOC401",
+          "toast": "🧾 EV401 Pino serrado coletado na vara 7. Laudo preliminar (DOC401) disponível.",
+          "already": "O contrapeso já foi desmontado pela perícia."
+        }
+      },
+      {
+        "nome": "Passarela técnica",
+        "desc": "Quem passou por aqui, e quando.",
+        "action": {
+          "type": "flag",
+          "flag": "passagem_vista",
+          "score": 5,
+          "reason": "Passagem registrada",
+          "toast": "A chefe de palco registrou passagem exclusiva no urdimento às 16:40 — pergunte a Lia."
+        }
+      }
+    ],
+    "PAL": [
+      {
+        "nome": "Marca 7 do palco",
+        "desc": "Onde Vicente caiu, em cena aberta.",
+        "action": {
+          "type": "flag",
+          "flag": "marca_vista",
+          "score": 5,
+          "reason": "Cena reconstituída",
+          "toast": "📷 A vara caiu exatamente sobre a marca do monólogo — coreografia de precisão."
+        }
+      },
+      {
+        "nome": "Cabine de luz",
+        "desc": "A visão do iluminador.",
+        "action": {
+          "type": "flag",
+          "flag": "cabine_vista",
+          "toast": "Da cabine, Tito filmava os ensaios — a câmera dele estava ligada na estreia."
+        }
+      }
+    ],
+    "DIR": [
+      {
+        "nome": "Script da direção",
+        "desc": "O exemplar pessoal, cheio de margens.",
+        "action": {
+          "type": "evidence",
+          "id": "EV404",
+          "nome": "Script anotado da direção",
+          "toast": "🧾 EV404 Script anotado coletado — a deixa do efeito neve foi movida a caneta!",
+          "already": "O script já está na Central."
+        }
+      },
+      {
+        "nome": "Gaveta do arquivo",
+        "desc": "Pastas antigas do teatro.",
+        "action": {
+          "type": "doc",
+          "id": "DOC409",
+          "toast": "📄 Original de Otelo Ramos (DOC409): o datiloscrito de 1987 coincide com a peça premiada. Plágio.",
+          "already": "O original já foi digitalizado."
+        }
+      }
+    ],
+    "PSA": [
+      {
+        "nome": "Plateia evacuada",
+        "desc": "Triagem na praça.",
+        "action": {
+          "type": "flag",
+          "flag": "sonia_fileira",
+          "toast": "A transmissão enquadra Sônia Aranha na fileira A do início ao pano — nunca deixou o assento."
+        }
+      },
+      {
+        "nome": "Equipe reunida",
+        "desc": "Técnicos aguardando depoimento.",
+        "action": {
+          "type": "flag",
+          "flag": "gregor_visto",
+          "score": 5,
+          "reason": "Equipe triada",
+          "toast": "Gregor e Tito estavam juntos no bar técnico no momento da queda — álibi cruzado."
+        }
+      }
+    ]
+  },
+  "osint": [
+    {
+      "match": "marina|vaz",
+      "title": "Dossiê — Marina Vaz",
+      "source": "Imprensa (SRC001) · Registros (SRC002)",
+      "body": "Diretora consagrada pelo texto de 'O Último Ato' — registrado em nome próprio. As dívidas da produtora sumiram com o prêmio.",
+      "unlock": "DOC406",
+      "unlockLabel": "Dossiê — Marina Vaz (DOC406)"
+    },
+    {
+      "match": "plagio|direitos|otelo|ramos",
+      "title": "Análise — Direitos do texto premiado",
+      "source": "Inteligência (SRC005)",
+      "body": "Otelo Ramos morreu em 2019 sem publicar seu último datiloscrito. O espólio nunca viu o texto — mas o arquivo do teatro guarda uma cópia. Quem lucra com os direitos?",
+      "unlock": "DOC407",
+      "unlockLabel": "Notícia — O Prêmio da Temporada (DOC407)",
+      "enigma": "EN408"
+    },
+    {
+      "match": "vicente|aranha",
+      "title": "Perfil — Vicente Aranha",
+      "source": "Registros (SRC002)",
+      "body": "Ator de três gerações. Ensaiava calado havia semanas e marcou coletiva para a manhã seguinte à estreia."
+    },
+    {
+      "match": "caio|falcao",
+      "title": "Perfil — Caio Falcão",
+      "source": "Imprensa (SRC001)",
+      "body": "Substituto ambicioso: \"um dia o palco será meu\", postou. Mas a maquiadora o prendeu à cadeira até o pano."
+    },
+    {
+      "match": "sonia",
+      "title": "Perfil — Sônia Aranha",
+      "source": "Financeiro (SRC005)",
+      "body": "Empresária do marido. O seguro de vida beneficia a filha do casal — e a transmissão a filma na fileira A."
+    }
+  ],
+  "interrogatable": [
+    {
+      "key": "MARINA_VAZ",
+      "pid": "P402"
+    },
+    {
+      "key": "CAIO_FALCAO",
+      "pid": "P403"
+    },
+    {
+      "key": "LIA_MENEZES",
+      "pid": "P404"
+    },
+    {
+      "key": "GREGOR_ELIAS",
+      "pid": "P405"
+    },
+    {
+      "key": "SONIA_ARANHA",
+      "pid": "P406"
+    },
+    {
+      "key": "TITO_ROCHA",
+      "pid": "P407"
+    }
+  ],
+  "witness_statements": {
+    "TITO_ROCHA": {
+      "intro": "Minha câmera de ensaio ficou ligada na coxia a noite toda — modo noturno. Levem o cartão, mas devolvam a lente.",
+      "flag": "tito_gravacao",
+      "note": "Tito entregou a gravação da coxia.",
+      "gives_evidence": {
+        "id": "EV403",
+        "nome": "Gravação da coxia"
+      }
+    },
+    "CAIO_FALCAO": {
+      "intro": "Eu queria o papel, não o caixão dele. Das 20:40 ao pano eu estava na cadeira de maquiagem — pergunte à Bel.",
+      "flag": "caio_alibi",
+      "note": "Caio ficou na maquiagem das 20:40 às 21:14."
+    },
+    "GREGOR_ELIAS": {
+      "intro": "Quarenta anos de urdimento e nunca perdi um pino. Eu estava no bar técnico com o Tito quando ouvi o estalo.",
+      "flag": "gregor_alibi",
+      "note": "Gregor estava no bar técnico com o iluminador."
+    }
+  },
+  "moods": {
+    "MARINA_VAZ": {
+      "neutro": "Perdi meu ator no palco que eu dirigia. Se querem dramaturgia, leiam o jornal — eu só quero o culpado.",
+      "pressionado": "Dirijo há vinte anos, detetive. Sei reconhecer um ator forçando a cena.",
+      "confrontado": "Cuidado com o terceiro ato: é onde as acusações precipitadas desabam.",
+      "desmascarado": "O texto era melhor comigo do que apodrecendo num arquivo. Vicente ia rasgar o pano de boca por 'ética'. Eu apenas... adiantei a deixa dele."
+    }
+  },
+  "behavior_profiles": [
+    {
+      "character": "Marina Vaz",
+      "baseline": {
+        "stress": 15,
+        "confidence": 95,
+        "cooperation": 55
+      },
+      "microexpressions": [
+        "Gira a caneta",
+        "Olha para a coxia imaginária"
+      ],
+      "triggers": [
+        {
+          "evidence": "Gravação da coxia",
+          "effect": "+25 estresse"
+        },
+        {
+          "evidence": "Pino de segurança serrado",
+          "effect": "+30 estresse"
+        },
+        {
+          "evidence": "Script anotado da direção",
+          "effect": "Contradição desbloqueada"
+        }
+      ]
+    },
+    {
+      "character": "Caio Falcão",
+      "baseline": {
+        "stress": 40,
+        "confidence": 60,
+        "cooperation": 80
+      },
+      "microexpressions": [
+        "Ensaia as próprias respostas"
+      ],
+      "triggers": []
+    }
+  ],
+  "contradiction": {
+    "character": "MARINA_VAZ",
+    "requiresTopic": "MARINA_VAZ:urdimento",
+    "evidences": [
+      "EV404",
+      "EV401"
+    ],
+    "name": "Contradição 05",
+    "reaction": "Marina jurou que nunca subiu ao urdimento — o registro de Lia marca a passagem exclusiva da direção às 16:40, e o script com a letra dela move a deixa da vara 7. Contradição 05 registrada.",
+    "enigma": "EN405"
+  },
+  "lab": {
+    "tabs": [
+      {
+        "id": "meca",
+        "nome": "Mecânica Cênica",
+        "test": {
+          "name": "Ensaio de carga do pino",
+          "ms": 2200
+        },
+        "sample": {
+          "title": "EV401 Pino da vara 7",
+          "needs": [
+            "ev:EV401"
+          ],
+          "lockMsg": "Requer o pino coletado no urdimento."
+        },
+        "effects": {
+          "analyzed": "meca_done",
+          "unlockDoc": "DOC402",
+          "score": 15,
+          "reason": "Sabotagem confirmada",
+          "toast": "⚙ Pino serrado em 80% da seção — ruptura programada para a carga do efeito neve. Laudo DOC402 emitido.",
+          "speak": "Não há fadiga de material. O pino foi serrado para romper exatamente com a carga do efeito de neve."
+        },
+        "results": [
+          "Seção serrada em 80%",
+          "Ruptura calculada para a carga do efeito neve"
+        ],
+        "note": "Sabotagem de quem conhece o peso de cada cena.",
+        "enigma": "EN407"
+      },
+      {
+        "id": "fibras",
+        "nome": "Fibras e Cabos",
+        "test": {
+          "name": "Microscopia da trava",
+          "ms": 1800
+        },
+        "sample": {
+          "title": "EV402 Luva de cabo × trava da vara 7",
+          "needs": [
+            "ev:EV402"
+          ],
+          "lockMsg": "Requer a luva de cabo coletada na coxia."
+        },
+        "effects": {
+          "analyzed": "fibra_done",
+          "score": 15,
+          "reason": "Fibras cruzadas",
+          "toast": "🧵 Corte limpo de alicate; fibras da luva presas na trava da vara 7."
+        },
+        "results": [
+          "Corte de ferramenta, não desgaste",
+          "Fibras idênticas às da trava"
+        ],
+        "note": "Quem cortou vestia a luva — e sabia qual trava soltar."
+      },
+      {
+        "id": "docsc",
+        "nome": "Documentoscopia",
+        "test": {
+          "name": "Confronto de caligrafia",
+          "ms": 2000
+        },
+        "sample": {
+          "title": "EV404 Script × amostras de escrita",
+          "needs": [
+            "ev:EV404"
+          ],
+          "lockMsg": "Requer o script anotado da mesa da direção."
+        },
+        "effects": {
+          "analyzed": "docsc_done",
+          "score": 15,
+          "reason": "Autoria confirmada",
+          "toast": "✒ A deixa movida e as margens do script saem da mesma mão: a da diretora."
+        },
+        "results": [
+          "Deixa do efeito neve movida NA VÉSPERA",
+          "Caligrafia idêntica à de Marina Vaz"
+        ],
+        "note": "A direção reescreveu a cena — e o destino do ator."
+      },
+      {
+        "id": "audio",
+        "nome": "Áudio Forense",
+        "test": {
+          "name": "Isolamento da trilha da coxia",
+          "ms": 1600
+        },
+        "sample": {
+          "title": "EV403 Trilha da câmera de ensaio",
+          "needs": [
+            "ev:EV403"
+          ],
+          "lockMsg": "Requer a gravação da coxia (fale com Tito)."
+        },
+        "effects": {
+          "analyzed": "audio_done",
+          "score": 15,
+          "reason": "Áudio isolado",
+          "toast": "🎙 Às 20:57: clique metálico na passarela e passos leves descendo 40 segundos depois."
+        },
+        "results": [
+          "Clique metálico às 20:57:12",
+          "Passos leves na escada da passarela"
+        ],
+        "note": "Cruze com a silhueta da gravação."
+      }
+    ]
+  },
+  "geoint": {
+    "tach": {
+      "title": "TENSÃO DO CABO DA VARA 7 × TEMPO",
+      "needs": [
+        "ev:EV404"
+      ],
+      "lockMsg": "🔒 Colete o script/log de deixas na mesa da direção (Mapa).",
+      "hint": "Regra GEO001: queda de tensão sem deixa programada é anomalia. Clique no intervalo anômalo.",
+      "doneMsg": "✔ EN403: queda de tensão das 20:57 identificada.",
+      "enigma": "EN403",
+      "points": [
+        [
+          "16:00",
+          40
+        ],
+        [
+          "17:00",
+          40
+        ],
+        [
+          "18:00",
+          40
+        ],
+        [
+          "19:00",
+          42
+        ],
+        [
+          "19:30",
+          42
+        ],
+        [
+          "20:00",
+          42
+        ],
+        [
+          "20:30",
+          42
+        ],
+        [
+          "20:55",
+          42
+        ],
+        [
+          "20:57",
+          18
+        ],
+        [
+          "21:00",
+          18
+        ],
+        [
+          "21:05",
+          18
+        ],
+        [
+          "21:10",
+          18
+        ],
+        [
+          "21:14",
+          0
+        ],
+        [
+          "21:20",
+          0
+        ],
+        [
+          "21:30",
+          0
+        ]
+      ],
+      "segments": [
+        {
+          "id": "ensaio",
+          "at": 1.2,
+          "w": 24
+        },
+        {
+          "id": "sabotagem",
+          "at": 7.6,
+          "w": 28,
+          "correct": true,
+          "label": "QUEDA DE TENSÃO · SEM DEIXA"
+        },
+        {
+          "id": "queda",
+          "at": 11.4,
+          "w": 22
+        },
+        {
+          "id": "fim",
+          "at": 13.2,
+          "w": 20
+        }
+      ],
+      "wrongMsg": "Tensão nominal, compatível com o roteiro de deixas. (-20)",
+      "okMsg": "🔓 EN403 resolvido! A trava foi aliviada às 20:57 — 17 minutos antes da queda, sem nenhuma deixa programada."
+    },
+    "sat": {
+      "title": "PLANTA DO TEATRO — VISÃO TÉCNICA",
+      "hint": "Marque o ponto onde o crime foi armado.",
+      "doneMsg": "✔ EN404: urdimento marcado.",
+      "enigma": "EN404",
+      "terrain": "urban",
+      "route": "M60 60 L90 170 L180 120 L260 60 L230 160 L330 190",
+      "marks": [
+        {
+          "id": "tea",
+          "x": 60,
+          "y": 60
+        },
+        {
+          "id": "cox",
+          "x": 180,
+          "y": 120
+        },
+        {
+          "id": "urd",
+          "x": 260,
+          "y": 60,
+          "correct": true,
+          "label": "⚠ VARA 7"
+        },
+        {
+          "id": "pal",
+          "x": 230,
+          "y": 160
+        }
+      ],
+      "wrongMsg": "Área com equipe circulando a noite toda. (-20)",
+      "okMsg": "🔓 EN404 resolvido! O urdimento: 90 segundos de passarela vazia bastaram.",
+      "bonus": {
+        "token": "PLAGIO",
+        "flag": "rota_urdimento",
+        "score": 15,
+        "reason": "Rota da passarela sobreposta",
+        "btn": "SOBREPOR ROTA DA PASSARELA (token PLAGIO)",
+        "btnDone": "✔ ROTA DA PASSARELA COMPARADA",
+        "lockMsg": "🔒 Sobreposição da rota requer o token PLAGIO (Arquivo).",
+        "toast": "🪜 Da coxia à vara 7 pela escada técnica — 30 segundos, invisível para a plateia.",
+        "overlay": "M180 120 L220 80 L260 60",
+        "overlayLabel": "ESCADA TÉCNICA"
+      }
+    }
+  },
+  "enigmas": {
+    "EN401": {
+      "type": "sequence",
+      "attach": {
+        "kind": "evidence",
+        "ref": "EV401"
+      },
+      "btn": "RECONSTITUIR MARCA DO PINO",
+      "btnDone": "✔ MARCA RECONSTITUÍDA",
+      "title": "EN401 — Marca do Pino",
+      "prompt": "O microscópio recupera os sulcos da ferramenta no pino — reordene o achado:",
+      "answer": "SERRADO",
+      "okMsg": "🔓 EN401 resolvido! SERRADO — a ruptura foi fabricada, não acidental.",
+      "wrongMsg": "Sequência incorreta. O microscópio reinicia.",
+      "doneMsg": "A marca já foi reconstituída: SERRADO."
+    },
+    "EN402": {
+      "type": "input",
+      "attach": {
+        "kind": "document",
+        "ref": "DOC408"
+      },
+      "btn": "DECIFRAR (CÉSAR)",
+      "btnDone": "✔ CIFRA QUEBRADA",
+      "title": "EN402 — Carta de Vicente",
+      "prompt": "No fim da carta inacabada: <b class=\"mono\">SODJLR</b><br>A cifra dos casos — deslocamento de 3 (S→P…):",
+      "submit": "DECIFRAR",
+      "answer": "PLAGIO",
+      "okMsg": "🔓 EN402 resolvido! Vicente escreveu: PLÁGIO — era isso que a coletiva revelaria.",
+      "wrongMsg": "Não confere. Tente outro deslocamento. (-20)",
+      "doneMsg": "A cifra já foi quebrada: PLÁGIO."
+    },
+    "EN405": {
+      "type": "choice",
+      "attach": {
+        "kind": "interrogation",
+        "ref": "MARINA_VAZ"
+      },
+      "btn": "REGISTRAR CONTRADIÇÃO NO DOSSIÊ (EN405)",
+      "title": "EN405 — Quebra de Álibi",
+      "prompt": "Qual par de declarações forma a <b>contradição decisiva</b>?",
+      "options": [
+        "“Deixa é assunto da chefe de palco.”<br><span class=\"muted\">×</span> Script pessoal com a deixa movida pela caligrafia dela.",
+        "“Nunca subi ao urdimento.”<br><span class=\"muted\">×</span> Registro de Lia: passagem exclusiva da direção às 16:40.",
+        "“Tenho vertigem.”<br><span class=\"muted\">×</span> A passarela tem guarda-corpo em toda a extensão."
+      ],
+      "correct": 1,
+      "okMsg": "🔓 EN405 resolvido! Álibi de Marina formalmente quebrado.",
+      "wrongMsg": "Contradição relevante, mas não decisiva. (-20)"
+    },
+    "EN406": {
+      "type": "frames",
+      "attach": {
+        "kind": "evidence",
+        "ref": "EV403"
+      },
+      "btn": "ANALISAR QUADRO A QUADRO",
+      "btnDone": "✔ SILHUETA LOCALIZADA",
+      "title": "EN406 — Gravação da Coxia",
+      "prompt": "O modo noturno fatiou os minutos da troca de cena em 8 janelas. Uma mostra a <b>silhueta descendo da passarela</b>. Clique nela.",
+      "times": [
+        "20:55:30",
+        "20:56:10",
+        "20:56:50",
+        "20:57:30",
+        "20:58:10",
+        "20:58:50",
+        "20:59:30",
+        "21:00:10"
+      ],
+      "correct": 3,
+      "markColor": "#E0B658",
+      "okMsg": "🔓 EN406 resolvido! A silhueta desce da passarela às 20:57:30 — segundos após o clique metálico.",
+      "wrongMsg": "Só contrarregras em rotina nesta janela. (-20)",
+      "doneMsg": "A silhueta já foi localizada às 20:57:30."
+    },
+    "EN407": {
+      "type": "compare",
+      "attach": {
+        "kind": "lab",
+        "ref": "meca"
+      },
+      "btn": "COMPARAR PERFIL DE CORTE (EN407)",
+      "title": "EN407 — Perfil do Corte",
+      "prompt": "Microscópio comparador: à esquerda, os <b>sulcos da serra encontrada no depósito de cenografia</b>. Qual seção do pino é IDÊNTICA (frequência e cor)?",
+      "reference": {
+        "waves": 4,
+        "color": "#E0B658"
+      },
+      "options": [
+        {
+          "waves": 4,
+          "color": "#E0B658"
+        },
+        {
+          "waves": 6,
+          "color": "#E0B658"
+        },
+        {
+          "waves": 4,
+          "color": "#c05f7c"
+        }
+      ],
+      "correct": 0,
+      "okMsg": "🔓 EN407 resolvido! A serra do depósito serrou o pino — e o depósito só abre com chave da produção.",
+      "wrongMsg": "Perfis divergem. (-20)"
+    },
+    "EN408": {
+      "type": "choice",
+      "attach": {
+        "kind": "osint"
+      },
+      "btn": "QUEM DETINHA OS DIREITOS DO TEXTO? (EN408)",
+      "btnDone": "✔ EN408: beneficiária identificada",
+      "title": "EN408 — Os Direitos do Texto",
+      "prompt": "O texto premiado rendeu contratos, prêmio e turnê. Cruzando registro autoral, dossiês e o original de 1987: <b>quem detinha os direitos?</b>",
+      "options": [
+        "Caio Falcão",
+        "Sônia Aranha",
+        "Marina Vaz",
+        "Gregor Elias"
+      ],
+      "correct": 2,
+      "okMsg": "🔓 EN408 resolvido! Marina Vaz registrou o texto em nome próprio — o plágio pagou a temporada.",
+      "wrongMsg": "O registro autoral não aponta essa pessoa. (-20)"
+    },
+    "EN409": {
+      "type": "choice",
+      "attach": {
+        "kind": "document",
+        "ref": "DOC403"
+      },
+      "btn": "CRUZAR PASSE DO URDIMENTO",
+      "btnDone": "✔ PASSE CONFIRMADO",
+      "title": "EN409 — Escala da Equipe",
+      "prompt": "Cruzando a escala × passes de área: <b>além da chefe de palco e do maquinista escalado, quem tinha passe livre ao urdimento?</b>",
+      "options": [
+        "Caio Falcão",
+        "Marina Vaz",
+        "Sônia Aranha",
+        "Tito Rocha"
+      ],
+      "correct": 1,
+      "okMsg": "🔓 EN409 resolvido! Só a direção circulava livre pelo urdimento.",
+      "wrongMsg": "O passe dessa pessoa não dá acesso ao urdimento. (-20)",
+      "doneMsg": "Já confirmado: passe livre era da direção."
+    }
+  },
+  "doc_extras": {
+    "DOC408": "<div class=\"cipher\">No fim da carta inacabada:<br><b class=\"mono\">DPDQKD: SODJLR</b></div>",
+    "DOC403": "<table class=\"manifest\"><tr><th>Nome</th><th>Função</th><th>Urdimento</th></tr><tr><td>Vicente Aranha</td><td>Ator principal</td><td>—</td></tr><tr><td>Marina Vaz</td><td>Direção</td><td>✔ (passe livre)</td></tr><tr><td>Lia Menezes</td><td>Chefe de palco</td><td>✔</td></tr><tr><td>Gregor Elias</td><td>Maquinista</td><td>✔ (escalado)</td></tr><tr><td>Caio Falcão</td><td>Substituto</td><td>—</td></tr><tr><td>Sônia Aranha</td><td>Plateia</td><td>—</td></tr><tr><td>Tito Rocha</td><td>Iluminador</td><td>— (cabine)</td></tr></table>",
+    "DOC401_speak": "Trauma crânio-encefálico por impacto da vara cênica sete. Morte instantânea, em cena aberta."
+  },
+  "deduction": {
+    "factors": {
+      "P402": {
+        "Motivo": [
+          "doc:DOC409",
+          "en:EN402"
+        ],
+        "Meios": [
+          "en:EN407",
+          "en:EN401"
+        ],
+        "Oportunidade": [
+          "en:EN403",
+          "en:EN404",
+          "en:EN406"
+        ],
+        "Alibi": [
+          "contradicao"
+        ]
+      },
+      "P403": {
+        "Motivo": [
+          "osint:caio"
+        ],
+        "Meios": [],
+        "Oportunidade": [],
+        "Alibi": []
+      },
+      "P406": {
+        "Motivo": [
+          "osint:sonia"
+        ],
+        "Meios": [],
+        "Oportunidade": [],
+        "Alibi": []
+      },
+      "P405": {
+        "Motivo": [],
+        "Meios": [
+          "flag:gregor_visto"
+        ],
+        "Oportunidade": [],
+        "Alibi": []
+      }
+    },
+    "eliminations": [
+      {
+        "id": "R402",
+        "suspect": "P403",
+        "when": [
+          "flag:caio_alibi"
+        ],
+        "note": "Na cadeira de maquiagem das 20:40 às 21:14 — maquiadora de testemunha."
+      },
+      {
+        "id": "R403",
+        "suspect": "P406",
+        "when": [
+          "flag:sonia_fileira"
+        ],
+        "note": "Fileira A, enquadrada pela transmissão do início ao pano."
+      },
+      {
+        "id": "R404",
+        "suspect": "P405",
+        "when": [
+          "flag:gregor_alibi"
+        ],
+        "note": "No bar técnico com o iluminador no momento da queda."
+      }
+    ],
+    "critical_enigmas": [
+      "EN401",
+      "EN403",
+      "EN406",
+      "EN407"
+    ]
+  },
+  "knowledge_graph": [
+    {
+      "from": "EV401",
+      "to": "URD",
+      "relation": "sabotagem_na_vara_7"
+    },
+    {
+      "from": "EV404",
+      "to": "P402",
+      "relation": "caligrafia_da_direcao"
+    },
+    {
+      "from": "EV403",
+      "to": "P402",
+      "relation": "silhueta_na_passarela"
+    },
+    {
+      "from": "EV402",
+      "to": "P402",
+      "relation": "fibras_na_trava"
+    },
+    {
+      "from": "DOC409",
+      "to": "P402",
+      "relation": "plagio_e_motivo"
+    }
+  ],
+  "mural_nodes": [
+    {
+      "id": "EV401",
+      "label": "Pino serrado",
+      "need": "ev:EV401"
+    },
+    {
+      "id": "EV402",
+      "label": "Luva de cabo",
+      "need": "ev:EV402"
+    },
+    {
+      "id": "EV403",
+      "label": "Gravação da coxia",
+      "need": "ev:EV403"
+    },
+    {
+      "id": "EV404",
+      "label": "Script anotado",
+      "need": "ev:EV404"
+    },
+    {
+      "id": "DOC409",
+      "label": "Original de 1987",
+      "need": "doc:DOC409"
+    },
+    {
+      "id": "P402",
+      "label": "Marina Vaz"
+    },
+    {
+      "id": "URD",
+      "label": "Urdimento — vara 7"
+    }
+  ],
+  "jury": {
+    "suspects": [
+      "P402",
+      "P403",
+      "P404",
+      "P405",
+      "P406",
+      "P407"
+    ],
+    "locations": [
+      "Foyer do Teatro Guaíra",
+      "Camarins",
+      "Coxia — bastidores",
+      "Palco — vara 7",
+      "Praça Santos Andrade"
+    ],
+    "methods": [
+      "Sabotagem do contrapeso da vara cênica",
+      "Veneno no copo de camarim",
+      "Disparo da cabine de luz",
+      "Queda acidental por fadiga do material",
+      "Estrangulamento entre bastidores"
+    ]
+  }
+}
