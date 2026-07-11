@@ -1,4 +1,10 @@
 {
+  "corredor": "assets/images/scenes_ai/ai_corredor.jpg",
+  "subsolo": "assets/images/scenes_ai/ai_subsolo.jpg",
+  "salão de leilões": "assets/images/scenes_ai/ai_leilao.jpg",
+  "jardim de inverno": "assets/images/scenes_ai/ai_jardim_inverno.jpg",
+  "fórum": "assets/images/scenes_ai/ai_forum.jpg",
+  "túnel": "assets/images/scenes_ai/ai_tunel.jpg",
   "rua 24 horas": "assets/images/locations/rua24/loc_r24_1.jpg",
   "jardim botânico": "assets/images/locations/jardim_botanico/loc_jb_1.jpg",
   "mon": "assets/images/locations/mon/loc_mon_1.jpg",
@@ -14,11 +20,7 @@
   "rio": "assets/images/locations/rio/loc_nhundiaquara_1.JPG",
   "mirante da serra": "assets/images/locations/mirante/loc_mirante_1.jpg",
   "paiol": "assets/images/locations/paiol/loc_paiol_1.jpg",
-  "corredor": "assets/images/locations/corredor/loc_corredor_1.jpg",
-  "subsolo": "assets/images/locations/subsolo/loc_subsolo_1.jpg",
   "casarão": "assets/images/locations/casarao/loc_casarao_1.jpg",
-  "salão de leilões": "assets/images/locations/leilao/loc_leilao_1.jpg",
   "galeria": "assets/images/locations/galeria/loc_galeria_1.jpg",
-  "jardim de inverno": "assets/images/locations/jardim_inverno/loc_jardim_inverno_1.jpg",
   "garagem": "assets/images/locations/garagem/loc_garagem_1.jpg"
 }
