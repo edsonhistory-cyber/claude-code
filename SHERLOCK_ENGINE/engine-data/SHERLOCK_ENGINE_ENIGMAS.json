@@ -1,0 +1,227 @@
+{
+  "schema": "SHERLOCK_ENGINE_ENIGMAS",
+  "version": "1.0",
+  "total_enigmas": 10,
+  "enigmas": [
+    {
+      "id": "EN001",
+      "nome": "QR da Garrafa",
+      "tipo": "QR",
+      "objetivo": "Escanear o QR oculto na garrafa",
+      "dificuldade": "Média",
+      "tempo_estimado_min": 8,
+      "dependencias": [],
+      "dicas": [
+        "Observe todos os detalhes.",
+        "Cruze informações entre dossiês.",
+        "Nem toda pista é verdadeira."
+      ],
+      "falha": {
+        "penalidade_pontos": 20,
+        "permite_tentar_novamente": true
+      },
+      "recompensa": {
+        "chave": "GLICOSIDEO",
+        "pontos": 50
+      }
+    },
+    {
+      "id": "EN002",
+      "nome": "Cifra de César",
+      "tipo": "SIGINT",
+      "objetivo": "Decifrar DELACAO",
+      "dificuldade": "Média",
+      "tempo_estimado_min": 8,
+      "dependencias": [],
+      "dicas": [
+        "Observe todos os detalhes.",
+        "Cruze informações entre dossiês.",
+        "Nem toda pista é verdadeira."
+      ],
+      "falha": {
+        "penalidade_pontos": 20,
+        "permite_tentar_novamente": true
+      },
+      "recompensa": {
+        "chave": "DELACAO",
+        "pontos": 50
+      }
+    },
+    {
+      "id": "EN003",
+      "nome": "Tacógrafo",
+      "tipo": "TACOGRAFO",
+      "objetivo": "Identificar a parada às 15:47",
+      "dificuldade": "Média",
+      "tempo_estimado_min": 8,
+      "dependencias": [],
+      "dicas": [
+        "Observe todos os detalhes.",
+        "Cruze informações entre dossiês.",
+        "Nem toda pista é verdadeira."
+      ],
+      "falha": {
+        "penalidade_pontos": 20,
+        "permite_tentar_novamente": true
+      },
+      "recompensa": {
+        "chave": "1547",
+        "pontos": 50
+      }
+    },
+    {
+      "id": "EN004",
+      "nome": "Satélite KM18",
+      "tipo": "GEOINT",
+      "objetivo": "Marcar a parada irregular",
+      "dificuldade": "Média",
+      "tempo_estimado_min": 8,
+      "dependencias": [],
+      "dicas": [
+        "Observe todos os detalhes.",
+        "Cruze informações entre dossiês.",
+        "Nem toda pista é verdadeira."
+      ],
+      "falha": {
+        "penalidade_pontos": 20,
+        "permite_tentar_novamente": true
+      },
+      "recompensa": {
+        "chave": "KM18",
+        "pontos": 50
+      }
+    },
+    {
+      "id": "EN005",
+      "nome": "Álibis",
+      "tipo": "HUMINT",
+      "objetivo": "Encontrar a contradição de Sérgio",
+      "dificuldade": "Média",
+      "tempo_estimado_min": 8,
+      "dependencias": [],
+      "dicas": [
+        "Observe todos os detalhes.",
+        "Cruze informações entre dossiês.",
+        "Nem toda pista é verdadeira."
+      ],
+      "falha": {
+        "penalidade_pontos": 20,
+        "permite_tentar_novamente": true
+      },
+      "recompensa": {
+        "chave": "LUVAS",
+        "pontos": 50
+      }
+    },
+    {
+      "id": "EN006",
+      "nome": "Vídeo da Bianca",
+      "tipo": "VIDEO",
+      "objetivo": "Localizar o vulto de manga verde",
+      "dificuldade": "Média",
+      "tempo_estimado_min": 8,
+      "dependencias": [],
+      "dicas": [
+        "Observe todos os detalhes.",
+        "Cruze informações entre dossiês.",
+        "Nem toda pista é verdadeira."
+      ],
+      "falha": {
+        "penalidade_pontos": 20,
+        "permite_tentar_novamente": true
+      },
+      "recompensa": {
+        "chave": "VULTO",
+        "pontos": 50
+      }
+    },
+    {
+      "id": "EN007",
+      "nome": "Laboratório",
+      "tipo": "FORENSE",
+      "objetivo": "Comparar fibra azul com a luva",
+      "dificuldade": "Média",
+      "tempo_estimado_min": 8,
+      "dependencias": [],
+      "dicas": [
+        "Observe todos os detalhes.",
+        "Cruze informações entre dossiês.",
+        "Nem toda pista é verdadeira."
+      ],
+      "falha": {
+        "penalidade_pontos": 20,
+        "permite_tentar_novamente": true
+      },
+      "recompensa": {
+        "chave": "FIBRA",
+        "pontos": 50
+      }
+    },
+    {
+      "id": "EN008",
+      "nome": "OSINT",
+      "tipo": "OSINT",
+      "objetivo": "Relacionar SB Fretamentos",
+      "dificuldade": "Média",
+      "tempo_estimado_min": 8,
+      "dependencias": [],
+      "dicas": [
+        "Observe todos os detalhes.",
+        "Cruze informações entre dossiês.",
+        "Nem toda pista é verdadeira."
+      ],
+      "falha": {
+        "penalidade_pontos": 20,
+        "permite_tentar_novamente": true
+      },
+      "recompensa": {
+        "chave": "RODAS",
+        "pontos": 50
+      }
+    },
+    {
+      "id": "EN009",
+      "nome": "Manifesto",
+      "tipo": "LOGICA",
+      "objetivo": "Descobrir quem não reembarcou",
+      "dificuldade": "Média",
+      "tempo_estimado_min": 8,
+      "dependencias": [],
+      "dicas": [
+        "Observe todos os detalhes.",
+        "Cruze informações entre dossiês.",
+        "Nem toda pista é verdadeira."
+      ],
+      "falha": {
+        "penalidade_pontos": 20,
+        "permite_tentar_novamente": true
+      },
+      "recompensa": {
+        "chave": "ALDO",
+        "pontos": 50
+      }
+    },
+    {
+      "id": "EN010",
+      "nome": "Sala do Júri",
+      "tipo": "FINAL",
+      "objetivo": "Combinar suspeito, local e método",
+      "dificuldade": "Alta",
+      "tempo_estimado_min": 8,
+      "dependencias": [],
+      "dicas": [
+        "Observe todos os detalhes.",
+        "Cruze informações entre dossiês.",
+        "Nem toda pista é verdadeira."
+      ],
+      "falha": {
+        "penalidade_pontos": 20,
+        "permite_tentar_novamente": true
+      },
+      "recompensa": {
+        "chave": "CASO_RESOLVIDO",
+        "pontos": 50
+      }
+    }
+  ]
+}

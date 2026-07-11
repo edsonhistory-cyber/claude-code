@@ -1,0 +1,97 @@
+{
+  "schema": "SHERLOCK_ENGINE_KNOWLEDGE_GRAPH",
+  "version": "1.0",
+  "description": "Grafo global de conhecimento compartilhado entre todos os casos.",
+  "node_types": [
+    "Personagem",
+    "Organização",
+    "Local",
+    "Objeto",
+    "Documento",
+    "Evidência",
+    "Evento",
+    "Caso",
+    "Veículo",
+    "Telefone"
+  ],
+  "edge_types": [
+    "CONHECE",
+    "TRABALHA_EM",
+    "ESTAVA_EM",
+    "POSSUI",
+    "RELACIONADO_A",
+    "TESTEMUNHOU",
+    "UTILIZOU",
+    "PARTICIPOU"
+  ],
+  "global_entities": [
+    {
+      "id": "CASE001",
+      "type": "Caso",
+      "name": "A Última Parada"
+    },
+    {
+      "id": "ORG001",
+      "type": "Organização",
+      "name": "Linha Turismo"
+    },
+    {
+      "id": "LOC001",
+      "type": "Local",
+      "name": "Curitiba"
+    },
+    {
+      "id": "P001",
+      "type": "Personagem",
+      "name": "Otávio Bandeira"
+    },
+    {
+      "id": "P002",
+      "type": "Personagem",
+      "name": "Sérgio Bento"
+    }
+  ],
+  "relationships": [
+    {
+      "from": "P001",
+      "to": "CASE001",
+      "type": "PARTICIPOU"
+    },
+    {
+      "from": "P002",
+      "to": "CASE001",
+      "type": "PARTICIPOU"
+    },
+    {
+      "from": "P002",
+      "to": "ORG001",
+      "type": "TRABALHA_EM"
+    },
+    {
+      "from": "CASE001",
+      "to": "LOC001",
+      "type": "ESTAVA_EM"
+    }
+  ],
+  "query_api": {
+    "methods": [
+      "findConnections(entityId)",
+      "findShortestPath(a,b)",
+      "relatedCases(entityId)",
+      "sharedEvidence(caseA,caseB)",
+      "timeline(entityId)"
+    ]
+  },
+  "reasoning": {
+    "transitive_relations": true,
+    "detect_hidden_clusters": true,
+    "cross_case_links": true,
+    "confidence_score": true
+  },
+  "future": {
+    "persistent_world": true,
+    "criminal_networks": true,
+    "organization_hierarchy": true,
+    "procedural_lore": true
+  }
+}

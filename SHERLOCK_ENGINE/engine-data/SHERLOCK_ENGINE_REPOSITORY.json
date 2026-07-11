@@ -1,0 +1,126 @@
+{
+  "schema": "SHERLOCK_ENGINE_REPOSITORY",
+  "version": "1.0",
+  "project_name": "Sherlock Engine",
+  "repository_type": "Monorepo",
+  "description": "Estrutura completa do repositório para desenvolvimento da Sherlock Engine e de todos os casos.",
+  "root_structure": {
+    "folders": [
+      {
+        "name": "engine",
+        "description": "Núcleo da engine",
+        "files": [
+          "engine.js",
+          "worldManager.js",
+          "eventManager.js",
+          "deductionEngine.js",
+          "dialogManager.js",
+          "aiDirector.js",
+          "saveManager.js",
+          "audioManager.js",
+          "renderEngine.js",
+          "networkManager.js"
+        ]
+      },
+      {
+        "name": "cases",
+        "description": "Todos os casos da campanha",
+        "children": [
+          {
+            "name": "CASE001_A_Ultima_Parada",
+            "files": [
+              "case.json",
+              "characters.json",
+              "locations.json",
+              "dialogues.json",
+              "documents.json",
+              "evidences.json",
+              "events.json",
+              "images.json"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "assets",
+        "description": "Biblioteca global",
+        "children": [
+          "images",
+          "audio",
+          "video",
+          "fonts",
+          "icons",
+          "ui"
+        ]
+      },
+      {
+        "name": "editor",
+        "description": "Sherlock Studio"
+      },
+      {
+        "name": "sdk",
+        "description": "SDK de criação de casos"
+      },
+      {
+        "name": "mods",
+        "description": "Mods da comunidade"
+      },
+      {
+        "name": "tests",
+        "description": "Testes automatizados"
+      },
+      {
+        "name": "docs",
+        "description": "Documentação técnica"
+      }
+    ]
+  },
+  "development_workflow": [
+    "Criar roteiro do caso",
+    "Cadastrar personagens",
+    "Adicionar locais",
+    "Criar documentos",
+    "Adicionar evidências",
+    "Escrever diálogos",
+    "Configurar enigmas",
+    "Gerar assets",
+    "Executar testes",
+    "Compilar caso",
+    "Publicar"
+  ],
+  "team_roles": [
+    {
+      "role": "Roteirista",
+      "responsibility": "História e diálogos"
+    },
+    {
+      "role": "Game Designer",
+      "responsibility": "Enigmas e mecânicas"
+    },
+    {
+      "role": "Artista",
+      "responsibility": "Imagens e interface"
+    },
+    {
+      "role": "Programador",
+      "responsibility": "Engine"
+    },
+    {
+      "role": "QA",
+      "responsibility": "Testes"
+    }
+  ],
+  "roadmap": {
+    "phase1": "Engine funcional",
+    "phase2": "Caso 001 completo",
+    "phase3": "Editor visual",
+    "phase4": "SDK público",
+    "phase5": "Marketplace de casos"
+  },
+  "vision": {
+    "goal": "Transformar a Sherlock Engine em uma plataforma para criação de jogos de investigação.",
+    "supports_unlimited_cases": true,
+    "community_content": true,
+    "commercial_ready": true
+  }
+}

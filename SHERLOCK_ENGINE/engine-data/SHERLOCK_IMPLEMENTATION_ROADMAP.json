@@ -1,0 +1,136 @@
+{
+  "schema": "SHERLOCK_IMPLEMENTATION_ROADMAP",
+  "version": "1.0",
+  "goal": "Implementação completa da Sherlock Engine",
+  "source_of_truth": "SHERLOCK_MASTER_PROJECT.json",
+  "javascript_modules": [
+    {
+      "file": "engine.js",
+      "responsibility": [
+        "Inicialização da engine",
+        "Loop principal",
+        "Gerenciamento de módulos",
+        "Controle de estados",
+        "Sistema de plugins"
+      ],
+      "public_api": [
+        "boot()",
+        "loadCase(id)",
+        "startGame()",
+        "pause()",
+        "shutdown()"
+      ]
+    },
+    {
+      "file": "database.js",
+      "responsibility": [
+        "Carregar todos os JSON",
+        "Cache",
+        "Validação de schemas"
+      ],
+      "public_api": [
+        "loadModule()",
+        "query()",
+        "reload()"
+      ]
+    },
+    {
+      "file": "eventManager.js",
+      "responsibility": [
+        "Eventos",
+        "Triggers",
+        "Fila de execução"
+      ]
+    },
+    {
+      "file": "worldManager.js",
+      "responsibility": [
+        "Estado do mundo",
+        "NPCs",
+        "Objetos",
+        "Relógio"
+      ]
+    },
+    {
+      "file": "deductionEngine.js",
+      "responsibility": [
+        "Hipóteses",
+        "Suspeição",
+        "Inferência"
+      ]
+    },
+    {
+      "file": "dialogManager.js",
+      "responsibility": [
+        "Árvores de diálogo",
+        "Interrogatórios",
+        "Desbloqueios"
+      ]
+    },
+    {
+      "file": "uiManager.js",
+      "responsibility": [
+        "HUD",
+        "Inventário",
+        "Mapa",
+        "Sala do Júri"
+      ]
+    },
+    {
+      "file": "saveManager.js",
+      "responsibility": [
+        "Autosave",
+        "Load",
+        "Migração de saves"
+      ]
+    }
+  ],
+  "startup_flow": [
+    "engine.boot()",
+    "database.loadModules()",
+    "world.initialize()",
+    "ui.initialize()",
+    "ai.initialize()",
+    "campaign.load()",
+    "mainMenu.show()"
+  ],
+  "folder_structure": {
+    "root": [
+      "index.html",
+      "css/",
+      "js/",
+      "assets/",
+      "cases/",
+      "engine/",
+      "mods/",
+      "saves/"
+    ]
+  },
+  "milestones": [
+    {
+      "phase": 1,
+      "name": "Engine Core",
+      "status": "planned"
+    },
+    {
+      "phase": 2,
+      "name": "Gameplay",
+      "status": "planned"
+    },
+    {
+      "phase": 3,
+      "name": "Editor",
+      "status": "planned"
+    },
+    {
+      "phase": 4,
+      "name": "Campaign",
+      "status": "planned"
+    },
+    {
+      "phase": 5,
+      "name": "Release Candidate",
+      "status": "planned"
+    }
+  ]
+}

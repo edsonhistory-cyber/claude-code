@@ -1,0 +1,82 @@
+{
+  "schema": "SHERLOCK_ENGINE_AI",
+  "version": "1.0",
+  "assistant": {
+    "name": "A.R.I.A.",
+    "full_name": "Artificial Reasoning & Investigation Assistant",
+    "role": "Assistente de investigação",
+    "personality": {
+      "tone": "Profissional",
+      "style": "Objetiva",
+      "humor": "Discreto",
+      "never_reveal_solution": true
+    }
+  },
+  "states": [
+    {
+      "id": "WELCOME",
+      "trigger": "inicio",
+      "message": "Bem-vindo, detetive. Todos os módulos foram carregados."
+    },
+    {
+      "id": "NEW_EVIDENCE",
+      "trigger": "nova_evidencia",
+      "message": "Uma nova evidência foi registrada no banco de dados."
+    },
+    {
+      "id": "STALLED",
+      "trigger": "10_min_sem_progresso",
+      "message": "Sugestão: compare os horários da linha do tempo com os depoimentos."
+    },
+    {
+      "id": "READY_FOR_JURY",
+      "trigger": "cofre_aberto",
+      "message": "Todos os requisitos foram atendidos. A Sala do Júri está disponível."
+    }
+  ],
+  "hint_engine": {
+    "levels": [
+      {
+        "level": 1,
+        "description": "Dica sutil",
+        "example": "Existe uma relação entre uma evidência física e um documento."
+      },
+      {
+        "level": 2,
+        "description": "Direcionamento",
+        "example": "Analise novamente o tacógrafo e a parada do KM18."
+      },
+      {
+        "level": 3,
+        "description": "Quase explícita",
+        "example": "Há uma contradição importante no depoimento do motorista."
+      }
+    ],
+    "cooldown_seconds": 120
+  },
+  "context_rules": [
+    {
+      "condition": "video_bianca_analisado",
+      "response": "O vídeo parece conter um detalhe ainda não marcado."
+    },
+    {
+      "condition": "garrafa_sem_analise",
+      "response": "A garrafa térmica ainda não foi totalmente analisada."
+    },
+    {
+      "condition": "linha_tempo_incompleta",
+      "response": "A cronologia possui eventos fora de ordem."
+    }
+  ],
+  "voice": {
+    "language": "pt-BR",
+    "speed": 1.0,
+    "pitch": 1.0
+  },
+  "integration": {
+    "uses_database": true,
+    "uses_gameplay": true,
+    "uses_dialogues": true,
+    "uses_evidence_graph": true
+  }
+}

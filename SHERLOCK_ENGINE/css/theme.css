@@ -1,0 +1,90 @@
+/* theme.css — Tema "Sherlock Dark Ops" (cores/fontes de SHERLOCK_ENGINE_UI.json).
+   Fontes ainda não baixadas (build futura em assets/fonts) — stacks com fallback local. */
+
+:root {
+  --bg: #08131F;
+  --panel: #122435;
+  --accent: #00C2FF;
+  --warning: #E0B658;
+  --danger: #C0392B;
+  --success: #2F8B57;
+  --text: #F2F5F7;
+  --radius: 10px;
+  --shadow: 0 10px 30px rgba(0, 0, 0, .35);
+  --font-display: "Bebas Neue", "Oswald", "Arial Narrow", Impact, sans-serif;
+  --font-body: "Oswald", "Segoe UI", Roboto, Arial, sans-serif;
+  --font-mono: "Courier Prime", "Special Elite", "Courier New", monospace;
+  --transition: 300ms ease;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  overflow: hidden;
+}
+
+/* textura discreta de "ops room": gradiente radial + grade */
+body {
+  background:
+    radial-gradient(1200px 700px at 70% -10%, rgba(0, 194, 255, .08), transparent 60%),
+    radial-gradient(900px 500px at 10% 110%, rgba(0, 194, 255, .05), transparent 60%),
+    repeating-linear-gradient(0deg, transparent 0 39px, rgba(242, 245, 247, .025) 39px 40px),
+    repeating-linear-gradient(90deg, transparent 0 39px, rgba(242, 245, 247, .025) 39px 40px),
+    var(--bg);
+}
+
+#app { height: 100%; }
+
+.fade-in { animation: fade var(--transition); }
+@keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+
+.panel {
+  background: linear-gradient(160deg, rgba(18, 36, 53, .92), rgba(18, 36, 53, .75));
+  border: 1px solid rgba(0, 194, 255, .18);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(8px); /* glassmorphism do UI.json */
+}
+
+.btn {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  letter-spacing: .12em;
+  color: var(--text);
+  background: transparent;
+  border: 1px solid rgba(0, 194, 255, .4);
+  border-radius: var(--radius);
+  padding: .6em 1.4em;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+.btn:hover:not(:disabled) {
+  border-color: var(--accent);
+  box-shadow: 0 0 18px rgba(0, 194, 255, .35);
+  transform: translateY(-1px);
+}
+.btn:disabled { opacity: .4; cursor: not-allowed; }
+.btn-primary { background: rgba(0, 194, 255, .15); border-color: var(--accent); }
+.btn-ghost { border-color: transparent; opacity: .8; }
+.btn-ghost:hover { border-color: rgba(0, 194, 255, .4); opacity: 1; }
+
+.input {
+  width: 100%;
+  padding: .7em .9em;
+  background: rgba(8, 19, 31, .8);
+  color: var(--text);
+  border: 1px solid rgba(0, 194, 255, .25);
+  border-radius: var(--radius);
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+.input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 12px rgba(0, 194, 255, .25);
+}

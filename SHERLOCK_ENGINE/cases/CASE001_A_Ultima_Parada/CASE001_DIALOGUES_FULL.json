@@ -1,0 +1,101 @@
+{
+  "schema": "CASE001_DIALOGUES_FULL",
+  "version": "1.0",
+  "case": "CWB-1447",
+  "dialogue_tree": {
+    "SERGIO_BENTO": {
+      "intro": "Posso ajudar no que for necessário.",
+      "topics": {
+        "rota": {
+          "question": "Por que o ônibus parou no KM18?",
+          "answers": [
+            {
+              "id": "S1",
+              "text": "Achei que havia um problema no freio.",
+              "truth": "parcial",
+              "stress": "+10"
+            },
+            {
+              "id": "S2",
+              "text": "Foi apenas uma verificação de rotina.",
+              "truth": "falso",
+              "stress": "+20"
+            }
+          ],
+          "unlock_if": [
+            "DOC004"
+          ]
+        },
+        "garrafa": {
+          "question": "Você viu a garrafa térmica?",
+          "answers": [
+            {
+              "id": "S3",
+              "text": "Nunca toquei nela.",
+              "truth": "falso",
+              "unlock": "Contradição 01"
+            }
+          ],
+          "unlock_if": [
+            "EV001",
+            "EV002"
+          ]
+        }
+      }
+    },
+    "RENATA_SALGADO": {
+      "intro": "Eu precisava que Otávio permanecesse vivo.",
+      "topics": {
+        "delacao": {
+          "question": "Qual era o conteúdo da delação?",
+          "answers": [
+            {
+              "id": "R1",
+              "text": "Envolvia corrupção e alteração de rotas.",
+              "truth": "verdadeiro",
+              "unlock": "DOC013"
+            }
+          ]
+        }
+      }
+    },
+    "DILIA_KARAS": {
+      "intro": "A parada foi estranha desde o início.",
+      "topics": {
+        "km18": {
+          "question": "Quem permaneceu no ônibus?",
+          "answers": [
+            {
+              "id": "D1",
+              "text": "O motorista ficou sozinho alguns minutos.",
+              "truth": "verdadeiro",
+              "unlock": "KM18"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "conversation_rules": {
+    "max_questions_per_round": 5,
+    "allow_repeat": true,
+    "memory_enabled": true,
+    "stress_affects_answers": true,
+    "evidence_unlocks_new_topics": true
+  },
+  "voice_tags": {
+    "sergio": "grave",
+    "renata": "calma",
+    "dilia": "segura"
+  },
+  "cinematic_triggers": [
+    {
+      "after": "Contradição 01",
+      "play": "CIN002"
+    },
+    {
+      "after": "KM18",
+      "play": "CIN003"
+    }
+  ]
+}

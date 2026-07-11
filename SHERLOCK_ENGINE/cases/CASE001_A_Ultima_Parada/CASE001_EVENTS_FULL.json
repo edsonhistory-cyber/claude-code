@@ -1,0 +1,141 @@
+{
+  "schema": "CASE001_EVENTS_FULL",
+  "version": "1.0",
+  "case": "CWB-1447",
+  "timeline": [
+    {
+      "id": "EVT0001",
+      "time": "14:00",
+      "location": "Rua 24 Horas",
+      "title": "Embarque",
+      "trigger": "Início do caso",
+      "effects": [
+        "Ativa mapa",
+        "Libera manifesto"
+      ]
+    },
+    {
+      "id": "EVT0002",
+      "time": "15:20",
+      "location": "Jardim Botânico",
+      "title": "Discussão",
+      "trigger": "Chegada ao parque",
+      "effects": [
+        "Red herring Aldo",
+        "Libera depoimentos"
+      ]
+    },
+    {
+      "id": "EVT0003",
+      "time": "15:35",
+      "location": "MON",
+      "title": "Fotos clandestinas",
+      "trigger": "Vídeo de Bianca",
+      "effects": [
+        "Libera Klaus"
+      ]
+    },
+    {
+      "id": "EVT0004",
+      "time": "15:47",
+      "location": "KM18",
+      "title": "Parada não programada",
+      "trigger": "Tacógrafo",
+      "effects": [
+        "Motorista sozinho",
+        "Oportunidade do crime"
+      ]
+    },
+    {
+      "id": "EVT0005",
+      "time": "16:00",
+      "location": "Ônibus",
+      "title": "Vítima bebe café",
+      "trigger": "Fim da parada",
+      "effects": [
+        "Temporizador do veneno"
+      ]
+    },
+    {
+      "id": "EVT0006",
+      "time": "16:45",
+      "location": "Parque Barigui",
+      "title": "Descarte das luvas",
+      "trigger": "Testemunha",
+      "effects": [
+        "Libera EV002"
+      ]
+    },
+    {
+      "id": "EVT0007",
+      "time": "17:50",
+      "location": "Parque Tanguá",
+      "title": "Morte",
+      "trigger": "Chegada ao mirante",
+      "effects": [
+        "Cena do crime",
+        "Perícia"
+      ]
+    },
+    {
+      "id": "EVT0008",
+      "time": "18:30",
+      "location": "Central",
+      "title": "Sala do Júri",
+      "trigger": "4 códigos",
+      "effects": [
+        "Acusação final"
+      ]
+    }
+  ],
+  "dynamic_events": [
+    {
+      "id": "DYN001",
+      "name": "NPC entrega informação",
+      "chance": 0.2
+    },
+    {
+      "id": "DYN002",
+      "name": "Ligação da A.R.I.A.",
+      "chance": 0.15
+    },
+    {
+      "id": "DYN003",
+      "name": "Nova câmera encontrada",
+      "chance": 0.1
+    }
+  ],
+  "player_choices": [
+    {
+      "choice": "Acusar cedo",
+      "result": "Penalidade de pontuação"
+    },
+    {
+      "choice": "Usar dica",
+      "result": "-20 pontos"
+    },
+    {
+      "choice": "Revisitar local",
+      "result": "Pode revelar pista secundária"
+    }
+  ],
+  "unlock_matrix": {
+    "DOC004": [
+      "EVT0004"
+    ],
+    "EV002": [
+      "EVT0006"
+    ],
+    "CIN003": [
+      "EVT0007"
+    ],
+    "JURY": [
+      "EVT0008"
+    ]
+  },
+  "scoring": {
+    "critical_event": 100,
+    "optional_event": 25,
+    "secret_event": 75
+  }
+}

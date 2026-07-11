@@ -1,0 +1,167 @@
+{
+  "evidence_database": [
+    {
+      "id": "EV001",
+      "title": "Garrafa térmica",
+      "category": "Toxicologia",
+      "location_found": "Porta-volumes dianteiro",
+      "analysis": [
+        "Resíduo de café",
+        "Vestígios de glicosídeo cardíaco",
+        "Microfibra azul de luva"
+      ],
+      "interactive": true,
+      "3d_view": true
+    },
+    {
+      "id": "EV002",
+      "title": "Luvas azuis",
+      "category": "Vestígios",
+      "location_found": "Lixeira do Parque Barigui",
+      "analysis": [
+        "Microfibra",
+        "DNA fictício",
+        "Resíduos vegetais"
+      ]
+    },
+    {
+      "id": "EV003",
+      "title": "Vídeo da Bianca",
+      "category": "Vídeo",
+      "features": [
+        "Timeline",
+        "Zoom",
+        "Frame a frame",
+        "Contraste"
+      ]
+    },
+    {
+      "id": "EV004",
+      "title": "Disco do tacógrafo",
+      "category": "Documento",
+      "analysis": [
+        "Velocidade",
+        "Paradas",
+        "Tempo"
+      ]
+    }
+  ],
+  "laboratory": {
+    "modules": [
+      {
+        "id": "tox",
+        "name": "Toxicologia",
+        "tools": [
+          "Microscópio",
+          "Espectrômetro",
+          "Comparador químico"
+        ]
+      },
+      {
+        "id": "prints",
+        "name": "Digitais",
+        "tools": [
+          "Scanner",
+          "Comparador",
+          "Banco AFIS fictício"
+        ]
+      },
+      {
+        "id": "fibers",
+        "name": "Fibras",
+        "tools": [
+          "Microscópio digital",
+          "Luz UV"
+        ]
+      },
+      {
+        "id": "docs",
+        "name": "Documentoscopia",
+        "tools": [
+          "Luz rasante",
+          "Luz infravermelha"
+        ]
+      }
+    ]
+  },
+  "geoint": {
+    "map_layers": [
+      "Satélite",
+      "Mapa urbano",
+      "Linha Turismo",
+      "GPS dos suspeitos",
+      "Câmeras"
+    ],
+    "actions": [
+      "Medir distância",
+      "Criar rota",
+      "Marcar evidência",
+      "Reconstruir percurso"
+    ]
+  },
+  "osint": {
+    "search_modules": [
+      "Notícias",
+      "Registro de imóveis",
+      "Empresas",
+      "Perfis sociais fictícios",
+      "Veículos",
+      "Fotos públicas"
+    ]
+  },
+  "interrogation": {
+    "meters": [
+      "Estresse",
+      "Confiança",
+      "Contradição"
+    ],
+    "actions": [
+      "Apresentar evidência",
+      "Pressionar",
+      "Mudar assunto",
+      "Encerrar entrevista"
+    ]
+  },
+  "devices": [
+    {
+      "owner": "Renata",
+      "apps": [
+        "Mensagens",
+        "Fotos",
+        "Gravações",
+        "Mapa",
+        "Agenda"
+      ]
+    },
+    {
+      "owner": "Sérgio",
+      "apps": [
+        "Chamadas",
+        "GPS",
+        "Notas",
+        "Galeria"
+      ]
+    }
+  ],
+  "documents": [
+    "Laudo toxicológico",
+    "Manifesto do ônibus",
+    "Relatório da perícia",
+    "Recorte de jornal 2019",
+    "Registro funcional"
+  ],
+  "qr_codes": [
+    {
+      "id": "QR01",
+      "reveals": "GLICOSIDEO"
+    },
+    {
+      "id": "QR02",
+      "reveals": "DIARIO"
+    },
+    {
+      "id": "QR03",
+      "reveals": "DELACAO"
+    }
+  ]
+}

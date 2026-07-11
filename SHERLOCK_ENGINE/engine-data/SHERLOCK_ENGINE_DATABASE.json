@@ -1,0 +1,182 @@
+{
+  "schema": "SHERLOCK_ENGINE_DATABASE",
+  "version": "1.0",
+  "entities": {
+    "persons": [
+      {
+        "id": "P002",
+        "name": "Sérgio Bento",
+        "links": [
+          "OBJ003",
+          "DOC015",
+          "EV002",
+          "LOC004"
+        ]
+      },
+      {
+        "id": "P004",
+        "name": "Renata Salgado",
+        "links": [
+          "DOC013",
+          "DEV001"
+        ]
+      },
+      {
+        "id": "P007",
+        "name": "Bianca Alcântara",
+        "links": [
+          "EV003",
+          "DEV002"
+        ]
+      }
+    ],
+    "locations": [
+      {
+        "id": "LOC001",
+        "name": "Rua 24 Horas"
+      },
+      {
+        "id": "LOC002",
+        "name": "Jardim Botânico"
+      },
+      {
+        "id": "LOC003",
+        "name": "MON"
+      },
+      {
+        "id": "LOC004",
+        "name": "KM18"
+      },
+      {
+        "id": "LOC005",
+        "name": "Ópera de Arame"
+      },
+      {
+        "id": "LOC006",
+        "name": "Parque Barigui"
+      },
+      {
+        "id": "LOC007",
+        "name": "Parque Tanguá"
+      }
+    ],
+    "objects": [
+      {
+        "id": "OBJ001",
+        "name": "Garrafa térmica",
+        "contains": [
+          "EV001"
+        ]
+      },
+      {
+        "id": "OBJ003",
+        "name": "Luvas azuis",
+        "contains": [
+          "EV002"
+        ]
+      },
+      {
+        "id": "OBJ008",
+        "name": "Tacógrafo",
+        "contains": [
+          "DOC004"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "id": "DOC004",
+        "title": "Tacógrafo",
+        "references": [
+          "LOC004"
+        ]
+      },
+      {
+        "id": "DOC015",
+        "title": "Registro funcional",
+        "references": [
+          "P002"
+        ]
+      },
+      {
+        "id": "DOC013",
+        "title": "E-mail da delação",
+        "references": [
+          "P004",
+          "P001"
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "id": "EV001",
+        "title": "Veneno no café",
+        "source": "OBJ001"
+      },
+      {
+        "id": "EV002",
+        "title": "Fibra azul",
+        "source": "OBJ003"
+      },
+      {
+        "id": "EV003",
+        "title": "Vídeo da Bianca",
+        "source": "DEV002"
+      }
+    ],
+    "devices": [
+      {
+        "id": "DEV001",
+        "owner": "Renata",
+        "type": "Celular"
+      },
+      {
+        "id": "DEV002",
+        "owner": "Bianca",
+        "type": "Câmera"
+      }
+    ]
+  },
+  "knowledge_graph": [
+    {
+      "from": "P002",
+      "to": "OBJ003",
+      "relation": "descartou"
+    },
+    {
+      "from": "OBJ003",
+      "to": "EV002",
+      "relation": "contém"
+    },
+    {
+      "from": "EV002",
+      "to": "OBJ001",
+      "relation": "compatível_com"
+    },
+    {
+      "from": "OBJ001",
+      "to": "EV001",
+      "relation": "contém"
+    },
+    {
+      "from": "DOC004",
+      "to": "LOC004",
+      "relation": "prova_parada"
+    },
+    {
+      "from": "EV003",
+      "to": "P002",
+      "relation": "mostra_vulto"
+    }
+  ],
+  "queries": {
+    "findEvidenceByPerson": "Retorna evidências ligadas ao personagem.",
+    "findDocumentsByLocation": "Retorna documentos relacionados ao local.",
+    "buildTimeline": "Reconstrói a cronologia usando evidências."
+  },
+  "integrity": {
+    "unique_ids": true,
+    "cross_reference_validation": true,
+    "orphan_check": true
+  }
+}

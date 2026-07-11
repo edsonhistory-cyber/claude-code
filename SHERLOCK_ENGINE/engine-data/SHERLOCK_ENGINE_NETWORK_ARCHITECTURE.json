@@ -1,0 +1,67 @@
+{
+  "schema": "SHERLOCK_ENGINE_NETWORK_ARCHITECTURE",
+  "version": "1.0",
+  "network": {
+    "architecture": "Client-Host with Dedicated Server support",
+    "transport": [
+      "WebSocket",
+      "WebRTC"
+    ],
+    "tick_rate": 20,
+    "snapshot_rate": 10
+  },
+  "replication": {
+    "entities": [
+      "Players",
+      "NPCs",
+      "Evidence",
+      "Doors",
+      "Interactive Objects"
+    ],
+    "reliable_events": [
+      "EvidenceCollected",
+      "CaseSolved",
+      "VoteSubmitted",
+      "TokenUnlocked"
+    ],
+    "unreliable_events": [
+      "CursorPosition",
+      "PingMarker",
+      "CameraRotation"
+    ]
+  },
+  "synchronization": {
+    "inventory": true,
+    "timeline": true,
+    "deduction_state": true,
+    "world_state": true
+  },
+  "security": {
+    "encrypted_transport": true,
+    "session_tokens": true,
+    "anti_tamper": true,
+    "authoritative_host": true
+  },
+  "save_system": {
+    "auto_checkpoint_minutes": 5,
+    "cloud_ready": true,
+    "offline_resume": true
+  },
+  "matchmaking": {
+    "private_lobbies": true,
+    "invite_codes": true,
+    "difficulty_filter": true,
+    "language_filter": true
+  },
+  "diagnostics": {
+    "latency_graph": true,
+    "packet_loss_monitor": true,
+    "network_log": true
+  },
+  "future": {
+    "dedicated_servers": true,
+    "cross_platform": true,
+    "rollback_support": true,
+    "spectator_sync": true
+  }
+}

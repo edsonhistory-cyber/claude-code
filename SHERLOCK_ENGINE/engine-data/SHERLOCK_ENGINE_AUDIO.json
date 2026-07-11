@@ -1,0 +1,167 @@
+{
+  "schema": "SHERLOCK_ENGINE_AUDIO",
+  "version": "1.0",
+  "master": {
+    "sample_rate": 48000,
+    "channels": "stereo",
+    "normalization": "-14 LUFS"
+  },
+  "music": [
+    {
+      "id": "M001",
+      "name": "Abertura",
+      "mood": "Suspense",
+      "loop": false,
+      "duration_sec": 75
+    },
+    {
+      "id": "M002",
+      "name": "Investigação",
+      "mood": "Mistério",
+      "loop": true,
+      "duration_sec": 180
+    },
+    {
+      "id": "M003",
+      "name": "Laboratório",
+      "mood": "Tecnológico",
+      "loop": true,
+      "duration_sec": 150
+    },
+    {
+      "id": "M004",
+      "name": "Júri",
+      "mood": "Tensão",
+      "loop": false,
+      "duration_sec": 90
+    },
+    {
+      "id": "M005",
+      "name": "Créditos",
+      "mood": "Conclusão",
+      "loop": false,
+      "duration_sec": 120
+    }
+  ],
+  "ambience": [
+    {
+      "id": "A001",
+      "name": "Rua 24 Horas",
+      "layers": [
+        "cidade",
+        "passos",
+        "ônibus"
+      ]
+    },
+    {
+      "id": "A002",
+      "name": "Jardim Botânico",
+      "layers": [
+        "pássaros",
+        "vento"
+      ]
+    },
+    {
+      "id": "A003",
+      "name": "Barigui",
+      "layers": [
+        "água",
+        "capivaras",
+        "vento"
+      ]
+    },
+    {
+      "id": "A004",
+      "name": "Tanguá",
+      "layers": [
+        "cascata",
+        "vento"
+      ]
+    },
+    {
+      "id": "A005",
+      "name": "Central",
+      "layers": [
+        "computadores",
+        "rádio",
+        "teclado"
+      ]
+    }
+  ],
+  "sfx": [
+    {
+      "id": "S001",
+      "event": "click"
+    },
+    {
+      "id": "S002",
+      "event": "scanner"
+    },
+    {
+      "id": "S003",
+      "event": "camera_shutter"
+    },
+    {
+      "id": "S004",
+      "event": "unlock"
+    },
+    {
+      "id": "S005",
+      "event": "notification"
+    },
+    {
+      "id": "S006",
+      "event": "radio_beep"
+    },
+    {
+      "id": "S007",
+      "event": "paper_flip"
+    },
+    {
+      "id": "S008",
+      "event": "door_open"
+    },
+    {
+      "id": "S009",
+      "event": "typing"
+    },
+    {
+      "id": "S010",
+      "event": "heartbeat"
+    }
+  ],
+  "voiceovers": [
+    {
+      "id": "V001",
+      "speaker": "Narrador",
+      "scene": "Abertura"
+    },
+    {
+      "id": "V002",
+      "speaker": "A.R.I.A.",
+      "scene": "Central"
+    },
+    {
+      "id": "V003",
+      "speaker": "Legista",
+      "scene": "Laboratório"
+    },
+    {
+      "id": "V004",
+      "speaker": "Rádio",
+      "scene": "Eventos"
+    },
+    {
+      "id": "V005",
+      "speaker": "Juiz",
+      "scene": "Veredito"
+    }
+  ],
+  "mixing": {
+    "music_volume": 0.45,
+    "ambience_volume": 0.35,
+    "voice_volume": 0.9,
+    "sfx_volume": 0.75,
+    "ducking": true
+  }
+}

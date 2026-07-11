@@ -1,0 +1,160 @@
+/* screens.css — layout das telas do Milestone 1 (BOOT, LOGIN, CENTRAL, placeholders) */
+
+.screen { height: 100%; display: flex; flex-direction: column; }
+
+.screen-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 22px;
+  border-bottom: 1px solid rgba(0, 194, 255, .15);
+}
+.breadcrumb {
+  font-family: var(--font-display);
+  letter-spacing: .18em;
+  color: var(--accent);
+  font-size: 1.05rem;
+}
+.screen-nav { display: flex; gap: 8px; }
+.screen-body { flex: 1; overflow: auto; padding: 24px; }
+
+/* ── BOOT ─────────────────────────────────────────────────────────────── */
+.boot-screen { justify-content: center; align-items: center; gap: 28px; }
+.boot-logo, .login-logo {
+  font-family: var(--font-display);
+  font-size: 3.4rem;
+  letter-spacing: .3em;
+  text-shadow: 0 0 24px rgba(0, 194, 255, .5);
+}
+.boot-logo span, .login-logo span { color: var(--accent); }
+.boot-log {
+  width: min(640px, 84vw);
+  height: 200px;
+  overflow: auto;
+  padding: 14px 18px;
+  font-family: var(--font-mono);
+  font-size: .92rem;
+  color: rgba(242, 245, 247, .85);
+  background: rgba(8, 19, 31, .85);
+  border: 1px solid rgba(0, 194, 255, .2);
+  border-radius: var(--radius);
+}
+.boot-line { animation: fade 200ms ease; }
+.boot-error { color: var(--danger); }
+.boot-progress {
+  width: min(640px, 84vw);
+  height: 6px;
+  background: rgba(242, 245, 247, .08);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.boot-progress-fill {
+  width: 0;
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), #7fe3ff);
+  box-shadow: 0 0 12px rgba(0, 194, 255, .6);
+  transition: width 250ms ease;
+}
+
+/* ── LOGIN ────────────────────────────────────────────────────────────── */
+.login-screen { justify-content: center; align-items: center; }
+.login-panel {
+  width: min(420px, 90vw);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 40px 34px;
+  text-align: center;
+}
+.login-logo { font-size: 2.4rem; }
+.login-case {
+  font-family: var(--font-mono);
+  color: var(--warning);
+  font-size: .9rem;
+  margin-bottom: 8px;
+}
+.login-status {
+  font-family: var(--font-mono);
+  font-size: .85rem;
+  color: rgba(242, 245, 247, .6);
+  min-height: 1.2em;
+}
+
+/* ── CENTRAL 3×3 ──────────────────────────────────────────────────────── */
+.central-grid {
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 18px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.central-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 18px;
+  text-align: center;
+  cursor: pointer;
+  color: var(--text);
+  background: linear-gradient(160deg, rgba(18, 36, 53, .92), rgba(18, 36, 53, .7));
+  border: 1px solid rgba(0, 194, 255, .18);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  transition: all var(--transition);
+}
+.central-card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 26px rgba(0, 194, 255, .3);
+  transform: translateY(-3px);
+}
+.card-icon { font-size: 2rem; filter: drop-shadow(0 0 8px rgba(0, 194, 255, .5)); }
+.card-title {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  letter-spacing: .12em;
+}
+.card-desc {
+  font-size: .8rem;
+  color: rgba(242, 245, 247, .6);
+  max-width: 26ch;
+}
+
+/* ── PLACEHOLDER ──────────────────────────────────────────────────────── */
+.placeholder-panel {
+  max-width: 560px;
+  margin: 8vh auto 0;
+  padding: 48px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  text-align: center;
+}
+.placeholder-icon { font-size: 3rem; filter: drop-shadow(0 0 12px rgba(0, 194, 255, .5)); }
+.placeholder-title {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  letter-spacing: .18em;
+}
+.placeholder-desc { color: rgba(242, 245, 247, .75); }
+.placeholder-note { font-family: var(--font-mono); font-size: .85rem; color: var(--warning); }
+.placeholder-badge {
+  font-family: var(--font-mono);
+  font-size: .78rem;
+  letter-spacing: .2em;
+  color: var(--accent);
+  border: 1px dashed rgba(0, 194, 255, .4);
+  border-radius: var(--radius);
+  padding: .4em 1em;
+}
+
+@media (max-width: 900px) {
+  .central-grid { grid-template-columns: repeat(2, 1fr); grid-template-rows: auto; }
+}
+@media (max-width: 560px) {
+  .central-grid { grid-template-columns: 1fr; }
+}

@@ -1,0 +1,162 @@
+{
+  "schema": "CASE001_DOCUMENTS_FULL",
+  "version": "1.0",
+  "case": "CWB-1447",
+  "documents": [
+    {
+      "id": "DOC001",
+      "title": "Laudo Cadavérico Preliminar",
+      "type": "Laudo Médico-Legal",
+      "author": "Legista",
+      "created": "2026-04-18T18:45:00",
+      "classification": "Confidencial",
+      "summary": "Morte compatível com intoxicação por glicosídeo cardíaco.",
+      "pages": [
+        {
+          "page": 1,
+          "sections": [
+            "Identificação",
+            "Exame externo"
+          ]
+        },
+        {
+          "page": 2,
+          "sections": [
+            "Exames internos",
+            "Conclusão"
+          ]
+        }
+      ],
+      "attachments": [
+        "Foto corpo",
+        "Mapa lesões"
+      ],
+      "unlock": [
+        "PERICIA_01"
+      ]
+    },
+    {
+      "id": "DOC002",
+      "title": "Laudo Toxicológico",
+      "type": "Laboratório",
+      "author": "Toxicologia",
+      "summary": "Presença de glicosídeo cardíaco no café da garrafa térmica.",
+      "attachments": [
+        "Cromatograma",
+        "Tabela de amostras"
+      ],
+      "related": [
+        "EV001",
+        "EV002"
+      ]
+    },
+    {
+      "id": "DOC003",
+      "title": "Manifesto da Linha Turismo",
+      "type": "Operacional",
+      "summary": "Lista de passageiros, horários de embarque e desembarque.",
+      "fields": [
+        "Nome",
+        "Assento",
+        "Embarque",
+        "Desembarque"
+      ],
+      "related": [
+        "P001",
+        "P002",
+        "P003"
+      ]
+    },
+    {
+      "id": "DOC004",
+      "title": "Disco do Tacógrafo",
+      "type": "Registro Técnico",
+      "summary": "Parada às 15:47 durante 6 minutos sem falha mecânica.",
+      "attachments": [
+        "Imagem digitalizada",
+        "Relatório técnico"
+      ],
+      "related": [
+        "EV004",
+        "L001"
+      ]
+    },
+    {
+      "id": "DOC005",
+      "title": "Diário de Bordo",
+      "type": "Registro",
+      "summary": "Motorista registrou inspeção de freios sem anomalias.",
+      "unlock": [
+        "ARQUIVO_02"
+      ]
+    },
+    {
+      "id": "DOC006",
+      "title": "Registro Funcional de Sérgio Bento",
+      "type": "RH",
+      "summary": "Histórico profissional mostra atuação no setor de rotas em 2019.",
+      "classification": "Restrito",
+      "related": [
+        "P002"
+      ]
+    },
+    {
+      "id": "DOC007",
+      "title": "Recorte Jornal 2019",
+      "type": "Notícia",
+      "summary": "Mudança da Linha Turismo favoreceu valorização imobiliária."
+    },
+    {
+      "id": "DOC008",
+      "title": "Planilha de Codinomes",
+      "type": "Financeiro",
+      "summary": "Contém os codinomes MUSEU, JARDINEIRO e RODAS.",
+      "related": [
+        "RODAS",
+        "DELACAO"
+      ]
+    },
+    {
+      "id": "DOC009",
+      "title": "Escuta Telefônica",
+      "type": "Áudio Transcrito",
+      "summary": "Renata confirma que Otávio assinaria a delação no dia seguinte."
+    },
+    {
+      "id": "DOC010",
+      "title": "Relatório Final do Caso",
+      "type": "Conclusão",
+      "summary": "Consolidação de todas as provas para a Sala do Júri.",
+      "requires": [
+        "EV001",
+        "EV002",
+        "EV003",
+        "EV004"
+      ]
+    }
+  ],
+  "index": {
+    "medical": [
+      "DOC001",
+      "DOC002"
+    ],
+    "operational": [
+      "DOC003",
+      "DOC004",
+      "DOC005"
+    ],
+    "historical": [
+      "DOC006",
+      "DOC007"
+    ],
+    "financial": [
+      "DOC008"
+    ],
+    "intelligence": [
+      "DOC009"
+    ],
+    "final": [
+      "DOC010"
+    ]
+  }
+}

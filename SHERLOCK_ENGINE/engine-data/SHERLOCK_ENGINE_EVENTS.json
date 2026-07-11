@@ -1,0 +1,101 @@
+{
+  "schema": "SHERLOCK_ENGINE_EVENTS",
+  "version": "1.0",
+  "categories": {
+    "system": [
+      "BOOT_COMPLETE",
+      "LOGIN_SUCCESS",
+      "SAVE_GAME",
+      "LOAD_GAME"
+    ],
+    "investigation": [
+      "EVIDENCE_COLLECTED",
+      "DOCUMENT_OPENED",
+      "PHOTO_ANALYZED",
+      "INTERROGATION_STARTED",
+      "INTERROGATION_FINISHED",
+      "TIMELINE_UPDATED"
+    ],
+    "progression": [
+      "TOKEN_UNLOCKED",
+      "DOSSIER_COMPLETED",
+      "SAFE_OPENED",
+      "JURY_UNLOCKED",
+      "CASE_SOLVED"
+    ]
+  },
+  "event_definitions": [
+    {
+      "id": "EVT001",
+      "name": "EVIDENCE_COLLECTED",
+      "trigger": "Jogador coleta uma evidência",
+      "conditions": [
+        "evidência válida",
+        "não coletada anteriormente"
+      ],
+      "actions": [
+        "Adicionar ao inventário",
+        "Registrar cadeia de custódia",
+        "Atualizar banco de dados",
+        "Notificar A.R.I.A."
+      ]
+    },
+    {
+      "id": "EVT002",
+      "name": "TOKEN_UNLOCKED",
+      "trigger": "Enigma resolvido",
+      "actions": [
+        "Liberar token",
+        "Sincronizar com outros dossiês",
+        "Atualizar progresso"
+      ]
+    },
+    {
+      "id": "EVT003",
+      "name": "SAFE_OPENED",
+      "trigger": "Quatro códigos corretos",
+      "actions": [
+        "Liberar Sala do Júri",
+        "Executar cinemática",
+        "Salvar checkpoint"
+      ]
+    },
+    {
+      "id": "EVT004",
+      "name": "CASE_SOLVED",
+      "trigger": "Acusação correta",
+      "actions": [
+        "Calcular pontuação",
+        "Exibir conquistas",
+        "Mostrar créditos"
+      ]
+    }
+  ],
+  "checkpoints": [
+    {
+      "id": "CP1",
+      "name": "Login"
+    },
+    {
+      "id": "CP2",
+      "name": "Primeira evidência"
+    },
+    {
+      "id": "CP3",
+      "name": "Todos os dossiês completos"
+    },
+    {
+      "id": "CP4",
+      "name": "Sala do Júri"
+    },
+    {
+      "id": "CP5",
+      "name": "Caso encerrado"
+    }
+  ],
+  "logging": {
+    "enabled": true,
+    "store_last_events": 500,
+    "timestamp_format": "ISO-8601"
+  }
+}

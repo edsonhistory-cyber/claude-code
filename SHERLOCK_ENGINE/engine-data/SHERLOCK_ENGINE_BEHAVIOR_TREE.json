@@ -1,0 +1,85 @@
+{
+  "schema": "SHERLOCK_ENGINE_BEHAVIOR_TREE",
+  "version": "1.0",
+  "description": "Árvores de comportamento para NPCs e personagens.",
+  "ai_cycles": {
+    "update_rate_ms": 200,
+    "lod": {
+      "near_player": "alta",
+      "same_area": "média",
+      "distant": "baixa"
+    }
+  },
+  "senses": {
+    "vision": {
+      "fov_degrees": 120,
+      "max_distance_m": 35
+    },
+    "hearing": {
+      "radius_m": 20
+    },
+    "memory": {
+      "forget_after_minutes": 30
+    }
+  },
+  "behavior_trees": [
+    {
+      "id": "BT_TOURIST",
+      "name": "Turista",
+      "states": [
+        "Passear",
+        "Fotografar",
+        "Conversar",
+        "Entrar no ônibus",
+        "Observar evidência"
+      ],
+      "interrupts": [
+        "Fita policial",
+        "Barulho alto",
+        "Pedido do jogador"
+      ]
+    },
+    {
+      "id": "BT_WITNESS",
+      "name": "Testemunha",
+      "states": [
+        "Aguardar",
+        "Responder",
+        "Recordar",
+        "Contradizer",
+        "Encerrar depoimento"
+      ]
+    },
+    {
+      "id": "BT_SUSPECT",
+      "name": "Suspeito",
+      "states": [
+        "Calmo",
+        "Defensivo",
+        "Pressionado",
+        "Contradição",
+        "Cooperativo"
+      ],
+      "triggers": [
+        "Apresentação de evidência",
+        "Pergunta crítica",
+        "Mentira detectada"
+      ]
+    }
+  ],
+  "group_behaviors": {
+    "families": "Andam juntas",
+    "tour_groups": "Seguem guia",
+    "police": "Isolam área e patrulham"
+  },
+  "navigation": {
+    "pathfinding": "A*",
+    "avoid_collisions": true,
+    "dynamic_obstacles": true
+  },
+  "future": {
+    "emotion_model": true,
+    "procedural_dialogue": true,
+    "crowd_simulation": true
+  }
+}

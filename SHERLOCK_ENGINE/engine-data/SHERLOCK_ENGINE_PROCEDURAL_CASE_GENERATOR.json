@@ -1,0 +1,119 @@
+{
+  "schema": "SHERLOCK_ENGINE_PROCEDURAL_CASE_GENERATOR",
+  "version": "1.0",
+  "generator": {
+    "name": "Procedural Case Generator",
+    "seed_mode": "deterministic",
+    "difficulty_levels": [
+      "Fácil",
+      "Normal",
+      "Difícil",
+      "Especialista"
+    ]
+  },
+  "victim_generation": {
+    "age_range": [
+      18,
+      85
+    ],
+    "professions": [
+      "Empresário",
+      "Professor",
+      "Médico",
+      "Advogado",
+      "Político",
+      "Artista",
+      "Engenheiro"
+    ],
+    "death_types": [
+      "Envenenamento",
+      "Homicídio",
+      "Desaparecimento",
+      "Sabotagem",
+      "Roubo seguido de morte"
+    ]
+  },
+  "suspect_generation": {
+    "min": 4,
+    "max": 12,
+    "roles": [
+      "Familiar",
+      "Colega",
+      "Vizinho",
+      "Parceiro",
+      "Funcionário",
+      "Investigador",
+      "Turista"
+    ],
+    "one_true_culprit": true,
+    "red_herrings_min": 2
+  },
+  "motive_pool": [
+    "Vingança",
+    "Ganância",
+    "Silenciamento",
+    "Ciúmes",
+    "Fraude",
+    "Conspiração",
+    "Segredo"
+  ],
+  "evidence_generation": {
+    "physical": [
+      "DNA",
+      "Digitais",
+      "Fibras",
+      "Pegadas",
+      "Objetos"
+    ],
+    "digital": [
+      "Celular",
+      "E-mails",
+      "Câmeras",
+      "GPS",
+      "Mensagens"
+    ],
+    "documental": [
+      "Contratos",
+      "Laudos",
+      "Recibos",
+      "Fotos"
+    ]
+  },
+  "timeline_builder": {
+    "min_events": 20,
+    "max_events": 80,
+    "validate_chronology": true
+  },
+  "logic_validation": {
+    "single_solution": true,
+    "no_deadlocks": true,
+    "all_clues_reachable": true,
+    "alibi_consistency": true
+  },
+  "difficulty_modifiers": {
+    "easy": {
+      "more_direct_clues": true,
+      "false_clues": 1
+    },
+    "normal": {
+      "false_clues": 3
+    },
+    "hard": {
+      "false_clues": 6,
+      "contradictions": 5
+    },
+    "expert": {
+      "false_clues": 10,
+      "hidden_events": 8
+    }
+  },
+  "output_files": [
+    "case.json",
+    "characters.json",
+    "locations.json",
+    "events.json",
+    "evidences.json",
+    "dialogues.json",
+    "world_state.json"
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "schema": "SHERLOCK_ENGINE_VISUAL_SCRIPTING",
+  "version": "1.0",
+  "editor": {
+    "name": "Sherlock Flow",
+    "node_based": true,
+    "autosave": true,
+    "grid_snap": true
+  },
+  "node_categories": {
+    "events": [
+      "Game Start",
+      "Case Loaded",
+      "Evidence Collected",
+      "Dialogue Finished",
+      "Case Solved"
+    ],
+    "logic": [
+      "If",
+      "Else",
+      "Switch",
+      "AND",
+      "OR",
+      "NOT",
+      "Loop"
+    ],
+    "actions": [
+      "Unlock Evidence",
+      "Play Cutscene",
+      "Give Item",
+      "Update Timeline",
+      "Modify Suspicion",
+      "Trigger AI Director"
+    ],
+    "ui": [
+      "Show Message",
+      "Show Popup",
+      "Highlight Object",
+      "Play Sound"
+    ]
+  },
+  "connections": {
+    "execution_pins": true,
+    "data_pins": true,
+    "type_validation": true,
+    "cycle_detection": true
+  },
+  "variables": {
+    "global": [
+      "CurrentCase",
+      "TeamScore",
+      "Difficulty"
+    ],
+    "case": [
+      "EvidenceCount",
+      "SuspicionLevel",
+      "UnlockedTokens"
+    ],
+    "player": [
+      "XP",
+      "Rank",
+      "HintsUsed"
+    ]
+  },
+  "debugger": {
+    "breakpoints": true,
+    "step_execution": true,
+    "watch_variables": true,
+    "execution_trace": true
+  },
+  "compiler": {
+    "output": "compiled_case.json",
+    "validate_before_export": true,
+    "optimize_graph": true
+  },
+  "future": {
+    "multiplayer_flow_editing": true,
+    "ai_node_generation": true,
+    "marketplace_templates": true,
+    "live_preview": true
+  }
+}

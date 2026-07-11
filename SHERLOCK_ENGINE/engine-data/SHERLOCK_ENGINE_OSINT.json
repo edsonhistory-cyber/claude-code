@@ -1,0 +1,122 @@
+{
+  "schema": "SHERLOCK_ENGINE_OSINT",
+  "version": "1.0",
+  "sources": [
+    {
+      "id": "SRC001",
+      "name": "Notícias",
+      "type": "imprensa",
+      "fields": [
+        "título",
+        "data",
+        "autor",
+        "conteúdo"
+      ]
+    },
+    {
+      "id": "SRC002",
+      "name": "Empresas",
+      "type": "registro",
+      "fields": [
+        "CNPJ",
+        "sócios",
+        "histórico"
+      ]
+    },
+    {
+      "id": "SRC003",
+      "name": "Imóveis",
+      "type": "registro",
+      "fields": [
+        "endereço",
+        "proprietário"
+      ]
+    },
+    {
+      "id": "SRC004",
+      "name": "Redes Sociais",
+      "type": "perfil",
+      "fields": [
+        "postagens",
+        "fotos",
+        "contatos"
+      ]
+    },
+    {
+      "id": "SRC005",
+      "name": "Telefonia",
+      "type": "metadados",
+      "fields": [
+        "ligações",
+        "horários",
+        "localização"
+      ]
+    }
+  ],
+  "search_engine": {
+    "filters": [
+      "Pessoa",
+      "Local",
+      "Documento",
+      "Data",
+      "Palavra-chave"
+    ],
+    "operators": [
+      "AND",
+      "OR",
+      "NOT",
+      "\"frase exata\""
+    ],
+    "ranking": "relevância"
+  },
+  "fake_datasets": {
+    "companies": [
+      {
+        "name": "SB Fretamentos",
+        "relation": "Ligação indireta com Sérgio Bento"
+      },
+      {
+        "name": "Bandeira Urbanismo",
+        "relation": "Empresa da vítima"
+      }
+    ],
+    "news": [
+      {
+        "year": 2019,
+        "headline": "Mudança na Linha Turismo gera questionamentos"
+      },
+      {
+        "year": 2026,
+        "headline": "Empresário encontrado morto durante passeio"
+      }
+    ]
+  },
+  "unlock_rules": [
+    {
+      "query": "SB Fretamentos",
+      "unlock": "DOC015"
+    },
+    {
+      "query": "Linha Turismo 2019",
+      "unlock": "Recorte Jornal"
+    },
+    {
+      "query": "Otávio Bandeira",
+      "unlock": "Histórico empresarial"
+    }
+  ],
+  "ui": {
+    "layout": "Motor de busca investigativo",
+    "widgets": [
+      "Campo de pesquisa",
+      "Filtros",
+      "Resultados",
+      "Pré-visualização",
+      "Favoritos"
+    ]
+  },
+  "logging": {
+    "save_search_history": true,
+    "max_recent_searches": 100
+  }
+}

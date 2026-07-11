@@ -1,0 +1,130 @@
+{
+  "schema": "SHERLOCK_ENGINE_GEOINT",
+  "version": "1.0",
+  "map": {
+    "city": "Curitiba - PR",
+    "projection": "Web Mercator",
+    "default_zoom": 13,
+    "layers": [
+      "Satélite",
+      "Mapa Urbano",
+      "Linha Turismo",
+      "Câmeras",
+      "Investigação",
+      "Calor de Evidências"
+    ]
+  },
+  "route": {
+    "name": "Linha Turismo",
+    "stops": [
+      {
+        "id": "R24",
+        "name": "Rua 24 Horas",
+        "time": "14:00"
+      },
+      {
+        "id": "JB",
+        "name": "Jardim Botânico",
+        "time": "15:20"
+      },
+      {
+        "id": "MON",
+        "name": "Museu Oscar Niemeyer",
+        "time": "15:35"
+      },
+      {
+        "id": "KM18",
+        "name": "Parada não programada",
+        "time": "15:47"
+      },
+      {
+        "id": "OPA",
+        "name": "Ópera de Arame",
+        "time": "16:05"
+      },
+      {
+        "id": "BAR",
+        "name": "Parque Barigui",
+        "time": "16:45"
+      },
+      {
+        "id": "TAN",
+        "name": "Parque Tanguá",
+        "time": "17:50"
+      }
+    ]
+  },
+  "camera_network": [
+    {
+      "id": "CAM001",
+      "location": "Rua 24 Horas",
+      "coverage": "Entrada"
+    },
+    {
+      "id": "CAM002",
+      "location": "Jardim Botânico",
+      "coverage": "Portão principal"
+    },
+    {
+      "id": "CAM003",
+      "location": "MON",
+      "coverage": "Estacionamento"
+    },
+    {
+      "id": "CAM004",
+      "location": "Parque Barigui",
+      "coverage": "Lixeira"
+    },
+    {
+      "id": "CAM005",
+      "location": "Parque Tanguá",
+      "coverage": "Mirante"
+    }
+  ],
+  "tools": [
+    "Medir distância",
+    "Medir tempo de deslocamento",
+    "Comparar rotas",
+    "Reconstruir percurso",
+    "Adicionar marcador",
+    "Filtrar por horário"
+  ],
+  "gps_tracks": [
+    {
+      "target": "Ônibus",
+      "source": "Tacógrafo",
+      "accuracy": "Alta"
+    },
+    {
+      "target": "Celular da Renata",
+      "source": "Metadados",
+      "accuracy": "Média"
+    },
+    {
+      "target": "Vídeo da Bianca",
+      "source": "Geolocalização",
+      "accuracy": "Alta"
+    }
+  ],
+  "analysis_rules": [
+    {
+      "id": "GEO001",
+      "condition": "Parada superior a 5 minutos fora da rota",
+      "result": "Gerar alerta de anomalia"
+    },
+    {
+      "id": "GEO002",
+      "condition": "Câmera + GPS + Tacógrafo concordam",
+      "result": "Confirmar evento"
+    }
+  ],
+  "ui": {
+    "panels": [
+      "Mapa",
+      "Linha do tempo",
+      "Camadas",
+      "Marcadores",
+      "Relatório GEOINT"
+    ]
+  }
+}

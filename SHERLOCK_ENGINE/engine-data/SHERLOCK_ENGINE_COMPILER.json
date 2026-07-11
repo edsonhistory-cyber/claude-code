@@ -1,0 +1,102 @@
+{
+  "schema": "SHERLOCK_ENGINE_COMPILER",
+  "version": "1.0",
+  "compiler": {
+    "name": "Sherlock Build System",
+    "entry": "SHERLOCK_MASTER.json",
+    "build_modes": [
+      "development",
+      "testing",
+      "release"
+    ]
+  },
+  "pipeline": [
+    {
+      "step": 1,
+      "name": "Validate JSON",
+      "checks": [
+        "schema",
+        "ids",
+        "references"
+      ]
+    },
+    {
+      "step": 2,
+      "name": "Load Assets",
+      "types": [
+        "images",
+        "audio",
+        "video",
+        "fonts"
+      ]
+    },
+    {
+      "step": 3,
+      "name": "Generate HTML",
+      "outputs": [
+        "index.html",
+        "dossiers.html",
+        "jury.html"
+      ]
+    },
+    {
+      "step": 4,
+      "name": "Generate JavaScript",
+      "outputs": [
+        "engine.js",
+        "database.js",
+        "ui.js",
+        "events.js"
+      ]
+    },
+    {
+      "step": 5,
+      "name": "Bundle CSS",
+      "outputs": [
+        "style.css"
+      ]
+    },
+    {
+      "step": 6,
+      "name": "Optimize",
+      "tasks": [
+        "minify",
+        "compress",
+        "webp",
+        "ogg"
+      ]
+    },
+    {
+      "step": 7,
+      "name": "Package",
+      "targets": [
+        "Web",
+        "Windows",
+        "Android",
+        "Linux"
+      ]
+    }
+  ],
+  "testing": {
+    "unit_tests": true,
+    "integration_tests": true,
+    "playthrough_simulation": true,
+    "broken_reference_scan": true
+  },
+  "outputs": {
+    "web": "dist/web",
+    "desktop": "dist/desktop",
+    "android": "dist/android",
+    "logs": "dist/logs"
+  },
+  "signing": {
+    "checksum": "SHA-256",
+    "manifest": "build-manifest.json"
+  },
+  "future": {
+    "steam_export": true,
+    "epic_export": true,
+    "save_migration": true,
+    "mod_packaging": true
+  }
+}

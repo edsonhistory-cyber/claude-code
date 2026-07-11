@@ -1,0 +1,111 @@
+{
+  "schema": "SHERLOCK_ENGINE_CASE001_FULL",
+  "version": "1.0",
+  "case": {
+    "id": "CWB-1447",
+    "title": "A Última Parada",
+    "status": "Design",
+    "city": "Curitiba - PR",
+    "objective": "Descobrir quem envenenou Otávio Bandeira durante o passeio da Linha Turismo."
+  },
+  "acts": [
+    {
+      "id": "ACT1",
+      "title": "Embarque",
+      "goal": "Conhecer os passageiros e registrar as primeiras evidências.",
+      "unlock": [
+        "Mapa",
+        "Dossiês",
+        "Manifesto"
+      ]
+    },
+    {
+      "id": "ACT2",
+      "title": "Parada no KM18",
+      "goal": "Descobrir por que o ônibus parou fora da rota.",
+      "unlock": [
+        "Tacógrafo",
+        "Vídeo da Bianca",
+        "Depoimentos"
+      ]
+    },
+    {
+      "id": "ACT3",
+      "title": "Laboratório",
+      "goal": "Confirmar que o veneno estava no café.",
+      "unlock": [
+        "Laudo",
+        "Garrafa",
+        "Luvas"
+      ]
+    },
+    {
+      "id": "ACT4",
+      "title": "Sala do Júri",
+      "goal": "Apresentar suspeito, local e método."
+    }
+  ],
+  "critical_path": [
+    "QR da garrafa",
+    "Tacógrafo",
+    "KM18",
+    "Vídeo da Bianca",
+    "Fibra azul",
+    "Registro funcional",
+    "Sala do Júri"
+  ],
+  "red_herrings": [
+    {
+      "character": "Wanda Kruger",
+      "reason": "Conhece plantas tóxicas, mas o chá foi recusado."
+    },
+    {
+      "character": "Aldo Meireles",
+      "reason": "Discussão pública, porém não reembarcou."
+    },
+    {
+      "character": "Klaus Vogel",
+      "reason": "Nome falso, porém é detetive particular."
+    }
+  ],
+  "dependencies": [
+    {
+      "from": "PERICIA",
+      "to": "INTELIGENCIA",
+      "token": "CAFE"
+    },
+    {
+      "from": "INTELIGENCIA",
+      "to": "ARQUIVO",
+      "token": "RODAS"
+    },
+    {
+      "from": "ARQUIVO",
+      "to": "CAMPO",
+      "token": "ROTAS"
+    },
+    {
+      "from": "CAMPO",
+      "to": "PERICIA",
+      "token": "KM18"
+    }
+  ],
+  "final_solution": {
+    "sealed": true,
+    "encoding": "base64",
+    "note": "Solução lacrada. Decodificada apenas na Sala do Júri, no momento do veredito.",
+    "data": "eyJzdXNwZWN0IjogIlPDqXJnaW8gQmVudG8iLCAibG9jYXRpb24iOiAiS00xOCAvIMOUbmlidXMiLCAibWV0aG9kIjogIlZlbmVubyBubyBjYWbDqSBkYSBnYXJyYWZhIHTDqXJtaWNhIiwgInByb29mcyI6IFsiVGFjw7NncmFmbyIsICJWw61kZW8gZGEgQmlhbmNhIiwgIk1pY3JvZmlicmEgYXp1bCIsICJSZWdpc3RybyBmdW5jaW9uYWwiLCAiUGFyYWRhIGZvcmphZGEiXX0="
+  },
+  "completion": {
+    "required": [
+      "4 códigos do cofre",
+      "Linha do tempo correta",
+      "Acusação correta"
+    ],
+    "score_rank": {
+      "560": "Detetive de Elite",
+      "460": "Investigador Sênior",
+      "360": "Caso Resolvido"
+    }
+  }
+}

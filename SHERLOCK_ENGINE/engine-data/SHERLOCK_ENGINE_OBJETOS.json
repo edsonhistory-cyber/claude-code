@@ -1,0 +1,567 @@
+{
+  "schema": "SHERLOCK_ENGINE_OBJETOS",
+  "version": "1.0",
+  "total_objetos": 20,
+  "objetos": [
+    {
+      "id": "OBJ001",
+      "nome": "Garrafa térmica",
+      "categoria": "Evidência",
+      "modelo3D": true,
+      "interacoes": {
+        "inspecionar": true,
+        "girar360": true,
+        "zoom": true,
+        "coletar": true,
+        "enviar_laboratorio": true
+      },
+      "fisico": {
+        "material": "Definir conforme asset",
+        "estado": "Íntegro",
+        "peso_aprox": "Variável"
+      },
+      "evidencias_possiveis": [
+        "Digitais",
+        "DNA fictício",
+        "Fibras",
+        "Resíduos químicos"
+      ],
+      "imagem": {
+        "arquivo": "obj001.webp",
+        "estilo": "Fotorealista 8K"
+      }
+    },
+    {
+      "id": "OBJ002",
+      "nome": "Xícara de café",
+      "categoria": "Evidência",
+      "modelo3D": true,
+      "interacoes": {
+        "inspecionar": true,
+        "girar360": true,
+        "zoom": true,
+        "coletar": true,
+        "enviar_laboratorio": true
+      },
+      "fisico": {
+        "material": "Definir conforme asset",
+        "estado": "Íntegro",
+        "peso_aprox": "Variável"
+      },
+      "evidencias_possiveis": [
+        "Digitais",
+        "DNA fictício",
+        "Fibras",
+        "Resíduos químicos"
+      ],
+      "imagem": {
+        "arquivo": "obj002.webp",
+        "estilo": "Fotorealista 8K"
+      }
+    },
+    {
+      "id": "OBJ003",
+      "nome": "Luvas de nitrilo azuis",
+      "categoria": "Vestígio",
+      "modelo3D": true,
+      "interacoes": {
+        "inspecionar": true,
+        "girar360": true,
+        "zoom": true,
+        "coletar": true,
+        "enviar_laboratorio": true
+      },
+      "fisico": {
+        "material": "Definir conforme asset",
+        "estado": "Íntegro",
+        "peso_aprox": "Variável"
+      },
+      "evidencias_possiveis": [
+        "Digitais",
+        "DNA fictício",
+        "Fibras",
+        "Resíduos químicos"
+      ],
+      "imagem": {
+        "arquivo": "obj003.webp",
+        "estilo": "Fotorealista 8K"
+      }
+    },
+    {
+      "id": "OBJ004",
+      "nome": "Banco 1 do ônibus",
+      "categoria": "Cenário",
+      "modelo3D": false,
+      "interacoes": {
+        "inspecionar": true,
+        "girar360": false,
+        "zoom": true,
+        "coletar": false,
+        "enviar_laboratorio": false
+      },
+      "fisico": {
+        "material": "Definir conforme asset",
+        "estado": "Íntegro",
+        "peso_aprox": "Variável"
+      },
+      "evidencias_possiveis": [
+        "Digitais",
+        "DNA fictício",
+        "Fibras",
+        "Resíduos químicos"
+      ],
+      "imagem": {
+        "arquivo": "obj004.webp",
+        "estilo": "Fotorealista 8K"
+      }
+    },
+    {
+      "id": "OBJ005",
+      "nome": "Porta-volumes",
+      "categoria": "Cenário",
+      "modelo3D": false,
+      "interacoes": {
+        "inspecionar": true,
+        "girar360": false,
+        "zoom": true,
+        "coletar": false,
+        "enviar_laboratorio": false
+      },
+      "fisico": {
+        "material": "Definir conforme asset",
+        "estado": "Íntegro",
+        "peso_aprox": "Variável"
+      },
+      "evidencias_possiveis": [
+        "Digitais",
+        "DNA fictício",
+        "Fibras",
+        "Resíduos químicos"
+      ],
+      "imagem": {
+        "arquivo": "obj005.webp",
+        "estilo": "Fotorealista 8K"
+      }
+    },
+    {
+      "id": "OBJ006",
+      "nome": "Celular de Renata",
+      "categoria": "Dispositivo",
+      "modelo3D": true,
+      "interacoes": {
+        "inspecionar": true,
+        "girar360": true,
+        "zoom": true,
+        "coletar": true,
+        "enviar_laboratorio": false
+      },
+      "fisico": {
+        "material": "Definir conforme asset",
+        "estado": "Íntegro",
+        "peso_aprox": "Variável"
+      },
+      "evidencias_possiveis": [
+        "Digitais",
+        "DNA fictício",
+        "Fibras",
+        "Resíduos químicos"
+      ],
+      "imagem": {
+        "arquivo": "obj006.webp",
+        "estilo": "Fotorealista 8K"
+      }
+    },
+    {
+      "id": "OBJ007",
+      "nome": "Celular de Sérgio",
+      "categoria": "Dispositivo",
+      "modelo3D": true,
+      "interacoes": {
+        "inspecionar": true,
+        "girar360": true,
+        "zoom": true,
+        "coletar": true,
+        "enviar_laboratorio": false
+      },
+      "fisico": {
+        "material": "Definir conforme asset",
+        "estado": "Íntegro",
+        "peso_aprox": "Variável"
+      },
+      "evidencias_possiveis": [
+        "Digitais",
+        "DNA fictício",
+        "Fibras",
+        "Resíduos químicos"
+      ],
+      "imagem": {
+        "arquivo": "obj007.webp",
+        "estilo": "Fotorealista 8K"
+      }
+    },
+    {
+      "id": "OBJ008",
+      "nome": "Tacógrafo",
+      "categoria": "Equipamento",
+      "modelo3D": false,
+      "interacoes": {
+        "inspecionar": true,
+        "girar360": true,
+        "zoom": true,
+        "coletar": true,
+        "enviar_laboratorio": false
+      },
+      "fisico": {
+        "material": "Definir conforme asset",
+        "estado": "Íntegro",
+        "peso_aprox": "Variável"
+      },
+      "evidencias_possiveis": [
+        "Digitais",
+        "DNA fictício",
+        "Fibras",
+        "Resíduos químicos"
+      ],
+      "imagem": {
+        "arquivo": "obj008.webp",
+        "estilo": "Fotorealista 8K"
+      }
+    },
+    {
+      "id": "OBJ009",
+      "nome": "Boné verde",
+      "categoria": "Vestuário",
+      "modelo3D": false,
+      "interacoes": {
+        "inspecionar": true,
+        "girar360": true,
+        "zoom": true,
+        "coletar": true,
+        "enviar_laboratorio": false
+      },
+      "fisico": {
+        "material": "Definir conforme asset",
+        "estado": "Íntegro",
+        "peso_aprox": "Variável"
+      },
+      "evidencias_possiveis": [
+        "Digitais",
+        "DNA fictício",
+        "Fibras",
+        "Resíduos químicos"
+      ],
+      "imagem": {
+        "arquivo": "obj009.webp",
+        "estilo": "Fotorealista 8K"
+      }
+    },
+    {
+      "id": "OBJ010",
+      "nome": "Câmera da Bianca",
+      "categoria": "Dispositivo",
+      "modelo3D": true,
+      "interacoes": {
+        "inspecionar": true,
+        "girar360": true,
+        "zoom": true,
+        "coletar": true,
+        "enviar_laboratorio": false
+      },
+      "fisico": {
+        "material": "Definir conforme asset",
+        "estado": "Íntegro",
+        "peso_aprox": "Variável"
+      },
+      "evidencias_possiveis": [
+        "Digitais",
+        "DNA fictício",
+        "Fibras",
+        "Resíduos químicos"
+      ],
+      "imagem": {
+        "arquivo": "obj010.webp",
+        "estilo": "Fotorealista 8K"
+      }
+    },
+    {
+      "id": "OBJ011",
+      "nome": "Mochila preta",
+      "categoria": "Objeto",
+      "modelo3D": false,
+      "interacoes": {
+        "inspecionar": true,
+        "girar360": true,
+        "zoom": true,
+        "coletar": true,
+        "enviar_laboratorio": false
+      },
+      "fisico": {
+        "material": "Definir conforme asset",
+        "estado": "Íntegro",
+        "peso_aprox": "Variável"
+      },
+      "evidencias_possiveis": [
+        "Digitais",
+        "DNA fictício",
+        "Fibras",
+        "Resíduos químicos"
+      ],
+      "imagem": {
+        "arquivo": "obj011.webp",
+        "estilo": "Fotorealista 8K"
+      }
+    },
+    {
+      "id": "OBJ012",
+      "nome": "Caneta metálica",
+      "categoria": "Objeto",
+      "modelo3D": false,
+      "interacoes": {
+        "inspecionar": true,
+        "girar360": true,
+        "zoom": true,
+        "coletar": true,
+        "enviar_laboratorio": false
+      },
+      "fisico": {
+        "material": "Definir conforme asset",
+        "estado": "Íntegro",
+        "peso_aprox": "Variável"
+      },
+      "evidencias_possiveis": [
+        "Digitais",
+        "DNA fictício",
+        "Fibras",
+        "Resíduos químicos"
+      ],
+      "imagem": {
+        "arquivo": "obj012.webp",
+        "estilo": "Fotorealista 8K"
+      }
+    },
+    {
+      "id": "OBJ013",
+      "nome": "Chaves do ônibus",
+      "categoria": "Objeto",
+      "modelo3D": false,
+      "interacoes": {
+        "inspecionar": true,
+        "girar360": true,
+        "zoom": true,
+        "coletar": true,
+        "enviar_laboratorio": false
+      },
+      "fisico": {
+        "material": "Definir conforme asset",
+        "estado": "Íntegro",
+        "peso_aprox": "Variável"
+      },
+      "evidencias_possiveis": [
+        "Digitais",
+        "DNA fictício",
+        "Fibras",
+        "Resíduos químicos"
+      ],
+      "imagem": {
+        "arquivo": "obj013.webp",
+        "estilo": "Fotorealista 8K"
+      }
+    },
+    {
+      "id": "OBJ014",
+      "nome": "Planta Espirradeira",
+      "categoria": "Biológico",
+      "modelo3D": false,
+      "interacoes": {
+        "inspecionar": true,
+        "girar360": true,
+        "zoom": true,
+        "coletar": true,
+        "enviar_laboratorio": true
+      },
+      "fisico": {
+        "material": "Definir conforme asset",
+        "estado": "Íntegro",
+        "peso_aprox": "Variável"
+      },
+      "evidencias_possiveis": [
+        "Digitais",
+        "DNA fictício",
+        "Fibras",
+        "Resíduos químicos"
+      ],
+      "imagem": {
+        "arquivo": "obj014.webp",
+        "estilo": "Fotorealista 8K"
+      }
+    },
+    {
+      "id": "OBJ015",
+      "nome": "Fibra azul",
+      "categoria": "Vestígio",
+      "modelo3D": true,
+      "interacoes": {
+        "inspecionar": true,
+        "girar360": true,
+        "zoom": true,
+        "coletar": true,
+        "enviar_laboratorio": true
+      },
+      "fisico": {
+        "material": "Definir conforme asset",
+        "estado": "Íntegro",
+        "peso_aprox": "Variável"
+      },
+      "evidencias_possiveis": [
+        "Digitais",
+        "DNA fictício",
+        "Fibras",
+        "Resíduos químicos"
+      ],
+      "imagem": {
+        "arquivo": "obj015.webp",
+        "estilo": "Fotorealista 8K"
+      }
+    },
+    {
+      "id": "OBJ016",
+      "nome": "Pegada de tênis",
+      "categoria": "Vestígio",
+      "modelo3D": true,
+      "interacoes": {
+        "inspecionar": true,
+        "girar360": true,
+        "zoom": true,
+        "coletar": true,
+        "enviar_laboratorio": true
+      },
+      "fisico": {
+        "material": "Definir conforme asset",
+        "estado": "Íntegro",
+        "peso_aprox": "Variável"
+      },
+      "evidencias_possiveis": [
+        "Digitais",
+        "DNA fictício",
+        "Fibras",
+        "Resíduos químicos"
+      ],
+      "imagem": {
+        "arquivo": "obj016.webp",
+        "estilo": "Fotorealista 8K"
+      }
+    },
+    {
+      "id": "OBJ017",
+      "nome": "Impressão digital",
+      "categoria": "Biometria",
+      "modelo3D": false,
+      "interacoes": {
+        "inspecionar": true,
+        "girar360": true,
+        "zoom": true,
+        "coletar": true,
+        "enviar_laboratorio": true
+      },
+      "fisico": {
+        "material": "Definir conforme asset",
+        "estado": "Íntegro",
+        "peso_aprox": "Variável"
+      },
+      "evidencias_possiveis": [
+        "Digitais",
+        "DNA fictício",
+        "Fibras",
+        "Resíduos químicos"
+      ],
+      "imagem": {
+        "arquivo": "obj017.webp",
+        "estilo": "Fotorealista 8K"
+      }
+    },
+    {
+      "id": "OBJ018",
+      "nome": "Lixeira Barigui",
+      "categoria": "Cenário",
+      "modelo3D": false,
+      "interacoes": {
+        "inspecionar": true,
+        "girar360": false,
+        "zoom": true,
+        "coletar": false,
+        "enviar_laboratorio": false
+      },
+      "fisico": {
+        "material": "Definir conforme asset",
+        "estado": "Íntegro",
+        "peso_aprox": "Variável"
+      },
+      "evidencias_possiveis": [
+        "Digitais",
+        "DNA fictício",
+        "Fibras",
+        "Resíduos químicos"
+      ],
+      "imagem": {
+        "arquivo": "obj018.webp",
+        "estilo": "Fotorealista 8K"
+      }
+    },
+    {
+      "id": "OBJ019",
+      "nome": "Relógio do Mirante",
+      "categoria": "Cenário",
+      "modelo3D": false,
+      "interacoes": {
+        "inspecionar": true,
+        "girar360": false,
+        "zoom": true,
+        "coletar": false,
+        "enviar_laboratorio": false
+      },
+      "fisico": {
+        "material": "Definir conforme asset",
+        "estado": "Íntegro",
+        "peso_aprox": "Variável"
+      },
+      "evidencias_possiveis": [
+        "Digitais",
+        "DNA fictício",
+        "Fibras",
+        "Resíduos químicos"
+      ],
+      "imagem": {
+        "arquivo": "obj019.webp",
+        "estilo": "Fotorealista 8K"
+      }
+    },
+    {
+      "id": "OBJ020",
+      "nome": "Pasta da vítima",
+      "categoria": "Documento",
+      "modelo3D": false,
+      "interacoes": {
+        "inspecionar": true,
+        "girar360": true,
+        "zoom": true,
+        "coletar": true,
+        "enviar_laboratorio": false
+      },
+      "fisico": {
+        "material": "Definir conforme asset",
+        "estado": "Íntegro",
+        "peso_aprox": "Variável"
+      },
+      "evidencias_possiveis": [
+        "Digitais",
+        "DNA fictício",
+        "Fibras",
+        "Resíduos químicos"
+      ],
+      "imagem": {
+        "arquivo": "obj020.webp",
+        "estilo": "Fotorealista 8K"
+      }
+    }
+  ]
+}

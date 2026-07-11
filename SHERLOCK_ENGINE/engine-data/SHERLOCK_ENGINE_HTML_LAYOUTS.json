@@ -1,0 +1,174 @@
+{
+  "schema": "SHERLOCK_ENGINE_HTML_LAYOUTS",
+  "version": "1.0",
+  "global": {
+    "framework": "HTML5 + CSS3 + Vanilla JavaScript",
+    "layout": "CSS Grid + Flexbox",
+    "components": [
+      "Header",
+      "Sidebar",
+      "StatusBar",
+      "Modal",
+      "Toast",
+      "Dialog",
+      "Card",
+      "Timeline",
+      "MapCanvas"
+    ]
+  },
+  "screens": [
+    {
+      "id": "SCR001",
+      "file": "01_login.html",
+      "title": "Login",
+      "regions": {
+        "header": {
+          "height": "80px",
+          "items": [
+            "Logo",
+            "Versão"
+          ]
+        },
+        "content": {
+          "form": [
+            "Usuário",
+            "Senha",
+            "Entrar"
+          ]
+        },
+        "footer": {
+          "items": [
+            "Idioma",
+            "Configurações"
+          ]
+        }
+      },
+      "events": [
+        "login_success",
+        "login_fail"
+      ]
+    },
+    {
+      "id": "SCR002",
+      "file": "03_central_operacoes.html",
+      "title": "Central",
+      "grid": "12x12",
+      "widgets": [
+        {
+          "id": "map",
+          "col": "1-6",
+          "row": "1-6"
+        },
+        {
+          "id": "timeline",
+          "col": "7-12",
+          "row": "1-3"
+        },
+        {
+          "id": "alerts",
+          "col": "7-12",
+          "row": "4-6"
+        },
+        {
+          "id": "missions",
+          "col": "1-4",
+          "row": "7-12"
+        },
+        {
+          "id": "evidence",
+          "col": "5-8",
+          "row": "7-12"
+        },
+        {
+          "id": "quick_actions",
+          "col": "9-12",
+          "row": "7-12"
+        }
+      ]
+    },
+    {
+      "id": "SCR003",
+      "file": "05_laboratorio.html",
+      "tabs": [
+        "Toxicologia",
+        "Digitais",
+        "DNA",
+        "Fibras",
+        "Documentos"
+      ],
+      "workspace": {
+        "left": "Lista de amostras",
+        "center": "Visualizador 3D",
+        "right": "Resultados"
+      }
+    },
+    {
+      "id": "SCR004",
+      "file": "06_interrogatorio.html",
+      "areas": {
+        "video": "Retrato do suspeito",
+        "questions": "Perguntas",
+        "stress": "Medidor",
+        "inventory": "Evidências disponíveis"
+      }
+    },
+    {
+      "id": "SCR005",
+      "file": "09_juri.html",
+      "sections": [
+        "Suspeito",
+        "Local",
+        "Método",
+        "Resumo das provas",
+        "Veredito"
+      ]
+    }
+  ],
+  "components": [
+    {
+      "id": "CMP001",
+      "name": "EvidenceCard",
+      "states": [
+        "locked",
+        "new",
+        "analysed"
+      ]
+    },
+    {
+      "id": "CMP002",
+      "name": "TimelineItem",
+      "states": [
+        "pending",
+        "correct",
+        "wrong"
+      ]
+    },
+    {
+      "id": "CMP003",
+      "name": "SuspectCard",
+      "states": [
+        "neutral",
+        "suspect",
+        "cleared"
+      ]
+    },
+    {
+      "id": "CMP004",
+      "name": "ToastNotification",
+      "positions": [
+        "top-right",
+        "bottom-right"
+      ]
+    }
+  ],
+  "navigation": {
+    "home": "SCR002",
+    "transitions": "fade",
+    "breadcrumbs": true,
+    "keyboard_shortcuts": {
+      "F1": "Ajuda",
+      "ESC": "Fechar modal",
+      "CTRL+S": "Salvar progresso"
+    }
+  }
+}

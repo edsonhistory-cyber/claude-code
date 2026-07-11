@@ -1,0 +1,90 @@
+{
+  "schema": "SHERLOCK_ENGINE_FORENSIC_LAB_SIMULATOR",
+  "version": "1.0",
+  "laboratory": {
+    "name": "Laboratório Central",
+    "stations": [
+      "Recepção de Evidências",
+      "DNA",
+      "AFIS",
+      "Toxicologia",
+      "Microscopia",
+      "Documentoscopia",
+      "Balística",
+      "Fotografia Forense",
+      "Arquivamento"
+    ]
+  },
+  "minigames": [
+    {
+      "id": "LAB001",
+      "name": "Comparação de DNA",
+      "objective": "Comparar perfis genéticos.",
+      "difficulty": "Média",
+      "reward": "Laudo de DNA"
+    },
+    {
+      "id": "LAB002",
+      "name": "AFIS",
+      "objective": "Encontrar a impressão digital correspondente.",
+      "difficulty": "Fácil",
+      "reward": "Correspondência biométrica"
+    },
+    {
+      "id": "LAB003",
+      "name": "Microscopia",
+      "objective": "Comparar fibras e materiais.",
+      "difficulty": "Média",
+      "reward": "Laudo de fibras"
+    },
+    {
+      "id": "LAB004",
+      "name": "Toxicologia",
+      "objective": "Identificar substâncias presentes na amostra.",
+      "difficulty": "Difícil",
+      "reward": "Laudo toxicológico"
+    },
+    {
+      "id": "LAB005",
+      "name": "Documentoscopia",
+      "objective": "Detectar alterações em documentos.",
+      "difficulty": "Média",
+      "reward": "Perícia documental"
+    }
+  ],
+  "workflow": [
+    "Receber evidência",
+    "Registrar cadeia de custódia",
+    "Selecionar exame",
+    "Executar análise",
+    "Validar resultado",
+    "Emitir laudo",
+    "Atualizar banco de evidências"
+  ],
+  "equipment": [
+    "Microscópio digital",
+    "Scanner AFIS",
+    "Espectrômetro",
+    "Cromatógrafo",
+    "Luz UV",
+    "Câmera macro"
+  ],
+  "grading": {
+    "perfect": 100,
+    "good": 75,
+    "acceptable": 50,
+    "failed": 0
+  },
+  "integration": {
+    "updates_evidence_graph": true,
+    "updates_deduction_engine": true,
+    "unlocks_dialogues": true,
+    "creates_reports": true
+  },
+  "future": {
+    "3d_lab": true,
+    "vr_support": true,
+    "cooperative_analysis": true,
+    "procedural_samples": true
+  }
+}

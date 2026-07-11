@@ -1,0 +1,93 @@
+{
+  "schema": "SHERLOCK_ENGINE_MULTIPLAYER",
+  "version": "1.0",
+  "mode": "Cooperative",
+  "supported_players": {
+    "min": 2,
+    "max": 4,
+    "recommended": 4
+  },
+  "roles": [
+    {
+      "id": "R1",
+      "name": "Perícia",
+      "exclusive_tools": [
+        "Laboratório",
+        "Microscópio",
+        "AFIS"
+      ]
+    },
+    {
+      "id": "R2",
+      "name": "Inteligência",
+      "exclusive_tools": [
+        "OSINT",
+        "SIGINT",
+        "Análise Financeira"
+      ]
+    },
+    {
+      "id": "R3",
+      "name": "Campo",
+      "exclusive_tools": [
+        "Interrogatório",
+        "GEOINT",
+        "Reconstrução"
+      ]
+    },
+    {
+      "id": "R4",
+      "name": "Arquivo",
+      "exclusive_tools": [
+        "Documentos",
+        "Tacógrafo",
+        "Linha do Tempo"
+      ]
+    }
+  ],
+  "synchronization": {
+    "shared_inventory": true,
+    "shared_timeline": true,
+    "shared_evidence_graph": true,
+    "autosync_ms": 250
+  },
+  "communication": {
+    "quick_messages": [
+      "Encontrei uma evidência.",
+      "Preciso de ajuda.",
+      "Desbloqueei um token.",
+      "Reúnam-se na Sala de Guerra."
+    ],
+    "ping_system": true,
+    "shared_markers": true
+  },
+  "permissions": {
+    "host_controls_case": true,
+    "vote_required_for_final_accusation": true,
+    "minimum_votes": 3
+  },
+  "reconnect": {
+    "enabled": true,
+    "restore_inventory": true,
+    "restore_role": true,
+    "restore_progress": true
+  },
+  "scoring": {
+    "team_score": true,
+    "individual_bonus": [
+      "Primeira evidência",
+      "Melhor interrogatório",
+      "Menos dicas utilizadas"
+    ]
+  },
+  "anti_deadlock": {
+    "cross_dossier_tokens": true,
+    "hint_if_team_stuck_after_minutes": 10
+  },
+  "future_features": {
+    "spectator_mode": true,
+    "voice_chat": true,
+    "cross_platform": true,
+    "competitive_mode": true
+  }
+}

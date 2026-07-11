@@ -1,0 +1,967 @@
+{
+  "schema": "SHERLOCK_ENGINE_IMAGENS",
+  "version": "1.0",
+  "total_assets": 40,
+  "images": [
+    {
+      "id": "IMG_0001",
+      "categoria": "cenario",
+      "nome": "Rua 24 Horas - entrada - dia",
+      "arquivo": "img_0001.webp",
+      "resolucao": "4096x2304",
+      "estilo": "fotorealista cinematográfico 8K",
+      "camera": {
+        "lente": "35mm",
+        "angulo": "3/4",
+        "altura": "1.70m"
+      },
+      "iluminacao": {
+        "periodo": "dia",
+        "clima": "outono",
+        "temperatura_cor": "5600K"
+      },
+      "prompt": "Rua 24 Horas, vista entrada, Curitiba, ultra realista, iluminação cinematográfica, riqueza de detalhes, sem pessoas olhando para câmera.",
+      "uso": [
+        "abertura",
+        "investigação",
+        "timeline"
+      ]
+    },
+    {
+      "id": "IMG_0002",
+      "categoria": "cenario",
+      "nome": "Rua 24 Horas - entrada - entardecer",
+      "arquivo": "img_0002.webp",
+      "resolucao": "4096x2304",
+      "estilo": "fotorealista cinematográfico 8K",
+      "camera": {
+        "lente": "35mm",
+        "angulo": "3/4",
+        "altura": "1.70m"
+      },
+      "iluminacao": {
+        "periodo": "entardecer",
+        "clima": "outono",
+        "temperatura_cor": "5600K"
+      },
+      "prompt": "Rua 24 Horas, vista entrada, Curitiba, ultra realista, iluminação cinematográfica, riqueza de detalhes, sem pessoas olhando para câmera.",
+      "uso": [
+        "abertura",
+        "investigação",
+        "timeline"
+      ]
+    },
+    {
+      "id": "IMG_0003",
+      "categoria": "cenario",
+      "nome": "Rua 24 Horas - interior - dia",
+      "arquivo": "img_0003.webp",
+      "resolucao": "4096x2304",
+      "estilo": "fotorealista cinematográfico 8K",
+      "camera": {
+        "lente": "35mm",
+        "angulo": "3/4",
+        "altura": "1.70m"
+      },
+      "iluminacao": {
+        "periodo": "dia",
+        "clima": "outono",
+        "temperatura_cor": "5600K"
+      },
+      "prompt": "Rua 24 Horas, vista interior, Curitiba, ultra realista, iluminação cinematográfica, riqueza de detalhes, sem pessoas olhando para câmera.",
+      "uso": [
+        "abertura",
+        "investigação",
+        "timeline"
+      ]
+    },
+    {
+      "id": "IMG_0004",
+      "categoria": "cenario",
+      "nome": "Rua 24 Horas - interior - entardecer",
+      "arquivo": "img_0004.webp",
+      "resolucao": "4096x2304",
+      "estilo": "fotorealista cinematográfico 8K",
+      "camera": {
+        "lente": "35mm",
+        "angulo": "3/4",
+        "altura": "1.70m"
+      },
+      "iluminacao": {
+        "periodo": "entardecer",
+        "clima": "outono",
+        "temperatura_cor": "5600K"
+      },
+      "prompt": "Rua 24 Horas, vista interior, Curitiba, ultra realista, iluminação cinematográfica, riqueza de detalhes, sem pessoas olhando para câmera.",
+      "uso": [
+        "abertura",
+        "investigação",
+        "timeline"
+      ]
+    },
+    {
+      "id": "IMG_0005",
+      "categoria": "cenario",
+      "nome": "Jardim Botânico - estufa - dia",
+      "arquivo": "img_0005.webp",
+      "resolucao": "4096x2304",
+      "estilo": "fotorealista cinematográfico 8K",
+      "camera": {
+        "lente": "35mm",
+        "angulo": "3/4",
+        "altura": "1.70m"
+      },
+      "iluminacao": {
+        "periodo": "dia",
+        "clima": "outono",
+        "temperatura_cor": "5600K"
+      },
+      "prompt": "Jardim Botânico, vista estufa, Curitiba, ultra realista, iluminação cinematográfica, riqueza de detalhes, sem pessoas olhando para câmera.",
+      "uso": [
+        "abertura",
+        "investigação",
+        "timeline"
+      ]
+    },
+    {
+      "id": "IMG_0006",
+      "categoria": "cenario",
+      "nome": "Jardim Botânico - estufa - entardecer",
+      "arquivo": "img_0006.webp",
+      "resolucao": "4096x2304",
+      "estilo": "fotorealista cinematográfico 8K",
+      "camera": {
+        "lente": "35mm",
+        "angulo": "3/4",
+        "altura": "1.70m"
+      },
+      "iluminacao": {
+        "periodo": "entardecer",
+        "clima": "outono",
+        "temperatura_cor": "5600K"
+      },
+      "prompt": "Jardim Botânico, vista estufa, Curitiba, ultra realista, iluminação cinematográfica, riqueza de detalhes, sem pessoas olhando para câmera.",
+      "uso": [
+        "abertura",
+        "investigação",
+        "timeline"
+      ]
+    },
+    {
+      "id": "IMG_0007",
+      "categoria": "cenario",
+      "nome": "Jardim Botânico - alameda - dia",
+      "arquivo": "img_0007.webp",
+      "resolucao": "4096x2304",
+      "estilo": "fotorealista cinematográfico 8K",
+      "camera": {
+        "lente": "35mm",
+        "angulo": "3/4",
+        "altura": "1.70m"
+      },
+      "iluminacao": {
+        "periodo": "dia",
+        "clima": "outono",
+        "temperatura_cor": "5600K"
+      },
+      "prompt": "Jardim Botânico, vista alameda, Curitiba, ultra realista, iluminação cinematográfica, riqueza de detalhes, sem pessoas olhando para câmera.",
+      "uso": [
+        "abertura",
+        "investigação",
+        "timeline"
+      ]
+    },
+    {
+      "id": "IMG_0008",
+      "categoria": "cenario",
+      "nome": "Jardim Botânico - alameda - entardecer",
+      "arquivo": "img_0008.webp",
+      "resolucao": "4096x2304",
+      "estilo": "fotorealista cinematográfico 8K",
+      "camera": {
+        "lente": "35mm",
+        "angulo": "3/4",
+        "altura": "1.70m"
+      },
+      "iluminacao": {
+        "periodo": "entardecer",
+        "clima": "outono",
+        "temperatura_cor": "5600K"
+      },
+      "prompt": "Jardim Botânico, vista alameda, Curitiba, ultra realista, iluminação cinematográfica, riqueza de detalhes, sem pessoas olhando para câmera.",
+      "uso": [
+        "abertura",
+        "investigação",
+        "timeline"
+      ]
+    },
+    {
+      "id": "IMG_0009",
+      "categoria": "cenario",
+      "nome": "MON - frontal - dia",
+      "arquivo": "img_0009.webp",
+      "resolucao": "4096x2304",
+      "estilo": "fotorealista cinematográfico 8K",
+      "camera": {
+        "lente": "35mm",
+        "angulo": "3/4",
+        "altura": "1.70m"
+      },
+      "iluminacao": {
+        "periodo": "dia",
+        "clima": "outono",
+        "temperatura_cor": "5600K"
+      },
+      "prompt": "MON, vista frontal, Curitiba, ultra realista, iluminação cinematográfica, riqueza de detalhes, sem pessoas olhando para câmera.",
+      "uso": [
+        "abertura",
+        "investigação",
+        "timeline"
+      ]
+    },
+    {
+      "id": "IMG_0010",
+      "categoria": "cenario",
+      "nome": "MON - frontal - entardecer",
+      "arquivo": "img_0010.webp",
+      "resolucao": "4096x2304",
+      "estilo": "fotorealista cinematográfico 8K",
+      "camera": {
+        "lente": "35mm",
+        "angulo": "3/4",
+        "altura": "1.70m"
+      },
+      "iluminacao": {
+        "periodo": "entardecer",
+        "clima": "outono",
+        "temperatura_cor": "5600K"
+      },
+      "prompt": "MON, vista frontal, Curitiba, ultra realista, iluminação cinematográfica, riqueza de detalhes, sem pessoas olhando para câmera.",
+      "uso": [
+        "abertura",
+        "investigação",
+        "timeline"
+      ]
+    },
+    {
+      "id": "IMG_0011",
+      "categoria": "cenario",
+      "nome": "MON - lateral - dia",
+      "arquivo": "img_0011.webp",
+      "resolucao": "4096x2304",
+      "estilo": "fotorealista cinematográfico 8K",
+      "camera": {
+        "lente": "35mm",
+        "angulo": "3/4",
+        "altura": "1.70m"
+      },
+      "iluminacao": {
+        "periodo": "dia",
+        "clima": "outono",
+        "temperatura_cor": "5600K"
+      },
+      "prompt": "MON, vista lateral, Curitiba, ultra realista, iluminação cinematográfica, riqueza de detalhes, sem pessoas olhando para câmera.",
+      "uso": [
+        "abertura",
+        "investigação",
+        "timeline"
+      ]
+    },
+    {
+      "id": "IMG_0012",
+      "categoria": "cenario",
+      "nome": "MON - lateral - entardecer",
+      "arquivo": "img_0012.webp",
+      "resolucao": "4096x2304",
+      "estilo": "fotorealista cinematográfico 8K",
+      "camera": {
+        "lente": "35mm",
+        "angulo": "3/4",
+        "altura": "1.70m"
+      },
+      "iluminacao": {
+        "periodo": "entardecer",
+        "clima": "outono",
+        "temperatura_cor": "5600K"
+      },
+      "prompt": "MON, vista lateral, Curitiba, ultra realista, iluminação cinematográfica, riqueza de detalhes, sem pessoas olhando para câmera.",
+      "uso": [
+        "abertura",
+        "investigação",
+        "timeline"
+      ]
+    },
+    {
+      "id": "IMG_0013",
+      "categoria": "cenario",
+      "nome": "Ópera de Arame - palco - dia",
+      "arquivo": "img_0013.webp",
+      "resolucao": "4096x2304",
+      "estilo": "fotorealista cinematográfico 8K",
+      "camera": {
+        "lente": "35mm",
+        "angulo": "3/4",
+        "altura": "1.70m"
+      },
+      "iluminacao": {
+        "periodo": "dia",
+        "clima": "outono",
+        "temperatura_cor": "5600K"
+      },
+      "prompt": "Ópera de Arame, vista palco, Curitiba, ultra realista, iluminação cinematográfica, riqueza de detalhes, sem pessoas olhando para câmera.",
+      "uso": [
+        "abertura",
+        "investigação",
+        "timeline"
+      ]
+    },
+    {
+      "id": "IMG_0014",
+      "categoria": "cenario",
+      "nome": "Ópera de Arame - palco - entardecer",
+      "arquivo": "img_0014.webp",
+      "resolucao": "4096x2304",
+      "estilo": "fotorealista cinematográfico 8K",
+      "camera": {
+        "lente": "35mm",
+        "angulo": "3/4",
+        "altura": "1.70m"
+      },
+      "iluminacao": {
+        "periodo": "entardecer",
+        "clima": "outono",
+        "temperatura_cor": "5600K"
+      },
+      "prompt": "Ópera de Arame, vista palco, Curitiba, ultra realista, iluminação cinematográfica, riqueza de detalhes, sem pessoas olhando para câmera.",
+      "uso": [
+        "abertura",
+        "investigação",
+        "timeline"
+      ]
+    },
+    {
+      "id": "IMG_0015",
+      "categoria": "cenario",
+      "nome": "Ópera de Arame - lago - dia",
+      "arquivo": "img_0015.webp",
+      "resolucao": "4096x2304",
+      "estilo": "fotorealista cinematográfico 8K",
+      "camera": {
+        "lente": "35mm",
+        "angulo": "3/4",
+        "altura": "1.70m"
+      },
+      "iluminacao": {
+        "periodo": "dia",
+        "clima": "outono",
+        "temperatura_cor": "5600K"
+      },
+      "prompt": "Ópera de Arame, vista lago, Curitiba, ultra realista, iluminação cinematográfica, riqueza de detalhes, sem pessoas olhando para câmera.",
+      "uso": [
+        "abertura",
+        "investigação",
+        "timeline"
+      ]
+    },
+    {
+      "id": "IMG_0016",
+      "categoria": "cenario",
+      "nome": "Ópera de Arame - lago - entardecer",
+      "arquivo": "img_0016.webp",
+      "resolucao": "4096x2304",
+      "estilo": "fotorealista cinematográfico 8K",
+      "camera": {
+        "lente": "35mm",
+        "angulo": "3/4",
+        "altura": "1.70m"
+      },
+      "iluminacao": {
+        "periodo": "entardecer",
+        "clima": "outono",
+        "temperatura_cor": "5600K"
+      },
+      "prompt": "Ópera de Arame, vista lago, Curitiba, ultra realista, iluminação cinematográfica, riqueza de detalhes, sem pessoas olhando para câmera.",
+      "uso": [
+        "abertura",
+        "investigação",
+        "timeline"
+      ]
+    },
+    {
+      "id": "IMG_0017",
+      "categoria": "cenario",
+      "nome": "Parque Barigui - lago - dia",
+      "arquivo": "img_0017.webp",
+      "resolucao": "4096x2304",
+      "estilo": "fotorealista cinematográfico 8K",
+      "camera": {
+        "lente": "35mm",
+        "angulo": "3/4",
+        "altura": "1.70m"
+      },
+      "iluminacao": {
+        "periodo": "dia",
+        "clima": "outono",
+        "temperatura_cor": "5600K"
+      },
+      "prompt": "Parque Barigui, vista lago, Curitiba, ultra realista, iluminação cinematográfica, riqueza de detalhes, sem pessoas olhando para câmera.",
+      "uso": [
+        "abertura",
+        "investigação",
+        "timeline"
+      ]
+    },
+    {
+      "id": "IMG_0018",
+      "categoria": "cenario",
+      "nome": "Parque Barigui - lago - entardecer",
+      "arquivo": "img_0018.webp",
+      "resolucao": "4096x2304",
+      "estilo": "fotorealista cinematográfico 8K",
+      "camera": {
+        "lente": "35mm",
+        "angulo": "3/4",
+        "altura": "1.70m"
+      },
+      "iluminacao": {
+        "periodo": "entardecer",
+        "clima": "outono",
+        "temperatura_cor": "5600K"
+      },
+      "prompt": "Parque Barigui, vista lago, Curitiba, ultra realista, iluminação cinematográfica, riqueza de detalhes, sem pessoas olhando para câmera.",
+      "uso": [
+        "abertura",
+        "investigação",
+        "timeline"
+      ]
+    },
+    {
+      "id": "IMG_0019",
+      "categoria": "cenario",
+      "nome": "Parque Barigui - capivaras - dia",
+      "arquivo": "img_0019.webp",
+      "resolucao": "4096x2304",
+      "estilo": "fotorealista cinematográfico 8K",
+      "camera": {
+        "lente": "35mm",
+        "angulo": "3/4",
+        "altura": "1.70m"
+      },
+      "iluminacao": {
+        "periodo": "dia",
+        "clima": "outono",
+        "temperatura_cor": "5600K"
+      },
+      "prompt": "Parque Barigui, vista capivaras, Curitiba, ultra realista, iluminação cinematográfica, riqueza de detalhes, sem pessoas olhando para câmera.",
+      "uso": [
+        "abertura",
+        "investigação",
+        "timeline"
+      ]
+    },
+    {
+      "id": "IMG_0020",
+      "categoria": "cenario",
+      "nome": "Parque Barigui - capivaras - entardecer",
+      "arquivo": "img_0020.webp",
+      "resolucao": "4096x2304",
+      "estilo": "fotorealista cinematográfico 8K",
+      "camera": {
+        "lente": "35mm",
+        "angulo": "3/4",
+        "altura": "1.70m"
+      },
+      "iluminacao": {
+        "periodo": "entardecer",
+        "clima": "outono",
+        "temperatura_cor": "5600K"
+      },
+      "prompt": "Parque Barigui, vista capivaras, Curitiba, ultra realista, iluminação cinematográfica, riqueza de detalhes, sem pessoas olhando para câmera.",
+      "uso": [
+        "abertura",
+        "investigação",
+        "timeline"
+      ]
+    },
+    {
+      "id": "IMG_0021",
+      "categoria": "cenario",
+      "nome": "Parque Tanguá - mirante - dia",
+      "arquivo": "img_0021.webp",
+      "resolucao": "4096x2304",
+      "estilo": "fotorealista cinematográfico 8K",
+      "camera": {
+        "lente": "35mm",
+        "angulo": "3/4",
+        "altura": "1.70m"
+      },
+      "iluminacao": {
+        "periodo": "dia",
+        "clima": "outono",
+        "temperatura_cor": "5600K"
+      },
+      "prompt": "Parque Tanguá, vista mirante, Curitiba, ultra realista, iluminação cinematográfica, riqueza de detalhes, sem pessoas olhando para câmera.",
+      "uso": [
+        "abertura",
+        "investigação",
+        "timeline"
+      ]
+    },
+    {
+      "id": "IMG_0022",
+      "categoria": "cenario",
+      "nome": "Parque Tanguá - mirante - entardecer",
+      "arquivo": "img_0022.webp",
+      "resolucao": "4096x2304",
+      "estilo": "fotorealista cinematográfico 8K",
+      "camera": {
+        "lente": "35mm",
+        "angulo": "3/4",
+        "altura": "1.70m"
+      },
+      "iluminacao": {
+        "periodo": "entardecer",
+        "clima": "outono",
+        "temperatura_cor": "5600K"
+      },
+      "prompt": "Parque Tanguá, vista mirante, Curitiba, ultra realista, iluminação cinematográfica, riqueza de detalhes, sem pessoas olhando para câmera.",
+      "uso": [
+        "abertura",
+        "investigação",
+        "timeline"
+      ]
+    },
+    {
+      "id": "IMG_0023",
+      "categoria": "cenario",
+      "nome": "Parque Tanguá - cascata - dia",
+      "arquivo": "img_0023.webp",
+      "resolucao": "4096x2304",
+      "estilo": "fotorealista cinematográfico 8K",
+      "camera": {
+        "lente": "35mm",
+        "angulo": "3/4",
+        "altura": "1.70m"
+      },
+      "iluminacao": {
+        "periodo": "dia",
+        "clima": "outono",
+        "temperatura_cor": "5600K"
+      },
+      "prompt": "Parque Tanguá, vista cascata, Curitiba, ultra realista, iluminação cinematográfica, riqueza de detalhes, sem pessoas olhando para câmera.",
+      "uso": [
+        "abertura",
+        "investigação",
+        "timeline"
+      ]
+    },
+    {
+      "id": "IMG_0024",
+      "categoria": "cenario",
+      "nome": "Parque Tanguá - cascata - entardecer",
+      "arquivo": "img_0024.webp",
+      "resolucao": "4096x2304",
+      "estilo": "fotorealista cinematográfico 8K",
+      "camera": {
+        "lente": "35mm",
+        "angulo": "3/4",
+        "altura": "1.70m"
+      },
+      "iluminacao": {
+        "periodo": "entardecer",
+        "clima": "outono",
+        "temperatura_cor": "5600K"
+      },
+      "prompt": "Parque Tanguá, vista cascata, Curitiba, ultra realista, iluminação cinematográfica, riqueza de detalhes, sem pessoas olhando para câmera.",
+      "uso": [
+        "abertura",
+        "investigação",
+        "timeline"
+      ]
+    },
+    {
+      "id": "IMG_0025",
+      "categoria": "cenario",
+      "nome": "Ônibus - externa - dia",
+      "arquivo": "img_0025.webp",
+      "resolucao": "4096x2304",
+      "estilo": "fotorealista cinematográfico 8K",
+      "camera": {
+        "lente": "35mm",
+        "angulo": "3/4",
+        "altura": "1.70m"
+      },
+      "iluminacao": {
+        "periodo": "dia",
+        "clima": "outono",
+        "temperatura_cor": "5600K"
+      },
+      "prompt": "Ônibus, vista externa, Curitiba, ultra realista, iluminação cinematográfica, riqueza de detalhes, sem pessoas olhando para câmera.",
+      "uso": [
+        "abertura",
+        "investigação",
+        "timeline"
+      ]
+    },
+    {
+      "id": "IMG_0026",
+      "categoria": "cenario",
+      "nome": "Ônibus - externa - entardecer",
+      "arquivo": "img_0026.webp",
+      "resolucao": "4096x2304",
+      "estilo": "fotorealista cinematográfico 8K",
+      "camera": {
+        "lente": "35mm",
+        "angulo": "3/4",
+        "altura": "1.70m"
+      },
+      "iluminacao": {
+        "periodo": "entardecer",
+        "clima": "outono",
+        "temperatura_cor": "5600K"
+      },
+      "prompt": "Ônibus, vista externa, Curitiba, ultra realista, iluminação cinematográfica, riqueza de detalhes, sem pessoas olhando para câmera.",
+      "uso": [
+        "abertura",
+        "investigação",
+        "timeline"
+      ]
+    },
+    {
+      "id": "IMG_0027",
+      "categoria": "cenario",
+      "nome": "Ônibus - andar_inferior - dia",
+      "arquivo": "img_0027.webp",
+      "resolucao": "4096x2304",
+      "estilo": "fotorealista cinematográfico 8K",
+      "camera": {
+        "lente": "35mm",
+        "angulo": "3/4",
+        "altura": "1.70m"
+      },
+      "iluminacao": {
+        "periodo": "dia",
+        "clima": "outono",
+        "temperatura_cor": "5600K"
+      },
+      "prompt": "Ônibus, vista andar_inferior, Curitiba, ultra realista, iluminação cinematográfica, riqueza de detalhes, sem pessoas olhando para câmera.",
+      "uso": [
+        "abertura",
+        "investigação",
+        "timeline"
+      ]
+    },
+    {
+      "id": "IMG_0028",
+      "categoria": "cenario",
+      "nome": "Ônibus - andar_inferior - entardecer",
+      "arquivo": "img_0028.webp",
+      "resolucao": "4096x2304",
+      "estilo": "fotorealista cinematográfico 8K",
+      "camera": {
+        "lente": "35mm",
+        "angulo": "3/4",
+        "altura": "1.70m"
+      },
+      "iluminacao": {
+        "periodo": "entardecer",
+        "clima": "outono",
+        "temperatura_cor": "5600K"
+      },
+      "prompt": "Ônibus, vista andar_inferior, Curitiba, ultra realista, iluminação cinematográfica, riqueza de detalhes, sem pessoas olhando para câmera.",
+      "uso": [
+        "abertura",
+        "investigação",
+        "timeline"
+      ]
+    },
+    {
+      "id": "IMG_0029",
+      "categoria": "cenario",
+      "nome": "Ônibus - andar_superior - dia",
+      "arquivo": "img_0029.webp",
+      "resolucao": "4096x2304",
+      "estilo": "fotorealista cinematográfico 8K",
+      "camera": {
+        "lente": "35mm",
+        "angulo": "3/4",
+        "altura": "1.70m"
+      },
+      "iluminacao": {
+        "periodo": "dia",
+        "clima": "outono",
+        "temperatura_cor": "5600K"
+      },
+      "prompt": "Ônibus, vista andar_superior, Curitiba, ultra realista, iluminação cinematográfica, riqueza de detalhes, sem pessoas olhando para câmera.",
+      "uso": [
+        "abertura",
+        "investigação",
+        "timeline"
+      ]
+    },
+    {
+      "id": "IMG_0030",
+      "categoria": "cenario",
+      "nome": "Ônibus - andar_superior - entardecer",
+      "arquivo": "img_0030.webp",
+      "resolucao": "4096x2304",
+      "estilo": "fotorealista cinematográfico 8K",
+      "camera": {
+        "lente": "35mm",
+        "angulo": "3/4",
+        "altura": "1.70m"
+      },
+      "iluminacao": {
+        "periodo": "entardecer",
+        "clima": "outono",
+        "temperatura_cor": "5600K"
+      },
+      "prompt": "Ônibus, vista andar_superior, Curitiba, ultra realista, iluminação cinematográfica, riqueza de detalhes, sem pessoas olhando para câmera.",
+      "uso": [
+        "abertura",
+        "investigação",
+        "timeline"
+      ]
+    },
+    {
+      "id": "IMG_0031",
+      "categoria": "cenario",
+      "nome": "Laboratório - bancada - dia",
+      "arquivo": "img_0031.webp",
+      "resolucao": "4096x2304",
+      "estilo": "fotorealista cinematográfico 8K",
+      "camera": {
+        "lente": "35mm",
+        "angulo": "3/4",
+        "altura": "1.70m"
+      },
+      "iluminacao": {
+        "periodo": "dia",
+        "clima": "outono",
+        "temperatura_cor": "5600K"
+      },
+      "prompt": "Laboratório, vista bancada, Curitiba, ultra realista, iluminação cinematográfica, riqueza de detalhes, sem pessoas olhando para câmera.",
+      "uso": [
+        "abertura",
+        "investigação",
+        "timeline"
+      ]
+    },
+    {
+      "id": "IMG_0032",
+      "categoria": "cenario",
+      "nome": "Laboratório - bancada - entardecer",
+      "arquivo": "img_0032.webp",
+      "resolucao": "4096x2304",
+      "estilo": "fotorealista cinematográfico 8K",
+      "camera": {
+        "lente": "35mm",
+        "angulo": "3/4",
+        "altura": "1.70m"
+      },
+      "iluminacao": {
+        "periodo": "entardecer",
+        "clima": "outono",
+        "temperatura_cor": "5600K"
+      },
+      "prompt": "Laboratório, vista bancada, Curitiba, ultra realista, iluminação cinematográfica, riqueza de detalhes, sem pessoas olhando para câmera.",
+      "uso": [
+        "abertura",
+        "investigação",
+        "timeline"
+      ]
+    },
+    {
+      "id": "IMG_0033",
+      "categoria": "cenario",
+      "nome": "Central - painel - dia",
+      "arquivo": "img_0033.webp",
+      "resolucao": "4096x2304",
+      "estilo": "fotorealista cinematográfico 8K",
+      "camera": {
+        "lente": "35mm",
+        "angulo": "3/4",
+        "altura": "1.70m"
+      },
+      "iluminacao": {
+        "periodo": "dia",
+        "clima": "outono",
+        "temperatura_cor": "5600K"
+      },
+      "prompt": "Central, vista painel, Curitiba, ultra realista, iluminação cinematográfica, riqueza de detalhes, sem pessoas olhando para câmera.",
+      "uso": [
+        "abertura",
+        "investigação",
+        "timeline"
+      ]
+    },
+    {
+      "id": "IMG_0034",
+      "categoria": "cenario",
+      "nome": "Central - painel - entardecer",
+      "arquivo": "img_0034.webp",
+      "resolucao": "4096x2304",
+      "estilo": "fotorealista cinematográfico 8K",
+      "camera": {
+        "lente": "35mm",
+        "angulo": "3/4",
+        "altura": "1.70m"
+      },
+      "iluminacao": {
+        "periodo": "entardecer",
+        "clima": "outono",
+        "temperatura_cor": "5600K"
+      },
+      "prompt": "Central, vista painel, Curitiba, ultra realista, iluminação cinematográfica, riqueza de detalhes, sem pessoas olhando para câmera.",
+      "uso": [
+        "abertura",
+        "investigação",
+        "timeline"
+      ]
+    },
+    {
+      "id": "IMG_0035",
+      "categoria": "cenario",
+      "nome": "Interrogatório - sala - dia",
+      "arquivo": "img_0035.webp",
+      "resolucao": "4096x2304",
+      "estilo": "fotorealista cinematográfico 8K",
+      "camera": {
+        "lente": "35mm",
+        "angulo": "3/4",
+        "altura": "1.70m"
+      },
+      "iluminacao": {
+        "periodo": "dia",
+        "clima": "outono",
+        "temperatura_cor": "5600K"
+      },
+      "prompt": "Interrogatório, vista sala, Curitiba, ultra realista, iluminação cinematográfica, riqueza de detalhes, sem pessoas olhando para câmera.",
+      "uso": [
+        "abertura",
+        "investigação",
+        "timeline"
+      ]
+    },
+    {
+      "id": "IMG_0036",
+      "categoria": "cenario",
+      "nome": "Interrogatório - sala - entardecer",
+      "arquivo": "img_0036.webp",
+      "resolucao": "4096x2304",
+      "estilo": "fotorealista cinematográfico 8K",
+      "camera": {
+        "lente": "35mm",
+        "angulo": "3/4",
+        "altura": "1.70m"
+      },
+      "iluminacao": {
+        "periodo": "entardecer",
+        "clima": "outono",
+        "temperatura_cor": "5600K"
+      },
+      "prompt": "Interrogatório, vista sala, Curitiba, ultra realista, iluminação cinematográfica, riqueza de detalhes, sem pessoas olhando para câmera.",
+      "uso": [
+        "abertura",
+        "investigação",
+        "timeline"
+      ]
+    },
+    {
+      "id": "IMG_0037",
+      "categoria": "cenario",
+      "nome": "Mapa - satélite - dia",
+      "arquivo": "img_0037.webp",
+      "resolucao": "4096x2304",
+      "estilo": "fotorealista cinematográfico 8K",
+      "camera": {
+        "lente": "35mm",
+        "angulo": "3/4",
+        "altura": "1.70m"
+      },
+      "iluminacao": {
+        "periodo": "dia",
+        "clima": "outono",
+        "temperatura_cor": "5600K"
+      },
+      "prompt": "Mapa, vista satélite, Curitiba, ultra realista, iluminação cinematográfica, riqueza de detalhes, sem pessoas olhando para câmera.",
+      "uso": [
+        "abertura",
+        "investigação",
+        "timeline"
+      ]
+    },
+    {
+      "id": "IMG_0038",
+      "categoria": "cenario",
+      "nome": "Mapa - satélite - entardecer",
+      "arquivo": "img_0038.webp",
+      "resolucao": "4096x2304",
+      "estilo": "fotorealista cinematográfico 8K",
+      "camera": {
+        "lente": "35mm",
+        "angulo": "3/4",
+        "altura": "1.70m"
+      },
+      "iluminacao": {
+        "periodo": "entardecer",
+        "clima": "outono",
+        "temperatura_cor": "5600K"
+      },
+      "prompt": "Mapa, vista satélite, Curitiba, ultra realista, iluminação cinematográfica, riqueza de detalhes, sem pessoas olhando para câmera.",
+      "uso": [
+        "abertura",
+        "investigação",
+        "timeline"
+      ]
+    },
+    {
+      "id": "IMG_0039",
+      "categoria": "cenario",
+      "nome": "Mural - evidências - dia",
+      "arquivo": "img_0039.webp",
+      "resolucao": "4096x2304",
+      "estilo": "fotorealista cinematográfico 8K",
+      "camera": {
+        "lente": "35mm",
+        "angulo": "3/4",
+        "altura": "1.70m"
+      },
+      "iluminacao": {
+        "periodo": "dia",
+        "clima": "outono",
+        "temperatura_cor": "5600K"
+      },
+      "prompt": "Mural, vista evidências, Curitiba, ultra realista, iluminação cinematográfica, riqueza de detalhes, sem pessoas olhando para câmera.",
+      "uso": [
+        "abertura",
+        "investigação",
+        "timeline"
+      ]
+    },
+    {
+      "id": "IMG_0040",
+      "categoria": "cenario",
+      "nome": "Mural - evidências - entardecer",
+      "arquivo": "img_0040.webp",
+      "resolucao": "4096x2304",
+      "estilo": "fotorealista cinematográfico 8K",
+      "camera": {
+        "lente": "35mm",
+        "angulo": "3/4",
+        "altura": "1.70m"
+      },
+      "iluminacao": {
+        "periodo": "entardecer",
+        "clima": "outono",
+        "temperatura_cor": "5600K"
+      },
+      "prompt": "Mural, vista evidências, Curitiba, ultra realista, iluminação cinematográfica, riqueza de detalhes, sem pessoas olhando para câmera.",
+      "uso": [
+        "abertura",
+        "investigação",
+        "timeline"
+      ]
+    }
+  ]
+}

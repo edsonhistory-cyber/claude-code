@@ -1,0 +1,72 @@
+{
+  "schema": "SHERLOCK_ENGINE_REPLAY",
+  "version": "1.0",
+  "recording": {
+    "enabled": true,
+    "capture_interval_ms": 100,
+    "compress_log": true,
+    "max_duration_hours": 8
+  },
+  "session": {
+    "session_id": "",
+    "player": "",
+    "case_id": "CWB-1447",
+    "seed": "",
+    "start_time": "",
+    "end_time": ""
+  },
+  "timeline": [
+    {
+      "time": "14:00",
+      "event": "GAME_START",
+      "state": "Investigation begins"
+    }
+  ],
+  "tracked_events": [
+    "PLAYER_MOVE",
+    "LOCATION_VISITED",
+    "EVIDENCE_COLLECTED",
+    "DOCUMENT_OPENED",
+    "DIALOGUE_SELECTED",
+    "TOKEN_UNLOCKED",
+    "HINT_USED",
+    "JURY_OPENED",
+    "CASE_SOLVED"
+  ],
+  "snapshots": {
+    "interval_seconds": 30,
+    "include_inventory": true,
+    "include_world_state": true,
+    "include_ai_state": true
+  },
+  "playback": {
+    "speeds": [
+      0.25,
+      0.5,
+      1.0,
+      2.0,
+      4.0,
+      8.0
+    ],
+    "allow_pause": true,
+    "allow_frame_step": true,
+    "allow_bookmarks": true
+  },
+  "comparison": {
+    "enabled": true,
+    "metrics": [
+      "tempo_total",
+      "pontuacao",
+      "evidencias",
+      "ordem_dos_eventos",
+      "hipoteses"
+    ]
+  },
+  "export": {
+    "formats": [
+      "json",
+      "zip"
+    ],
+    "shareable": true
+  }
+}

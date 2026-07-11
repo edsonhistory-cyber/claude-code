@@ -1,0 +1,100 @@
+{
+  "schema": "SHERLOCK_ENGINE_CRIME_SCENE_RECONSTRUCTION",
+  "version": "1.0",
+  "scene_engine": {
+    "mode": "3D Timeline Reconstruction",
+    "physics": "deterministic",
+    "time_resolution_ms": 100
+  },
+  "scene_sources": [
+    "Fotografias periciais",
+    "Vídeo da Bianca",
+    "Tacógrafo",
+    "Depoimentos",
+    "GEOINT",
+    "Laudos laboratoriais"
+  ],
+  "actors": [
+    {
+      "id": "ACT001",
+      "name": "Otávio Bandeira",
+      "track_pose": true
+    },
+    {
+      "id": "ACT002",
+      "name": "Sérgio Bento",
+      "track_pose": true
+    },
+    {
+      "id": "ACT003",
+      "name": "Demais passageiros",
+      "track_pose": true
+    }
+  ],
+  "reconstruction_steps": [
+    "Importar evidências",
+    "Sincronizar horários",
+    "Posicionar personagens",
+    "Calcular trajetórias",
+    "Validar conflitos",
+    "Gerar reconstrução"
+  ],
+  "timeline": [
+    {
+      "time": "15:47",
+      "event": "Parada no KM18"
+    },
+    {
+      "time": "15:48",
+      "event": "Motorista permanece sozinho"
+    },
+    {
+      "time": "15:50",
+      "event": "Garrafa manipulada"
+    },
+    {
+      "time": "16:00",
+      "event": "Vítima consome o café"
+    },
+    {
+      "time": "17:50",
+      "event": "Colapso no mirante"
+    }
+  ],
+  "validation": {
+    "compare_with_evidence": true,
+    "highlight_conflicts": true,
+    "confidence_levels": [
+      "Baixa",
+      "Média",
+      "Alta",
+      "Muito Alta"
+    ]
+  },
+  "outputs": {
+    "interactive_replay": true,
+    "camera_modes": [
+      "Livre",
+      "Perícia",
+      "Suspeito",
+      "Drone"
+    ],
+    "export": [
+      "json",
+      "mp4",
+      "pdf"
+    ]
+  },
+  "integration": {
+    "deduction_engine": true,
+    "knowledge_graph": true,
+    "replay_system": true,
+    "jury_module": true
+  },
+  "future": {
+    "photogrammetry": true,
+    "vr_reconstruction": true,
+    "multi_angle_replay": true,
+    "ai_hypothesis_overlay": true
+  }
+}

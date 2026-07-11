@@ -1,0 +1,69 @@
+{
+  "schema": "SHERLOCK_ENGINE_SAVEGAME_FORMAT",
+  "version": "1.0",
+  "format": {
+    "extension": ".ssave",
+    "compression": "zstd",
+    "encryption": "AES-256",
+    "checksum": "SHA-256"
+  },
+  "metadata": {
+    "save_version": "1.0",
+    "engine_version": "1.0",
+    "case_id": "",
+    "campaign_id": "",
+    "created_at": "",
+    "play_time_seconds": 0
+  },
+  "player_state": {
+    "profile": {
+      "name": "",
+      "level": 1,
+      "rank": "Recruta",
+      "xp": 0
+    },
+    "specializations": [],
+    "achievements": [],
+    "inventory": [],
+    "settings": {}
+  },
+  "world_state": {
+    "current_location": "",
+    "current_time": "",
+    "weather": "",
+    "visited_locations": [],
+    "active_events": [],
+    "npc_states": [],
+    "object_states": []
+  },
+  "investigation": {
+    "evidences_found": [],
+    "documents_read": [],
+    "dialogues_completed": [],
+    "hypotheses": [],
+    "deduction_state": {},
+    "timeline_progress": {}
+  },
+  "multiplayer": {
+    "enabled": true,
+    "players": [],
+    "shared_inventory": [],
+    "team_score": 0
+  },
+  "compatibility": {
+    "migration_supported": true,
+    "fallback_loader": true,
+    "unknown_fields": "ignore"
+  },
+  "autosave": {
+    "enabled": true,
+    "interval_minutes": 5,
+    "slots": 3
+  },
+  "future": {
+    "cloud_sync": true,
+    "cross_platform_transfer": true,
+    "replay_embedding": true,
+    "save_diff_system": true
+  }
+}

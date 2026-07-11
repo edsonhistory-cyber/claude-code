@@ -1,0 +1,88 @@
+{
+  "schema": "SHERLOCK_ENGINE_CUTSCENE_DIRECTOR",
+  "version": "1.0",
+  "director": {
+    "name": "Cinematic Director",
+    "timeline_driven": true,
+    "frame_rate": 60
+  },
+  "camera_system": {
+    "modes": [
+      "Estática",
+      "Travelling",
+      "Orbital",
+      "Drone",
+      "Primeira Pessoa",
+      "Perícia Macro"
+    ],
+    "transitions": [
+      "Fade",
+      "Cut",
+      "Dissolve",
+      "Whip Pan"
+    ]
+  },
+  "lighting": {
+    "dynamic": true,
+    "presets": [
+      "Dia",
+      "Pôr do Sol",
+      "Noite",
+      "Laboratório",
+      "Interrogatório"
+    ]
+  },
+  "cutscenes": [
+    {
+      "id": "CUT001",
+      "title": "Abertura",
+      "trigger": "Novo jogo",
+      "duration_seconds": 45
+    },
+    {
+      "id": "CUT002",
+      "title": "Descoberta do corpo",
+      "trigger": "Chegada ao Parque Tanguá",
+      "duration_seconds": 35
+    },
+    {
+      "id": "CUT003",
+      "title": "Sala do Júri",
+      "trigger": "Quatro códigos corretos",
+      "duration_seconds": 60
+    },
+    {
+      "id": "CUT004",
+      "title": "Revelação do culpado",
+      "trigger": "Acusação correta",
+      "duration_seconds": 90
+    }
+  ],
+  "timeline_sync": {
+    "sync_music": true,
+    "sync_voice": true,
+    "sync_particles": true,
+    "sync_subtitles": true
+  },
+  "effects": {
+    "depth_of_field": true,
+    "motion_blur": true,
+    "volumetric_light": true,
+    "film_grain": true,
+    "camera_shake": true
+  },
+  "export": {
+    "preview_mode": true,
+    "render_targets": [
+      "Web",
+      "Desktop",
+      "Android"
+    ]
+  },
+  "future": {
+    "real_time_director": true,
+    "branching_cutscenes": true,
+    "facial_animation": true,
+    "performance_capture": true
+  }
+}

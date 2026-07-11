@@ -1,0 +1,410 @@
+{
+  "meta": {
+    "titulo": "A Última Parada",
+    "caso": "CWB-1447",
+    "cidade": "Curitiba - PR, Brasil",
+    "cenario": "Linha Turismo (ônibus verde/amarelo de dois andares que faz o circuito dos parques)",
+    "idioma": "pt-BR",
+    "jogadores": 4,
+    "publico": "adultos/famílias; assassinato de clima tenso, sem cenas gráficas",
+    "duracao_alvo": "cerca de 1h30 a 3h",
+    "dificuldade": "avançada",
+    "plataforma": "5 arquivos HTML autocontidos (offline, sem internet). 1 Central (para TV) + 4 dossiês (1 por detetive).",
+    "assets": "fotos reais dos parques e retratos dos suspeitos embutidos em base64; áudio via SpeechSynthesis; SFX/ambiente via Web Audio API; QR codes reais gerados no build.",
+    "versao_enredo": "v3 (fluxo cruzado entre dossiês + mecânicas estilo FBI)"
+  },
+  "sinopse": "Num sábado de outono, o incorporador Otávio Bandeira embarca na Linha Turismo às 14h e faz o circuito dos parques de Curitiba. Três horas depois é encontrado morto no mirante do Parque Tanguá. Parecia mal súbito, mas a perícia aponta envenenamento. Havia 7 passageiros no ônibus; um deles é o assassino. Os 4 jogadores são a equipe de investigação e precisam reconstruir a viagem, parada por parada.",
+  "vitima": {
+    "nome": "Otávio Bandeira",
+    "idade": 58,
+    "profissao": "Empresário / incorporador imobiliário",
+    "contexto": "Estava prestes a assinar uma delação premiada entregando todos que receberam propina em seus esquemas. Bebia café de uma garrafa térmica pessoal, guardada no porta-volumes dianteiro do ônibus.",
+    "morte": {
+      "local": "Mirante do Parque Tanguá",
+      "hora": "17:50",
+      "causa": "envenenamento por glicosídeo cardíaco de espirradeira (oleandro)"
+    }
+  },
+  "suspeitos": [
+    {
+      "id": "dilia",
+      "nome": "Dília Karas",
+      "idade": 45,
+      "papel": "Cobradora da Linha Turismo",
+      "bio": "Serviu o café comum a bordo; conhece a rota e todos os passageiros.",
+      "segredo": "Foi ela quem denunciou a parada estranha do km 18. Inocente."
+    },
+    {
+      "id": "renata",
+      "nome": "Renata Salgado",
+      "idade": 35,
+      "papel": "Jornalista investigativa",
+      "bio": "Preparava reportagem sobre os esquemas de Otávio.",
+      "segredo": "Gravava a delação; precisava de Otávio VIVO até a assinatura. Inocente."
+    },
+    {
+      "id": "aldo",
+      "nome": "Aldo Meireles",
+      "idade": 55,
+      "papel": "Ex-sócio arruinado por Otávio",
+      "bio": "Discutiu publicamente com a vítima no Jardim Botânico.",
+      "segredo": "Desceu no Jardim Botânico e NÃO reembarcou (foi a Santa Felicidade). Sem acesso à garrafa. Inocente (red herring forte)."
+    },
+    {
+      "id": "wanda",
+      "nome": "Wanda Kruger",
+      "idade": 60,
+      "papel": "Bióloga do Jardim Botânico",
+      "bio": "Defensora da reserva; conhece plantas tóxicas (pista fácil/armadilha).",
+      "segredo": "Ofereceu um chá de ervas que Otávio RECUSOU (ela o jogou fora). Recusou suborno (codinome JARDINEIRO). Inocente."
+    },
+    {
+      "id": "bianca",
+      "nome": "Bianca Alcântara",
+      "idade": 24,
+      "papel": "Influencer de viagem",
+      "bio": "Filmava tudo para redes.",
+      "segredo": "O vídeo dela captou, sem querer, um 'vulto de manga verde' no ônibus no km 18 — prova-chave. Inocente."
+    },
+    {
+      "id": "klaus",
+      "nome": "Klaus Vogel",
+      "idade": 50,
+      "papel": "Turista estrangeiro",
+      "bio": "Embarcou com nome falso ('K. Weber'); fotografava a vítima escondido.",
+      "segredo": "É detetive particular contratado pela esposa da vítima. Inocente (red herring)."
+    },
+    {
+      "id": "sergio",
+      "nome": "Sérgio Bento",
+      "idade": 48,
+      "papel": "Motorista do ônibus",
+      "bio": "Ao volante o tempo todo; vê todos pelo retrovisor.",
+      "segredo": "CULPADO (ver seção solução)."
+    }
+  ],
+  "paradas": [
+    {
+      "id": "r24",
+      "nome": "Rua 24 Horas",
+      "hora": "14:00",
+      "evento": "Embarque de 8 pessoas. Klaus valida com nome falso."
+    },
+    {
+      "id": "jb",
+      "nome": "Jardim Botânico",
+      "hora": "15:20",
+      "evento": "Aldo discute com a vítima; Wanda oferece um chá que é recusado."
+    },
+    {
+      "id": "mon",
+      "nome": "Museu Oscar Niemeyer (MON)",
+      "hora": "15:35",
+      "evento": "Klaus fotografa a vítima escondido; Bianca filma."
+    },
+    {
+      "id": "km18",
+      "nome": "Km 18 (parada não programada)",
+      "hora": "15:47",
+      "evento": "'Falha no freio' forjada; todos descem para 'foto'; o motorista fica sozinho a bordo 6 min."
+    },
+    {
+      "id": "opera",
+      "nome": "Ópera de Arame",
+      "hora": "16:05",
+      "evento": "Renata faz ligação sigilosa (escuta interceptada)."
+    },
+    {
+      "id": "bar",
+      "nome": "Parque Barigui",
+      "hora": "16:45",
+      "evento": "A pasta da vítima fica sob um banco; luvas azuis são descartadas numa lixeira às 16:50."
+    },
+    {
+      "id": "tan",
+      "nome": "Parque Tanguá",
+      "hora": "17:50",
+      "evento": "CENA DA MORTE: corpo no mirante ao pôr do sol."
+    }
+  ],
+  "linha_do_tempo_correta": [
+    "Otávio embarca na Rua 24 Horas (14:00)",
+    "Jardim Botânico: recusa o chá e discute com o ex-sócio (15:20)",
+    "MON: é fotografado escondido (15:35)",
+    "Parada não programada no km 18; motorista sozinho a bordo (15:47)",
+    "Otávio reembarca e bebe o café da garrafa (~16:00)",
+    "Ópera de Arame: ligação sigilosa de Renata (16:05)",
+    "Barigui: luvas azuis descartadas (16:50)",
+    "Tanguá: passa mal e morre no mirante (17:50)"
+  ],
+  "mecanicas": {
+    "fluxo_cruzado": "Cada cadeado exibe a ORIGEM da chave (QR, SATÉLITE/GEOINT, CIFRA/SIGINT, TACÓGRAFO, DEPOIMENTO/HUMINT ou CRUZADA=outro dossiê). As 3 primeiras evidências de cada dossiê são resolvidas localmente por enigmas; a 4ª (síntese) só abre com um CÓDIGO produzido por OUTRO dossiê. Isso força a 'sala de guerra' (troca de códigos entre jogadores), sem deadlock, pois cada dossiê produz seu token de forma independente.",
+    "tokens_compartilhados": {
+      "pericia_produz": "CAFE",
+      "inteligencia_produz": "RODAS",
+      "campo_produz": "KM18",
+      "arquivo_produz": "ROTAS"
+    },
+    "ciclo_de_dependencia": {
+      "pericia_precisa": "KM18 (do Campo)",
+      "campo_precisa": "ROTAS (do Arquivo)",
+      "arquivo_precisa": "RODAS (da Inteligência)",
+      "inteligencia_precisa": "CAFE (da Perícia)"
+    },
+    "cofre_central": {
+      "codigos": [
+        "PER-77",
+        "INT-40",
+        "CAM-19",
+        "ARQ-02"
+      ],
+      "efeito": "os 4 códigos juntos liberam a Sala de Acusação"
+    },
+    "acusacao": {
+      "campos": [
+        "suspeito",
+        "local",
+        "metodo"
+      ],
+      "combinacao_unica": true
+    },
+    "enigmas_por_tipo": {
+      "QR": "QR code real que revela uma palavra-chave.",
+      "GEOINT_satelite": "imagem/aérea com pontos de interesse clicáveis; juntar as pistas monta a chave.",
+      "SIGINT_cifra": "mensagem cifrada (César) + tabela de decifração.",
+      "TACOGRAFO": "disco do tacógrafo; ler o horário do pico de parada.",
+      "HUMINT_depoimento": "escolher, entre 3 álibis, o que contradiz as provas."
+    }
+  },
+  "dossies": [
+    {
+      "n": 1,
+      "nome": "Perícia",
+      "cor": "#c0392b",
+      "missao": "descobrir COMO e QUANDO Otávio morreu (isso aponta ONDE procurar).",
+      "cena": "foto do Parque Tanguá",
+      "audio": [
+        {
+          "tipo": "nota de voz do legista",
+          "fala": "Glicosídeo de espirradeira no sangue E no café da garrafa (café, não chá). Ingestão ~16h. Microfibra azul de luva de nitrilo na tampa: foi planejado."
+        }
+      ],
+      "evidencias": [
+        {
+          "n": 1,
+          "titulo": "Laudo cadavérico preliminar",
+          "status": "aberta",
+          "enigma": "QR",
+          "produz_chave": "GLICOSIDEO"
+        },
+        {
+          "n": 2,
+          "titulo": "Toxicologia — foi o café",
+          "chave_necessaria": "GLICOSIDEO",
+          "origem_chave": "QR da Ev.1",
+          "enigma": "GEOINT (varredura do ônibus: porta-volumes + luva)",
+          "produz_chave": "GARRAFA",
+          "nota": "deixa explícito que o chá do Botânico é pista FALSA"
+        },
+        {
+          "n": 3,
+          "titulo": "Laudo final da arma",
+          "chave_necessaria": "GARRAFA",
+          "origem_chave": "satélite da Ev.2",
+          "produz_token": "CAFE (compartilhar com Inteligência)"
+        },
+        {
+          "n": 4,
+          "titulo": "Conclusão da Perícia",
+          "chave_necessaria": "KM18",
+          "origem_chave": "CRUZADA: Dossiê Campo",
+          "produz_codigo_cofre": "PER-77"
+        }
+      ]
+    },
+    {
+      "n": 2,
+      "nome": "Inteligência",
+      "cor": "#4a5bd0",
+      "missao": "encontrar o MOTIVO (quem tinha razão para calar Otávio).",
+      "cena": "foto da Ópera de Arame",
+      "audio": [
+        {
+          "tipo": "escuta da Ópera (voz de Renata)",
+          "fala": "Ele topou a delação, assina amanhã e entrega todo mundo: museu, fiscal... a bióloga não (recusou). E o peixe grande: o cara do transporte que mudou o trajeto da Linha Turismo em 2019. Preciso do Otávio VIVO até assinar."
+        }
+      ],
+      "evidencias": [
+        {
+          "n": 1,
+          "titulo": "Mensagem interceptada",
+          "status": "aberta",
+          "enigma": "CIFRA de César (coded='GHODFDR', shift=3)",
+          "produz_chave": "DELACAO"
+        },
+        {
+          "n": 2,
+          "titulo": "A escuta da Ópera de Arame",
+          "chave_necessaria": "DELACAO",
+          "origem_chave": "cifra da Ev.1",
+          "enigma": "áudio + QR",
+          "produz_chave": "PARCELAS"
+        },
+        {
+          "n": 3,
+          "titulo": "Planilha de codinomes",
+          "chave_necessaria": "PARCELAS",
+          "origem_chave": "QR da Ev.2",
+          "conteudo": "codinomes: MUSEU (pagou), JARDINEIRO (recusou), RODAS (transporte, 3 parcelas 2019)",
+          "produz_token": "RODAS (compartilhar com Arquivo)"
+        },
+        {
+          "n": 4,
+          "titulo": "Conclusão da Inteligência",
+          "chave_necessaria": "CAFE",
+          "origem_chave": "CRUZADA: Dossiê Perícia",
+          "produz_codigo_cofre": "INT-40"
+        }
+      ]
+    },
+    {
+      "n": 3,
+      "nome": "Campo",
+      "cor": "#2f8b57",
+      "missao": "colher depoimentos, cruzar álibis e achar a contradição que revela o QUEM.",
+      "cena": "foto do Jardim Botânico",
+      "galeria": "7 retratos dos suspeitos com bios",
+      "evidencias": [
+        {
+          "n": 1,
+          "titulo": "Imagem de satélite (trecho MON→Ópera)",
+          "status": "aberta",
+          "enigma": "GEOINT (marcar: ônibus parado no acostamento + só 6 pessoas descendo de 7)",
+          "produz_chave": "KM18"
+        },
+        {
+          "n": 2,
+          "titulo": "Depoimentos — quem mente?",
+          "chave_necessaria": "KM18",
+          "origem_chave": "satélite da Ev.1",
+          "enigma": "HUMINT (3 álibis; o de Sérgio contradiz: diz que ficou FORA, mas estava sozinho DENTRO e o freio não tinha defeito)",
+          "produz_chave": "LUVAS"
+        },
+        {
+          "n": 3,
+          "titulo": "A testemunha do Barigui",
+          "chave_necessaria": "LUVAS",
+          "origem_chave": "depoimento da Ev.2",
+          "conteudo": "homem de boné verde descarta luvas azuis 16:50",
+          "produz_token": "KM18 (compartilhar com Perícia)"
+        },
+        {
+          "n": 4,
+          "titulo": "Conclusão do Campo",
+          "chave_necessaria": "ROTAS",
+          "origem_chave": "CRUZADA: Dossiê Arquivo",
+          "produz_codigo_cofre": "CAM-19"
+        }
+      ]
+    },
+    {
+      "n": 4,
+      "nome": "Arquivo",
+      "cor": "#e0a53a",
+      "missao": "nos papéis (manifesto, tacógrafo, registros de 2019) o QUEM aparece em preto no branco.",
+      "cena": "foto da Rua 24 Horas (vista interna)",
+      "manifesto": "8 a bordo; Klaus com nome falso; Aldo não reembarcou; Wanda reembarcou 15:28",
+      "evidencias": [
+        {
+          "n": 1,
+          "titulo": "Manifesto + disco do tacógrafo",
+          "status": "aberta",
+          "enigma": "TACÓGRAFO (ler o pico de parada: 15:47 -> 1547)",
+          "produz_chave": "1547"
+        },
+        {
+          "n": 2,
+          "titulo": "A parada fantasma do km 18",
+          "chave_necessaria": "1547",
+          "origem_chave": "tacógrafo da Ev.1",
+          "enigma": "QR (diário de bordo; freio sem defeito)",
+          "produz_chave": "DIARIO"
+        },
+        {
+          "n": 3,
+          "titulo": "A pasta da vítima e 2019",
+          "chave_necessaria": "DIARIO",
+          "origem_chave": "QR da Ev.2",
+          "conteudo": "recorte 2019: alteração de trajeto assinada pelo setor de ROTAS; anexo 'RODAS, SB Fretamentos'",
+          "produz_token": "ROTAS (compartilhar com Campo)"
+        },
+        {
+          "n": 4,
+          "titulo": "Conclusão do Arquivo",
+          "chave_necessaria": "RODAS",
+          "origem_chave": "CRUZADA: Dossiê Inteligência",
+          "conteudo": "registro funcional 2019 do setor de rotas: iniciais S.B., transferido a motorista em 2021; SB Fretamentos no nome do irmão",
+          "produz_codigo_cofre": "ARQ-02"
+        }
+      ]
+    }
+  ],
+  "central_modulos": {
+    "abertura_cinematografica": "fundo com o ônibus (Ken Burns), luzes de viatura, título dourado, som ambiente",
+    "mapa": "roteiro clicável dos parques com fotos reais + ônibus animado percorrendo a rota",
+    "mural_fio_vermelho": "cartões arrastáveis (suspeitos com foto, locais, evidências) ligados por fio",
+    "linha_do_tempo": "8 eventos reordenáveis (▲▼) com conferência (+80 pontos se correta)",
+    "teste_MMO": "tabela dos 7 suspeitos (Motivo/Meios/Oportunidade/Álibi) que calcula % de suspeita",
+    "pontuacao": {
+      "linha_tempo": 80,
+      "mmo": 50,
+      "cofre": 100,
+      "resolver": 300,
+      "selos": {
+        ">=560": "DETETIVE DE ELITE (5★)",
+        ">=460": "INVESTIGADOR SÊNIOR (4★)",
+        ">=360": "CASO RESOLVIDO (3★)",
+        "abaixo": "2★"
+      }
+    },
+    "sala_de_acusacao": "selects de suspeito/local/método; verdito lacrado; libera só com os 4 códigos do cofre"
+  },
+  "solucao_SPOILER": {
+    "AVISO": "Contém a resposta do caso. Não leia se for jogar.",
+    "culpado": "Sérgio Bento (o motorista)",
+    "local_do_envenenamento": "a bordo do ônibus, na parada não programada do km 18",
+    "metodo": "veneno (glicosídeo de espirradeira) no café da garrafa térmica da vítima, usando luvas azuis",
+    "motivo": "Em 2019, quando trabalhava no setor de planejamento de rotas, Sérgio recebeu 3 parcelas de propina (codinome RODAS) para desviar o trajeto da Linha Turismo e valorizar terrenos de Otávio. Com a delação que Otávio ia assinar, Sérgio seria entregue — matou para não cair.",
+    "como_se_prova": [
+      "Tacógrafo: parada forjada de 6 min às 15:47 (revisão não achou defeito no freio).",
+      "Dília: confirma que o motorista ficou sozinho a bordo.",
+      "Vídeo da Bianca: vulto de manga verde curvado sobre o porta-volumes.",
+      "Testemunha do Barigui: homem de boné verde descarta luvas azuis (microfibra bate com a tampa).",
+      "Arquivo: registro funcional 2019 do setor de rotas -> iniciais S.B.; SB Fretamentos no nome do irmão."
+    ],
+    "por_que_os_outros_sao_inocentes": {
+      "wanda": "o chá foi RECUSADO; o veneno estava no CAFÉ. Ela ainda recusou suborno.",
+      "aldo": "não reembarcou (foi a Santa Felicidade); sem acesso à garrafa.",
+      "renata": "precisava de Otávio vivo para a reportagem/delação.",
+      "klaus": "nome falso porque é detetive particular da esposa da vítima.",
+      "dilia": "serviu o café comum a todos e denunciou a parada estranha.",
+      "bianca": "apenas filmava; o vídeo dela ajuda a fechar o caso."
+    }
+  },
+  "roadmap_melhorias": {
+    "parte_2": "Laboratório Forense (comparar digital da tampa x suspeitos, barra de correspondência %) no Perícia; Análise de Celular (mensagens/fotos recuperadas) no Inteligência.",
+    "parte_3": "Sala de Interrogatório (pergunta->resposta->evidência contraditória + barras de estresse/confiança) no Campo; OSINT (busca em redes/registros) no Arquivo.",
+    "parte_4": "Painel de Vínculos (grafo quem-conhece-quem com contadores) e polimento.",
+    "pontos_a_calibrar": [
+      "equilíbrio da pontuação",
+      "dificuldade das cifras/satélite",
+      "clareza das etiquetas de chave"
+    ]
+  },
+  "notas_tecnicas": {
+    "offline": "tudo autocontido; fotos e retratos em base64; sem dependência de internet.",
+    "audio": "vozes via Web Speech (SpeechSynthesis) no idioma do dispositivo; SFX/ambiente via Web Audio API.",
+    "seguranca_da_solucao": "nos HTMLs a solução é armazenada em base64 para não vazar no código-fonte.",
+    "observacao_para_o_GPT": "Este JSON é a fonte de design. Ao sugerir melhorias, mantenha: 4 dossiês assimétricos, fluxo cruzado sem deadlock, ambientação real de Curitiba, e a solução lacrada dos jogadores."
+  }
+}

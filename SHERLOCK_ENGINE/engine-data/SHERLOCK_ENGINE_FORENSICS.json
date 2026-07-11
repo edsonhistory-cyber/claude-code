@@ -1,0 +1,118 @@
+{
+  "schema": "SHERLOCK_ENGINE_FORENSICS",
+  "version": "1.0",
+  "laboratories": [
+    {
+      "id": "LAB01",
+      "name": "Toxicologia",
+      "tests": [
+        {
+          "id": "TOX001",
+          "name": "Triagem química",
+          "time_sec": 30
+        },
+        {
+          "id": "TOX002",
+          "name": "Cromatografia",
+          "time_sec": 90
+        },
+        {
+          "id": "TOX003",
+          "name": "Comparação de amostras",
+          "time_sec": 60
+        }
+      ]
+    },
+    {
+      "id": "LAB02",
+      "name": "Impressões Digitais",
+      "tests": [
+        {
+          "id": "AFIS001",
+          "name": "Comparação de digitais"
+        },
+        {
+          "id": "AFIS002",
+          "name": "Pó revelador"
+        },
+        {
+          "id": "AFIS003",
+          "name": "Luz forense"
+        }
+      ]
+    },
+    {
+      "id": "LAB03",
+      "name": "Fibras e Materiais",
+      "tests": [
+        {
+          "id": "FIB001",
+          "name": "Microscopia"
+        },
+        {
+          "id": "FIB002",
+          "name": "Comparação de tecido"
+        },
+        {
+          "id": "FIB003",
+          "name": "Espectro UV"
+        }
+      ]
+    },
+    {
+      "id": "LAB04",
+      "name": "Documentoscopia",
+      "tests": [
+        {
+          "id": "DOC001",
+          "name": "Luz UV"
+        },
+        {
+          "id": "DOC002",
+          "name": "Infravermelho"
+        },
+        {
+          "id": "DOC003",
+          "name": "Comparação de assinaturas"
+        }
+      ]
+    }
+  ],
+  "evidence_flow": [
+    "Receber evidência",
+    "Registrar cadeia de custódia",
+    "Fotografar",
+    "Analisar",
+    "Emitir laudo",
+    "Atualizar banco de dados"
+  ],
+  "reports": [
+    {
+      "id": "RPT001",
+      "title": "Laudo Toxicológico",
+      "fields": [
+        "Amostra",
+        "Resultado",
+        "Responsável",
+        "Data"
+      ]
+    },
+    {
+      "id": "RPT002",
+      "title": "Laudo de Digitais",
+      "fields": [
+        "Vestígio",
+        "Correspondência",
+        "Percentual"
+      ]
+    }
+  ],
+  "equipment": [
+    "Microscópio Digital",
+    "Espectrômetro",
+    "Scanner AFIS",
+    "Luz UV",
+    "Câmara Fotográfica Forense",
+    "Computador de Análise"
+  ]
+}

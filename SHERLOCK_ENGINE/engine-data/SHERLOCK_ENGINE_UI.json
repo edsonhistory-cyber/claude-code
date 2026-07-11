@@ -1,0 +1,125 @@
+{
+  "schema": "SHERLOCK_ENGINE_UI",
+  "version": "1.0",
+  "theme": {
+    "name": "Sherlock Dark Ops",
+    "colors": {
+      "background": "#08131F",
+      "panel": "#122435",
+      "accent": "#00C2FF",
+      "warning": "#E0B658",
+      "danger": "#C0392B",
+      "success": "#2F8B57",
+      "text": "#F2F5F7"
+    },
+    "fonts": [
+      "Bebas Neue",
+      "Oswald",
+      "Courier Prime",
+      "Special Elite"
+    ],
+    "border_radius": 10,
+    "shadow": "0 10px 30px rgba(0,0,0,.35)"
+  },
+  "screens": [
+    {
+      "id": "LOGIN",
+      "title": "Tela de Login",
+      "layout": "Painel central",
+      "widgets": [
+        {
+          "id": "logo",
+          "type": "image",
+          "position": "top-center"
+        },
+        {
+          "id": "user",
+          "type": "textbox"
+        },
+        {
+          "id": "password",
+          "type": "password"
+        },
+        {
+          "id": "login",
+          "type": "button",
+          "label": "ACESSAR CENTRAL"
+        },
+        {
+          "id": "status",
+          "type": "label"
+        }
+      ],
+      "animation": "Fade + scanner",
+      "sound": "keyboard_click"
+    },
+    {
+      "id": "BOOT",
+      "title": "Inicialização",
+      "layout": "Tela cheia",
+      "sequence": [
+        "Logo",
+        "Checando banco de evidências",
+        "Carregando módulos",
+        "Inicializando IA",
+        "Acesso autorizado"
+      ],
+      "progress_bar": true
+    },
+    {
+      "id": "CENTRAL",
+      "title": "Central de Operações",
+      "grid": "3x3",
+      "cards": [
+        "Mapa",
+        "Laboratório",
+        "Mural",
+        "Linha do Tempo",
+        "OSINT",
+        "GEOINT",
+        "Interrogatórios",
+        "Evidências",
+        "Sala do Júri"
+      ]
+    },
+    {
+      "id": "LAB",
+      "title": "Laboratório",
+      "panels": [
+        "DNA",
+        "Digitais",
+        "Fibras",
+        "Toxicologia",
+        "Documentos"
+      ]
+    },
+    {
+      "id": "JURY",
+      "title": "Sala do Júri",
+      "components": [
+        "Lista de suspeitos",
+        "Lista de locais",
+        "Lista de métodos",
+        "Botão Emitir Veredito"
+      ]
+    }
+  ],
+  "navigation": {
+    "menu_position": "left",
+    "breadcrumb": true,
+    "home_button": true,
+    "back_button": true
+  },
+  "responsive": {
+    "desktop": "1920x1080",
+    "tablet": "1280x800",
+    "mobile": "1080x2400"
+  },
+  "effects": [
+    "Glassmorphism",
+    "Glow azul",
+    "Hover animado",
+    "Transição 300ms",
+    "Partículas discretas"
+  ]
+}

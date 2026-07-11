@@ -1,0 +1,180 @@
+{
+  "schema": "CASE001_IMAGES_FULL",
+  "version": "1.0",
+  "case": "CWB-1447",
+  "style": {
+    "quality": "8K",
+    "look": "Fotorealista cinematográfico",
+    "aspect_default": "16:9",
+    "color_grade": "Azul frio + dourado"
+  },
+  "categories": {
+    "characters": [
+      {
+        "id": "IMG_P001",
+        "subject": "Otávio Bandeira",
+        "variants": [
+          "retrato",
+          "corpo_inteiro",
+          "perícia"
+        ]
+      },
+      {
+        "id": "IMG_P002",
+        "subject": "Sérgio Bento",
+        "variants": [
+          "retrato",
+          "uniforme",
+          "interrogatório"
+        ]
+      },
+      {
+        "id": "IMG_P003",
+        "subject": "Renata Salgado",
+        "variants": [
+          "retrato",
+          "gravador",
+          "entrevista"
+        ]
+      },
+      {
+        "id": "IMG_P004",
+        "subject": "Bianca Alcântara",
+        "variants": [
+          "retrato",
+          "filmando",
+          "celular"
+        ]
+      },
+      {
+        "id": "IMG_P005",
+        "subject": "Dília Karas",
+        "variants": [
+          "retrato",
+          "ônibus",
+          "bilheteria"
+        ]
+      }
+    ],
+    "locations": [
+      {
+        "id": "IMG_L001",
+        "name": "Rua 24 Horas",
+        "views": [
+          "drone",
+          "interna",
+          "noturna"
+        ]
+      },
+      {
+        "id": "IMG_L002",
+        "name": "Jardim Botânico",
+        "views": [
+          "estufa",
+          "jardins",
+          "entrada"
+        ]
+      },
+      {
+        "id": "IMG_L003",
+        "name": "MON",
+        "views": [
+          "fachada",
+          "espelho_dagua"
+        ]
+      },
+      {
+        "id": "IMG_L004",
+        "name": "KM18",
+        "views": [
+          "acostamento",
+          "ônibus",
+          "porta-volumes"
+        ]
+      },
+      {
+        "id": "IMG_L005",
+        "name": "Ópera de Arame",
+        "views": [
+          "palco",
+          "passarela"
+        ]
+      },
+      {
+        "id": "IMG_L006",
+        "name": "Parque Barigui",
+        "views": [
+          "lago",
+          "lixeira",
+          "capivaras"
+        ]
+      },
+      {
+        "id": "IMG_L007",
+        "name": "Parque Tanguá",
+        "views": [
+          "mirante",
+          "cascata",
+          "pôr_do_sol"
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "id": "IMG_E001",
+        "item": "Garrafa térmica",
+        "angles": [
+          "topo",
+          "macro",
+          "360"
+        ]
+      },
+      {
+        "id": "IMG_E002",
+        "item": "Luvas azuis",
+        "angles": [
+          "macro",
+          "laboratório"
+        ]
+      },
+      {
+        "id": "IMG_E003",
+        "item": "Tacógrafo",
+        "angles": [
+          "scanner",
+          "detalhe"
+        ]
+      },
+      {
+        "id": "IMG_E004",
+        "item": "Vídeo da Bianca",
+        "frames": [
+          "15:46",
+          "15:47",
+          "15:48"
+        ]
+      }
+    ],
+    "documents": [
+      "Laudo cadavérico",
+      "Laudo toxicológico",
+      "Manifesto",
+      "Registro funcional",
+      "Recortes de jornal"
+    ],
+    "ui": [
+      "Cards",
+      "Ícones",
+      "Mapa",
+      "Inventário",
+      "Mural",
+      "Laboratório"
+    ]
+  },
+  "statistics": {
+    "planned_images": 850,
+    "thumbnails": 850,
+    "sprites": 120,
+    "cinematic_frames": 250
+  }
+}

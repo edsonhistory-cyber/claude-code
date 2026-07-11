@@ -1,0 +1,25 @@
+{
+  "_comment": "Lista curada baixada em tempo de BUILD por tools/fetch_assets.mjs. Produto final é offline: arquivos vão para assets/ e são servidos localmente. Cada download registra atribuicao em assets/CREDITS.md. Ajuste 'max' para calibrar o volume (meta ~60-100 imagens, nao 1000).",
+  "images": [
+    { "id": "loc_r24",     "query": "Rua 24 Horas Curitiba",              "source": "wikimedia", "max": 8, "target": "assets/images/locations/rua24/" },
+    { "id": "loc_jb",      "query": "Jardim Botânico de Curitiba estufa",  "source": "wikimedia", "max": 8, "target": "assets/images/locations/jardim_botanico/" },
+    { "id": "loc_mon",     "query": "Museu Oscar Niemeyer Curitiba",       "source": "wikimedia", "max": 8, "target": "assets/images/locations/mon/" },
+    { "id": "loc_opera",   "query": "Ópera de Arame Curitiba",             "source": "wikimedia", "max": 6, "target": "assets/images/locations/opera_arame/" },
+    { "id": "loc_barigui", "query": "Parque Barigui Curitiba capivara lago","source": "wikimedia", "max": 8, "target": "assets/images/locations/barigui/" },
+    { "id": "loc_tangua",  "query": "Parque Tanguá Curitiba mirante cascata","source": "wikimedia","max": 10, "target": "assets/images/locations/tangua/" },
+    { "id": "bus_linha",   "query": "Linha Turismo Curitiba ônibus",       "source": "wikimedia", "max": 8, "target": "assets/images/bus/" },
+    { "id": "city",        "query": "Curitiba centro skyline",             "source": "openverse", "license": "cc0,cc-by", "max": 10, "target": "assets/images/city/" }
+  ],
+  "audio": [
+    { "id": "amb_cidade",  "query": "city street ambience people",         "source": "freesound", "license": "cc0", "max": 2, "target": "assets/audio/ambience/" },
+    { "id": "amb_jardim",  "query": "birds garden wind ambience",          "source": "freesound", "license": "cc0", "max": 2, "target": "assets/audio/ambience/" },
+    { "id": "amb_barigui", "query": "lake water birds park ambience",      "source": "freesound", "license": "cc0", "max": 2, "target": "assets/audio/ambience/" },
+    { "id": "amb_tangua",  "query": "waterfall wind ambience",             "source": "freesound", "license": "cc0", "max": 2, "target": "assets/audio/ambience/" },
+    { "id": "mus_suspense","query": "suspense investigation loop",          "source": "pixabay",   "license": "royalty-free", "max": 3, "target": "assets/audio/music/" }
+  ],
+  "notes": {
+    "retratos_suspeitos": "NAO baixar rostos reais (privacidade/licenca). Gerar arte-chave a partir de SHERLOCK_ENGINE_PROMPTS.json ou usar silhuetas + ficha.",
+    "sfx_ui": "Nao baixar: sintetizar clique/scanner/unlock/cofre no audioManager.js (Web Audio).",
+    "vozes": "SpeechSynthesis pt-BR, sem download."
+  }
+}
