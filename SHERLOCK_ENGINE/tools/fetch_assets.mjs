@@ -11,8 +11,10 @@
  * Rede restrita? Liberar: commons.wikimedia.org, upload.wikimedia.org,
  * api.openverse.org, freesound.org, cdn.freesound.org, pixabay.com, cdn.pixabay.com
  */
-import { readFile, mkdir, appendFile, writeFile, readdir } from 'node:fs/promises';
+import { readFile, mkdir, appendFile, writeFile, readdir, rm } from 'node:fs/promises';
 import { createWriteStream, existsSync } from 'node:fs';
+import { execFile } from 'node:child_process';
+import { promisify } from 'node:util';
 import { Readable } from 'node:stream';
 import { pipeline } from 'node:stream/promises';
 import path from 'node:path';
@@ -171,18 +173,50 @@ async function fetchPollinations(item) {
   return 1;
 }
 
-// ── Mapa real (OpenStreetMap renderizado pelo Wikimedia Maps, sem chave) ──
-// Uma imagem única + meta JSON; o jogo projeta lat/lon → pixel no cliente.
+// ── Mapa real: tiles oficiais do OpenStreetMap costurados com ImageMagick ──
+// (maps.wikimedia.org devolve 403 fora da Wikimedia). Baixa n×n tiles em volta
+// do centro e monta uma imagem única + meta JSON com o centro EXATO da grade;
+// o jogo projeta lat/lon → pixel no cliente (Web Mercator).
+const exec = promisify(execFile);
 async function fetchStaticMap(item) {
   const [lat, lon] = item.center;
-  const size = item.size ?? 1024;
-  const url = `https://maps.wikimedia.org/img/osm-intl,${item.zoom},${lat},${lon},${size}x${size}@2x.png`;
-  await download(url, item.target, `${item.id}.png`, item);
-  if (!DRY) {
-    await writeFile(path.join(root, item.target, `${item.id}.json`),
-      JSON.stringify({ center: item.center, zoom: item.zoom, size }, null, 2));
+  const z = item.zoom;
+  const n = Math.max(2, Math.round((item.size ?? 1280) / 256)); // tiles por lado
+  const world = 2 ** z;
+  const fx = ((lon + 180) / 360) * world;
+  const latR = (lat * Math.PI) / 180;
+  const fy = ((1 - Math.log(Math.tan(latR) + 1 / Math.cos(latR)) / Math.PI) / 2) * world;
+  const x0 = Math.round(fx - n / 2), y0 = Math.round(fy - n / 2);
+  const dir = path.join(root, item.target);
+  await mkdir(dir, { recursive: true });
+  const out = path.join(dir, `${item.id}.png`);
+  if (DRY) { console.log('  [dry-run] mapa OSM', `z${z} ${n}x${n} tiles → ${item.target}${item.id}.png`); }
+  else if (existsSync(out)) { console.log('  já existe:', `${item.target}${item.id}.png`); }
+  else {
+    const tiles = [];
+    for (let ty = y0; ty < y0 + n; ty++) {
+      for (let tx = x0; tx < x0 + n; tx++) {
+        const f = path.join(dir, `tile_${z}_${tx}_${ty}.png`);
+        if (!existsSync(f)) {
+          const res = await fetchWithRetry(`https://tile.openstreetmap.org/${z}/${tx}/${ty}.png`);
+          await pipeline(Readable.fromWeb(res.body), createWriteStream(f));
+          await sleep(350); // política de uso dos tiles OSM: devagar
+        }
+        tiles.push(f);
+      }
+    }
+    await exec('montage', [...tiles, '-mode', 'concatenate', '-tile', `${n}x${n}`, out]);
+    for (const f of tiles) await rm(f, { force: true });
   }
-  await credit([item.id, path.join(item.target, `${item.id}.png`), 'Wikimedia Maps (estilo osm-intl)', '© OpenStreetMap contributors', 'ODbL', 'https://www.openstreetmap.org/copyright']);
+  // centro exato da grade costurada (a borda cai em limites de tile)
+  const cLon = (((x0 + n / 2) / world) * 360) - 180;
+  const cy = (y0 + n / 2) / world;
+  const cLat = (Math.atan(Math.sinh(Math.PI * (1 - 2 * cy))) * 180) / Math.PI;
+  if (!DRY) {
+    await writeFile(path.join(dir, `${item.id}.json`),
+      JSON.stringify({ center: [cLat, cLon], zoom: z, size: n * 256 }, null, 2));
+  }
+  await credit([item.id, path.join(item.target, `${item.id}.png`), 'OpenStreetMap (tiles oficiais)', '© OpenStreetMap contributors', 'ODbL', 'https://www.openstreetmap.org/copyright']);
   return 1;
 }
 
