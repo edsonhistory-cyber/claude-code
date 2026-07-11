@@ -7,8 +7,11 @@
   "parque tanguá": "assets/images/locations/tangua/loc_tangua_1.jpg",
   "ônibus": "assets/images/bus/bus_linha_1.JPG",
   "central": "assets/images/city/city_1.jpg",
+  "km18": "assets/images/locations/km18/loc_km18_1.JPG",
   "serra": "assets/images/locations/serra/loc_serra_1.jpg",
-  "trem": "assets/images/locations/trem/loc_trem_1.jpg",
-  "estação": "assets/images/locations/morretes/loc_morretes_1.jpg",
-  "rio": "assets/images/locations/rio/loc_nhundiaquara_1.JPG"
+  "corredor": "assets/images/locations/corredor/loc_corredor_1.jpg",
+  "salão de leilões": "assets/images/locations/leilao/loc_leilao_1.jpg",
+  "galeria": "assets/images/locations/galeria/loc_galeria_1.jpg",
+  "jardim de inverno": "assets/images/locations/jardim_inverno/loc_jardim_inverno_1.jpg",
+  "garagem": "assets/images/locations/garagem/loc_garagem_1.jpg"
 }
