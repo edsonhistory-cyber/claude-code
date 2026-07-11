@@ -11,7 +11,7 @@
  * Rede restrita? Liberar: commons.wikimedia.org, upload.wikimedia.org,
  * api.openverse.org, freesound.org, cdn.freesound.org, pixabay.com, cdn.pixabay.com
  */
-import { readFile, mkdir, appendFile, writeFile } from 'node:fs/promises';
+import { readFile, mkdir, appendFile, writeFile, readdir } from 'node:fs/promises';
 import { createWriteStream, existsSync } from 'node:fs';
 import { Readable } from 'node:stream';
 import { pipeline } from 'node:stream/promises';
@@ -78,8 +78,7 @@ async function fetchWikimedia(item) {
     gsrnamespace: '6', gsrlimit: String(item.max ?? 6),
     prop: 'imageinfo', iiprop: 'url|extmetadata', iiurlwidth: '1280', format: 'json',
   });
-  const res = await fetch(`${api}?${q}`, { headers: { 'User-Agent': UA } });
-  if (!res.ok) throw new Error(`Commons API HTTP ${res.status}`);
+  const res = await fetchWithRetry(`${api}?${q}`); // a busca também leva 429 em CI
   const data = await res.json();
   const pages = Object.values(data.query?.pages || {});
   let n = 0;
@@ -105,8 +104,7 @@ async function fetchOpenverse(item) {
     q: item.query, license_type: 'commercial,modification',
     page_size: String(item.max ?? 4),
   });
-  const res = await fetch(`https://api.openverse.org/v1/images/?${q}`, { headers: { 'User-Agent': UA } });
-  if (!res.ok) throw new Error(`Openverse HTTP ${res.status}`);
+  const res = await fetchWithRetry(`https://api.openverse.org/v1/images/?${q}`);
   const data = await res.json();
   let n = 0;
   for (const r of data.results || []) {
@@ -187,6 +185,16 @@ for (const item of [...(manifest.images || []), ...portraits, ...(manifest.audio
     fail++;
   }
 }
+// Cura: se a busca falhou nesta rodada mas já há fotos baixadas antes,
+// a cena não pode sumir do manifest — registra a 1ª foto existente no disco.
+for (const item of manifest.images || []) {
+  if (!item.scene || sceneManifest[item.scene]) continue;
+  const dir = item.target.replace(/\/$/, '');
+  const files = await readdir(path.join(root, dir)).catch(() => []);
+  const first = files.filter((f) => f.startsWith(`${item.id}_`)).sort()[0];
+  if (first) sceneManifest[item.scene] = `${dir}/${first}`;
+}
+
 if (Object.keys(sceneManifest).length && !DRY) {
   await mkdir(path.join(root, 'assets/images/scenes'), { recursive: true });
   await writeFile(path.join(root, 'assets/images/scenes/manifest.json'), JSON.stringify(sceneManifest, null, 2));

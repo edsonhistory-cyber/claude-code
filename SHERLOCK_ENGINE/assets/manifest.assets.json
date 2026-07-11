@@ -59,8 +59,9 @@
     },
     {
       "id": "bus_linha2",
-      "query": "Curitiba double decker tourist bus",
-      "source": "wikimedia",
+      "query": "Linha Turismo Curitiba bus",
+      "source": "openverse",
+      "license": "cc0,cc-by",
       "max": 6,
       "target": "assets/images/bus/"
     },
@@ -156,7 +157,7 @@
     },
     {
       "id": "loc_subsolo",
-      "query": "dark basement archive storage",
+      "query": "dark basement corridor",
       "source": "openverse",
       "license": "cc0,cc-by",
       "max": 4,
