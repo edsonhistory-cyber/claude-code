@@ -293,6 +293,15 @@ export function setPortraitPhotos(manifest) {
   portraitPhotos = manifest && typeof manifest === 'object' ? manifest : null;
 }
 
+// Fotos forenses das evidências (build-time): assets/images/objects/manifest.json
+let objectPhotos = null;
+export function setObjectPhotos(manifest) {
+  objectPhotos = manifest && typeof manifest === 'object' ? manifest : null;
+}
+export function objectPhoto(evId) {
+  return objectPhotos?.[evId] || null;
+}
+
 /** Cena como mídia: SVG colorido por baixo e foto real por cima (quando o
  *  manifest aponta uma foto). Se o arquivo faltar, o SVG permanece — sem
  *  imagem quebrada. */

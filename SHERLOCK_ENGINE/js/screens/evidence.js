@@ -4,6 +4,7 @@
  * (enigmas[*].attach) e executados pelo enigmas.js.
  */
 import { getModule } from '../database.js';
+import { objectPhoto } from '../art.js';
 import { screenShell, el, modal } from '../uiManager.js';
 import { getCase, getPack } from '../caseState.js';
 import { enigmaButton, enigmaCfg } from '../enigmas.js';
@@ -29,7 +30,9 @@ export function render() {
   for (const ev of evs) {
     const got = s.collected.includes(ev.id);
     const card = el('button', `card row-card${got ? '' : ' locked'}`);
-    card.innerHTML = `<span class="row-id">${ev.id}</span><b>${got ? ev.name : '???'}</b>
+    const photo = got && objectPhoto(ev.id);
+    card.innerHTML = `${photo ? `<img class="row-thumb" src="${photo}" alt="" loading="lazy" onerror="this.remove()">` : ''}
+      <span class="row-id">${ev.id}</span><b>${got ? ev.name : '???'}</b>
       <span class="row-tag ${got ? 'ok' : ''}">${got ? ev.value : 'não coletada'}</span>`;
     if (got) card.onclick = () => inspectEvidence(ev);
     left.append(card);
@@ -68,7 +71,9 @@ function inspectEvidence(ev) {
   sfx('scanner');
   const content = el('div', 'inspect');
   const chain = (ev.chain_of_custody || []).join(' → ') || 'Coleta → Lacre → Central';
+  const photo = objectPhoto(ev.id);
   content.innerHTML = `
+    ${photo ? `<img class="inspect-photo" src="${photo}" alt="Foto forense de ${ev.name}" onerror="this.remove()">` : ''}
     <div class="inspect-grid">
       <div><b>Categoria:</b> ${ev.category}</div>
       <div><b>Coletada em:</b> ${ev.collected_at || '—'} ${ev.collection_time ? '· ' + ev.collection_time : ''}</div>

@@ -453,6 +453,17 @@ a.btn { text-decoration: none; display: inline-block; text-align: center; }
 .scene-media .scene-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 400ms ease; }
 .scene-media .scene-photo.on { opacity: 1; }
 
+/* fotos forenses das evidências (geradas por IA em build-time) */
+.row-thumb {
+  width: 52px; height: 52px; object-fit: cover; border-radius: 8px;
+  border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
+  flex: none;
+}
+.inspect-photo {
+  width: 100%; max-height: 300px; object-fit: cover; border-radius: 10px;
+  margin-bottom: 12px; border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+}
+
 /* retrato gerado por IA sobreposto à silhueta SVG (mesma lógica das cenas) */
 .suspect-portrait { position: relative; isolation: isolate; }
 .suspect-portrait .portrait-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; border-radius: 10px; box-shadow: 0 4px 14px rgba(0,0,0,.35); opacity: 0; transition: opacity 400ms ease; }

@@ -147,39 +147,12 @@
       "scene": "paiol"
     },
     {
-      "id": "loc_corredor",
-      "query": "courthouse corridor interior",
-      "source": "openverse",
-      "license": "cc0,cc-by",
-      "max": 4,
-      "target": "assets/images/locations/corredor/",
-      "scene": "corredor"
-    },
-    {
-      "id": "loc_subsolo",
-      "query": "dark basement corridor",
-      "source": "openverse",
-      "license": "cc0,cc-by",
-      "max": 4,
-      "target": "assets/images/locations/subsolo/",
-      "scene": "subsolo"
-    },
-    {
       "id": "loc_casarao",
       "query": "Castelo do Batel Curitiba",
       "source": "wikimedia",
       "max": 5,
       "target": "assets/images/locations/casarao/",
       "scene": "casarão"
-    },
-    {
-      "id": "loc_leilao",
-      "query": "auction house interior",
-      "source": "openverse",
-      "license": "cc0,cc-by",
-      "max": 4,
-      "target": "assets/images/locations/leilao/",
-      "scene": "salão de leilões"
     },
     {
       "id": "loc_galeria",
@@ -191,15 +164,6 @@
       "scene": "galeria"
     },
     {
-      "id": "loc_jardim_inverno",
-      "query": "winter garden conservatory interior plants",
-      "source": "openverse",
-      "license": "cc0,cc-by",
-      "max": 4,
-      "target": "assets/images/locations/jardim_inverno/",
-      "scene": "jardim de inverno"
-    },
-    {
       "id": "loc_garagem",
       "query": "classic car collection garage",
       "source": "openverse",
@@ -208,6 +172,13 @@
       "target": "assets/images/locations/garagem/",
       "scene": "garagem"
     }
+  ],
+  "scene_style": "photorealistic photograph, cinematic wide shot, detective thriller atmosphere, rich colors, volumetric light, high detail, no people, no text, no watermark",
+  "scenes_ai": [
+    { "id": "ai_corredor", "seed": 5101, "scene": "corredor", "prompt": "empty corridor inside a Brazilian courthouse at night, polished granite floor reflecting emergency lights, security cameras on the ceiling, wooden doors with brass plaques" },
+    { "id": "ai_subsolo", "seed": 5102, "scene": "subsolo", "prompt": "dark basement utility room with an old electrical breaker panel on a concrete wall, hanging cable conduits, a single bare bulb, archive shelves in shadow" },
+    { "id": "ai_leilao", "seed": 5103, "scene": "salão de leilões", "prompt": "elegant auction hall inside a Brazilian mansion at night, rows of velvet chairs facing an auctioneer podium, paintings displayed on easels, crystal chandelier warm light" },
+    { "id": "ai_jardim_inverno", "seed": 5104, "scene": "jardim de inverno", "prompt": "victorian winter garden conservatory interior at night, glass roof with moonlight, lush tropical plants, wrought iron furniture, marble floor" }
   ],
   "portrait_style": "photorealistic portrait photograph, cinematic character still from a detective thriller, bust framing facing slightly toward viewer, neutral expression, shallow depth of field, moody dark teal studio background, dramatic warm key lighting, rich colors, 85mm lens, highly detailed skin texture, no text, no watermark",
   "portraits": [
@@ -240,6 +211,25 @@
     { "id": "P305", "seed": 4405, "prompt": "66 year old Brazilian catholic priest, black cassock with white clerical collar, kind wrinkled face, white hair" },
     { "id": "P306", "seed": 4406, "prompt": "50 year old event coordinator, gray suit, discreet earpiece, holding a clipboard, attentive posture" },
     { "id": "P307", "seed": 4407, "prompt": "26 year old Brazilian woman camera operator, headphones around neck, black t-shirt, professional video camera on shoulder" }
+  ],
+  "object_style": "photorealistic forensic evidence photograph, object on dark gray evidence table next to a small yellow numbered marker, soft studio light, shallow depth of field, police documentation style, extremely detailed, no text overlay, no watermark",
+  "objects": [
+    { "id": "EV001", "seed": 6001, "prompt": "scratched stainless steel thermos flask with the lid half open" },
+    { "id": "EV002", "seed": 6002, "prompt": "pair of blue nitrile gloves, one inside out" },
+    { "id": "EV003", "seed": 6003, "prompt": "smartphone inside a transparent evidence bag, screen showing a paused blurry video frame of a bus interior" },
+    { "id": "EV004", "seed": 6004, "prompt": "vintage analog bus tachograph device with its round paper chart disc removed beside it" },
+    { "id": "EV101", "seed": 6101, "prompt": "coiled white nylon rope with frayed end" },
+    { "id": "EV102", "seed": 6102, "prompt": "worn leather railway work gloves stained with grease" },
+    { "id": "EV103", "seed": 6103, "prompt": "printed long-exposure night photograph of a railway tunnel with light trails, lying on the table" },
+    { "id": "EV104", "seed": 6104, "prompt": "printed power log sheet from an electrical panel with timestamped readings, slightly curled" },
+    { "id": "EV201", "seed": 6201, "prompt": "plastic tamper-evident security seal tag, cut open, with a magnifier beside it" },
+    { "id": "EV202", "seed": 6202, "prompt": "external hard drive inside an antistatic bag" },
+    { "id": "EV203", "seed": 6203, "prompt": "black surveillance DVR recorder unit with disconnected cables" },
+    { "id": "EV204", "seed": 6204, "prompt": "wall-mounted biometric fingerprint time clock terminal, removed and placed on the table" },
+    { "id": "EV301", "seed": 6301, "prompt": "thin hollow hypodermic needle on white gauze, macro close-up" },
+    { "id": "EV302", "seed": 6302, "prompt": "open auction catalog booklet with handwritten ink annotations in the margins" },
+    { "id": "EV303", "seed": 6303, "prompt": "professional camcorder SD memory card inside a small transparent evidence bag" },
+    { "id": "EV304", "seed": 6304, "prompt": "printed bidding record sheets with paddle numbers and a fountain pen" }
   ],
   "audio": [
     {

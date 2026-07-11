@@ -171,6 +171,11 @@ export async function loadAll(caseId = 'CASE001', onProgress = () => {}) {
       .then((r) => (r.ok ? r.json() : null))
       .catch(() => null);
   }
+  if (!('OBJECT_PHOTOS' in store)) {
+    store.OBJECT_PHOTOS = await fetch('assets/images/objects/manifest.json')
+      .then((r) => (r.ok ? r.json() : null))
+      .catch(() => null);
+  }
 
   report = runIntegrityChecks(store);
   for (const f of failures) report.errors.unshift(`Falha ao carregar ${f}`);

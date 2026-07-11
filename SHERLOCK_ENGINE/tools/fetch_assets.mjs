@@ -30,6 +30,7 @@ const credit = (row) => (DRY ? Promise.resolve() : appendFile(CREDITS, `| ${row.
 
 const sceneManifest = {}; // cena → caminho da 1ª foto BAIXADA COM SUCESSO
 const portraitManifest = {}; // personagem (P001…) → caminho do retrato gerado por IA
+const objectManifest = {}; // evidência (EV001…) → foto forense gerada por IA
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -58,6 +59,7 @@ async function download(url, target, name, item) {
   const ok = () => {
     if (item?.scene && !sceneManifest[item.scene]) sceneManifest[item.scene] = rel;
     if (item?.portrait && !portraitManifest[item.portrait]) portraitManifest[item.portrait] = rel;
+    if (item?.object && !objectManifest[item.object]) objectManifest[item.object] = rel;
   };
   if (DRY) { console.log('  [dry-run]', url, '->', rel); ok(); return name; }
   if (existsSync(file)) { console.log('  já existe:', rel); ok(); return name; }
@@ -156,24 +158,26 @@ async function fetchPixabay(item) {
   return n;
 }
 
-// ── Pollinations.ai: retratos GERADOS POR IA (sem rostos reais — BRIEF §5.1) ──
+// ── Pollinations.ai: imagens GERADAS POR IA (retratos, evidências, cenas) ──
 // Sem chave; a geração pode levar ~10-30s por imagem, o retry cobre 5xx/429.
 async function fetchPollinations(item) {
-  const style = manifest.portrait_style ? `, ${manifest.portrait_style}` : '';
-  const prompt = encodeURIComponent(`${item.prompt}${style}`);
-  const url = `https://image.pollinations.ai/prompt/${prompt}?width=768&height=768&seed=${item.seed ?? 42}&nologo=true&model=flux`;
+  const prompt = encodeURIComponent(`${item.prompt}${item._style ? `, ${item._style}` : ''}`);
+  const w = item.width ?? 768, h = item.height ?? 768;
+  const url = `https://image.pollinations.ai/prompt/${prompt}?width=${w}&height=${h}&seed=${item.seed ?? 42}&nologo=true&model=flux`;
   const target = item.target || 'assets/images/portraits/';
   const name = `${item.id}.jpg`;
-  await download(url, target, name, { ...item, portrait: item.id });
+  await download(url, target, name, item);
   await credit([item.id, path.join(target, name), 'Pollinations.ai (imagem gerada por IA)', 'modelo FLUX', 'saída de IA — uso livre', 'https://pollinations.ai']);
   return 1;
 }
 
 const providers = { wikimedia: fetchWikimedia, openverse: fetchOpenverse, freesound: fetchFreesound, pixabay: fetchPixabay, pollinations: fetchPollinations };
 
-const portraits = (manifest.portraits || []).map((p) => ({ source: 'pollinations', ...p }));
+const portraits = (manifest.portraits || []).map((p) => ({ source: 'pollinations', portrait: p.id, _style: manifest.portrait_style, ...p }));
+const objects = (manifest.objects || []).map((o) => ({ source: 'pollinations', object: o.id, target: 'assets/images/objects/', _style: manifest.object_style, ...o }));
+const scenesAi = (manifest.scenes_ai || []).map((s) => ({ source: 'pollinations', target: 'assets/images/scenes_ai/', width: 1280, height: 720, _style: manifest.scene_style, ...s }));
 let ok = 0, fail = 0;
-for (const item of [...(manifest.images || []), ...portraits, ...(manifest.audio || [])]) {
+for (const item of [...scenesAi, ...(manifest.images || []), ...portraits, ...objects, ...(manifest.audio || [])]) {
   const fn = providers[item.source];
   if (!fn) { console.warn('sem provedor:', item.source); continue; }
   try {
@@ -204,6 +208,11 @@ if (Object.keys(portraitManifest).length && !DRY) {
   await mkdir(path.join(root, 'assets/images/portraits'), { recursive: true });
   await writeFile(path.join(root, 'assets/images/portraits/manifest.json'), JSON.stringify(portraitManifest, null, 2));
   console.log(`Manifest de retratos: ${Object.keys(portraitManifest).length} personagens com retrato gerado por IA.`);
+}
+if (Object.keys(objectManifest).length && !DRY) {
+  await mkdir(path.join(root, 'assets/images/objects'), { recursive: true });
+  await writeFile(path.join(root, 'assets/images/objects/manifest.json'), JSON.stringify(objectManifest, null, 2));
+  console.log(`Manifest de objetos: ${Object.keys(objectManifest).length} evidências com foto forense gerada por IA.`);
 }
 console.log(`\nConcluído: ${ok} itens ok, ${fail} falharam.${DRY ? ' (dry-run: nada foi gravado)' : ''}`);
 if (fail) console.log('Rede restrita? Liberar: commons.wikimedia.org, upload.wikimedia.org, api.openverse.org, freesound.org, cdn.freesound.org, pixabay.com, cdn.pixabay.com');
