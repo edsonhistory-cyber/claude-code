@@ -12,7 +12,7 @@
  * api.openverse.org, freesound.org, cdn.freesound.org, pixabay.com, cdn.pixabay.com
  */
 import { readFile, mkdir, appendFile, writeFile } from 'node:fs/promises';
-import { createWriteStream } from 'node:fs';
+import { createWriteStream, existsSync } from 'node:fs';
 import { Readable } from 'node:stream';
 import { pipeline } from 'node:stream/promises';
 import path from 'node:path';
@@ -28,18 +28,39 @@ await writeFile(CREDITS, '# Créditos e licenças de assets\n\nGerado por `tools
 
 const credit = (row) => appendFile(CREDITS, `| ${row.map((x) => String(x).replaceAll('|', '/')).join(' | ')} |\n`);
 
-const sceneManifest = {}; // cena → caminho da 1ª foto baixada (lido pelo jogo)
+const sceneManifest = {}; // cena → caminho da 1ª foto BAIXADA COM SUCESSO
+
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+// GET com retry/backoff — o Wikimedia limita runners de CI com HTTP 429
+async function fetchWithRetry(url, tries = 4) {
+  for (let i = 0; i < tries; i++) {
+    const res = await fetch(url, { headers: { 'User-Agent': UA } });
+    if (res.ok) return res;
+    if (res.status === 429 || res.status >= 500) {
+      const retryAfter = Number(res.headers.get('retry-after')) || 0;
+      const wait = Math.max(retryAfter * 1000, 2500 * 2 ** i);
+      console.log(`  429/5xx — aguardando ${Math.round(wait / 1000)}s e tentando de novo (${i + 1}/${tries})`);
+      await sleep(wait);
+      continue;
+    }
+    throw new Error(`HTTP ${res.status} em ${url}`);
+  }
+  throw new Error(`HTTP 429 persistente em ${url}`);
+}
 
 async function download(url, target, name, item) {
   const dir = path.join(root, target);
   await mkdir(dir, { recursive: true });
   const file = path.join(dir, name);
   const rel = `${target.replace(/\/$/, '')}/${name}`;
-  if (item?.scene && !sceneManifest[item.scene]) sceneManifest[item.scene] = rel;
-  if (DRY) { console.log('  [dry-run]', url, '->', rel); return name; }
-  const res = await fetch(url, { headers: { 'User-Agent': UA } });
-  if (!res.ok) throw new Error(`HTTP ${res.status} em ${url}`);
+  const ok = () => { if (item?.scene && !sceneManifest[item.scene]) sceneManifest[item.scene] = rel; };
+  if (DRY) { console.log('  [dry-run]', url, '->', rel); ok(); return name; }
+  if (existsSync(file)) { console.log('  já existe:', rel); ok(); return name; }
+  const res = await fetchWithRetry(url);
   await pipeline(Readable.fromWeb(res.body), createWriteStream(file));
+  ok();
+  await sleep(1500); // gentileza com o servidor: espaça os downloads
   return name;
 }
 
@@ -51,7 +72,7 @@ async function fetchWikimedia(item) {
   const q = new URLSearchParams({
     action: 'query', generator: 'search', gsrsearch: `filetype:bitmap ${item.query}`,
     gsrnamespace: '6', gsrlimit: String(item.max ?? 6),
-    prop: 'imageinfo', iiprop: 'url|extmetadata', iiurlwidth: '1600', format: 'json',
+    prop: 'imageinfo', iiprop: 'url|extmetadata', iiurlwidth: '1280', format: 'json',
   });
   const res = await fetch(`${api}?${q}`, { headers: { 'User-Agent': UA } });
   if (!res.ok) throw new Error(`Commons API HTTP ${res.status}`);

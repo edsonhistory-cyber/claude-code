@@ -426,3 +426,8 @@ a.btn { text-decoration: none; display: inline-block; text-align: center; }
 
 /* documento continua "papel", mas com fita colorida */
 .doc-paper { border-top: 6px solid var(--accent); }
+
+/* foto real sobreposta ao SVG (aparece só quando carrega) */
+.scene-media { isolation: isolate; }
+.scene-media .scene-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 400ms ease; }
+.scene-media .scene-photo.on { opacity: 1; }

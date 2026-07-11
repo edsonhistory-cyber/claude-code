@@ -43,7 +43,7 @@
     },
     {
       "id": "loc_tangua",
-      "query": "Parque Tanguá Curitiba mirante cascata",
+      "query": "Parque Tanguá",
       "source": "wikimedia",
       "max": 10,
       "target": "assets/images/locations/tangua/",
@@ -68,8 +68,8 @@
     },
     {
       "id": "loc_serra",
-      "query": "Serra do Mar Paraná train railway",
-      "source": "openverse",
+      "query": "Serra Verde Express",
+      "source": "wikimedia",
       "max": 4,
       "target": "assets/images/locations/serra/",
       "scene": "serra"

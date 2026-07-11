@@ -287,12 +287,16 @@ export function setScenePhotos(manifest) {
   scenePhotos = manifest && typeof manifest === 'object' ? manifest : null;
 }
 
-/** Cena como mídia: foto real se existir no manifest, senão SVG colorido. */
+/** Cena como mídia: SVG colorido por baixo e foto real por cima (quando o
+ *  manifest aponta uma foto). Se o arquivo faltar, o SVG permanece — sem
+ *  imagem quebrada. */
 export function sceneMedia(place = '') {
   const key = sceneKey(place);
   const photo = scenePhotos?.[key];
-  if (photo) return `<div class="scene-media"><img src="${photo}" alt="${key}"></div>`;
-  return `<div class="scene-media">${SCENES[key]()}</div>`;
+  const overlay = photo
+    ? `<img class="scene-photo" src="${photo}" alt="${key}" loading="lazy" onload="this.classList.add('on')" onerror="this.remove()">`
+    : '';
+  return `<div class="scene-media">${SCENES[key]()}${overlay}</div>`;
 }
 
 // ── Retratos-silhueta (sem rostos reais — BRIEF §5.1) ────────────────────────
