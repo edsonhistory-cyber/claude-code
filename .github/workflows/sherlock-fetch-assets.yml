@@ -22,6 +22,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Instalar ImageMagick (montagem do mapa)
+        run: sudo apt-get update -q && sudo apt-get install -y -q --no-install-recommends imagemagick
+
       - name: Baixar assets (build-time)
         run: node SHERLOCK_ENGINE/tools/fetch_assets.mjs
 

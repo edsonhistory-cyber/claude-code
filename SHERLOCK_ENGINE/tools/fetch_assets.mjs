@@ -193,20 +193,32 @@ async function fetchStaticMap(item) {
   if (DRY) { console.log('  [dry-run] mapa OSM', `z${z} ${n}x${n} tiles → ${item.target}${item.id}.png`); }
   else if (existsSync(out)) { console.log('  já existe:', `${item.target}${item.id}.png`); }
   else {
-    const tiles = [];
-    for (let ty = y0; ty < y0 + n; ty++) {
-      for (let tx = x0; tx < x0 + n; tx++) {
-        const f = path.join(dir, `tile_${z}_${tx}_${ty}.png`);
-        if (!existsSync(f)) {
-          const res = await fetchWithRetry(`https://tile.openstreetmap.org/${z}/${tx}/${ty}.png`);
-          await pipeline(Readable.fromWeb(res.body), createWriteStream(f));
-          await sleep(350); // política de uso dos tiles OSM: devagar
+    // tile.openstreetmap.org bloqueia runners de CI; CARTO/Esri (CDN) permitem
+    const SRC = [
+      (zz, tx, ty) => `https://basemaps.cartocdn.com/rastertiles/voyager/${zz}/${tx}/${ty}@2x.png`,
+      (zz, tx, ty) => `https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/${zz}/${ty}/${tx}`,
+    ];
+    let lastErr;
+    for (const src of SRC) {
+      const tiles = [];
+      try {
+        for (let ty = y0; ty < y0 + n; ty++) {
+          for (let tx = x0; tx < x0 + n; tx++) {
+            const f = path.join(dir, `tile_${z}_${tx}_${ty}.png`);
+            const res = await fetchWithRetry(src(z, tx, ty));
+            await pipeline(Readable.fromWeb(res.body), createWriteStream(f));
+            tiles.push(f);
+            await sleep(150);
+          }
         }
-        tiles.push(f);
-      }
+        await exec('montage', [...tiles, '-mode', 'concatenate', '-tile', `${n}x${n}`, out]);
+        lastErr = null;
+      } catch (e) { lastErr = e; }
+      finally { for (const f of tiles) await rm(f, { force: true }); }
+      if (!lastErr) break;
+      console.log(`  fonte de tiles falhou (${lastErr.message}) — tentando a próxima`);
     }
-    await exec('montage', [...tiles, '-mode', 'concatenate', '-tile', `${n}x${n}`, out]);
-    for (const f of tiles) await rm(f, { force: true });
+    if (lastErr) throw lastErr;
   }
   // centro exato da grade costurada (a borda cai em limites de tile)
   const cLon = (((x0 + n / 2) / world) * 360) - 180;
@@ -216,7 +228,7 @@ async function fetchStaticMap(item) {
     await writeFile(path.join(dir, `${item.id}.json`),
       JSON.stringify({ center: [cLat, cLon], zoom: z, size: n * 256 }, null, 2));
   }
-  await credit([item.id, path.join(item.target, `${item.id}.png`), 'OpenStreetMap (tiles oficiais)', '© OpenStreetMap contributors', 'ODbL', 'https://www.openstreetmap.org/copyright']);
+  await credit([item.id, path.join(item.target, `${item.id}.png`), 'CARTO Voyager / Esri (dados OpenStreetMap)', '© OpenStreetMap contributors, © CARTO', 'ODbL', 'https://www.openstreetmap.org/copyright']);
   return 1;
 }
 
