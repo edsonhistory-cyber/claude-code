@@ -1,21 +1,26 @@
 # Baixa as fotos reais dos locais (Wikimedia/Openverse) num runner do GitHub
 # (que tem internet completa) e comita em SHERLOCK_ENGINE/assets/.
-# Disparo manual: workflow_dispatch. O jogo continua 100% offline em runtime.
+# Gatilho: push que altere o arquivo-sinal assets/.fetch-request
+# (workflow_dispatch exigiria o arquivo na branch main).
 name: sherlock-fetch-assets
 
 on:
-  workflow_dispatch:
+  push:
+    paths:
+      - 'SHERLOCK_ENGINE/assets/.fetch-request'
 
 permissions:
   contents: write
+
+concurrency:
+  group: sherlock-fetch-assets
+  cancel-in-progress: false
 
 jobs:
   fetch:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          ref: ${{ github.ref_name }}
 
       - name: Baixar assets (build-time)
         run: node SHERLOCK_ENGINE/tools/fetch_assets.mjs
