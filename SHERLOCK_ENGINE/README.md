@@ -3,24 +3,47 @@
 Jogo de detetive cooperativo, offline, pt‑BR. Caso 001: **"A Última Parada"** (CWB‑1447), em Curitiba.
 Este pacote reúne **o brief de implementação + todos os JSONs de design** já organizados na árvore de pastas, prontos para abrir no **Claude Code**.
 
-## Como rodar (Milestone 1 pronto ✅)
+## Como jogar (jogo completo ✅ — M1 + M2)
 ```bash
 cd SHERLOCK_ENGINE
 python3 -m http.server 8080     # ou: npx serve
 # abrir http://localhost:8080
 ```
-Boot → Login → Central de Operações (grid 3×3) → telas placeholder.
-O console mostra `Caso CASE001 validado: 0 erros de integridade`.
+Boot → Login → cinemática de abertura → **Central de Operações** com as 9 telas funcionais:
+
+| Tela | O que faz |
+|---|---|
+| **Mapa** | Rota da Linha Turismo; visite as paradas e colete evidências nos hotspots. |
+| **Laboratório** | Toxicologia, digitais, **fibras (EN007)** e documentoscopia — laudos reais. |
+| **Interrogatórios** | Depoimentos, estresse (HUMINT), apresentação de provas, **quebra de álibi (EN005)**. |
+| **OSINT** | Motor de busca (SB Fretamentos, 2019, Otávio…), desbloqueia documentos, **EN008**. |
+| **GEOINT** | Gráfico do tacógrafo (**EN003**) e satélite para marcar o KM18 (**EN004**). |
+| **Evidências** | Inventário + documentos; **EN001 (QR)**, **EN002 (cifra)**, **EN006 (vídeo)**, **EN009 (manifesto)**. |
+| **Linha do Tempo** | Reordene os 8 eventos do caso (+80 pts). |
+| **Mural** | Suspeição MMO por suspeito (motor de dedução) e conexões validadas pelo grafo. |
+| **Sala do Júri** | Cofre com os 4 códigos (PER-77 · INT-40 · CAM-19 · ARQ-02) e o veredito final. |
+
+O ciclo de tokens dos dossiês (Perícia→Inteligência→Arquivo→Campo→Perícia, CAFE/RODAS/ROTAS/KM18)
+gateia os enigmas sem deadlock. A solução fica **lacrada em base64** e só é decodificada no clique
+de "Emitir Veredito". A.R.I.A. dá dicas (-20 pts), SFX são sintetizados via Web Audio e as vozes
+usam SpeechSynthesis pt-BR — **zero rede em runtime**.
 
 Validação headless (mesmos checks do boot, para CI/build):
 ```bash
 node tools/validate_case.mjs CASE001
 ```
 
-## Por onde começar (contexto do projeto)
-1. Leia `docs/BRIEF.md` (tem as regras de ouro, o plano dos milestones e a estratégia de assets).
-2. O Milestone 1 ("Motor de pé") está implementado em `js/` + `css/` + `index.html`.
-3. Próximo: M2 Gameplay (enigmas, laboratório, MMO, linha do tempo, júri com solução lacrada).
+## Assets (opcional, build-time)
+A arte atual é 100% procedural (SVG). Com internet, baixe fotos reais de Curitiba e áudios CC0:
+```bash
+node tools/fetch_assets.mjs            # Wikimedia/Openverse; FREESOUND_TOKEN/PIXABAY_KEY p/ áudio
+```
+Cada download é registrado em `assets/CREDITS.md` (fonte, autor, licença, URL).
+
+## Contexto do projeto
+1. `docs/BRIEF.md` — regras de ouro, plano de milestones e estratégia de assets.
+2. M1 (motor) e M2 (gameplay completo) implementados em `js/`, `js/screens/`, `css/`, `index.html`.
+3. Próximos: M3 Editor de casos, M4 Campanha (CASE002 "Silêncio na Serra"), M5 RC.
 
 ## Estrutura
 - `docs/BRIEF.md` — instruções de implementação (a fonte do plano).

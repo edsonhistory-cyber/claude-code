@@ -1,0 +1,60 @@
+/**
+ * screens/result.js — Resultado (pontuação, patente, estatísticas) e Créditos.
+ */
+import { getModule } from '../database.js';
+import { screenShell, el } from '../uiManager.js';
+import { getCase, rankForScore } from '../caseState.js';
+import { emit } from '../eventManager.js';
+import { ambience, speak, sfx } from '../audioManager.js';
+
+export function render() {
+  const { body } = screenShell('Resultado', 'CASO CWB-1447 · ENCERRADO');
+  ambience('central');
+  const s = getCase();
+  const rank = rankForScore(s.score);
+  speak(`Caso encerrado. Pontuação final: ${s.score}. Patente: ${rank}.`, { rate: 1.0 });
+
+  const achievements = [
+    { id: 'ACH001', name: 'Primeira Evidência', ok: s.collected.length > 0 },
+    { id: 'ACH002', name: 'Perito', ok: s.analyzed.length >= 3 },
+    { id: 'ACH003', name: 'Mestre dos Enigmas', ok: s.enigmasSolved.length >= 9 },
+    { id: 'ACH004', name: 'Detetive de Elite', ok: rank === 'Detetive de Elite' },
+  ];
+
+  const box = el('div', 'panel result-panel');
+  box.innerHTML = `
+    <div class="result-rank">${rank.toUpperCase()}</div>
+    <div class="result-score mono">★ ${s.score} PONTOS</div>
+    <div class="result-stats">
+      <div><b>${s.collected.length}</b><span>evidências</span></div>
+      <div><b>${s.enigmasSolved.length}/10</b><span>enigmas</span></div>
+      <div><b>${s.documentsRead.length}</b><span>documentos lidos</span></div>
+      <div><b>${s.contradictions.length}</b><span>contradições</span></div>
+      <div><b>${s.hintsUsed}</b><span>dicas usadas</span></div>
+      <div><b>${s.verdictAttempts}</b><span>vereditos</span></div>
+    </div>
+    <div class="result-ach">${achievements.map((a) => `<span class="row-tag ${a.ok ? 'ok' : ''}">${a.ok ? '🏅' : '·'} ${a.name}</span>`).join('')}</div>`;
+  const btn = el('button', 'btn btn-primary', 'CRÉDITOS');
+  btn.onclick = () => { sfx('click'); emit('UI_GOTO', { state: 'CREDITOS' }); };
+  box.append(btn);
+  body.append(box);
+}
+
+export function renderCredits() {
+  const { body } = screenShell('Créditos', 'SHERLOCK ENGINE');
+  const camp = getModule('SHERLOCK_ENGINE_CAMPAIGN');
+  const next = (camp?.episodes || []).find((e) => e.id === 'CASE002');
+  const box = el('div', 'panel result-panel credits');
+  box.innerHTML = `
+    <div class="login-logo">SHERLOCK<span>ENGINE</span></div>
+    <p class="mono">CASO 001 · "A ÚLTIMA PARADA" · CURITIBA-PR</p>
+    <p>Um jogo de investigação cooperativo, offline, em português.</p>
+    <p class="muted">Design: JSONs da Sherlock Engine · Motor: HTML + CSS + Vanilla JS<br>
+    Arte procedural SVG · SFX sintetizados via Web Audio · Vozes via SpeechSynthesis<br>
+    Licenças de assets: assets/CREDITS.md</p>
+    ${next ? `<p class="row-tag">PRÓXIMO EPISÓDIO: ${next.title} — ${next.unlock}</p>` : ''}`;
+  const again = el('button', 'btn btn-primary', 'VOLTAR À CENTRAL');
+  again.onclick = () => emit('UI_HOME', {});
+  box.append(again);
+  body.append(box);
+}

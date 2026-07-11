@@ -1,34 +1,56 @@
 /**
  * engine.js — boot(), loadCase(), startGame() e a máquina de estados
- * BOOT → LOGIN → CENTRAL → INVESTIGACAO → JURI → RESULTADO (GAMEPLAY.json).
+ * BOOT → LOGIN → CENTRAL → INVESTIGACAO → JURI → RESULTADO → CREDITOS.
+ * Roteia os cards da Central para as telas de js/screens/*.
  */
 import * as db from './database.js';
 import * as events from './eventManager.js';
 import * as save from './saveManager.js';
 import * as ui from './uiManager.js';
+import { getCase, hydrate } from './caseState.js';
+import { initAria } from './aria.js';
+import { playCinematic } from './cinematics.js';
+import { ambience, stopAmbience } from './audioManager.js';
+
+import * as scrMap from './screens/map.js';
+import * as scrLab from './screens/lab.js';
+import * as scrMural from './screens/mural.js';
+import * as scrTimeline from './screens/timeline.js';
+import * as scrOsint from './screens/osint.js';
+import * as scrGeoint from './screens/geoint.js';
+import * as scrInterrogate from './screens/interrogate.js';
+import * as scrEvidence from './screens/evidence.js';
+import * as scrJury from './screens/jury.js';
+import * as scrResult from './screens/result.js';
+
+// Chaves normalizadas (sem acento/caixa) — os nomes vêm do UI.json e a
+// composição Unicode pode divergir dos literais deste arquivo.
+const normKey = (s) => String(s).normalize('NFD').replace(/[̀-ͯ]/g, '').toUpperCase().trim();
+const SCREENS = Object.fromEntries(Object.entries({
+  'Mapa': scrMap,
+  'Laboratorio': scrLab,
+  'Mural': scrMural,
+  'Linha do Tempo': scrTimeline,
+  'OSINT': scrOsint,
+  'GEOINT': scrGeoint,
+  'Interrogatorios': scrInterrogate,
+  'Evidencias': scrEvidence,
+}).map(([k, v]) => [normKey(k), v]));
 
 const STATES = ['BOOT', 'LOGIN', 'CENTRAL', 'INVESTIGACAO', 'JURI', 'RESULTADO', 'CREDITOS'];
 const TRANSITIONS = {
   BOOT: ['LOGIN'],
   LOGIN: ['CENTRAL'],
   CENTRAL: ['INVESTIGACAO', 'JURI'],
-  INVESTIGACAO: ['CENTRAL', 'JURI'],
+  INVESTIGACAO: ['CENTRAL', 'JURI', 'INVESTIGACAO'],
   JURI: ['CENTRAL', 'RESULTADO'],
   RESULTADO: ['CREDITOS', 'CENTRAL'],
   CREDITOS: ['CENTRAL'],
 };
 
-const engine = {
-  state: 'BOOT',
-  screen: null,          // card aberto quando em INVESTIGACAO
-  caseId: null,
-  player: null,
-  save: null,
-};
+const engine = { state: 'BOOT', screen: null, caseId: null, player: null, save: null };
 
-export function getState() {
-  return { ...engine };
-}
+export function getState() { return { ...engine }; }
 
 function setState(next, screen = null) {
   if (!STATES.includes(next)) throw new Error(`Estado desconhecido: ${next}`);
@@ -43,12 +65,13 @@ function setState(next, screen = null) {
 function render() {
   switch (engine.state) {
     case 'BOOT': return ui.renderBoot();
-    case 'LOGIN': return ui.renderLogin(db.getModule('SHERLOCK_ENGINE_CASE001_FULL')?.case);
-    case 'CENTRAL': return ui.renderCentral(engine.player);
-    case 'INVESTIGACAO': return ui.renderPlaceholder(engine.screen);
-    case 'JURI': return ui.renderPlaceholder('Sala do Júri');
-    case 'RESULTADO': return ui.renderPlaceholder('Resultado');
-    default: return ui.renderPlaceholder(engine.state);
+    case 'LOGIN': stopAmbience(); return ui.renderLogin(db.getModule('SHERLOCK_ENGINE_CASE001_FULL')?.case);
+    case 'CENTRAL': ambience('central'); return ui.renderCentral(engine.player);
+    case 'INVESTIGACAO': return (SCREENS[normKey(engine.screen)] || scrMap).render();
+    case 'JURI': return scrJury.render();
+    case 'RESULTADO': return scrResult.render();
+    case 'CREDITOS': return scrResult.renderCredits();
+    default: return ui.renderCentral(engine.player);
   }
 }
 
@@ -58,9 +81,8 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 export async function loadCase(caseId) {
   engine.caseId = caseId;
   const report = await db.loadAll(caseId, (done, total) => {
-    ui.bootLog(null, (done / total) * 70); // carregamento = 70% da barra
+    ui.bootLog(null, (done / total) * 70);
   });
-
   console.groupCollapsed(`[boot] Relatório de integridade — ${caseId}`);
   console.table(report.stats);
   for (const w of report.warnings) console.warn('aviso:', w);
@@ -74,8 +96,6 @@ export async function loadCase(caseId) {
 export async function boot() {
   setState('BOOT');
   const caseId = 'CASE001';
-
-  // Passos visuais da tela BOOT (UI.json): Logo → banco → módulos → IA → acesso
   ui.bootLog('Sherlock Engine v1.0 — inicializando', 5);
   await sleep(350);
   ui.bootLog('Checando banco de evidências…', 10);
@@ -88,39 +108,47 @@ export async function boot() {
 
   const aria = db.getModule('SHERLOCK_ENGINE_AI')?.assistant;
   ui.bootLog(`Inicializando IA… ${aria?.name ?? 'A.R.I.A.'} online`, 92);
+  initAria();
   await sleep(350);
   ui.bootLog('Acesso autorizado.', 100);
   await sleep(500);
 
   engine.save = save.loadGame();
+  if (engine.save.case) hydrate(engine.save.case);
   events.emit('BOOT_COMPLETE', { caseId, erros: report.errors.length });
   setState('LOGIN');
 }
 
-/** Entra na Central e liga o autosave. */
+/** Entra na Central, roda a cinemática de abertura e liga o autosave. */
 export function startGame(player) {
   engine.player = player;
   engine.save.profile.player_name = player;
-  save.startAutosave(() => ({ ...engine.save, engine_state: { state: engine.state, screen: engine.screen } }));
-  save.saveGame(engine.save);
-  setState('CENTRAL');
+  save.startAutosave(() => ({
+    ...engine.save,
+    case: getCase(),
+    engine_state: { state: engine.state, screen: engine.screen },
+  }));
+  const enter = () => { setState('CENTRAL'); save.saveGame({ ...engine.save, case: getCase() }); };
+  const isNew = !getCase().collected.length && !getCase().visited.length;
+  if (isNew) playCinematic('CIN001', enter);
+  else enter();
 }
 
 // ── Ligações do barramento de eventos com a FSM ────────────────────────────
 events.subscribe('LOGIN_SUCCESS', ({ player }) => startGame(player));
 events.subscribe('UI_OPEN_CARD', ({ card }) => {
-  if (card === 'Sala do Júri') setState('JURI');
+  if (normKey(card) === 'SALA DO JURI') setState('JURI');
   else setState('INVESTIGACAO', card);
 });
-events.subscribe('UI_BACK', () => setState('CENTRAL'));
+events.subscribe('UI_BACK', () => setState(engine.state === 'INVESTIGACAO' || engine.state === 'JURI' ? 'CENTRAL' : 'CENTRAL'));
 events.subscribe('UI_HOME', () => setState('CENTRAL'));
-
-// UI_* são eventos internos de navegação (não fazem parte do EVENTS.json);
-// registra para não poluir o console com avisos.
-events.subscribe('*', () => {});
+events.subscribe('UI_GOTO', ({ state }) => setState(state));
+events.subscribe('UI_CINEMATIC', ({ id }) => playCinematic(id, () => render()));
+events.subscribe('CASE_SOLVED', () => save.saveGame({ ...engine.save, case: getCase() }));
+events.subscribe('DOSSIER_COMPLETED', () => save.saveGame({ ...engine.save, case: getCase() }));
 
 boot().catch((err) => {
   console.error('[boot] falha fatal:', err);
-  const el = document.getElementById('app');
-  el.innerHTML = `<div class="screen boot-screen"><div class="boot-log"><div class="boot-line boot-error">&gt; FALHA NO BOOT: ${err.message}</div><div class="boot-line">&gt; Sirva o jogo por um servidor local (ex.: python3 -m http.server) e recarregue.</div></div></div>`;
+  const node = document.getElementById('app');
+  node.innerHTML = `<div class="screen boot-screen"><div class="boot-log"><div class="boot-line boot-error">&gt; FALHA NO BOOT: ${err.message}</div><div class="boot-line">&gt; Sirva o jogo por um servidor local (ex.: python3 -m http.server) e recarregue.</div></div></div>`;
 });
