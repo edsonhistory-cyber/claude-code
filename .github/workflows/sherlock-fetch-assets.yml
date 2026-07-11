@@ -1,0 +1,33 @@
+# Baixa as fotos reais dos locais (Wikimedia/Openverse) num runner do GitHub
+# (que tem internet completa) e comita em SHERLOCK_ENGINE/assets/.
+# Disparo manual: workflow_dispatch. O jogo continua 100% offline em runtime.
+name: sherlock-fetch-assets
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+
+      - name: Baixar assets (build-time)
+        run: node SHERLOCK_ENGINE/tools/fetch_assets.mjs
+
+      - name: Comitar assets baixados
+        run: |
+          git config user.name "sherlock-assets-bot"
+          git config user.email "actions@github.com"
+          git add SHERLOCK_ENGINE/assets
+          if git diff --cached --quiet; then
+            echo "Nenhum asset novo."
+          else
+            git commit -m "chore(sherlock-engine): fotos reais baixadas na build (Wikimedia/Openverse) [skip ci]"
+            git push
+          fi
