@@ -7,11 +7,11 @@
 import { runIntegrityChecks } from './validators.js';
 
 const ENGINE_DATA_DIR = 'engine-data';
-const CASE_DIRS = { CASE001: 'cases/CASE001_A_Ultima_Parada' };
+export const CASE_DIRS = { CASE001: 'cases/CASE001_A_Ultima_Parada' };
 
 // Lista explícita (fetch não enumera diretórios). Mantida em ordem alfabética;
 // a ordem de inicialização lógica vem de SHERLOCK_MASTER.startup_sequence.
-const ENGINE_FILES = [
+export const ENGINE_FILES = [
   'SHERLOCK_CASE_CREATOR_SDK',
   'SHERLOCK_CASE_EDITOR',
   'SHERLOCK_ENGINE_ACHIEVEMENTS_AND_CAREER',
@@ -68,7 +68,7 @@ const ENGINE_FILES = [
   'SHERLOCK_MASTER_PROJECT',
 ];
 
-const CASE_FILES = {
+export const CASE_FILES = {
   CASE001: [
     'CASE001_COMPLETE_WORLD_STATE',
     'CASE001_DIALOGUES_FULL',

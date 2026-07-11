@@ -40,10 +40,19 @@ node tools/fetch_assets.mjs            # Wikimedia/Openverse; FREESOUND_TOKEN/PI
 ```
 Cada download é registrado em `assets/CREDITS.md` (fonte, autor, licença, URL).
 
+## Sherlock Studio — editor de casos (M3 ✅)
+Abra `http://localhost:8080/editor/` (mesmo servidor). Painéis do CASE_EDITOR.json:
+Caso & Atos, **Linha do Tempo** (reordenar, editar horários, conflitos em vermelho),
+Personagens, Evidências, Documentos, **Diálogos** (árvore com condições/desbloqueios),
+**Solução lacrada** (só abre após confirmação de spoiler e relacra em base64) e JSON bruto.
+O **Console de Validação** roda ao vivo os mesmos checks do boot (`js/validators.js`).
+`✚ Novo Caso` cria os 7 JSONs a partir dos templates do `SHERLOCK_CASE_CREATOR_SDK`.
+Exportação: JSONs individuais ou **ZIP do Caso** (gerador próprio, offline).
+
 ## Contexto do projeto
 1. `docs/BRIEF.md` — regras de ouro, plano de milestones e estratégia de assets.
-2. M1 (motor) e M2 (gameplay completo) implementados em `js/`, `js/screens/`, `css/`, `index.html`.
-3. Próximos: M3 Editor de casos, M4 Campanha (CASE002 "Silêncio na Serra"), M5 RC.
+2. M1 (motor), M2 (gameplay completo) e M3 (Sherlock Studio) implementados.
+3. Próximos: M4 Campanha (CASE002 "Silêncio na Serra"), M5 RC.
 
 ## Estrutura
 - `docs/BRIEF.md` — instruções de implementação (a fonte do plano).

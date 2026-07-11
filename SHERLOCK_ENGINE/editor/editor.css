@@ -1,0 +1,76 @@
+/* editor.css — Sherlock Studio (M3): workspace do CASE_EDITOR.json */
+
+#studio { display: grid; grid-template-columns: 250px 1fr; height: 100vh; }
+
+#studio-side {
+  display: flex; flex-direction: column; gap: 14px; padding: 20px 16px;
+  border-right: 1px solid rgba(0, 194, 255, .15); background: rgba(8, 19, 31, .6);
+  overflow: auto;
+}
+.studio-logo { font-family: var(--font-display); font-size: 1.25rem; letter-spacing: .12em; white-space: nowrap; }
+.studio-logo span { color: var(--warning); }
+.studio-case { color: var(--accent); font-size: .8rem; }
+
+#studio-nav { display: flex; flex-direction: column; gap: 6px; flex: 1; }
+.nav-item {
+  text-align: left; padding: 8px 12px; color: var(--text); cursor: pointer;
+  background: none; border: 1px solid transparent; border-radius: var(--radius);
+  font-family: var(--font-body); transition: all var(--transition);
+}
+.nav-item:hover { border-color: rgba(0, 194, 255, .3); }
+.nav-item.active { border-color: var(--warning); color: var(--warning); }
+
+.studio-actions { display: flex; flex-direction: column; gap: 8px; }
+.studio-actions .btn { font-size: .82rem; padding: .5em 1em; }
+
+#studio-main { display: flex; flex-direction: column; overflow: hidden; }
+#studio-panel { flex: 1; overflow: auto; padding: 22px; }
+
+#studio-console { margin: 0 22px 18px; padding: 12px 16px; max-height: 180px; display: flex; flex-direction: column; }
+.console-head { font-family: var(--font-display); letter-spacing: .15em; color: var(--accent); display: flex; gap: 12px; align-items: center; margin-bottom: 6px; }
+#console-out { overflow: auto; font-size: .8rem; line-height: 1.5; }
+#console-out .err { color: var(--danger); }
+#console-out .warn { color: var(--warning); }
+#console-out .ok { color: var(--success); }
+
+.ed-section { max-width: 980px; }
+.ed-title { font-family: var(--font-display); letter-spacing: .15em; font-size: 1.2rem; color: var(--accent); margin-bottom: 4px; }
+.ed-sub { color: rgba(242,245,247,.55); font-size: .85rem; margin-bottom: 16px; }
+
+.ed-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-bottom: 14px; }
+.ed-field { display: flex; flex-direction: column; gap: 4px; }
+.ed-field label { font-family: var(--font-mono); font-size: .72rem; color: rgba(242,245,247,.55); letter-spacing: .08em; text-transform: uppercase; }
+.ed-field .input, .ed-field textarea { width: 100%; }
+textarea.input { resize: vertical; min-height: 68px; }
+
+.ed-row {
+  display: flex; gap: 10px; align-items: flex-start; padding: 12px 14px; margin-bottom: 10px;
+  background: rgba(18,36,53,.7); border: 1px solid rgba(0,194,255,.15); border-radius: var(--radius);
+  flex-wrap: wrap;
+}
+.ed-row.conflict { border-color: var(--danger); box-shadow: 0 0 12px rgba(192,57,43,.25); }
+.ed-row .ed-field { flex: 1; min-width: 130px; }
+.ed-row .ed-field.small { flex: 0 0 84px; min-width: 84px; }
+.ed-row-tools { display: flex; gap: 4px; align-self: center; }
+.ed-row-tools .btn { padding: .3em .6em; font-size: .8rem; }
+
+.ed-add { margin-top: 4px; }
+.mono { font-family: var(--font-mono); }
+.row-tag { font-family: var(--font-mono); font-size: .72rem; padding: .15em .7em; border-radius: 20px; border: 1px solid rgba(242,245,247,.25); color: rgba(242,245,247,.6); }
+.row-tag.ok { color: var(--success); border-color: var(--success); }
+.row-tag.bad { color: var(--danger); border-color: var(--danger); }
+
+.dlg-topic { margin-left: 20px; padding-left: 14px; border-left: 2px solid rgba(0,194,255,.25); margin-bottom: 12px; }
+.dlg-answer { margin-left: 20px; }
+
+.sealed-box { display: flex; flex-direction: column; gap: 10px; padding: 20px; background: rgba(18,36,53,.7); border: 1px dashed var(--warning); border-radius: var(--radius); max-width: 640px; }
+.sealed-stamp { font-family: var(--font-display); letter-spacing: .25em; color: var(--warning); }
+
+.raw-select { margin-bottom: 10px; }
+textarea.raw { width: 100%; height: 52vh; font-family: var(--font-mono); font-size: .8rem;
+  background: rgba(8,19,31,.85); color: var(--text); border: 1px solid rgba(0,194,255,.25); border-radius: var(--radius); padding: 12px; }
+
+.modal-overlay { position: fixed; inset: 0; background: rgba(4,10,17,.75); display: flex; align-items: center; justify-content: center; z-index: 50; }
+.modal-box { width: min(560px, 92vw); padding: 22px 26px; }
+.modal-title { font-family: var(--font-display); font-size: 1.2rem; letter-spacing: .12em; color: var(--warning); margin-bottom: 12px; }
+.modal-actions { display: flex; gap: 10px; margin-top: 16px; }
