@@ -28,10 +28,10 @@ Gerado por `tools/fetch_assets.mjs` (busca em build-time; runtime 100% offline).
 | loc_jb | assets/images/locations/jardim_botanico/loc_jb_8.jpg | Wikimedia Commons | Rodrigo.Argenton | CC BY-SA 4.0 | https://commons.wikimedia.org/wiki/File:Estufa_principal_do_Jardim_Bot%C3%A2nico_de_Curitiba_02_(cropped).jpg |
 | loc_mon | assets/images/locations/mon/loc_mon_1.jpg | Wikimedia Commons | Morio | CC BY-SA 3.0 | https://commons.wikimedia.org/wiki/File:Museu_Oscar_Niemeyer_2_Curitiba_Brasil.jpg |
 | loc_mon | assets/images/locations/mon/loc_mon_2.jpg | Wikimedia Commons | Morio | CC BY-SA 3.0 | https://commons.wikimedia.org/wiki/File:Museu_Oscar_Niemeyer_5_Curitiba_Brasil.jpg |
-| loc_mon | assets/images/locations/mon/loc_mon_3.jpg | Wikimedia Commons | Morio | CC BY-SA 3.0 | https://commons.wikimedia.org/wiki/File:Museu_Oscar_Niemeyer_6_Curitiba_Brasil.jpg |
-| loc_mon | assets/images/locations/mon/loc_mon_4.jpg | Wikimedia Commons | Morio | CC BY-SA 3.0 | https://commons.wikimedia.org/wiki/File:Museu_Oscar_Niemeyer_7_Curitiba_Brasil.jpg |
-| loc_mon | assets/images/locations/mon/loc_mon_5.jpg | Wikimedia Commons | Morio | CC BY-SA 3.0 | https://commons.wikimedia.org/wiki/File:Museu_Oscar_Niemeyer_9_Curitiba_Brasil.jpg |
-| loc_mon | assets/images/locations/mon/loc_mon_6.jpg | Wikimedia Commons | Morio | CC BY-SA 3.0 | https://commons.wikimedia.org/wiki/File:Museu_Oscar_Niemeyer_10_Curitiba_Brasil.jpg |
+| loc_mon | assets/images/locations/mon/loc_mon_3.jpg | Wikimedia Commons | Morio | CC BY-SA 3.0 | https://commons.wikimedia.org/wiki/File:Museu_Oscar_Niemeyer_7_Curitiba_Brasil.jpg |
+| loc_mon | assets/images/locations/mon/loc_mon_4.jpg | Wikimedia Commons | Morio | CC BY-SA 3.0 | https://commons.wikimedia.org/wiki/File:Museu_Oscar_Niemeyer_9_Curitiba_Brasil.jpg |
+| loc_mon | assets/images/locations/mon/loc_mon_5.jpg | Wikimedia Commons | Morio | CC BY-SA 3.0 | https://commons.wikimedia.org/wiki/File:Museu_Oscar_Niemeyer_10_Curitiba_Brasil.jpg |
+| loc_mon | assets/images/locations/mon/loc_mon_6.jpg | Wikimedia Commons | Morio | CC BY-SA 3.0 | https://commons.wikimedia.org/wiki/File:Museu_Oscar_Niemeyer_13_Curitiba_Brasil.jpg |
 | loc_mon | assets/images/locations/mon/loc_mon_7.jpg | Wikimedia Commons | Jean Servais Henri Colemonts | CC BY-SA 3.0 | https://commons.wikimedia.org/wiki/File:Museu_Oscar_Niemeyer_Exhibitions_Curitiba_Brasil.jpg |
 | loc_mon | assets/images/locations/mon/loc_mon_8.jpg | Wikimedia Commons | Marinelson Almeida - Traveling through Brazil from Niteroi,  | CC BY 2.0 | https://commons.wikimedia.org/wiki/File:Museu_do_Olho_-_Oscar_Niemeyer_-_Curitiba_Brasil_(10146136615).jpg |
 | loc_opera | assets/images/locations/opera_arame/loc_opera_1.jpg | Wikimedia Commons | Marcus Bezerra | Public domain | https://commons.wikimedia.org/wiki/File:Curitiba_-_%C3%93pera_de_Arame_-_Ala.jpg |
