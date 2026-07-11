@@ -115,28 +115,12 @@
       "scene": "rio"
     },
     {
-      "id": "loc_tunel",
-      "query": "Estrada de Ferro Curitiba Paranaguá túnel",
-      "source": "wikimedia",
-      "max": 4,
-      "target": "assets/images/locations/tunel/",
-      "scene": "túnel"
-    },
-    {
       "id": "loc_mirante",
       "query": "Serra do Mar Paraná mirante",
       "source": "wikimedia",
       "max": 5,
       "target": "assets/images/locations/mirante/",
       "scene": "mirante da serra"
-    },
-    {
-      "id": "loc_forum",
-      "query": "Palácio da Justiça Curitiba",
-      "source": "wikimedia",
-      "max": 5,
-      "target": "assets/images/locations/forum/",
-      "scene": "fórum"
     },
     {
       "id": "loc_paiol",
@@ -178,7 +162,9 @@
     { "id": "ai_corredor", "seed": 5101, "scene": "corredor", "prompt": "empty corridor inside a Brazilian courthouse at night, polished granite floor reflecting emergency lights, security cameras on the ceiling, wooden doors with brass plaques" },
     { "id": "ai_subsolo", "seed": 5102, "scene": "subsolo", "prompt": "dark basement utility room with an old electrical breaker panel on a concrete wall, hanging cable conduits, a single bare bulb, archive shelves in shadow" },
     { "id": "ai_leilao", "seed": 5103, "scene": "salão de leilões", "prompt": "elegant auction hall inside a Brazilian mansion at night, rows of velvet chairs facing an auctioneer podium, paintings displayed on easels, crystal chandelier warm light" },
-    { "id": "ai_jardim_inverno", "seed": 5104, "scene": "jardim de inverno", "prompt": "victorian winter garden conservatory interior at night, glass roof with moonlight, lush tropical plants, wrought iron furniture, marble floor" }
+    { "id": "ai_jardim_inverno", "seed": 5104, "scene": "jardim de inverno", "prompt": "victorian winter garden conservatory interior at night, glass roof with moonlight, lush tropical plants, wrought iron furniture, marble floor" },
+    { "id": "ai_forum", "seed": 5105, "scene": "fórum", "prompt": "imposing Brazilian courthouse facade at dusk, neoclassical stone columns, wide granite steps, warm street lamps, Palácio da Justiça architecture" },
+    { "id": "ai_tunel", "seed": 5106, "scene": "túnel", "prompt": "old stone railway tunnel mouth in lush Brazilian rainforest mountain, single train track vanishing into darkness, thin mist, dramatic light" }
   ],
   "portrait_style": "photorealistic portrait photograph, cinematic character still from a detective thriller, bust framing facing slightly toward viewer, neutral expression, shallow depth of field, moody dark teal studio background, dramatic warm key lighting, rich colors, 85mm lens, highly detailed skin texture, no text, no watermark",
   "portraits": [
