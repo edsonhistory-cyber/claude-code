@@ -56,15 +56,30 @@
   transition: width 250ms ease;
 }
 
-/* ── LOGIN ────────────────────────────────────────────────────────────── */
-.login-screen { justify-content: center; align-items: center; }
+/* ── LOGIN (capa do jogo: ônibus da Linha Turismo ao fundo) ───────────── */
+.login-screen { position: relative; justify-content: center; align-items: center; overflow: hidden; }
+.login-hero { position: absolute; inset: 0; z-index: 0; }
+.login-hero .scene-media { height: 100%; }
+.login-hero::after {
+  content: "";
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse at center, rgba(10, 8, 34, .08) 0%, rgba(10, 8, 34, .42) 100%),
+    linear-gradient(180deg, rgba(10, 8, 34, .28) 0%, rgba(10, 8, 34, .05) 45%, rgba(10, 8, 34, .45) 100%);
+}
 .login-panel {
+  position: relative; z-index: 1;
   width: min(420px, 90vw);
   display: flex;
   flex-direction: column;
   gap: 14px;
   padding: 40px 34px;
   text-align: center;
+  background: rgba(16, 14, 48, .72);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+  box-shadow: 0 30px 70px -30px rgba(0, 0, 0, .8);
 }
 .login-logo { font-size: 2.4rem; }
 .login-case {

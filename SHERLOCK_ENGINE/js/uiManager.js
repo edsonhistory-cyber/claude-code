@@ -184,6 +184,12 @@ export function renderIntegrityBadge(report) {
 // ── LOGIN ────────────────────────────────────────────────────────────────────
 export function renderLogin(caseInfo) {
   const root = el('div', 'screen login-screen');
+  // capa do jogo: o ônibus da Linha Turismo em tela cheia (foto real quando
+  // baixada; ilustração SVG como fallback) com véu escuro para leitura
+  const hero = el('div', 'login-hero');
+  hero.innerHTML = sceneMedia('ônibus');
+  hero.setAttribute('aria-hidden', 'true');
+  root.append(hero);
   const panel = el('div', 'panel login-panel');
   panel.append(el('div', 'login-logo', 'SHERLOCK<span>ENGINE</span>'));
   panel.append(el('div', 'login-case', `CASO ${caseInfo?.id ?? ''} · ${t('APP_TITLE')}`));
