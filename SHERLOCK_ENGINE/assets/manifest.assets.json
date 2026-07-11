@@ -208,7 +208,7 @@
       "scene": "garagem"
     }
   ],
-  "portrait_style": "colorful stylized digital painting, bust portrait facing slightly toward viewer, neutral expression, plain dark teal studio background, warm cinematic lighting, detective mystery game character art, highly detailed, no text, no watermark",
+  "portrait_style": "photorealistic portrait photograph, cinematic character still from a detective thriller, bust framing facing slightly toward viewer, neutral expression, shallow depth of field, moody dark teal studio background, dramatic warm key lighting, rich colors, 85mm lens, highly detailed skin texture, no text, no watermark",
   "portraits": [
     { "id": "P001", "seed": 4101, "prompt": "58 year old Brazilian businessman, gray-streaked combed hair, navy suit and dark tie, confident weathered face" },
     { "id": "P002", "seed": 4102, "prompt": "48 year old Brazilian bus driver, olive skin, short dark hair, green uniform shirt and driver cap" },
