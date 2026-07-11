@@ -5,6 +5,10 @@
   "jardim de inverno": "assets/images/scenes_ai/ai_jardim_inverno.jpg",
   "fórum": "assets/images/scenes_ai/ai_forum.jpg",
   "túnel": "assets/images/scenes_ai/ai_tunel.jpg",
+  "palco": "assets/images/scenes_ai/ai_palco.jpg",
+  "coxia": "assets/images/scenes_ai/ai_coxia.jpg",
+  "camarim": "assets/images/scenes_ai/ai_camarim.jpg",
+  "urdimento": "assets/images/scenes_ai/ai_urdimento.jpg",
   "rua 24 horas": "assets/images/locations/rua24/loc_r24_1.jpg",
   "jardim botânico": "assets/images/locations/jardim_botanico/loc_jb_1.jpg",
   "mon": "assets/images/locations/mon/loc_mon_1.jpg",
@@ -22,5 +26,7 @@
   "paiol": "assets/images/locations/paiol/loc_paiol_1.jpg",
   "casarão": "assets/images/locations/casarao/loc_casarao_1.jpg",
   "galeria": "assets/images/locations/galeria/loc_galeria_1.jpg",
-  "garagem": "assets/images/locations/garagem/loc_garagem_1.jpg"
+  "garagem": "assets/images/locations/garagem/loc_garagem_1.jpg",
+  "teatro": "assets/images/locations/guaira/loc_guaira_1.jpg",
+  "praça santos andrade": "assets/images/locations/psa/loc_psa_1.jpg"
 }
