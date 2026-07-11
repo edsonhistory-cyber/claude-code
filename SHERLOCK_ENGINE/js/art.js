@@ -362,6 +362,49 @@ export function objectPhoto(evId) {
   return objectPhotos?.[evId] || null;
 }
 
+/** Cena do crime para o briefing: a cena/foto do local ao fundo (escurecida)
+ *  com fita amarela de isolamento, o corpo coberto e as silhuetas da perícia,
+ *  do detetive, do repórter e dos curiosos. */
+export function crimeScene(place = '') {
+  const tape = (y, rot) => `<g transform="translate(0 ${y}) rotate(${rot} 200 0)">
+    <rect x="-40" y="-9" width="480" height="18" fill="#f4c020"/>
+    <rect x="-40" y="-9" width="480" height="18" fill="none"/>
+    <text x="200" y="5" font-family="monospace" font-size="11" font-weight="bold" fill="#1a1204" text-anchor="middle" letter-spacing="3">◄ NÃO ULTRAPASSE · CENA DO CRIME · NÃO ULTRAPASSE ►</text>
+  </g>`;
+  const person = (x, s, color, head = '#caa') => `<g transform="translate(${x} 150) scale(${s})">
+    <ellipse cx="0" cy="46" rx="16" ry="5" fill="rgba(0,0,0,.35)"/>
+    <rect x="-11" y="0" width="22" height="40" rx="9" fill="${color}"/>
+    <circle cx="0" cy="-8" r="8" fill="${head}"/></g>`;
+  const overlay = `
+    <rect width="400" height="240" fill="rgba(6,8,16,.55)"/>
+    <!-- giz do corpo + lençol -->
+    <g transform="translate(150 176)">
+      <path d="M-42 0 Q-46 -34 -14 -40 Q20 -46 44 -22 Q54 -4 42 8 Q0 20 -42 6 Z" fill="#e8e6df" opacity=".92"/>
+      <path d="M-42 0 Q-46 -34 -14 -40 Q20 -46 44 -22 Q54 -4 42 8 Q0 20 -42 6 Z" fill="none" stroke="#b9b5a8" stroke-width="1.5"/>
+      <ellipse cx="-20" cy="-30" rx="12" ry="10" fill="#dcdad3"/>
+    </g>
+    <!-- marcadores numerados -->
+    <g font-family="monospace" font-size="9" font-weight="bold" fill="#1a1204">
+      <rect x="96" y="150" width="13" height="16" fill="#f4c020"/><text x="102" y="162" text-anchor="middle">1</text>
+      <rect x="212" y="182" width="13" height="16" fill="#f4c020"/><text x="218" y="194" text-anchor="middle">2</text>
+    </g>
+    ${person(300, 1.15, '#22364a', '#caa27a')}  <!-- detetive (sobretudo) -->
+    ${person(340, 1.0, '#2f6b46', '#b98a5e')}   <!-- perito -->
+    ${person(60, .95, '#4a4a56', '#caa27a')}    <!-- policial -->
+    ${person(28, .8, '#6a2f3a', '#caa27a')}     <!-- repórter -->
+    ${person(372, .78, '#3a3f57', '#b98a5e')}   <!-- curioso -->
+    <circle cx="300" cy="128" r="4" fill="#f43f5e"><animate attributeName="opacity" values="1;.2;1" dur="1.4s" repeatCount="indefinite"/></circle>
+    ${tape(70, -4)}
+    ${tape(206, 3)}`;
+  const key = sceneKey(place);
+  const photo = scenePhotos?.[key];
+  const bg = photo
+    ? `<div class="scene-media">${SCENES[key]()}<img class="scene-photo on" src="${photo}" alt="" loading="lazy" onerror="this.remove()"></div>`
+    : `<div class="scene-media">${SCENES[key]()}</div>`;
+  return `<div class="crime-scene">${bg}
+    <svg class="crime-overlay" viewBox="0 0 400 240" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">${overlay}</svg></div>`;
+}
+
 /** Cena como mídia: SVG colorido por baixo e foto real por cima (quando o
  *  manifest aponta uma foto). Se o arquivo faltar, o SVG permanece — sem
  *  imagem quebrada. */

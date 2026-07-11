@@ -1249,5 +1249,21 @@
       "nome": "Rede MUSEU",
       "desc": "JARDINEIRO paga, MAQUINISTA executa, RODAS transporta. MUSEU assina."
     }
-  ]
+  ],
+  "briefing": {
+    "case_code": "COL-0077",
+    "title": "O Colecionador",
+    "local": "Casarão do Batel · Curitiba",
+    "data": "Noite de gala, 22:25",
+    "scene": "casarão",
+    "victim": "Gustavo Braga — leiloeiro",
+    "synopsis": "No leilão beneficente mais elegante do ano, o lote 77 exigia um blecaute cênico de noventa segundos. Quando as luzes voltaram, o leiloeiro Gustavo Braga bateu o martelo final — e colapsou. Vinte e oito minutos antes, uma agulha oca disparou do encosto de sua cadeira. Nesta sala, sob os candelabros, está a cabeça de toda a rede: o Colecionador.",
+    "howto": [
+      "Explore casarão, galeria, salão e jardim no <b>Mapa</b>.",
+      "Rode toxicologia e grafoscopia no <b>Laboratório</b>.",
+      "Interrogue os convidados; apresente provas para expor a anfitriã.",
+      "Cheque lances no <b>GEOINT</b> e a rede no <b>OSINT</b>.",
+      "Feche o <b>Mural</b>, a <b>Linha do Tempo</b> e a <b>Sala do Júri</b>."
+    ]
+  }
 }

@@ -31,6 +31,13 @@ function persist() {
   localStorage.setItem(CAREER_KEY, JSON.stringify(getCareer()));
 }
 
+/** Zera a carreira inteira (XP, patente, conquistas, reputação, histórico). */
+export function resetCareer() {
+  career = emptyCareer();
+  persist();
+  return career;
+}
+
 export function levelInfo() {
   const c = getCareer();
   const cfg = getModule('SHERLOCK_ENGINE_ACHIEVEMENTS_AND_CAREER')?.career || {};

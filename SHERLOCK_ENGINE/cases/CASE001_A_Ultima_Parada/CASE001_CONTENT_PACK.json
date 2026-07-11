@@ -1355,5 +1355,21 @@
       "nome": "Rede MUSEU",
       "desc": "Organização por trás dos codinomes — identidade desconhecida."
     }
-  ]
+  ],
+  "briefing": {
+    "case_code": "CWB-1447",
+    "title": "A Última Parada",
+    "local": "Linha Turismo · Curitiba, PR",
+    "data": "10 de julho, 15:53",
+    "scene": "rua 24 horas",
+    "victim": "Otávio Bandeira, 58 — empresário",
+    "synopsis": "O ônibus vermelho de dois andares da Linha Turismo completou o roteiro e recolheu ao pátio. No banco traseiro, o empresário Otávio Bandeira estava sem vida, uma garrafa térmica ainda morna ao seu lado. Não há sinais de luta. Amanhã ele assinaria uma delação premiada que abalaria meia Curitiba — e alguém garantiu que a assinatura nunca acontecesse.",
+    "howto": [
+      "Visite as paradas no <b>Mapa</b> e colete evidências nos pontos de interesse.",
+      "Mande as amostras ao <b>Laboratório</b> e leia os laudos.",
+      "Ouça o elenco nos <b>Interrogatórios</b>; apresente provas para quebrar álibis.",
+      "Cruze fontes no <b>OSINT</b> e o trajeto no <b>GEOINT</b>.",
+      "Conecte as pistas no <b>Mural</b>, ordene a <b>Linha do Tempo</b> e feche na <b>Sala do Júri</b>."
+    ]
+  }
 }

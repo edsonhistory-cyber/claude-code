@@ -3,7 +3,7 @@
  * seleção de episódios, carreira (patente/XP/reputação) e sala de troféus.
  */
 import { getModule, CASE_FILES } from '../database.js';
-import { el, screenShell } from '../uiManager.js';
+import { el, screenShell, modal } from '../uiManager.js';
 import { episodes, getCareer, levelInfo } from '../campaign.js';
 import { sceneMedia } from '../art.js';
 import { emit } from '../eventManager.js';
@@ -33,6 +33,11 @@ export function render(player) {
     <div class="career-xpbar"><div style="width:${info.nextRankXp ? Math.min(100, (info.xp / info.nextRankXp) * 100) : 100}%"></div></div>
     <div class="career-rep">${Object.entries(career.reputation).map(([axis, v]) => `
       <div class="rep-axis"><span>${axis}</span><div class="stress-bar"><div class="stress-fill" style="width:${v}%"></div></div><span class="mono">${v}</span></div>`).join('')}</div>`;
+  const resetC = el('button', 'btn btn-ghost career-reset', '⟳ Reiniciar campanha');
+  resetC.onclick = () => modal('Reiniciar campanha?',
+    'Isto apaga <b>toda a carreira</b> — XP, patente, conquistas, reputação e o progresso dos casos. Não dá para desfazer. Confirmar?',
+    [{ label: '⟳ Zerar tudo e recomeçar', primary: true, onClick: () => { sfx('unlock'); emit('UI_RESET_CAMPAIGN', {}); } }]);
+  head.append(resetC);
   body.append(head);
 
   // ── episódios ──

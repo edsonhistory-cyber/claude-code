@@ -1271,5 +1271,21 @@
       "nome": "Guarda do Fórum",
       "desc": "Responsável pela segurança do paiol de provas."
     }
-  ]
+  ],
+  "briefing": {
+    "case_code": "ECL-2112",
+    "title": "Operação Eclipse",
+    "local": "Fórum Central · Curitiba",
+    "data": "21 de dezembro, 21:12",
+    "scene": "fórum",
+    "victim": "Téo Almada — guarda do paiol de provas",
+    "synopsis": "Sete minutos de apagão engoliram o Fórum. Quando os geradores religaram, o guarda Téo Almada foi encontrado enforcado no paiol de provas. À primeira vista, um suicídio. Mas há dois sulcos no pescoço, o HD do mega-julgamento da rede foi clonado, e um lacre reimpresso na prateleira 14. Alguém apagou as luzes para reescrever a verdade.",
+    "howto": [
+      "Percorra guarita, perícia, paiol e subsolo no <b>Mapa</b>.",
+      "Confronte hash e biometria no <b>Laboratório</b> e nos documentos.",
+      "Interrogue peritos e advogados; apresente provas.",
+      "Rastreie o apagão no <b>GEOINT</b> e a rede no <b>OSINT</b>.",
+      "Ligue tudo no <b>Mural</b>, ordene a <b>Linha do Tempo</b> e julgue na <b>Sala do Júri</b>."
+    ]
+  }
 }

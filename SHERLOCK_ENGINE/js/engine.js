@@ -12,6 +12,7 @@ import * as campaign from './campaign.js';
 import * as scrCampaign from './screens/campaign.js';
 import { initAria } from './aria.js';
 import { playCinematic } from './cinematics.js';
+import { playBriefing } from './screens/briefing.js';
 import { ambience, stopAmbience } from './audioManager.js';
 import { setScenePhotos, setPortraitPhotos, setObjectPhotos } from './art.js';
 
@@ -152,9 +153,10 @@ async function enterEpisode(caseId = 'CASE001') {
   if (engine.save.case) hydrate(engine.save.case);
   const enter = () => { setState('CENTRAL'); save.saveGame({ ...engine.save, case: getCase() }); };
   const isNew = !getCase().collected.length && !getCase().visited.length;
+  const briefThenEnter = () => (isNew && getPack().briefing ? playBriefing(enter) : enter());
   const cin = getPack().opening_cinematic;
-  if (isNew && cin) playCinematic(cin, enter);
-  else enter();
+  if (isNew && cin) playCinematic(cin, briefThenEnter);
+  else briefThenEnter();
 }
 
 // ── Ligações do barramento de eventos com a FSM ────────────────────────────
@@ -166,6 +168,21 @@ events.subscribe('UI_OPEN_CARD', ({ card }) => {
 events.subscribe('UI_SELECT_EPISODE', ({ caseId }) => enterEpisode(caseId));
 events.subscribe('UI_BACK', () => setState(engine.state === 'CENTRAL' ? 'CAMPANHA' : 'CENTRAL'));
 events.subscribe('UI_HOME', () => setState('CENTRAL'));
+events.subscribe('UI_RESET_CASE', () => {
+  save.clearSave();          // apaga o save do caso ativo + backups
+  resetCase();               // zera o estado em memória
+  engine.save = save.loadGame();
+  engine.save.profile.player_name = engine.player;
+  const cin = getPack().opening_cinematic;
+  const enter = () => { setState('CENTRAL'); save.saveGame({ ...engine.save, case: getCase() }); };
+  getPack().briefing ? playBriefing(enter) : (cin ? playCinematic(cin, enter) : enter());
+});
+events.subscribe('UI_RESET_CAMPAIGN', () => {
+  campaign.resetCareer();    // zera XP/patente/conquistas/histórico
+  save.clearSave();
+  resetCase();
+  setState('CAMPANHA');
+});
 events.subscribe('UI_GOTO', ({ state }) => setState(state));
 events.subscribe('UI_CINEMATIC', ({ id }) => playCinematic(id, () => render()));
 events.subscribe('CASE_SOLVED', ({ score }) => {

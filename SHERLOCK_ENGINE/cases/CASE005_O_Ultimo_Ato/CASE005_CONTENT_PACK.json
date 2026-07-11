@@ -1278,5 +1278,21 @@
       "nome": "Imprensa cultural",
       "desc": "A coletiva marcada por Vicente nunca aconteceu."
     }
-  ]
+  ],
+  "briefing": {
+    "case_code": "ATO-0555",
+    "title": "O Último Ato",
+    "local": "Teatro Guaíra · Curitiba",
+    "data": "Noite de estreia, 21:14",
+    "scene": "palco",
+    "victim": "Vicente Aranha — primeiro ator",
+    "synopsis": "Estreia lotada no Teatro Guaíra. No monólogo final, sob o efeito de neve, a vara cênica 7 despencou sobre o primeiro ator Vicente Aranha, matando-o em cena aberta diante de duas mil pessoas. Acidente técnico, dizem os produtores. Mas o pino de segurança foi serrado, e Vicente marcara uma coletiva para a manhã seguinte: 'amanhã, tudo vem à luz'.",
+    "howto": [
+      "Percorra foyer, camarins, coxia e urdimento no <b>Mapa</b>.",
+      "Analise o pino e a caligrafia no <b>Laboratório</b>.",
+      "Interrogue a companhia; apresente provas para expor a direção.",
+      "Investigue os direitos do texto no <b>OSINT</b> e a vara 7 no <b>GEOINT</b>.",
+      "Monte o <b>Mural</b>, a <b>Linha do Tempo</b> e conclua na <b>Sala do Júri</b>."
+    ]
+  }
 }

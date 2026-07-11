@@ -1300,5 +1300,21 @@
       "nome": "Rede MUSEU",
       "desc": "O dinheiro da serra sobe para alguém na capital."
     }
-  ]
+  ],
+  "briefing": {
+    "case_code": "SRR-0904",
+    "title": "Silêncio na Serra",
+    "local": "Serra Verde Express · Curitiba → Morretes",
+    "data": "04 de setembro, 14:56",
+    "scene": "trem",
+    "victim": "Heitor Salles — contador",
+    "synopsis": "O trem turístico mergulhou no túnel Roça Nova em plena travessia da Serra do Mar. Foram noventa segundos de escuridão. Quando a luz voltou, o contador Heitor Salles jazia no vagão panorâmico, um sulco fino marcando-lhe o pescoço. No colo, um caderno com a contabilidade secreta de uma fundação de fachada — e um alerta cifrado na última página.",
+    "howto": [
+      "Percorra as estações e vagões no <b>Mapa</b> e recolha vestígios.",
+      "Analise fibras e laudos no <b>Laboratório</b>.",
+      "Interrogue passageiros e equipe; apresente provas.",
+      "Investigue a fundação no <b>OSINT</b> e o painel de energia no <b>GEOINT</b>.",
+      "Monte o <b>Mural</b>, a <b>Linha do Tempo</b> e acuse na <b>Sala do Júri</b>."
+    ]
+  }
 }

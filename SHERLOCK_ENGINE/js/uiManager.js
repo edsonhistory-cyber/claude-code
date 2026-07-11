@@ -140,7 +140,14 @@ export function screenShell(title, breadcrumb, accent) {
   back.onclick = () => { sfx('click'); emit('UI_BACK', {}); };
   const home = el('button', 'btn btn-ghost', '⌂ Central');
   home.onclick = () => { sfx('click'); emit('UI_HOME', {}); };
-  nav.append(ariaBtn, mute, back, home);
+  const reset = el('button', 'btn btn-ghost', '⟳ Reiniciar');
+  reset.title = 'Recomeçar este caso do zero';
+  reset.onclick = () => {
+    modal('Reiniciar caso?', 'Isto apaga todo o progresso <b>deste caso</b> (evidências, laudos, códigos e pontuação) e recomeça da cena do crime. A sua carreira é mantida. Confirmar?', [
+      { label: '⟳ Recomeçar do zero', primary: true, onClick: () => emit('UI_RESET_CASE', {}) },
+    ]);
+  };
+  nav.append(ariaBtn, mute, reset, back, home);
   header.append(hud, nav);
   const body = el('main', 'screen-body');
   root.append(header, body);
