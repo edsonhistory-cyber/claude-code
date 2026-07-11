@@ -1,9 +1,17 @@
-# Sherlock Engine — 1.0.0-rc
+# Sherlock Engine — 1.0.0
 
-Jogo de detetive cooperativo, **offline**, pt‑BR — motor multi-caso completo (M1–M5).
-**Dois casos jogáveis**: CASE001 **"A Última Parada"** (CWB‑1447, Curitiba) e
-CASE002 **"Silêncio na Serra"** (SRR‑0904, trem Serra Verde → Morretes), ligados
-pelo fio da campanha (a organização por trás da lavagem de dinheiro).
+Jogo de detetive cooperativo, **offline**, pt‑BR — motor multi-caso completo (M1–M5)
+com a **campanha "Sherlock Chronicles" inteira jogável (4 episódios)**:
+
+| # | Caso | Fio da campanha |
+|---|------|-----------------|
+| CASE001 | **A Última Parada** (CWB‑1447) — Linha Turismo, Curitiba | Corrupção |
+| CASE002 | **Silêncio na Serra** (SRR‑0904) — trem Serra Verde → Morretes | Lavagem de dinheiro |
+| CASE003 | **Operação Eclipse** (ECL‑2112) — apagão no Fórum | Manipulação de provas |
+| CASE004 | **O Colecionador** (COL‑0077) — leilão no Batel | A rede criminosa (final) |
+
+Os quatro casos se conectam: os codinomes MUSEU · JARDINEIRO · RODAS · MAQUINISTA
+atravessam a campanha até o desmascaramento do Colecionador no episódio final.
 
 ## Como jogar (jogo completo ✅ — M1 + M2)
 ```bash
@@ -68,12 +76,12 @@ ciclo de tokens dos dossiês, enigmas (tipos genéricos: `sequence`, `input`,
 para criar um caso novo: 7 JSONs + 1 pack (o Sherlock Studio ajuda), registrar em
 `js/database.js` (CASE_DIRS/CASE_FILES) e no CAMPAIGN.json.
 
-Validação por caso: `node tools/validate_case.mjs CASE001` · `CASE002` (0 erros em ambos).
+Validação por caso: `node tools/validate_case.mjs CASE001 … CASE004` (0 erros nos quatro).
 
 ## Contexto do projeto
 1. `docs/BRIEF.md` — regras de ouro, plano de milestones e estratégia de assets.
-2. Roadmap completo: M1 motor · M2 gameplay · M3 Sherlock Studio · M4 Campanha · M5 RC multi-caso.
-3. Próximos episódios (CASE003 "Operação Eclipse", CASE004 "O Colecionador"): criar via Studio + content pack.
+2. Roadmap completo: M1 motor · M2 gameplay · M3 Sherlock Studio · M4 Campanha · M5 multi-caso — e os 4 episódios autorados.
+3. Casos novos (CASE005+): 7 JSONs + 1 content pack (o Studio ajuda) + registro em `js/database.js` e no CAMPAIGN.json.
 
 ## Estrutura
 - `docs/BRIEF.md` — instruções de implementação (a fonte do plano).

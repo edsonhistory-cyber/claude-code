@@ -12,8 +12,8 @@ import { sfx, ambience } from '../audioManager.js';
 const EPISODE_ART = {
   CASE001: 'rua 24 horas',
   CASE002: 'serra',
-  CASE003: 'mon',
-  CASE004: 'central',
+  CASE003: 'fórum',
+  CASE004: 'salão de leilões',
 };
 
 export function render(player) {

@@ -1,0 +1,120 @@
+{
+  "schema": "CASE004_DOCUMENTS_FULL",
+  "version": "1.0",
+  "case": "COL-0077",
+  "documents": [
+    {
+      "id": "DOC301",
+      "title": "Laudo Cadavérico Preliminar",
+      "type": "Laudo Médico-Legal",
+      "author": "Legista",
+      "classification": "Confidencial",
+      "summary": "Puntura única na região lombar, compatível com agulha fina. Toxina de ação retardada — colapso 28 minutos após a inoculação."
+    },
+    {
+      "id": "DOC302",
+      "title": "Laudo Toxicológico",
+      "type": "Laboratório",
+      "summary": "Glicosídeo cardíaco concentrado — quimicamente idêntico ao usado no caso CWB-1447. Mesmo fornecedor, mesma rede.",
+      "related": [
+        "EV301"
+      ]
+    },
+    {
+      "id": "DOC303",
+      "title": "Lista de Convidados",
+      "type": "Operacional",
+      "summary": "112 convidados, 8 funcionários. Acesso ao palco: leiloeiro, anfitriã e o cerimonial. O bar registra Bruno Sarti das 21:30 às 22:40.",
+      "fields": [
+        "Nome",
+        "Mesa",
+        "Acesso"
+      ]
+    },
+    {
+      "id": "DOC304",
+      "title": "Roteiro do Leilão",
+      "type": "Operacional",
+      "summary": "O blecaute cênico do lote 77 (90 segundos) foi adicionado ao roteiro NA VÉSPERA, a pedido da anfitriã.",
+      "related": [
+        "EVT0303"
+      ]
+    },
+    {
+      "id": "DOC305",
+      "title": "Registro do Cerimonial",
+      "type": "Registro",
+      "summary": "O cerimonial anota: \"a Sra. Sarti pediu para revisar pessoalmente a cadeira do palco na tarde do evento\"."
+    },
+    {
+      "id": "DOC306",
+      "title": "Dossiê — Helena Sarti",
+      "type": "Inteligência",
+      "classification": "Restrito",
+      "summary": "Mecenas, colecionadora, anfitriã do leilão. Presente, direta ou indiretamente, nos três casos anteriores: sócia oculta da Bandeira Urbanismo, instituidora da Fundação Pinhal.",
+      "related": [
+        "P302"
+      ]
+    },
+    {
+      "id": "DOC307",
+      "title": "Notícia — A Colecionadora do Batel",
+      "type": "Notícia",
+      "summary": "Perfil de sociedade: \"Helena Sarti coleciona arte, relógios e — dizem os maldosos — favores\"."
+    },
+    {
+      "id": "DOC308",
+      "title": "Agenda de Gustavo Braga",
+      "type": "Manuscrito",
+      "summary": "Na data do leilão: \"acerto final com H.\" — e uma palavra cifrada na margem.",
+      "related": [
+        "P301"
+      ]
+    },
+    {
+      "id": "DOC309",
+      "title": "Planilha-Mestra da Rede",
+      "type": "Financeiro",
+      "summary": "Encontrada no cofre do escritório: consolida MUSEU, JARDINEIRO, RODAS e MAQUINISTA. MUSEU assina as ordens — inclusive as dos casos SRR-0904 e ECL-2112.",
+      "related": [
+        "EV302"
+      ]
+    },
+    {
+      "id": "DOC310",
+      "title": "Relatório Final da Campanha",
+      "type": "Conclusão",
+      "summary": "Consolidação de todas as provas — o Colecionador diante do júri.",
+      "requires": [
+        "EV301",
+        "EV302",
+        "EV303",
+        "EV304"
+      ]
+    }
+  ],
+  "index": {
+    "medical": [
+      "DOC301",
+      "DOC302"
+    ],
+    "operational": [
+      "DOC303",
+      "DOC304",
+      "DOC305"
+    ],
+    "historical": [
+      "DOC306",
+      "DOC307"
+    ],
+    "financial": [
+      "DOC309"
+    ],
+    "intelligence": [
+      "DOC308"
+    ],
+    "final": [
+      "DOC310"
+    ]
+  }
+}

@@ -151,6 +151,88 @@ const SCENES = {
     <circle cx="320" cy="45" r="16" fill="#ff9d5c"/>
     ${glow(320, 45, 36, '#ff9d5c', .3)}
     <path d="M180 140 Q230 170 280 200" stroke="#0d3246" stroke-width="10" fill="none"/>`, 'por_do_sol'),
+
+  // ── CASE003 · Operação Eclipse (noite institucional) ──────────────────
+  'fórum': () => svg(`${ground('#0a0e14')}
+    <rect x="90" y="70" width="220" height="120" fill="#10151d" stroke="#2a3340" stroke-width="2"/>
+    ${[0,1,2,3,4,5].map((i)=>`<rect x="${104+i*34}" y="84" width="20" height="34" fill="${i===2?'#E0B658':'#0b1e30'}" opacity="${i===2?.9:.8}"/>`).join('')}
+    ${[0,1,2,3,4,5].map((i)=>`<rect x="${104+i*34}" y="130" width="20" height="34" fill="#0b1e30" opacity=".8"/>`).join('')}
+    ${[0,1,2,3].map((i)=>`<rect x="${120+i*45}" y="166" width="10" height="24" fill="#2a3340"/>`).join('')}
+    <path d="M80 70 L200 40 L320 70" fill="none" stroke="#2a3340" stroke-width="5"/>
+    ${glow(140, 100, 20, '#E0B658', .25)}
+    <text x="200" y="62" font-size="10" fill="#5c6f80" text-anchor="middle" font-family="monospace">FÓRUM</text>`, 'noite'),
+
+  'paiol': () => svg(`
+    <rect width="400" height="240" fill="#080d13"/>
+    ${[0,1,2].map((r)=>`<g>
+      <rect x="40" y="${50+r*56}" width="320" height="8" fill="#22303c"/>
+      ${[0,1,2,3,4,5,6].map((i)=>`<rect x="${52+i*44}" y="${18+r*56}" width="32" height="32" rx="2" fill="#101c28" stroke="#22303c"/>`).join('')}
+    </g>`).join('')}
+    <rect x="184" y="74" width="32" height="32" rx="2" fill="#1c1420" stroke="#C0392B" stroke-width="2"/>
+    <text x="200" y="230" font-size="10" fill="#587a94" text-anchor="middle" font-family="monospace">PAIOL DE PROVAS · PRATELEIRA 14</text>
+    ${glow(200, 90, 30, '#C0392B', .18)}`, 'noite'),
+
+  'subsolo': () => svg(`
+    <rect width="400" height="240" fill="#070b10"/>
+    <rect x="140" y="60" width="120" height="130" rx="4" fill="#141b24" stroke="#2a3340" stroke-width="2"/>
+    ${[0,1,2].map((i)=>`<rect x="${156+i*32}" y="76" width="20" height="10" rx="2" fill="#0b1e30" stroke="#3a4a5a"/>`).join('')}
+    <rect x="186" y="110" width="28" height="52" rx="4" fill="#C0392B"/>
+    <rect x="194" y="96" width="12" height="20" rx="3" fill="#7a1f1f"/>
+    <text x="200" y="215" font-size="10" fill="#587a94" text-anchor="middle" font-family="monospace">QUADRO GERAL · ALAVANCA BAIXADA</text>
+    ${glow(200, 135, 30, '#C0392B', .15)}`, 'noite'),
+
+  'corredor': () => svg(`
+    <rect width="400" height="240" fill="#080d13"/>
+    <path d="M0 240 L150 110 L250 110 L400 240 Z" fill="#0d141c"/>
+    <path d="M150 110 L150 40 L250 40 L250 110" fill="#0a1018" stroke="#22303c"/>
+    ${[0,1,2].map((i)=>`<rect x="${60+i*110}" y="${140-i*22}" width="26" height="${44-i*8}" fill="#0b1e30" opacity=".7"/>`).join('')}
+    <circle cx="200" cy="52" r="7" fill="#E0B658"/>
+    ${glow(200, 52, 26, '#E0B658', .3)}
+    <rect x="330" y="46" width="26" height="16" rx="3" fill="#101c28" stroke="#3a4a5a"/>
+    <circle cx="343" cy="54" r="4" fill="#C0392B" opacity=".9"/>
+    <text x="200" y="228" font-size="10" fill="#587a94" text-anchor="middle" font-family="monospace">LUZ DE EMERGÊNCIA · 21:14</text>`, 'noite'),
+
+  // ── CASE004 · O Colecionador (gala noturna) ────────────────────────────
+  'casarão': () => svg(`${ground('#0c0a10')}
+    <rect x="80" y="80" width="240" height="110" fill="#181220" stroke="#6b4e35" stroke-width="2"/>
+    <path d="M70 80 L200 34 L330 80" fill="#241a20" stroke="#6b4e35" stroke-width="3"/>
+    ${[0,1,2,3].map((i)=>`<rect x="${100+i*58}" y="98" width="26" height="40" rx="12" fill="#3a2a14" stroke="#E0B658" stroke-width="1"/>`).join('')}
+    ${[0,1,2,3].map((i)=>glow(113+i*58, 118, 14, '#E0B658', .25)).join('')}
+    <rect x="182" y="146" width="36" height="44" fill="#0f0b14" stroke="#E0B658"/>
+    <path d="M40 195 Q200 175 360 195" stroke="#2a2130" stroke-width="6" fill="none"/>`, 'noite'),
+
+  'salão de leilões': () => svg(`
+    <rect width="400" height="240" fill="#120b16"/>
+    <rect x="60" y="130" width="280" height="16" fill="#241a20"/>
+    <rect x="150" y="60" width="100" height="70" fill="#1c1420" stroke="#6b4e35"/>
+    <rect x="186" y="88" width="28" height="42" rx="4" fill="#3a1420" stroke="#C0392B" stroke-width="2"/>
+    <circle cx="120" cy="40" r="10" fill="#E0B658"/><circle cx="280" cy="40" r="10" fill="#E0B658"/>
+    ${glow(120, 40, 30, '#E0B658', .3)}${glow(280, 40, 30, '#E0B658', .3)}
+    ${[0,1,2,3,4].map((i)=>`<circle cx="${80+i*60}" cy="${190+(i%2)*14}" r="12" fill="#1c1420" stroke="#3a2a30"/>`).join('')}
+    <text x="200" y="228" font-size="10" fill="#8a7a94" text-anchor="middle" font-family="monospace">LOTE 77 · BLECAUTE DE 90s</text>
+    ${glow(200, 108, 34, '#C0392B', .15)}`, 'noite'),
+
+  'galeria': () => svg(`
+    <rect width="400" height="240" fill="#100c14"/>
+    <path d="M0 240 L140 120 L260 120 L400 240 Z" fill="#160f1c"/>
+    ${[0,1,2].map((i)=>`<rect x="${52+i*70}" y="${96-i*10}" width="${44-i*6}" height="${34-i*5}" fill="#0b1e30" stroke="#6b4e35" stroke-width="2"/>`).join('')}
+    ${[0,1,2].map((i)=>`<rect x="${262+i*44}" y="${86+i*0}" width="${38-i*6}" height="${30-i*4}" fill="#1c1420" stroke="#6b4e35" stroke-width="2"/>`).join('')}
+    ${glow(200, 60, 40, '#E0B658', .12)}
+    <text x="200" y="228" font-size="10" fill="#8a7a94" text-anchor="middle" font-family="monospace">GALERIA · 20:40</text>`, 'noite'),
+
+  'jardim de inverno': () => svg(`${ground('#0c1410')}
+    <path d="M200 30 L110 90 L110 190 L290 190 L290 90 Z" fill="rgba(127,227,255,.06)" stroke="#9fd8e8" stroke-width="2"/>
+    <path d="M110 90 Q200 50 290 90 M150 190 L150 68 M250 190 L250 68 M110 140 L290 140" stroke="#9fd8e8" stroke-width="1.5" fill="none"/>
+    <path d="M130 190 Q140 160 150 190 M250 190 Q262 156 274 190" stroke="#2F8B57" stroke-width="5" fill="none"/>
+    ${glow(200, 110, 60, '#7fe3ff', .08)}`, 'noite'),
+
+  'garagem': () => svg(`
+    <rect width="400" height="240" fill="#0a0d12"/>
+    <rect x="40" y="90" width="320" height="100" fill="#10151c" stroke="#22303c"/>
+    ${[0,1,2].map((i)=>`<rect x="${60+i*110}" y="120" width="84" height="46" rx="8" fill="#151c26" stroke="#2a3644"/>`).join('')}
+    <rect x="330" y="60" width="30" height="130" fill="#141b24" stroke="#3a4a5a"/>
+    <text x="345" y="52" font-size="8" fill="#587a94" text-anchor="middle" font-family="monospace">ELEVADOR</text>
+    ${glow(345, 125, 20, '#E0B658', .15)}`, 'noite'),
 };
 
 // Trem da Serra Verde (locomotiva + vagão panorâmico)
@@ -173,6 +255,10 @@ const ALIASES = {
   'parque tanguá': ['tangua', 'cascata'], 'ônibus': ['onibus', 'bus', 'garrafa térmica', 'otávio bandeira', 'linha turismo'],
   'central': ['central de operações'],
   'serra': ['serra do mar', 'marumbi', 'silêncio na serra', 'silencio na serra'],
+  'fórum': ['forum', 'operação eclipse', 'operacao eclipse', 'fachada'],
+  'paiol': ['provas', 'prateleira', 'sala de perícia', 'sala de pericia'],
+  'subsolo': ['quadro geral', 'quadro de energia'],
+  'corredor': ['câmeras', 'cameras', 'guarita'],
   'trem': ['vagão', 'vagao', 'serra verde', 'litorina', 'pátio ferroviário', 'patio ferroviario'],
   'túnel': ['tunel', 'roça nova', 'roca nova'],
   'estação': ['estacao', 'morretes'],
@@ -206,6 +292,22 @@ const PORTRAIT_STYLE = {
   P105: { color: '#6b4e35', trait: 'chapeu' },    // Ernesto — colecionador
   P106: { color: '#5c8b64', trait: 'coque' },     // Marta — irmã da vítima
   P107: { color: '#4a6a8a', trait: 'gravata' },   // Davi — chefe de trem
+  // CASE003 — Operação Eclipse
+  P201: { color: '#8896a2', trait: 'bone' },      // Téo — guarda (vítima)
+  P202: { color: '#c9d4da', trait: 'oculos' },    // Vera — perita
+  P203: { color: '#4a6a8a', trait: 'gravata' },   // Rui — promotor
+  P204: { color: '#8a6fd1', trait: 'celular' },   // Alice — estagiária
+  P205: { color: '#E0B658', trait: 'chapeu' },    // Otto — eletricista
+  P206: { color: '#7a6248', trait: 'gravata' },   // Samir — advogado
+  P207: { color: '#2F8B57', trait: 'coque' },     // Cátia — delegada
+  // CASE004 — O Colecionador
+  P301: { color: '#8896a2', trait: 'gravata' },   // Gustavo — leiloeiro (vítima)
+  P302: { color: '#E0B658', trait: 'coque' },     // Helena — a Colecionadora
+  P303: { color: '#7a6248', trait: 'celular' },   // Bruno — herdeiro
+  P304: { color: '#c05f7c', trait: 'chapeu' },    // Yara — rival
+  P305: { color: '#4a6a8a', trait: 'oculos' },    // Padre Inácio
+  P306: { color: '#5c8b64', trait: 'gravata' },   // Célio — cerimonial
+  P307: { color: '#8a6fd1', trait: 'celular' },   // Duda — operadora de câmera
 };
 
 // fallback determinístico para elencos futuros sem estilo definido

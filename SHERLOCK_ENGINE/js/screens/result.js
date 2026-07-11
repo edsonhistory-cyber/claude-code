@@ -4,6 +4,7 @@
 import { getModule } from '../database.js';
 import { screenShell, el } from '../uiManager.js';
 import { getCase, rankForScore } from '../caseState.js';
+import { episodes } from '../campaign.js';
 import { emit } from '../eventManager.js';
 import { ambience, speak, sfx } from '../audioManager.js';
 
@@ -42,8 +43,8 @@ export function render() {
 
 export function renderCredits() {
   const { body } = screenShell('Créditos', 'SHERLOCK ENGINE');
-  const camp = getModule('SHERLOCK_ENGINE_CAMPAIGN');
-  const next = (camp?.episodes || []).find((e) => e.id === 'CASE002');
+  const next = episodes().find((e) => e.status !== 'done');
+  const campaignDone = !next;
   const box = el('div', 'panel result-panel credits');
   box.innerHTML = `
     <div class="login-logo">SHERLOCK<span>ENGINE</span></div>
@@ -52,7 +53,9 @@ export function renderCredits() {
     <p class="muted">Design: JSONs da Sherlock Engine · Motor: HTML + CSS + Vanilla JS<br>
     Arte procedural SVG · SFX sintetizados via Web Audio · Vozes via SpeechSynthesis<br>
     Licenças de assets: assets/CREDITS.md</p>
-    ${next ? `<p class="row-tag ok">PRÓXIMO EPISÓDIO DESBLOQUEADO: ${next.title}</p>` : ''}`;
+    ${campaignDone
+      ? '<p class="row-tag ok">🏆 CAMPANHA COMPLETA — A REDE CAIU. OBRIGADO POR JOGAR, DETETIVE.</p>'
+      : `<p class="row-tag ok">PRÓXIMO EPISÓDIO: ${next.title}</p>`}`;
   const hub = el('button', 'btn btn-primary', 'VOLTAR AO QG DA CAMPANHA');
   hub.onclick = () => emit('UI_GOTO', { state: 'CAMPANHA' });
   box.append(hub);

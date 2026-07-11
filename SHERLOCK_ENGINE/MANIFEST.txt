@@ -1,5 +1,5 @@
-SHERLOCK ENGINE — MANIFESTO DE ARQUIVOS (1.0.0-rc)
-Gerado em: 2026-07-11 · Casos jogáveis: CASE001, CASE002
+SHERLOCK ENGINE — MANIFESTO DE ARQUIVOS (1.0.0)
+Gerado em: 2026-07-11 · Campanha completa: CASE001–CASE004
 
 MANIFEST.txt
 README.md
@@ -26,6 +26,22 @@ cases/CASE002_Silencio_na_Serra/CASE002_EVENTS_FULL.json
 cases/CASE002_Silencio_na_Serra/CASE002_EVIDENCES_FULL.json
 cases/CASE002_Silencio_na_Serra/CASE002_FULL.json
 cases/CASE002_Silencio_na_Serra/CASE002_IMAGES_FULL.json
+cases/CASE003_Operacao_Eclipse/CASE003_COMPLETE_WORLD_STATE.json
+cases/CASE003_Operacao_Eclipse/CASE003_CONTENT_PACK.json
+cases/CASE003_Operacao_Eclipse/CASE003_DIALOGUES_FULL.json
+cases/CASE003_Operacao_Eclipse/CASE003_DOCUMENTS_FULL.json
+cases/CASE003_Operacao_Eclipse/CASE003_EVENTS_FULL.json
+cases/CASE003_Operacao_Eclipse/CASE003_EVIDENCES_FULL.json
+cases/CASE003_Operacao_Eclipse/CASE003_FULL.json
+cases/CASE003_Operacao_Eclipse/CASE003_IMAGES_FULL.json
+cases/CASE004_O_Colecionador/CASE004_COMPLETE_WORLD_STATE.json
+cases/CASE004_O_Colecionador/CASE004_CONTENT_PACK.json
+cases/CASE004_O_Colecionador/CASE004_DIALOGUES_FULL.json
+cases/CASE004_O_Colecionador/CASE004_DOCUMENTS_FULL.json
+cases/CASE004_O_Colecionador/CASE004_EVENTS_FULL.json
+cases/CASE004_O_Colecionador/CASE004_EVIDENCES_FULL.json
+cases/CASE004_O_Colecionador/CASE004_FULL.json
+cases/CASE004_O_Colecionador/CASE004_IMAGES_FULL.json
 css/screens.css
 css/theme.css
 docs/BRIEF.md

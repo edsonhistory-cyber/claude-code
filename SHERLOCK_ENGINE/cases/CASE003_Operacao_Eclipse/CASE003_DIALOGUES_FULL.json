@@ -1,0 +1,97 @@
+{
+  "schema": "CASE003_DIALOGUES_FULL",
+  "version": "1.0",
+  "case": "ECL-2112",
+  "dialogue_tree": {
+    "VERA_LONTRA": {
+      "intro": "Dezoito anos de perícia. Eu processo cenas de crime — não participo delas.",
+      "topics": {
+        "saida": {
+          "question": "O livro diz que você saiu às 20:30. Confirma?",
+          "answers": [
+            {
+              "id": "V1",
+              "text": "Confirmo. Assinei e fui embora antes das nove.",
+              "truth": "falso",
+              "stress": "+20"
+            },
+            {
+              "id": "V2",
+              "text": "Pode ter sido um pouco depois, eu estava fechando laudos.",
+              "truth": "parcial",
+              "stress": "+15"
+            }
+          ],
+          "unlock_if": [
+            "DOC203"
+          ]
+        },
+        "apagao": {
+          "question": "Onde você estava durante os 7 minutos do apagão?",
+          "answers": [
+            {
+              "id": "V3",
+              "text": "Em casa. Eu nunca estive perto do paiol à noite.",
+              "truth": "falso",
+              "unlock": "Contradição 03"
+            }
+          ],
+          "unlock_if": [
+            "EV204"
+          ]
+        }
+      }
+    },
+    "CATIA_MELO": {
+      "intro": "Custódia é a minha vida. Se um lacre respira errado, eu percebo.",
+      "topics": {
+        "lacres": {
+          "question": "O lacre da prateleira 14 pertence ao lote em uso?",
+          "answers": [
+            {
+              "id": "CA1",
+              "text": "Não. É do lote 4600 — que está trancado na sala de perícia. Vou lhe dar o controle completo.",
+              "truth": "verdadeiro",
+              "unlock": "DOC205"
+            }
+          ],
+          "unlock_if": [
+            "EV201"
+          ]
+        }
+      }
+    },
+    "RUI_BARROS": {
+      "intro": "O mega-julgamento é meu. Se essas provas caírem, cinco anos de trabalho caem junto.",
+      "topics": {
+        "pressao": {
+          "question": "A defesa tentou acessar o paiol três vezes. Alguém o pressionou?",
+          "answers": [
+            {
+              "id": "R1",
+              "text": "Ofereceram de tudo. Está tudo protocolado — e eu estava em audiência gravada até 21:30.",
+              "truth": "verdadeiro",
+              "unlock": "DOC207"
+            }
+          ],
+          "unlock_if": [
+            "DOC204"
+          ]
+        }
+      }
+    }
+  },
+  "conversation_rules": {
+    "max_questions_per_round": 5,
+    "allow_repeat": true,
+    "memory_enabled": true,
+    "stress_affects_answers": true,
+    "evidence_unlocks_new_topics": true
+  },
+  "voice_tags": {
+    "vera": "controlada",
+    "catia": "firme",
+    "rui": "enfático"
+  },
+  "cinematic_triggers": []
+}
