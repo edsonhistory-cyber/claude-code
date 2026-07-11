@@ -362,3 +362,26 @@
   .video-strip { grid-template-columns: repeat(2, 1fr); }
   .fiber-bench { grid-template-columns: 1fr; }
 }
+
+/* ══ MILESTONE 4 — campanha / QG ══════════════════════════════════════════ */
+.career-panel { max-width: 1200px; margin: 0 auto 16px; padding: 16px 22px; display: flex; flex-direction: column; gap: 10px; }
+.career-rank { display: flex; gap: 12px; align-items: center; }
+.career-badge { font-size: 1.8rem; filter: drop-shadow(0 0 10px rgba(224,182,88,.5)); }
+.career-rank b { font-family: var(--font-display); font-size: 1.3rem; letter-spacing: .15em; color: var(--warning); display: block; }
+.career-xpbar { height: 8px; background: rgba(242,245,247,.08); border-radius: 4px; overflow: hidden; }
+.career-xpbar div { height: 100%; background: linear-gradient(90deg, var(--warning), #ffd98a); box-shadow: 0 0 10px rgba(224,182,88,.5); transition: width 400ms; }
+.career-rep { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px 20px; }
+.rep-axis { display: flex; gap: 8px; align-items: center; font-size: .8rem; }
+.rep-axis .stress-bar { flex: 1; }
+
+.episode-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; max-width: 1200px; margin: 0 auto 16px; }
+.episode-card { display: flex; flex-direction: column; padding: 0; overflow: hidden; text-align: left; cursor: pointer; color: var(--text);
+  background: rgba(18,36,53,.85); border: 1px solid rgba(0,194,255,.18); border-radius: var(--radius); transition: all var(--transition); }
+.episode-card:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: 0 0 22px rgba(0,194,255,.25); }
+.episode-card.locked { opacity: .55; }
+.episode-card.done { border-color: rgba(47,139,87,.5); }
+.episode-art svg { width: 100%; height: 120px; display: block; object-fit: cover; }
+.episode-meta { display: flex; flex-direction: column; gap: 4px; padding: 12px 14px; }
+.episode-best { color: var(--warning); font-size: .8rem; }
+.trophy-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+a.btn { text-decoration: none; display: inline-block; text-align: center; }

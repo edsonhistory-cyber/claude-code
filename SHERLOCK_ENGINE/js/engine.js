@@ -7,7 +7,9 @@ import * as db from './database.js';
 import * as events from './eventManager.js';
 import * as save from './saveManager.js';
 import * as ui from './uiManager.js';
-import { getCase, hydrate } from './caseState.js';
+import { getCase, hydrate, rankForScore } from './caseState.js';
+import * as campaign from './campaign.js';
+import * as scrCampaign from './screens/campaign.js';
 import { initAria } from './aria.js';
 import { playCinematic } from './cinematics.js';
 import { ambience, stopAmbience } from './audioManager.js';
@@ -37,15 +39,16 @@ const SCREENS = Object.fromEntries(Object.entries({
   'Evidencias': scrEvidence,
 }).map(([k, v]) => [normKey(k), v]));
 
-const STATES = ['BOOT', 'LOGIN', 'CENTRAL', 'INVESTIGACAO', 'JURI', 'RESULTADO', 'CREDITOS'];
+const STATES = ['BOOT', 'LOGIN', 'CAMPANHA', 'CENTRAL', 'INVESTIGACAO', 'JURI', 'RESULTADO', 'CREDITOS'];
 const TRANSITIONS = {
   BOOT: ['LOGIN'],
-  LOGIN: ['CENTRAL'],
-  CENTRAL: ['INVESTIGACAO', 'JURI'],
+  LOGIN: ['CAMPANHA'],
+  CAMPANHA: ['CENTRAL'],
+  CENTRAL: ['INVESTIGACAO', 'JURI', 'CAMPANHA'],
   INVESTIGACAO: ['CENTRAL', 'JURI', 'INVESTIGACAO'],
   JURI: ['CENTRAL', 'RESULTADO'],
-  RESULTADO: ['CREDITOS', 'CENTRAL'],
-  CREDITOS: ['CENTRAL'],
+  RESULTADO: ['CREDITOS', 'CENTRAL', 'CAMPANHA'],
+  CREDITOS: ['CENTRAL', 'CAMPANHA'],
 };
 
 const engine = { state: 'BOOT', screen: null, caseId: null, player: null, save: null };
@@ -66,6 +69,7 @@ function render() {
   switch (engine.state) {
     case 'BOOT': return ui.renderBoot();
     case 'LOGIN': stopAmbience(); return ui.renderLogin(db.getModule('SHERLOCK_ENGINE_CASE001_FULL')?.case);
+    case 'CAMPANHA': return scrCampaign.render(engine.player);
     case 'CENTRAL': ambience('central'); return ui.renderCentral(engine.player);
     case 'INVESTIGACAO': return (SCREENS[normKey(engine.screen)] || scrMap).render();
     case 'JURI': return scrJury.render();
@@ -119,7 +123,7 @@ export async function boot() {
   setState('LOGIN');
 }
 
-/** Entra na Central, roda a cinemática de abertura e liga o autosave. */
+/** Entra no QG da campanha e liga o autosave. */
 export function startGame(player) {
   engine.player = player;
   engine.save.profile.player_name = player;
@@ -128,6 +132,11 @@ export function startGame(player) {
     case: getCase(),
     engine_state: { state: engine.state, screen: engine.screen },
   }));
+  setState('CAMPANHA');
+}
+
+/** Abre um episódio a partir do QG (cinemática de abertura na 1ª vez). */
+function enterEpisode() {
   const enter = () => { setState('CENTRAL'); save.saveGame({ ...engine.save, case: getCase() }); };
   const isNew = !getCase().collected.length && !getCase().visited.length;
   if (isNew) playCinematic('CIN001', enter);
@@ -140,11 +149,15 @@ events.subscribe('UI_OPEN_CARD', ({ card }) => {
   if (normKey(card) === 'SALA DO JURI') setState('JURI');
   else setState('INVESTIGACAO', card);
 });
-events.subscribe('UI_BACK', () => setState(engine.state === 'INVESTIGACAO' || engine.state === 'JURI' ? 'CENTRAL' : 'CENTRAL'));
+events.subscribe('UI_SELECT_EPISODE', () => enterEpisode());
+events.subscribe('UI_BACK', () => setState(engine.state === 'CENTRAL' ? 'CAMPANHA' : 'CENTRAL'));
 events.subscribe('UI_HOME', () => setState('CENTRAL'));
 events.subscribe('UI_GOTO', ({ state }) => setState(state));
 events.subscribe('UI_CINEMATIC', ({ id }) => playCinematic(id, () => render()));
-events.subscribe('CASE_SOLVED', () => save.saveGame({ ...engine.save, case: getCase() }));
+events.subscribe('CASE_SOLVED', ({ score }) => {
+  campaign.completeEpisode(engine.caseId || 'CASE001', getCase(), rankForScore(score));
+  save.saveGame({ ...engine.save, case: getCase() });
+});
 events.subscribe('DOSSIER_COMPLETED', () => save.saveGame({ ...engine.save, case: getCase() }));
 
 boot().catch((err) => {

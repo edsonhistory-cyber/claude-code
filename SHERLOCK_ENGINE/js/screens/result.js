@@ -52,9 +52,9 @@ export function renderCredits() {
     <p class="muted">Design: JSONs da Sherlock Engine · Motor: HTML + CSS + Vanilla JS<br>
     Arte procedural SVG · SFX sintetizados via Web Audio · Vozes via SpeechSynthesis<br>
     Licenças de assets: assets/CREDITS.md</p>
-    ${next ? `<p class="row-tag">PRÓXIMO EPISÓDIO: ${next.title} — ${next.unlock}</p>` : ''}`;
-  const again = el('button', 'btn btn-primary', 'VOLTAR À CENTRAL');
-  again.onclick = () => emit('UI_HOME', {});
-  box.append(again);
+    ${next ? `<p class="row-tag ok">PRÓXIMO EPISÓDIO DESBLOQUEADO: ${next.title}</p>` : ''}`;
+  const hub = el('button', 'btn btn-primary', 'VOLTAR AO QG DA CAMPANHA');
+  hub.onclick = () => emit('UI_GOTO', { state: 'CAMPANHA' });
+  box.append(hub);
   body.append(box);
 }

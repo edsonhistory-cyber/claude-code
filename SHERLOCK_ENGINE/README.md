@@ -49,10 +49,18 @@ O **Console de Validação** roda ao vivo os mesmos checks do boot (`js/validato
 `✚ Novo Caso` cria os 7 JSONs a partir dos templates do `SHERLOCK_CASE_CREATOR_SDK`.
 Exportação: JSONs individuais ou **ZIP do Caso** (gerador próprio, offline).
 
+## Campanha "Sherlock Chronicles" (M4 ✅)
+Depois do login você chega ao **QG da campanha**: carreira persistente (XP, patentes
+Recruta→Lenda, conquistas com bônus de XP, reputação em 4 eixos), seleção de episódios
+com desbloqueio sequencial (concluir o CASE001 libera o CASE002 "Silêncio na Serra"),
+sala de troféus e arquivo de casos com melhores pontuações. A carreira vive em
+`localStorage` separada do save do caso (carry_over do CAMPAIGN.json). Episódios
+futuros apontam para o Sherlock Studio, onde o conteúdo pode ser criado.
+
 ## Contexto do projeto
 1. `docs/BRIEF.md` — regras de ouro, plano de milestones e estratégia de assets.
-2. M1 (motor), M2 (gameplay completo) e M3 (Sherlock Studio) implementados.
-3. Próximos: M4 Campanha (CASE002 "Silêncio na Serra"), M5 RC.
+2. M1 (motor), M2 (gameplay), M3 (Sherlock Studio) e M4 (Campanha) implementados.
+3. Próximo: M5 Release Candidate (conteúdo do CASE002, polimento, empacotamento).
 
 ## Estrutura
 - `docs/BRIEF.md` — instruções de implementação (a fonte do plano).
