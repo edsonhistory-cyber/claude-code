@@ -39,6 +39,26 @@
           "unlock_if": [
             "EV204"
           ]
+        },
+        "afastamento": {
+          "question": "Por que a senhora se afastou por três dias este mês?",
+          "answers": [
+            {
+              "id": "V10",
+              "text": "Motivos familiares. Meu filho... resolve-se em família.",
+              "truth": "parcial",
+              "stress": "+20"
+            },
+            {
+              "id": "V11",
+              "text": "Voltei antes do prazo. A perícia precisava de mim.",
+              "truth": "parcial",
+              "stress": "+10"
+            }
+          ],
+          "unlock_if": [
+            "DOC206"
+          ]
         }
       }
     },
@@ -76,6 +96,21 @@
           ],
           "unlock_if": [
             "DOC204"
+          ]
+        }
+      }
+    },
+    "ALICE_FONTOURA": {
+      "intro": "Me mandaram não mexer. Eu mexi. Hash não tem hierarquia.",
+      "topics": {
+        "hash": {
+          "question": "Como você descobriu a divergência do HD?",
+          "answers": [
+            {
+              "id": "A1",
+              "text": "Conferi o hash do termo contra o disco, byte a byte. Divergiu. Clonaram e recolocaram — só esqueceram que eu confiro tudo duas vezes.",
+              "truth": "verdadeiro"
+            }
           ]
         }
       }

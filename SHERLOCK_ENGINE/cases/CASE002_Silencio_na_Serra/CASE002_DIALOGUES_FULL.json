@@ -39,6 +39,26 @@
           "unlock_if": [
             "EV104"
           ]
+        },
+        "divida": {
+          "question": "Quem quitou sua dívida de jogo em março?",
+          "answers": [
+            {
+              "id": "I10",
+              "text": "Juntei economias. Hora extra rende na serra.",
+              "truth": "falso",
+              "stress": "+20"
+            },
+            {
+              "id": "I11",
+              "text": "Isso é assunto meu. Dívida paga não é crime.",
+              "truth": "parcial",
+              "stress": "+15"
+            }
+          ],
+          "unlock_if": [
+            "DOC109"
+          ]
         }
       }
     },
@@ -58,6 +78,23 @@
           "unlock_if": [
             "DOC107"
           ]
+        },
+        "doacoes": {
+          "question": "De onde vêm as doações da Fundação Pinhal?",
+          "answers": [
+            {
+              "id": "C10",
+              "text": "Filantropos discretos. A discrição é uma virtude — e um direito.",
+              "truth": "parcial",
+              "stress": "+15"
+            },
+            {
+              "id": "C11",
+              "text": "Heitor cuidava dos números. Eu cuido das pessoas.",
+              "truth": "falso",
+              "stress": "+10"
+            }
+          ]
         }
       }
     },
@@ -76,6 +113,21 @@
           ],
           "unlock_if": [
             "DOC104"
+          ]
+        }
+      }
+    },
+    "SOFIA_WEBER": {
+      "intro": "Fotografo o que ninguém vê. Às vezes, isso inclui gente.",
+      "topics": {
+        "exposicao": {
+          "question": "O que a sua longa exposição captou no túnel?",
+          "answers": [
+            {
+              "id": "SW1",
+              "text": "Trinta segundos de obturador aberto. No meio do preto, um risco de lanterna — baixo, na altura de quem se agacha entre bancos.",
+              "truth": "verdadeiro"
+            }
           ]
         }
       }

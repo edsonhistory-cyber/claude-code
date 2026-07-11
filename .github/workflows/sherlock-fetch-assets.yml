@@ -21,6 +21,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # histórico completo p/ rebase seguro no push
 
       - name: Instalar ImageMagick (montagem do mapa)
         run: sudo apt-get update -q && sudo apt-get install -y -q --no-install-recommends imagemagick
@@ -37,5 +39,7 @@ jobs:
             echo "Nenhum asset novo."
           else
             git commit -m "chore(sherlock-engine): fotos reais baixadas na build (Wikimedia/Openverse) [skip ci]"
-            git push
+            # a branch pode ter avançado durante a run — rebase antes do push
+            git pull --rebase origin "${GITHUB_REF_NAME}"
+            git push origin HEAD:"${GITHUB_REF_NAME}"
           fi

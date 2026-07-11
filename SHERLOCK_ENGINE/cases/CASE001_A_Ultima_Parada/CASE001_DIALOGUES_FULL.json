@@ -40,6 +40,36 @@
             "EV001",
             "EV002"
           ]
+        },
+        "planejamento": {
+          "question": "O senhor trabalhou no planejamento de rotas em 2019?",
+          "answers": [
+            {
+              "id": "S10",
+              "text": "Seis meses de escritório. Voltei pro volante porque papel não me obedece.",
+              "truth": "parcial",
+              "stress": "+10"
+            },
+            {
+              "id": "S11",
+              "text": "A rota nova? Decisão técnica. Eu só desenhei o que mandaram.",
+              "truth": "parcial",
+              "stress": "+15"
+            }
+          ],
+          "unlock_if": [
+            "DOC006"
+          ]
+        },
+        "rotina": {
+          "question": "Descreva sua rotina antes de assumir o volante hoje.",
+          "answers": [
+            {
+              "id": "S12",
+              "text": "Cheguei 13:10, café no pátio, checklist, saí 14:00 em ponto. Igual há seis anos.",
+              "truth": "verdadeiro"
+            }
+          ]
         }
       }
     },
@@ -56,6 +86,22 @@
               "unlock": "DOC013"
             }
           ]
+        },
+        "materia": {
+          "question": "Sobre o que era a matéria que a senhora ia publicar?",
+          "answers": [
+            {
+              "id": "R10",
+              "text": "Corrupção na mudança da rota em 2019. Otávio era a fonte — e ia assinar delação.",
+              "truth": "verdadeiro",
+              "stress": "+5"
+            },
+            {
+              "id": "R11",
+              "text": "Os nomes? Só depois que meu editor publicar. Imprensa não é sala de perícia.",
+              "truth": "parcial"
+            }
+          ]
         }
       }
     },
@@ -70,6 +116,36 @@
               "text": "O motorista ficou sozinho alguns minutos.",
               "truth": "verdadeiro",
               "unlock": "KM18"
+            }
+          ]
+        }
+      }
+    },
+    "BIANCA_ALCANTARA": {
+      "intro": "Gente, eu filmei TUDO. Tipo, tudo mesmo — até a parte que ninguém devia ver.",
+      "topics": {
+        "live": {
+          "question": "O que a sua transmissão captou no trajeto?",
+          "answers": [
+            {
+              "id": "B1",
+              "text": "O ônibus parou num acostamento aleatório e o motorista desceu sozinho. Achei estranho e dei zoom — tá no vídeo.",
+              "truth": "verdadeiro"
+            }
+          ]
+        }
+      }
+    },
+    "WANDA_KRUGER": {
+      "intro": "Fotografo pássaros há trinta anos. Hoje fotografei outra espécie.",
+      "topics": {
+        "fotos": {
+          "question": "O que suas fotos do Barigui registraram?",
+          "answers": [
+            {
+              "id": "W1",
+              "text": "Uma luva azul caindo na lixeira, às 16:52. Está no cartão da câmera, com carimbo de hora.",
+              "truth": "verdadeiro"
             }
           ]
         }

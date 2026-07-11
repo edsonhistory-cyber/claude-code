@@ -53,6 +53,41 @@
       "nome": "Cátia Melo",
       "papel": "Testemunha",
       "profissao": "Delegada de custódia"
+    },
+    {
+      "id": "P221",
+      "nome": "Des. Prado Lima",
+      "papel": "Outros",
+      "profissao": "Juiz do mega-julgamento",
+      "bio": "Preside o processo contra a rede. Se as provas do paiol caírem, o julgamento desaba junto."
+    },
+    {
+      "id": "P222",
+      "nome": "Dona Cida",
+      "papel": "Testemunha",
+      "profissao": "Zeladora do Fórum",
+      "bio": "Faz a ronda de limpeza às 21h. Achou um jaleco descartado no lixo do subsolo — dobrado, não jogado."
+    },
+    {
+      "id": "P223",
+      "nome": "Beto Lira",
+      "papel": "Outros",
+      "profissao": "Estagiário de TI",
+      "bio": "Mantém o sistema de câmeras. Jura que o backup noturno nunca falhou antes — exceto na noite do apagão."
+    },
+    {
+      "id": "P224",
+      "nome": "Márcia Toledo",
+      "papel": "Outros",
+      "profissao": "Advogada da defesa",
+      "bio": "Defende a rede no mega-julgamento. Protocolou pedido de nulidade das provas horas ANTES do apagão."
+    },
+    {
+      "id": "P225",
+      "nome": "Insp. Souto",
+      "papel": "Equipe",
+      "profissao": "Chefe da guarda do Fórum",
+      "bio": "Escalou Téo para o plantão sozinho — remanejamento pedido de cima na véspera."
     }
   ],
   "dossiers": {
@@ -248,6 +283,17 @@
           "flag": "gerador_visto",
           "toast": "O gerador foi desarmado ANTES do apagão — quem fez isso conhecia a rotina de testes."
         }
+      },
+      {
+        "nome": "Protocolo do Fórum",
+        "desc": "Registros de petições do dia.",
+        "action": {
+          "type": "flag",
+          "flag": "peticao_vista",
+          "score": 5,
+          "reason": "Petição prévia registrada",
+          "toast": "Pedido de nulidade protocolado às 16:02 — antes do apagão existir. Alguém contava com ele."
+        }
       }
     ],
     "GUA": [
@@ -371,6 +417,17 @@
           "flag": "luz_vista",
           "toast": "A luz de emergência ilumina exatamente o trecho onde o backup flagrou o vulto de jaleco."
         }
+      },
+      {
+        "nome": "Lixeira do subsolo",
+        "desc": "Ronda da zeladoria.",
+        "action": {
+          "type": "flag",
+          "flag": "jaleco_visto",
+          "score": 5,
+          "reason": "Jaleco recuperado",
+          "toast": "Um jaleco dobrado entre sacos — sem etiqueta, tamanho M, cheiro de álcool isopropílico."
+        }
       }
     ]
   },
@@ -417,6 +474,24 @@
       "title": "Perfil — Samir Duarte",
       "source": "Registros (SRC002) · Imprensa (SRC001)",
       "body": "Advogado da Fundação Pinhal. Protocolou os três pedidos de acesso ao paiol. Saiu pela catraca às 19:02 — filmado pela recepção."
+    },
+    {
+      "match": "alice|fontoura",
+      "title": "Perfil — Alice Fontoura",
+      "source": "Registros (SRC002)",
+      "body": "Estagiária de perícia, primeira da turma. Foi dela o pente-fino que achou a divergência de hash — contra a orientação de 'não mexer'."
+    },
+    {
+      "match": "paiol|prateleira",
+      "title": "O paiol de provas",
+      "source": "Infraestrutura (SRC002)",
+      "body": "Sala-cofre com 2.400 caixas. A prateleira 14 guarda os casos da rede — e foi a única revisitada na noite do apagão."
+    },
+    {
+      "match": "nulidade|defesa|toledo",
+      "title": "Movimento da defesa",
+      "source": "Justiça (SRC001)",
+      "body": "O pedido de nulidade das provas foi protocolado às 16h — quatro horas ANTES do apagão. Ou a defesa é vidente, ou foi avisada."
     }
   ],
   "interrogatable": [
@@ -443,6 +518,10 @@
     {
       "key": "SAMIR_DUARTE",
       "pid": "P206"
+    },
+    {
+      "key": "DONA_CIDA",
+      "pid": "P222"
     }
   ],
   "witness_statements": {
@@ -464,6 +543,11 @@
       "intro": "Pedi acesso ao paiol três vezes — pelas vias LEGAIS. Perdi as três. Saí do Fórum às 19:02 e há uma câmera que confirma.",
       "flag": "samir_fora",
       "note": "Samir saiu às 19:02; os pedidos de acesso eram protocolados."
+    },
+    "DONA_CIDA": {
+      "intro": "Jaleco no lixo do subsolo, dobradinho como roupa de domingo. Quem joga fora não dobra, meu filho.",
+      "flag": "cida_jaleco",
+      "note": "Dona Cida encontrou o jaleco dobrado no lixo do subsolo."
     }
   },
   "moods": {
@@ -472,6 +556,18 @@
       "pressionado": "Refaça a pergunta consultando o meu histórico impecável.",
       "confrontado": "Biometria falha. Lacres falham. Tudo falha, detetive.",
       "desmascarado": "Eles levaram meu filho por três dias. TRÊS DIAS. Vocês teriam feito o mesmo."
+    },
+    "CATIA_MELO": {
+      "neutro": "Custódia é liturgia: lacre, livro, assinatura. Alguém profanou a minha.",
+      "pressionado": "Cuidado. Eu numerei cada lacre desta casa.",
+      "confrontado": "Fora do lote. Reimpresso. Na MINHA sala. Isso não é falha — é assinatura.",
+      "desmascarado": "—"
+    },
+    "RUI_BARROS": {
+      "neutro": "O mega-julgamento é a obra da minha carreira. Nada pode contaminá-lo.",
+      "pressionado": "Pressionar peritos faz parte do cargo. Leia o regimento.",
+      "confrontado": "Eu pedi celeridade, não crime. Há um oceano entre os dois.",
+      "desmascarado": "—"
     }
   },
   "behavior_profiles": [
@@ -933,7 +1029,15 @@
   "doc_extras": {
     "DOC208": "<div class=\"cipher\">No verso da escala, ao lado do desenho de um jaleco:<br><b class=\"mono\">DYLVR: SURYD</b></div>",
     "DOC204": "<table class=\"manifest\"><tr><th>Servidor</th><th>Declarado</th><th>Biometria</th></tr><tr><td>Vera Lontra</td><td>20:30</td><td>21:25</td></tr><tr><td>Rui Barros</td><td>21:30</td><td>21:30</td></tr><tr><td>Otto Krieger</td><td>17:40</td><td>17:40</td></tr><tr><td>Cátia Melo</td><td>22:00</td><td>22:00</td></tr></table>",
-    "DOC201_speak": "Duas marcas de ligadura. O sulco horizontal é vital: estrangulamento. O sulco oblíquo é post mortem: encenação."
+    "DOC201_speak": "Duas marcas de ligadura. O sulco horizontal é vital: estrangulamento. O sulco oblíquo é post mortem: encenação.",
+    "DOC201": "<table class=\"manifest\"><tr><th>Exame</th><th>Achado</th></tr><tr><td>Sulco 1</td><td>Horizontal, vital — estrangulamento</td></tr><tr><td>Sulco 2</td><td>Oblíquo, <b>post-mortem</b> — encenação</td></tr><tr><td>Hora</td><td>Dentro da janela do apagão</td></tr></table><p class=\"muted\">Dois sulcos, uma mentira: ninguém se enforca duas vezes.</p>",
+    "DOC202": "<div class=\"cipher\">HASH DO TERMO: a3f9…c210<br>HASH DO HD: <b>7b12…e884 — DIVERGENTE</b></div><p>Setores regravados às 20:03. O clone é bom — mas relógio de sistema não mente.</p>",
+    "DOC203": "<p>Livro de ocorrências, última linha de Téo (21:05):</p><blockquote>\"Movimento na perícia depois do expediente. Vou conferir.\"</blockquote><p>A assinatura de saída nunca aconteceu.</p>",
+    "DOC205": "<table class=\"manifest\"><tr><th>Lote de lacres</th><th>Status</th></tr><tr><td>4400–4499</td><td>Em uso oficial</td></tr><tr><td>Lacre da prateleira 14</td><td><b>Numeração fora do lote</b> — reimpresso</td></tr></table>",
+    "DOC206": "<table class=\"manifest\"><tr><th>Registro</th><th>Detalhe</th></tr><tr><td>18 anos de perícia</td><td>Ficha ilibada</td></tr><tr><td>Afastamento recente</td><td>3 dias, 'motivos familiares'</td></tr><tr><td>Coincidência</td><td>O afastamento cobre a data da clonagem</td></tr></table>",
+    "DOC207": "<p><b>GAZETA — JUSTIÇA</b></p><blockquote>\"Provas dos casos CWB-1447 e SRR-0904 sustentam o mega-julgamento da organização. A defesa alega 'fragilidade na cadeia de custódia'.\"</blockquote><p class=\"muted\">A defesa sabia onde bater. Antes de todo mundo.</p>",
+    "DOC209": "<table class=\"manifest\"><tr><th>Data</th><th>Operação</th></tr><tr><td>D+1 do apagão</td><td>Depósito de origem oculta — conta do filho</td></tr><tr><td>Padrão</td><td>Idêntico ao caso SRR-0904 (compra de dívida)</td></tr></table><p>A rede repete a fórmula: acha a dor, paga a dor, cobra a alma.</p>",
+    "DOC210": "<p><b>CHECKLIST DO JÚRI</b></p><table class=\"manifest\"><tr><th>Item</th><th>Status</th></tr><tr><td>4 evidências analisadas</td><td>—</td></tr><tr><td>Contradição registrada</td><td>—</td></tr><tr><td>Linha do tempo validada</td><td>—</td></tr><tr><td>4 códigos dos dossiês</td><td>—</td></tr></table>"
   },
   "deduction": {
     "factors": {
@@ -1098,5 +1202,38 @@
       "Queda da escada de serviço",
       "Envenenamento no café da guarita"
     ]
-  }
+  },
+  "opening_cinematic": "CIN201",
+  "victim_dossier": {
+    "resumo": "Téo Almada, guarda do paiol de provas do Fórum, encontrado enforcado na viga após um apagão de 7 minutos. A cena simula suicídio — mas o laudo aponta dois sulcos de ligadura e o HD do mega-julgamento foi clonado.",
+    "ligacoes": [
+      "Paiol de provas",
+      "Apagão de 7 minutos",
+      "HD clonado",
+      "Mega-julgamento",
+      "Lacre reimpresso"
+    ]
+  },
+  "organizations": [
+    {
+      "icone": "⚖️",
+      "nome": "Tribunal de Justiça do PR",
+      "desc": "Sede do mega-julgamento da rede."
+    },
+    {
+      "icone": "🔬",
+      "nome": "Perícia Oficial",
+      "desc": "Custódia técnica das provas dos casos CWB-1447 e SRR-0904."
+    },
+    {
+      "icone": "🕸",
+      "nome": "Rede MUSEU",
+      "desc": "Ré do mega-julgamento — e principal beneficiária do apagão."
+    },
+    {
+      "icone": "🛡",
+      "nome": "Guarda do Fórum",
+      "desc": "Responsável pela segurança do paiol de provas."
+    }
+  ]
 }

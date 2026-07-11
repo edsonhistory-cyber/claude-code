@@ -113,6 +113,158 @@
         "Conquistas",
         "Créditos"
       ]
+    },
+    {
+      "id": "CIN101",
+      "title": "Silêncio na Serra",
+      "duration_sec": 50,
+      "camera": [
+        {
+          "shot": 1,
+          "type": "drone",
+          "location": "Serra do Mar",
+          "move": "mergulho na neblina",
+          "time": "08:40"
+        },
+        {
+          "shot": 2,
+          "type": "tracking",
+          "location": "Trem Serra Verde",
+          "move": "acompanha a litorina"
+        },
+        {
+          "shot": 3,
+          "type": "wide",
+          "location": "Túnel Roça Nova",
+          "move": "a boca do túnel engole o trem"
+        },
+        {
+          "shot": 4,
+          "type": "close",
+          "location": "Estação de Morretes",
+          "move": "plataforma vazia"
+        }
+      ],
+      "audio": {
+        "music": "Cordas tensas",
+        "ambient": "Trilhos e vento",
+        "voiceover": "Caso SRR-0904. O trem entrou no túnel com quarenta e três passageiros. Saiu com quarenta e dois respirando."
+      },
+      "transition": "fade_black"
+    },
+    {
+      "id": "CIN201",
+      "title": "Operação Eclipse",
+      "duration_sec": 50,
+      "camera": [
+        {
+          "shot": 1,
+          "type": "wide",
+          "location": "Fórum",
+          "move": "fachada ao anoitecer",
+          "time": "19:58"
+        },
+        {
+          "shot": 2,
+          "type": "steadicam",
+          "location": "Corredor",
+          "move": "câmeras de segurança piscando"
+        },
+        {
+          "shot": 3,
+          "type": "detail",
+          "location": "Subsolo",
+          "move": "o quadro geral desarma"
+        },
+        {
+          "shot": 4,
+          "type": "close",
+          "location": "Paiol",
+          "move": "escuridão de sete minutos"
+        }
+      ],
+      "audio": {
+        "music": "Pulso eletrônico",
+        "ambient": "Zumbido elétrico",
+        "voiceover": "Caso ECL-2112. Sete minutos de apagão no Fórum. Quando a luz voltou, a verdade estava pendurada no paiol de provas."
+      },
+      "transition": "fade_black"
+    },
+    {
+      "id": "CIN301",
+      "title": "O Colecionador",
+      "duration_sec": 50,
+      "camera": [
+        {
+          "shot": 1,
+          "type": "drone",
+          "location": "Casarão",
+          "move": "sobrevoo da gala",
+          "time": "19:30"
+        },
+        {
+          "shot": 2,
+          "type": "steadicam",
+          "location": "Galeria",
+          "move": "entre taças e telas"
+        },
+        {
+          "shot": 3,
+          "type": "wide",
+          "location": "Salão de leilões",
+          "move": "o martelo ergue-se"
+        },
+        {
+          "shot": 4,
+          "type": "close",
+          "location": "Jardim de inverno",
+          "move": "vitrais sob a lua"
+        }
+      ],
+      "audio": {
+        "music": "Valsa em surdina",
+        "ambient": "Taças e conversas",
+        "voiceover": "Caso COL-0077. No leilão beneficente do Batel, o lote mais caro da noite foi uma vida. E o colecionador estava na sala."
+      },
+      "transition": "fade_black"
+    },
+    {
+      "id": "CIN401",
+      "title": "O Último Ato",
+      "duration_sec": 55,
+      "camera": [
+        {
+          "shot": 1,
+          "type": "wide",
+          "location": "Teatro Guaíra",
+          "move": "o letreiro da estreia acende",
+          "time": "19:00"
+        },
+        {
+          "shot": 2,
+          "type": "steadicam",
+          "location": "Camarim",
+          "move": "lâmpadas do espelho, flores e uma carta"
+        },
+        {
+          "shot": 3,
+          "type": "tracking",
+          "location": "Coxia",
+          "move": "sombras entre as pernas de palco"
+        },
+        {
+          "shot": 4,
+          "type": "vertigo",
+          "location": "Urdimento",
+          "move": "a vara 7 range sobre a marca do monólogo"
+        }
+      ],
+      "audio": {
+        "music": "Overture interrompida",
+        "ambient": "Plateia e terceiro sinal",
+        "voiceover": "Caso ATO-0555. Na estreia mais aguardada do ano, o pano caiu antes do aplauso — e o teatro inteiro virou cena de crime."
+      },
+      "transition": "fade_black"
     }
   ],
   "global_effects": {

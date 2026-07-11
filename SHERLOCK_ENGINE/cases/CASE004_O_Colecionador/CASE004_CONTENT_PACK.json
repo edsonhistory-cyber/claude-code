@@ -53,6 +53,41 @@
       "nome": "Duda Reis",
       "papel": "Testemunha-chave",
       "profissao": "Operadora de câmera"
+    },
+    {
+      "id": "P321",
+      "nome": "Max Barcellos",
+      "papel": "Testemunha",
+      "profissao": "Barman do salão",
+      "bio": "Servia o bar a oito metros do palco. Trinta comandas provam quem esteve encostado no balcão a noite toda."
+    },
+    {
+      "id": "P322",
+      "nome": "Chef Amadeu",
+      "papel": "Outros",
+      "profissao": "Chef do buffet",
+      "bio": "A cozinha fica ao lado do elevador de serviço. Ninguém da brigada subiu ao palco — os aventais estavam todos na linha."
+    },
+    {
+      "id": "P323",
+      "nome": "Vito Serra",
+      "papel": "Equipe",
+      "profissao": "Segurança do casarão",
+      "bio": "Controlava as credenciais de palco. Registro impecável — exceto pelo passe da casa, que não deixa rastro."
+    },
+    {
+      "id": "P324",
+      "nome": "Léo Sandri",
+      "papel": "Outros",
+      "profissao": "Marchand",
+      "bio": "Autenticou as obras do leilão. Reconheceu três peças desaparecidas de coleções europeias — e não disse nada."
+    },
+    {
+      "id": "P325",
+      "nome": "Bibi Moraes",
+      "papel": "Outros",
+      "profissao": "Colunista social",
+      "bio": "Fotografou cada mesa para a coluna. Suas fotos casam com o áudio: ninguém da lista saiu do salão no blecaute — exceto quem não estava sentado."
     }
   ],
   "dossiers": {
@@ -271,6 +306,14 @@
           "toast": "📄 Agenda de Gustavo recolhida (DOC308): \"acerto final com H.\" — e uma palavra cifrada.",
           "already": "O guarda-volumes está vazio."
         }
+      },
+      {
+        "nome": "Mesa da colunista",
+        "desc": "Bibi fotografou todas as mesas.",
+        "action": {
+          "type": "note",
+          "toast": "As fotos da coluna mostram todas as mesas ocupadas no blecaute — exceto a cadeira 1 da mesa 1."
+        }
       }
     ],
     "ESC": [
@@ -328,6 +371,17 @@
           "nome": "Registro de lances",
           "toast": "🧾 EV304 Registro de lances coletado — há um lance-fantasma de meio milhão.",
           "already": "O sistema já foi espelhado."
+        }
+      },
+      {
+        "nome": "Bar do salão",
+        "desc": "Trinta comandas, trinta álibis.",
+        "action": {
+          "type": "flag",
+          "flag": "comandas_vistas",
+          "score": 5,
+          "reason": "Comandas conferidas",
+          "toast": "O barman carimba hora em cada comanda — o herdeiro tem sete carimbos entre 21:30 e 22:40."
         }
       }
     ],
@@ -412,6 +466,24 @@
       "title": "Perfil — Yara Campos",
       "source": "Registros (SRC002)",
       "body": "Rival histórica de Gustavo. Lance vencedor dado por telefone, de Lisboa — fuso e operadora conferem."
+    },
+    {
+      "match": "duda|reis|camera",
+      "title": "Perfil — Duda Reis",
+      "source": "Registros (SRC002)",
+      "body": "Operadora de câmera freelancer. Filmou 14 leilões da casa Braga — e entregou o cartão sem pestanejar. 'Imagem é fato', diz."
+    },
+    {
+      "match": "celio|mendes|cerimonial",
+      "title": "Perfil — Célio Mendes",
+      "source": "Registros (SRC002)",
+      "body": "Cerimonial há 22 anos. Sua planilha registra cada minuto — inclusive os onze que a anfitriã passou 'revisando' a cadeira."
+    },
+    {
+      "match": "lote 77|blecaute",
+      "title": "O lote 77",
+      "source": "Leilões (SRC001)",
+      "body": "Um relógio de bolso 'de proveniência delicada'. Avaliado em meio milhão — exatamente o valor do lance-fantasma que cobriu o blecaute."
     }
   ],
   "interrogatable": [
@@ -438,6 +510,10 @@
     {
       "key": "PADRE_INACIO",
       "pid": "P305"
+    },
+    {
+      "key": "MAX_BARCELLOS",
+      "pid": "P321"
     }
   ],
   "witness_statements": {
@@ -459,6 +535,11 @@
       "intro": "Recebi doações no jardim de inverno a noite toda. Do palco, só ouvi o martelo — e depois os gritos.",
       "flag": "padre_jardim",
       "note": "Padre Inácio não deixou o jardim de inverno."
+    },
+    "MAX_BARCELLOS": {
+      "intro": "Balcão é confessionário, detetive. Trinta comandas, trinta álibis — e o do herdeiro tem carimbo de hora.",
+      "flag": "max_comandas",
+      "note": "Max confirmou pelas comandas: Bruno não deixou o bar."
     }
   },
   "moods": {
@@ -928,7 +1009,14 @@
   "doc_extras": {
     "DOC308": "<div class=\"cipher\">Na margem da data do leilão:<br><b class=\"mono\">DFHUWR: PXVHX</b></div>",
     "DOC303": "<table class=\"manifest\"><tr><th>Nome</th><th>Mesa</th><th>Acesso ao palco</th></tr><tr><td>Gustavo Braga</td><td>Palco</td><td>✔ (leiloeiro)</td></tr><tr><td>Helena Sarti</td><td>1</td><td>✔ (anfitriã)</td></tr><tr><td>Célio Mendes</td><td>Serviço</td><td>✔ (cerimonial)</td></tr><tr><td>Bruno Sarti</td><td>Bar</td><td>—</td></tr><tr><td>Yara Campos</td><td>Telefone</td><td>—</td></tr><tr><td>Padre Inácio</td><td>Jardim</td><td>—</td></tr></table>",
-    "DOC301_speak": "Puntura única na região lombar. Toxina de ação retardada: o colapso veio vinte e oito minutos após a inoculação."
+    "DOC301_speak": "Puntura única na região lombar. Toxina de ação retardada: o colapso veio vinte e oito minutos após a inoculação.",
+    "DOC301": "<table class=\"manifest\"><tr><th>Exame</th><th>Achado</th></tr><tr><td>Puntura</td><td>Única, região lombar, agulha fina</td></tr><tr><td>Toxina</td><td>Ação retardada — colapso em 28 min</td></tr><tr><td>Defesa</td><td>Nenhuma: a vítima não sentiu o disparo</td></tr></table><p class=\"muted\">Assina: IML — prioridade máxima, caso conexo.</p>",
+    "DOC302": "<table class=\"manifest\"><tr><th>Amostra</th><th>Resultado</th></tr><tr><td>Reservatório da agulha</td><td>Glicosídeo cardíaco concentrado</td></tr><tr><td>Confronto CWB-1447</td><td><b>Assinatura química IDÊNTICA</b></td></tr></table><p>Mesmo fornecedor, mesma rede — quatro casos, um arsenal.</p>",
+    "DOC304": "<div class=\"cipher\">ROTEIRO DA NOITE — v. FINAL<br>Lote 76 · Lote 77: <b>BLECAUTE CÊNICO 90s</b> (adicionado na véspera)</div><p>Nenhum leilão precisa de escuridão. Este precisou.</p>",
+    "DOC305": "<p>Registro do cerimonial, 16:12:</p><blockquote>\"A Sra. Sarti pediu para revisar pessoalmente a cadeira do palco. Recusou ajuda da equipe. Durou onze minutos.\"</blockquote>",
+    "DOC306": "<table class=\"manifest\"><tr><th>Vínculo</th><th>Caso</th></tr><tr><td>Sócia oculta — Bandeira Urbanismo</td><td>CWB-1447</td></tr><tr><td>Instituidora — Fundação Pinhal</td><td>SRR-0904</td></tr><tr><td>Visitas ao Fórum na semana do apagão</td><td>ECL-2112</td></tr></table><p class=\"muted\">Sempre a um passo — e um advogado — de distância.</p>",
+    "DOC307": "<p><b>COLUNA SOCIAL — BIBI MORAES</b></p><blockquote>\"Helena Sarti coleciona arte, relógios e — dizem os maldosos — favores. Sua lista de convidados vale mais que muitos cofres.\"</blockquote>",
+    "DOC310": "<p><b>CHECKLIST DO JÚRI</b></p><table class=\"manifest\"><tr><th>Item</th><th>Status</th></tr><tr><td>4 evidências analisadas</td><td>—</td></tr><tr><td>Contradição registrada</td><td>—</td></tr><tr><td>Linha do tempo validada</td><td>—</td></tr><tr><td>4 códigos dos dossiês</td><td>—</td></tr></table>"
   },
   "deduction": {
     "factors": {
@@ -1093,5 +1181,37 @@
       "Estrangulamento no palco",
       "Mal súbito natural"
     ]
-  }
+  },
+  "opening_cinematic": "CIN301",
+  "victim_dossier": {
+    "resumo": "Gustavo Braga, leiloeiro de elite, colapsou no martelo final do lote 77 — 28 minutos depois de uma agulha oca disparar do encosto da cadeira, durante o blecaute cênico. Cobrava um acerto final da anfitriã.",
+    "ligacoes": [
+      "Lote 77",
+      "Blecaute cênico",
+      "Acerto final com H.",
+      "Leilões fechados da rede"
+    ]
+  },
+  "organizations": [
+    {
+      "icone": "🏰",
+      "nome": "Casa Sarti",
+      "desc": "Anfitriã do leilão beneficente do Batel."
+    },
+    {
+      "icone": "🔨",
+      "nome": "Leilões Braga",
+      "desc": "Casa de leilões da vítima — vitrine das peças da rede."
+    },
+    {
+      "icone": "⛪",
+      "nome": "Obras do Padre Inácio",
+      "desc": "Beneficiária oficial da noite."
+    },
+    {
+      "icone": "🕸",
+      "nome": "Rede MUSEU",
+      "desc": "JARDINEIRO paga, MAQUINISTA executa, RODAS transporta. MUSEU assina."
+    }
+  ]
 }

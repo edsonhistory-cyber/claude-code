@@ -429,6 +429,136 @@
       "id": "P407",
       "seed": 4507,
       "prompt": "33 year old lighting technician, dark beanie, black t-shirt, coiled cable over the shoulder, quiet observant look"
+    },
+    {
+      "id": "P021",
+      "seed": 4521,
+      "prompt": "52 year old Brazilian woman police chief detective, tailored dark blazer, badge on lanyard, short professional haircut, commanding intelligent gaze"
+    },
+    {
+      "id": "P022",
+      "seed": 4522,
+      "prompt": "38 year old Brazilian military police lieutenant, beige field uniform and beret, upright posture, dutiful serious face"
+    },
+    {
+      "id": "P023",
+      "seed": 4523,
+      "prompt": "31 year old Brazilian woman tour guide, yellow polo uniform with lanyard, ponytail, warm attentive smile"
+    },
+    {
+      "id": "P024",
+      "seed": 4524,
+      "prompt": "58 year old Brazilian street coffee vendor, apron over sweater, flat cap, weathered friendly face"
+    },
+    {
+      "id": "P025",
+      "seed": 4525,
+      "prompt": "47 year old Brazilian forensic pathologist, white lab coat, surgical mask lowered to the neck, tired precise eyes"
+    },
+    {
+      "id": "P026",
+      "seed": 4526,
+      "prompt": "41 year old Brazilian investigative reporter, rolled sleeves shirt, lanyard press badge, pen behind the ear"
+    },
+    {
+      "id": "P121",
+      "seed": 4527,
+      "prompt": "55 year old woman chef of a train dining car, white chef jacket and neckerchief, hair in a net, sharp memory in the eyes"
+    },
+    {
+      "id": "P122",
+      "seed": 4528,
+      "prompt": "44 year old railway brakeman, navy coveralls, heavy gloves tucked in belt, lantern in hand"
+    },
+    {
+      "id": "P123",
+      "seed": 4529,
+      "prompt": "63 year old German tourist, rain jacket, camera with big lens on the neck, curious expression"
+    },
+    {
+      "id": "P124",
+      "seed": 4530,
+      "prompt": "57 year old Brazilian small-town police chief, gray suit slightly worn, mustache, calm authority"
+    },
+    {
+      "id": "P125",
+      "seed": 4531,
+      "prompt": "49 year old woman railway ticket clerk, cardigan over uniform blouse, reading glasses on a chain"
+    },
+    {
+      "id": "P221",
+      "seed": 4532,
+      "prompt": "66 year old Brazilian appeals judge, black robe, silver hair, stern deep-set eyes"
+    },
+    {
+      "id": "P222",
+      "seed": 4533,
+      "prompt": "61 year old Brazilian cleaning lady, teal work uniform, hair kerchief, kind knowing face"
+    },
+    {
+      "id": "P223",
+      "seed": 4534,
+      "prompt": "24 year old IT intern, hoodie under blazer, glasses, energy drink stance, nervous smile"
+    },
+    {
+      "id": "P224",
+      "seed": 4535,
+      "prompt": "45 year old Brazilian woman defense attorney, sharp burgundy suit, sleek hair, calculating stare"
+    },
+    {
+      "id": "P225",
+      "seed": 4536,
+      "prompt": "53 year old chief of courthouse security, dark uniform with insignia, buzz cut, square jaw"
+    },
+    {
+      "id": "P321",
+      "seed": 4537,
+      "prompt": "35 year old Brazilian barman, black vest and bow tie, towel over the shoulder, observant smirk"
+    },
+    {
+      "id": "P322",
+      "seed": 4538,
+      "prompt": "50 year old chef in white double-breasted jacket, toque, flour-dusted forearms crossed"
+    },
+    {
+      "id": "P323",
+      "seed": 4539,
+      "prompt": "42 year old private security guard, black suit, earpiece coil, broad shoulders, watchful eyes"
+    },
+    {
+      "id": "P324",
+      "seed": 4540,
+      "prompt": "59 year old art dealer, velvet jacket, silk scarf, thin mustache, appraising gaze"
+    },
+    {
+      "id": "P325",
+      "seed": 4541,
+      "prompt": "46 year old woman society columnist, cocktail dress, statement glasses, compact camera in gloved hand"
+    },
+    {
+      "id": "P421",
+      "seed": 4542,
+      "prompt": "29 year old woman theater makeup artist, brush belt, apron with stains, hair bun with pencil, focused eyes"
+    },
+    {
+      "id": "P422",
+      "seed": 4543,
+      "prompt": "68 year old theater prompter, cardigan, reading glasses low on the nose, worn script under the arm"
+    },
+    {
+      "id": "P423",
+      "seed": 4544,
+      "prompt": "40 year old woman executive producer, black blazer, phone in hand, headset earring, pragmatic look"
+    },
+    {
+      "id": "P424",
+      "seed": 4545,
+      "prompt": "54 year old theater critic, tweed jacket with bow tie, notebook and fountain pen, skeptical raised eyebrow"
+    },
+    {
+      "id": "P425",
+      "seed": 4546,
+      "prompt": "64 year old stage door keeper, gray work coat, keyring on the belt, gentle vigilant face"
     }
   ],
   "object_style": "photorealistic forensic evidence photograph, object on dark gray evidence table next to a small yellow numbered marker, soft studio light, shallow depth of field, police documentation style, extremely detailed, no text overlay, no watermark",

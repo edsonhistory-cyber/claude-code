@@ -39,6 +39,26 @@
           "unlock_if": [
             "DOC405"
           ]
+        },
+        "texto": {
+          "question": "Como nasceu o texto de 'O Último Ato'?",
+          "answers": [
+            {
+              "id": "M10",
+              "text": "Vinte anos de gaveta. Escrevi entre montagens, em guardanapos, em quartos de hotel.",
+              "truth": "falso",
+              "stress": "+20"
+            },
+            {
+              "id": "M11",
+              "text": "Inspiração não se explica, detetive. Se explicasse, todo crítico seria dramaturgo.",
+              "truth": "parcial",
+              "stress": "+10"
+            }
+          ],
+          "unlock_if": [
+            "DOC407"
+          ]
         }
       }
     },
@@ -58,6 +78,16 @@
           "unlock_if": [
             "DOC404"
           ]
+        },
+        "vara7": {
+          "question": "Quem mexeu na vara 7 depois da manutenção?",
+          "answers": [
+            {
+              "id": "L10",
+              "text": "Oficialmente, ninguém. Mas o contrapeso estava 2 cm fora da marca de giz quando montei a noite. Anotei também.",
+              "truth": "verdadeiro"
+            }
+          ]
         }
       }
     },
@@ -76,6 +106,19 @@
           ],
           "unlock_if": [
             "DOC403"
+          ]
+        },
+        "coletiva": {
+          "question": "O que Vicente anunciaria na coletiva?",
+          "answers": [
+            {
+              "id": "S10",
+              "text": "'Reparação histórica', ele dizia. Andava com um datiloscrito velho debaixo do braço e o nome de Otelo Ramos na boca.",
+              "truth": "verdadeiro"
+            }
+          ],
+          "unlock_if": [
+            "DOC408"
           ]
         }
       }

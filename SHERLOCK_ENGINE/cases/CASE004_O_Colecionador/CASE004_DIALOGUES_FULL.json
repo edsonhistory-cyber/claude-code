@@ -39,6 +39,26 @@
           "unlock_if": [
             "DOC305"
           ]
+        },
+        "acerto": {
+          "question": "Que 'acerto final' Gustavo cobrava da senhora?",
+          "answers": [
+            {
+              "id": "H10",
+              "text": "Comissões de leilões antigos. Contabilidade, não drama.",
+              "truth": "falso",
+              "stress": "+20"
+            },
+            {
+              "id": "H11",
+              "text": "Gustavo confundia insistência com direito. Um defeito fatal... de caráter.",
+              "truth": "parcial",
+              "stress": "+10"
+            }
+          ],
+          "unlock_if": [
+            "DOC308"
+          ]
         }
       }
     },
@@ -58,6 +78,16 @@
           "unlock_if": [
             "EV304"
           ]
+        },
+        "rivalidade": {
+          "question": "Sua rivalidade com Gustavo era só de lances?",
+          "answers": [
+            {
+              "id": "Y10",
+              "text": "Ele vendia 'proveniências delicadas'. Eu compro história limpa. Perdi lotes; ele perdeu a linha.",
+              "truth": "verdadeiro"
+            }
+          ]
         }
       }
     },
@@ -76,6 +106,19 @@
           ],
           "unlock_if": [
             "DOC304"
+          ]
+        },
+        "onze_minutos": {
+          "question": "O que aconteceu nos onze minutos da revisão da cadeira?",
+          "answers": [
+            {
+              "id": "CE10",
+              "text": "Portas fechadas, equipe dispensada. Anotei porque nunca tinha acontecido em vinte e dois anos.",
+              "truth": "verdadeiro"
+            }
+          ],
+          "unlock_if": [
+            "DOC305"
           ]
         }
       }

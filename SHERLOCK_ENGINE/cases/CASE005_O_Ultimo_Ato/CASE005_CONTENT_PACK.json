@@ -53,6 +53,41 @@
       "nome": "Tito Rocha",
       "papel": "Testemunha",
       "profissao": "Iluminador"
+    },
+    {
+      "id": "P421",
+      "nome": "Bel Nunes",
+      "papel": "Testemunha",
+      "profissao": "Maquiadora",
+      "bio": "Preparava o substituto para o 2º ato. Cronômetro na mão: Caio ficou na cadeira das 20:40 ao pano."
+    },
+    {
+      "id": "P422",
+      "nome": "Seu Ernani",
+      "papel": "Equipe",
+      "profissao": "Ponto da companhia",
+      "bio": "Sopra o texto há 35 anos. Estranhou a deixa do efeito neve fora do compasso — e anotou no caderno de ponto."
+    },
+    {
+      "id": "P423",
+      "nome": "Vivi Costa",
+      "papel": "Outros",
+      "profissao": "Produtora executiva",
+      "bio": "Assinou o seguro do espetáculo. Uma queda acidental custaria menos à produção do que um escândalo de plágio."
+    },
+    {
+      "id": "P424",
+      "nome": "Augusto Wilde",
+      "papel": "Outros",
+      "profissao": "Crítico teatral",
+      "bio": "Na fileira B, tomava notas: o monólogo final tem a assinatura de outro século. Ele desconfiava do texto."
+    },
+    {
+      "id": "P425",
+      "nome": "Sr. Otacílio",
+      "papel": "Testemunha",
+      "profissao": "Porteiro do palco",
+      "bio": "Ninguém entra pela porta de palco sem passar por ele. Naquela tarde, só entrou quem tinha passe — e a direção tinha."
     }
   ],
   "dossiers": {
@@ -263,6 +298,17 @@
           "type": "note",
           "toast": "Ninguém deixou o teatro entre o 3º sinal e a queda — o sabotador assistiu à própria cena."
         }
+      },
+      {
+        "nome": "Sala de imprensa",
+        "desc": "A coletiva que não aconteceu.",
+        "action": {
+          "type": "flag",
+          "flag": "coletiva_vista",
+          "score": 5,
+          "reason": "Pauta da coletiva recuperada",
+          "toast": "A assessoria confirma: Vicente convocara imprensa para as 10h — pauta 'reparação histórica'."
+        }
       }
     ],
     "CMR": [
@@ -285,6 +331,14 @@
           "score": 5,
           "reason": "Álibi do substituto",
           "toast": "A maquiadora confirma: Caio na cadeira das 20:40 às 21:14 — espelho, cronômetro e testemunha."
+        }
+      },
+      {
+        "nome": "Quadro de avisos",
+        "desc": "Recados da companhia.",
+        "action": {
+          "type": "note",
+          "toast": "\"Ensaio geral 14h. Urdimento interditado 16:30–17:00 — manutenção.\" Assinado: direção."
         }
       }
     ],
@@ -439,6 +493,24 @@
       "title": "Perfil — Sônia Aranha",
       "source": "Financeiro (SRC005)",
       "body": "Empresária do marido. O seguro de vida beneficia a filha do casal — e a transmissão a filma na fileira A."
+    },
+    {
+      "match": "lia|menezes|chefe de palco",
+      "title": "Perfil — Lia Menezes",
+      "source": "Registros (SRC002)",
+      "body": "Chefe de palco mais jovem da história do Guaíra. Sua planilha de urdimento é lida como escritura — ninguém contesta um registro de Lia."
+    },
+    {
+      "match": "caio|falcao",
+      "title": "Perfil — Caio Falcão",
+      "source": "Redes (SRC001)",
+      "body": "Substituto há três temporadas. Postou 'um dia o palco será meu' — e apagou. A internet não apagou."
+    },
+    {
+      "match": "guaira|urdimento|vara",
+      "title": "O urdimento do Guaíra",
+      "source": "Técnica (SRC002)",
+      "body": "54 varas de cenário, contrapesos de até 400 kg. O acesso é controlado por passe — e a escada técnica não tem câmera."
     }
   ],
   "interrogatable": [
@@ -465,6 +537,10 @@
     {
       "key": "TITO_ROCHA",
       "pid": "P407"
+    },
+    {
+      "key": "BEL_NUNES",
+      "pid": "P421"
     }
   ],
   "witness_statements": {
@@ -486,6 +562,11 @@
       "intro": "Quarenta anos de urdimento e nunca perdi um pino. Eu estava no bar técnico com o Tito quando ouvi o estalo.",
       "flag": "gregor_alibi",
       "note": "Gregor estava no bar técnico com o iluminador."
+    },
+    "BEL_NUNES": {
+      "intro": "Base, contorno, peruca — 34 minutos de cadeira. O Caio não levantou nem pra alongar. Cronometrado.",
+      "flag": "bel_cronometro",
+      "note": "Bel cronometrou: Caio na maquiagem das 20:40 às 21:14."
     }
   },
   "moods": {
@@ -955,7 +1036,15 @@
   "doc_extras": {
     "DOC408": "<div class=\"cipher\">No fim da carta inacabada:<br><b class=\"mono\">DPDQKD: SODJLR</b></div>",
     "DOC403": "<table class=\"manifest\"><tr><th>Nome</th><th>Função</th><th>Urdimento</th></tr><tr><td>Vicente Aranha</td><td>Ator principal</td><td>—</td></tr><tr><td>Marina Vaz</td><td>Direção</td><td>✔ (passe livre)</td></tr><tr><td>Lia Menezes</td><td>Chefe de palco</td><td>✔</td></tr><tr><td>Gregor Elias</td><td>Maquinista</td><td>✔ (escalado)</td></tr><tr><td>Caio Falcão</td><td>Substituto</td><td>—</td></tr><tr><td>Sônia Aranha</td><td>Plateia</td><td>—</td></tr><tr><td>Tito Rocha</td><td>Iluminador</td><td>— (cabine)</td></tr></table>",
-    "DOC401_speak": "Trauma crânio-encefálico por impacto da vara cênica sete. Morte instantânea, em cena aberta."
+    "DOC401_speak": "Trauma crânio-encefálico por impacto da vara cênica sete. Morte instantânea, em cena aberta.",
+    "DOC401": "<table class=\"manifest\"><tr><th>Exame</th><th>Achado</th></tr><tr><td>Causa mortis</td><td>Trauma crânio-encefálico — impacto da vara 7</td></tr><tr><td>Óbito</td><td>Instantâneo, 21:14, em cena aberta</td></tr><tr><td>Toxicologia</td><td>Negativa — sem sedação prévia</td></tr></table><p class=\"muted\">Assina: IML/PR. A precisão do ponto de queda impressiona até o legista.</p>",
+    "DOC402": "<table class=\"manifest\"><tr><th>Peça</th><th>Achado</th></tr><tr><td>Pino de segurança</td><td>Serrado em 80% da seção</td></tr><tr><td>Fadiga</td><td>Ausente — metal íntegro fora do corte</td></tr><tr><td>Carga de ruptura</td><td>Calculada para o peso do efeito neve</td></tr></table>",
+    "DOC404": "<div class=\"cipher\">ROTEIRO DE DEIXAS — v. ESTREIA<br>Cena 12: <s>EFEITO NEVE</s> → <b>MONÓLOGO FINAL: EFEITO NEVE (vara 7)</b><br><span class=\"muted\">alteração a caneta, rubrica da direção</span></div>",
+    "DOC405": "<p>Registro da chefe de palco, 16:38:</p><blockquote>\"Direção pediu o urdimento vazio às 16:40 — revisão particular, sem técnicos. Autorizei contra o protocolo. Registro para constar.\"</blockquote><p class=\"muted\">Lia anota tudo. Inclusive o que a incrimina de excesso de confiança.</p>",
+    "DOC406": "<table class=\"manifest\"><tr><th>Registro</th><th>Detalhe</th></tr><tr><td>Direitos autorais</td><td>'O Último Ato' registrado em nome próprio</td></tr><tr><td>Produtora</td><td>Dívidas quitadas após o prêmio</td></tr><tr><td>Processo pendente</td><td>Nenhum — até a coletiva que não houve</td></tr></table>",
+    "DOC407": "<p><b>CADERNO DE CULTURA — AUGUSTO WILDE</b></p><blockquote>\"O texto que consagrou Marina Vaz nasceu pronto. Ninguém viu rascunho, ninguém viu processo. No teatro, chamamos isso de milagre. Fora dele, tem outro nome.\"</blockquote>",
+    "DOC409": "<div class=\"cipher\">DATILOSCRITO — 1987 · OTELO RAMOS<br>\"O ÚLTIMO ATO\" — 3 atos, 7 quadros</div><p>Cenas, falas e título coincidem com a peça premiada. No arquivo do teatro desde 1989, catalogado e esquecido — até Vicente encontrá-lo.</p>",
+    "DOC410": "<p><b>CHECKLIST DO JÚRI</b></p><table class=\"manifest\"><tr><th>Item</th><th>Status</th></tr><tr><td>4 evidências analisadas</td><td>—</td></tr><tr><td>Contradição registrada</td><td>—</td></tr><tr><td>Linha do tempo validada</td><td>—</td></tr><tr><td>4 códigos dos dossiês</td><td>—</td></tr></table>"
   },
   "deduction": {
     "factors": {
@@ -1120,5 +1209,38 @@
       "Queda acidental por fadiga do material",
       "Estrangulamento entre bastidores"
     ]
-  }
+  },
+  "opening_cinematic": "CIN401",
+  "victim_dossier": {
+    "resumo": "Vicente Aranha, primeiro ator, morto em cena aberta pela queda da vara cênica 7 no monólogo final da estreia. Marcara coletiva para a manhã seguinte: amanhã, tudo vem à luz. No camarim, uma carta cifrada ao espólio de um dramaturgo morto.",
+    "ligacoes": [
+      "Vara 7",
+      "Coletiva marcada",
+      "Carta cifrada",
+      "Original de 1987",
+      "Direitos do texto"
+    ]
+  },
+  "organizations": [
+    {
+      "icone": "🎭",
+      "nome": "Cia. do Último Ato",
+      "desc": "Produtora do espetáculo — direção de Marina Vaz."
+    },
+    {
+      "icone": "🏛",
+      "nome": "Teatro Guaíra",
+      "desc": "Palco da estreia; cede equipe técnica e urdimento."
+    },
+    {
+      "icone": "📜",
+      "nome": "Espólio Otelo Ramos",
+      "desc": "Herdeiros do dramaturgo morto em 2019 — nunca viram o último texto."
+    },
+    {
+      "icone": "📰",
+      "nome": "Imprensa cultural",
+      "desc": "A coletiva marcada por Vicente nunca aconteceu."
+    }
+  ]
 }
