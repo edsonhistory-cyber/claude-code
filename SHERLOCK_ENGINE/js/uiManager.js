@@ -190,19 +190,27 @@ export function renderIntegrityBadge(report) {
 
 // ── LOGIN ────────────────────────────────────────────────────────────────────
 export function renderLogin(caseInfo) {
-  const root = el('div', 'screen login-screen');
+  const root = el('div', 'screen login-screen login-intro');
   // capa do jogo: o ônibus da Linha Turismo em tela cheia (foto real quando
   // baixada; ilustração SVG como fallback) com véu escuro para leitura
   const hero = el('div', 'login-hero');
   hero.innerHTML = sceneMedia('ônibus');
   hero.setAttribute('aria-hidden', 'true');
   root.append(hero);
+  // tratamento noir: grão de filme + linha de varredura ciano
+  const grain = el('div', 'login-grain');
+  grain.setAttribute('aria-hidden', 'true');
+  root.append(grain);
+  const scan = el('div', 'login-scan');
+  scan.setAttribute('aria-hidden', 'true');
+  root.append(scan);
   const panel = el('div', 'panel login-panel');
   // selo: a araucária em petit-pavé (mosaico real do calçadão de Curitiba)
   const emblema = el('div', 'login-emblema');
   emblema.setAttribute('aria-hidden', 'true');
   panel.append(emblema);
   panel.append(el('div', 'login-logo', 'SHERLOCK<span>ENGINE</span>'));
+  panel.append(el('div', 'login-tagline', 'UM MISTÉRIO EM CURITIBA'));
   panel.append(el('div', 'login-case', `CASO ${caseInfo?.id ?? ''} · ${t('APP_TITLE')}`));
   const user = el('input', 'input');
   user.placeholder = 'Detetive';
@@ -221,6 +229,11 @@ export function renderLogin(caseInfo) {
   pass.addEventListener('keydown', (e) => e.key === 'Enter' && btn.click());
   user.addEventListener('keydown', (e) => e.key === 'Enter' && btn.click());
   panel.append(user, pass, btn, status);
+  // rodapé: selo do caso com o Cavalo Babão (Fonte do Largo da Ordem, Curitiba)
+  const selo = el('div', 'login-selo');
+  selo.setAttribute('aria-hidden', 'true');
+  selo.innerHTML = '<span class="login-selo-mark"></span><span class="login-selo-txt">DIVISÃO DE INVESTIGAÇÃO · CURITIBA</span>';
+  panel.append(selo);
   root.append(panel);
   show(root);
   user.focus();
