@@ -22,8 +22,14 @@ export function render() {
     { id: 'ACH004', name: 'Detetive de Elite', ok: rank === 'Detetive de Elite' },
   ];
 
+  // clima noir na tela de encerramento: grão + vinheta
+  const grain = el('div', 'result-grain');
+  grain.setAttribute('aria-hidden', 'true');
+  body.append(grain);
+
   const box = el('div', 'panel result-panel');
   box.innerHTML = `
+    <div class="result-carimbo cwb-selo cwb-selo--cavalo" aria-hidden="true"><span>CASO<br>ENCERRADO</span></div>
     <div class="result-rank">${rank.toUpperCase()}</div>
     <div class="result-score mono">★ ${s.score} PONTOS</div>
     <div class="result-stats">

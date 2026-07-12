@@ -240,6 +240,7 @@ await page.click('.btn:has-text("VER RESULTADO")');
 await page.waitForSelector('.result-panel', { timeout: 5000 });
 const rank = await page.textContent('.result-rank');
 const score = await page.textContent('.result-score');
+await page.waitForTimeout(1400); // deixa a entrada assentar antes do print
 await page.screenshot({ path: 'shot_resultado.png' });
 await page.click('.btn:has-text("CRÉDITOS")');
 await page.waitForSelector('.credits');

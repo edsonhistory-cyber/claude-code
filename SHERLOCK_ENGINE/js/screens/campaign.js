@@ -33,6 +33,9 @@ export function render(player) {
     <div class="career-xpbar"><div style="width:${info.nextRankXp ? Math.min(100, (info.xp / info.nextRankXp) * 100) : 100}%"></div></div>
     <div class="career-rep">${Object.entries(career.reputation).map(([axis, v]) => `
       <div class="rep-axis"><span>${axis}</span><div class="stress-bar"><div class="stress-fill" style="width:${v}%"></div></div><span class="mono">${v}</span></div>`).join('')}</div>`;
+  const selo = el('span', 'career-selo cwb-selo cwb-selo--araucaria');
+  selo.setAttribute('aria-hidden', 'true');
+  head.append(selo);
   const resetC = el('button', 'btn btn-ghost career-reset', '⟳ Reiniciar campanha');
   resetC.onclick = () => modal('Reiniciar campanha?',
     'Isto apaga <b>toda a carreira</b> — XP, patente, conquistas, reputação e o progresso dos casos. Não dá para desfazer. Confirmar?',
@@ -60,8 +63,13 @@ export function render(player) {
 
   // ── sala de troféus + fio da história ──
   const bottom = el('div', 'two-col');
+  const seloTitle = (variant, text) => {
+    const h = el('h2', 'panel-title cwb-title');
+    h.innerHTML = `<span class="cwb-selo cwb-selo--${variant} title-selo" aria-hidden="true"></span>${text}`;
+    return h;
+  };
   const trophies = el('section', 'panel list-panel');
-  trophies.append(el('h2', 'panel-title', '🏆 SALA DE TROFÉUS'));
+  trophies.append(seloTitle('araucaria', 'SALA DE TROFÉUS'));
   const all = getModule('SHERLOCK_ENGINE_ACHIEVEMENTS_AND_CAREER')?.achievements || [];
   const row = el('div', 'trophy-row');
   for (const a of all) {
@@ -76,7 +84,7 @@ export function render(player) {
   }
 
   const story = el('section', 'panel list-panel');
-  story.append(el('h2', 'panel-title', '🕸 FIOS DA HISTÓRIA'));
+  story.append(seloTitle('cavalo', 'FIOS DA HISTÓRIA'));
   story.append(el('p', 'muted', `Antagonista: ${camp?.global_story?.main_antagonist ?? '—'}. Cada caso puxa um fio:`));
   const threads = el('div', 'trophy-row');
   for (const t of camp?.global_story?.threads || []) threads.append(el('span', 'row-tag', t));

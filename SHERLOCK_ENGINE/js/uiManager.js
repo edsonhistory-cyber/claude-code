@@ -157,8 +157,16 @@ export function screenShell(title, breadcrumb, accent) {
 
 // ── BOOT ─────────────────────────────────────────────────────────────────────
 export function renderBoot() {
-  const root = el('div', 'screen boot-screen');
+  const root = el('div', 'screen boot-screen boot-intro');
+  const grain = el('div', 'login-grain');
+  grain.setAttribute('aria-hidden', 'true');
+  root.append(grain);
+  // brasão de abertura: a araucária (selo em duotone) surgindo
+  const emblema = el('div', 'boot-emblema cwb-selo cwb-selo--araucaria');
+  emblema.setAttribute('aria-hidden', 'true');
+  root.append(emblema);
   root.append(el('div', 'boot-logo', 'SHERLOCK<span>ENGINE</span>'));
+  root.append(el('div', 'boot-tagline', 'CURITIBA · PARANÁ'));
   const log = el('div', 'boot-log');
   log.id = 'boot-log';
   const barWrap = el('div', 'boot-progress');
@@ -232,7 +240,7 @@ export function renderLogin(caseInfo) {
   // rodapé: selo do caso com o Cavalo Babão (Fonte do Largo da Ordem, Curitiba)
   const selo = el('div', 'login-selo');
   selo.setAttribute('aria-hidden', 'true');
-  selo.innerHTML = '<span class="login-selo-mark"></span><span class="login-selo-txt">DIVISÃO DE INVESTIGAÇÃO · CURITIBA</span>';
+  selo.innerHTML = '<span class="login-selo-mark cwb-selo cwb-selo--cavalo"></span><span class="login-selo-txt">DIVISÃO DE INVESTIGAÇÃO · CURITIBA</span>';
   panel.append(selo);
   root.append(panel);
   show(root);
