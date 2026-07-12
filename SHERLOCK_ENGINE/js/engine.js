@@ -173,9 +173,14 @@ events.subscribe('UI_RESET_CASE', () => {
   resetCase();               // zera o estado em memória
   engine.save = save.loadGame();
   engine.save.profile.player_name = engine.player;
-  const cin = getPack().opening_cinematic;
-  const enter = () => { setState('CENTRAL'); save.saveGame({ ...engine.save, case: getCase() }); };
-  getPack().briefing ? playBriefing(enter) : (cin ? playCinematic(cin, enter) : enter());
+  // reiniciar NÃO reabre o briefing — vai direto para a Central de Operações
+  setState('CENTRAL');
+  save.saveGame({ ...engine.save, case: getCase() });
+});
+
+// briefing sob demanda (botão 📋 no topo): mostra e volta à tela atual
+events.subscribe('UI_BRIEFING', () => {
+  if (getPack().briefing) playBriefing(() => render());
 });
 events.subscribe('UI_RESET_CAMPAIGN', () => {
   campaign.resetCareer();    // zera XP/patente/conquistas/histórico

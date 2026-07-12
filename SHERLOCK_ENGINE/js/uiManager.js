@@ -138,9 +138,12 @@ export function screenShell(title, breadcrumb, accent) {
     <span class="hud-item hud-score" title="Pontuação">★ <b id="hud-score">${s.score}</b></span>`;
   const nav = el('div', 'screen-nav');
   const ariaBtn = el('button', 'btn btn-ghost', '◈ G.R.A.L.H.A.');
-  ariaBtn.onclick = () => { showAria('Em que posso ajudar, detetive?'); sfx('radio_beep'); };
+  ariaBtn.onclick = () => { showAria('E aí, detetive, em que que eu te ajudo?'); sfx('radio_beep'); };
   const mute = el('button', 'btn btn-ghost', isMuted() ? '🔇' : '🔊');
   mute.onclick = () => { mute.innerHTML = toggleMute() ? '🔇' : '🔊'; };
+  const brief = el('button', 'btn btn-ghost', '📋 Caso');
+  brief.title = 'Rever o briefing (a história e como proceder)';
+  brief.onclick = () => { sfx('paper_flip'); emit('UI_BRIEFING', {}); };
   const back = el('button', 'btn btn-ghost', '← Voltar');
   back.onclick = () => { sfx('click'); emit('UI_BACK', {}); };
   const home = el('button', 'btn btn-ghost', '⌂ Central');
@@ -148,11 +151,11 @@ export function screenShell(title, breadcrumb, accent) {
   const reset = el('button', 'btn btn-ghost', '⟳ Reiniciar');
   reset.title = 'Recomeçar este caso do zero';
   reset.onclick = () => {
-    modal('Reiniciar caso?', 'Isto apaga todo o progresso <b>deste caso</b> (evidências, laudos, códigos e pontuação) e recomeça da cena do crime. A sua carreira é mantida. Confirmar?', [
+    modal('Reiniciar caso?', 'Isto apaga todo o progresso <b>deste caso</b> (evidências, laudos, códigos e pontuação) e recomeça do zero na Central de Operações. A sua carreira é mantida. O briefing não reaparece — use 📋 Caso quando quiser revê-lo. Confirmar?', [
       { label: '⟳ Recomeçar do zero', primary: true, onClick: () => emit('UI_RESET_CASE', {}) },
     ]);
   };
-  nav.append(ariaBtn, mute, reset, back, home);
+  nav.append(ariaBtn, mute, brief, reset, back, home);
   header.append(hud, nav);
   const body = el('main', 'screen-body');
   root.append(header, body);

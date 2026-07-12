@@ -31,6 +31,7 @@ export function render(player) {
     <div class="career-rank"><span class="career-badge">🎖</span>
       <div><b>${info.rank.toUpperCase()}</b><span class="muted">nível ${info.level} · ${nextTxt}</span></div></div>
     <div class="career-xpbar"><div style="width:${info.nextRankXp ? Math.min(100, (info.xp / info.nextRankXp) * 100) : 100}%"></div></div>
+    <div class="career-rep-cap muted">Reputação com cada praça (0–100). Você começa <b>neutro em 50</b> — sobe ou desce conforme suas escolhas na investigação.</div>
     <div class="career-rep">${Object.entries(career.reputation).map(([axis, v]) => `
       <div class="rep-axis"><span>${axis}</span><div class="stress-bar"><div class="stress-fill" style="width:${v}%"></div></div><span class="mono">${v}</span></div>`).join('')}</div>`;
   const selo = el('span', 'career-selo cwb-selo cwb-selo--araucaria');

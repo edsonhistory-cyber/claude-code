@@ -371,10 +371,6 @@ export function crimeScene(place = '') {
     <rect x="-40" y="-9" width="480" height="18" fill="none"/>
     <text x="200" y="5" font-family="monospace" font-size="11" font-weight="bold" fill="#1a1204" text-anchor="middle" letter-spacing="3">◄ NÃO ULTRAPASSE · CENA DO CRIME · NÃO ULTRAPASSE ►</text>
   </g>`;
-  const person = (x, s, color, head = '#caa') => `<g transform="translate(${x} 150) scale(${s})">
-    <ellipse cx="0" cy="46" rx="16" ry="5" fill="rgba(0,0,0,.35)"/>
-    <rect x="-11" y="0" width="22" height="40" rx="9" fill="${color}"/>
-    <circle cx="0" cy="-8" r="8" fill="${head}"/></g>`;
   const overlay = `
     <rect width="400" height="240" fill="rgba(6,8,16,.55)"/>
     <!-- giz do corpo + lençol -->
@@ -388,11 +384,6 @@ export function crimeScene(place = '') {
       <rect x="96" y="150" width="13" height="16" fill="#f4c020"/><text x="102" y="162" text-anchor="middle">1</text>
       <rect x="212" y="182" width="13" height="16" fill="#f4c020"/><text x="218" y="194" text-anchor="middle">2</text>
     </g>
-    ${person(300, 1.15, '#22364a', '#caa27a')}  <!-- detetive (sobretudo) -->
-    ${person(340, 1.0, '#2f6b46', '#b98a5e')}   <!-- perito -->
-    ${person(60, .95, '#4a4a56', '#caa27a')}    <!-- policial -->
-    ${person(28, .8, '#6a2f3a', '#caa27a')}     <!-- repórter -->
-    ${person(372, .78, '#3a3f57', '#b98a5e')}   <!-- curioso -->
     <circle cx="300" cy="128" r="4" fill="#f43f5e"><animate attributeName="opacity" values="1;.2;1" dur="1.4s" repeatCount="indefinite"/></circle>
     ${tape(70, -4)}
     ${tape(206, 3)}`;

@@ -16,22 +16,22 @@
     {
       "id": "WELCOME",
       "trigger": "inicio",
-      "message": "Bem-vindo, detetive. Todos os módulos foram carregados."
+      "message": "Bem-vindo, detetive. Aqui é a Gralha — que nem o passarinho que planta as araucárias enterrando os pinhões, eu vou semeando as pistas pra ti. Daí, todos os módulos já estão carregados."
     },
     {
       "id": "NEW_EVIDENCE",
       "trigger": "nova_evidencia",
-      "message": "Uma nova evidência foi registrada no banco de dados."
+      "message": "Ó, detetive: entrou uma evidência nova no banco de dados. Dá uma olhada, daí."
     },
     {
       "id": "STALLED",
       "trigger": "10_min_sem_progresso",
-      "message": "Sugestão: compare os horários da linha do tempo com os depoimentos."
+      "message": "Uma luz, daí: compara os horários da linha do tempo com os depoimentos — capaz que não fecha."
     },
     {
       "id": "READY_FOR_JURY",
       "trigger": "cofre_aberto",
-      "message": "Todos os requisitos foram atendidos. A Sala do Júri está disponível."
+      "message": "Prontinho, detetive: tudo bateu certinho. A Sala do Júri já tá liberada."
     }
   ],
   "hint_engine": {

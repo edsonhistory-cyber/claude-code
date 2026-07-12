@@ -865,3 +865,5 @@ a.btn { text-decoration: none; display: inline-block; text-align: center; }
 .credits-dev { display: flex; flex-direction: column; gap: 3px; margin: 6px auto 2px; }
 .credits-dev span { font-family: var(--font-mono); font-size: .68rem; letter-spacing: .3em; text-indent: .3em; color: color-mix(in srgb, var(--accent) 80%, white); }
 .credits-dev b { font-family: var(--font-display); font-size: 1.24rem; letter-spacing: .1em; color: var(--warning); }
+
+.career-rep-cap { font-size: .72rem; line-height: 1.45; margin: 4px 0 9px; opacity: .85; }
