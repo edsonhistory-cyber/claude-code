@@ -3,7 +3,7 @@
  * shots viram cartelas com Ken Burns em cenários SVG procedurais. Sempre pulável.
  */
 import { getModule } from './database.js';
-import { speak, sfx } from './audioManager.js';
+import { speak, sfx, stopSpeaking } from './audioManager.js';
 import { sceneMedia } from './art.js';
 
 let playing = false;
@@ -43,6 +43,7 @@ export function playCinematic(id, onEnd = () => {}) {
 
   function end() {
     clearTimeout(timer);
+    stopSpeaking();  // corta o voiceover ao pular/terminar
     overlay.classList.add('cine-out');
     setTimeout(() => { overlay.remove(); playing = false; onEnd(); }, 400);
   }

@@ -80,7 +80,13 @@ export function render() {
   }
   const pinBtn = el('button', 'btn btn-ghost', '📌 Fixar suspeito');
   pinBtn.onclick = () => openSuspectPicker(s);
-  tools.append(yarnBtn, addPostit, swatches, pinBtn);
+  // upload de imagem (arquivo) — reduzida e salva no quadro
+  const imgBtn = el('button', 'btn btn-ghost', '🖼 Imagem');
+  const fileIn = el('input', 'hidden-file'); fileIn.type = 'file'; fileIn.accept = 'image/*';
+  fileIn.onchange = () => { if (fileIn.files[0]) addPhoto(s, fileIn.files[0]); fileIn.value = ''; };
+  imgBtn.onclick = () => fileIn.click();
+  imgBtn.title = 'Carregar um print/foto (fica pequeno no quadro)';
+  tools.append(yarnBtn, addPostit, swatches, imgBtn, pinBtn, fileIn);
   linkPanel.append(tools);
 
   // posição default (grade) para nós ainda sem posição salva
@@ -159,6 +165,26 @@ export function render() {
     board.append(note);
   });
 
+  // fotos/prints carregados pelo jogador
+  (s.muralPhotos || []).forEach((ph) => {
+    const item = el('div', 'board-item board-photo');
+    item.style.left = `${ph.x}%`; item.style.top = `${ph.y}%`;
+    item.innerHTML = `<img src="${ph.src}" alt="foto do quadro">`;
+    const del = el('button', 'postit-del', '×');
+    del.onpointerdown = (e) => e.stopPropagation();
+    del.onclick = () => { s.muralPhotos = s.muralPhotos.filter((p) => p.id !== ph.id); sfx('click'); render(); };
+    item.append(del);
+    makeDraggable(item, board, (nx, ny) => { ph.x = nx; ph.y = ny; });
+    board.append(item);
+  });
+
+  // colar imagem (Ctrl+V) diretamente no quadro
+  board.onpaste = (e) => {
+    const it = [...(e.clipboardData?.items || [])].find((x) => x.type.startsWith('image/'));
+    if (it) { addPhoto(s, it.getAsFile()); e.preventDefault(); }
+  };
+  board.tabIndex = 0; // recebe foco p/ o paste
+
   linkPanel.append(board);
   if (s.muralLinks.length) {
     const done = el('div', 'mural-links');
@@ -199,6 +225,27 @@ function makeDraggable(elem, board, onMove, onClick) {
       onMove?.(nx, ny);
     } else onClick?.();
   };
+}
+
+// Reduz a imagem (máx. 200px) e a guarda como data URL no quadro — mantém o
+// save leve mesmo com prints grandes.
+function addPhoto(s, file) {
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    const img = new Image();
+    img.onload = () => {
+      const max = 200, scale = Math.min(1, max / Math.max(img.width, img.height));
+      const cv = document.createElement('canvas');
+      cv.width = Math.round(img.width * scale); cv.height = Math.round(img.height * scale);
+      cv.getContext('2d').drawImage(img, 0, 0, cv.width, cv.height);
+      const src = cv.toDataURL('image/jpeg', 0.72);
+      s.muralPhotos.push({ id: `ph${Date.now() % 1e7}`, x: 42, y: 40, src });
+      sfx('camera_shutter'); render();
+    };
+    img.src = reader.result;
+  };
+  reader.readAsDataURL(file);
 }
 
 function openSuspectPicker(s) {

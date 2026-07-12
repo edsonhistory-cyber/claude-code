@@ -117,29 +117,46 @@ export function stopAmbience() {
 // mais de uma). Cai para qualquer voz pt e, por fim, a padrão.
 const FEMALE_HINTS = /female|mulher|maria|luciana|francisca|joana|ana|helena|fem|zira|google.*(feminin|female)/i;
 const MALE_HINTS = /male|homem|felipe|daniel|ricardo|joão|joao|antonio|masc|google.*(male|masculin)/i;
+// vozes mais naturais primeiro (quando o SO oferece)
+const NATURAL_HINTS = /natural|neural|google|luciana|vitória|vitoria|francisca|helena|premium|enhanced/i;
 function pickVoice(gender) {
   const vs = ('speechSynthesis' in window ? speechSynthesis.getVoices() : []) || [];
   const pt = vs.filter((v) => v.lang?.toLowerCase().startsWith('pt'));
   if (!pt.length) return null;
-  if (gender === 'f') return pt.find((v) => FEMALE_HINTS.test(v.name)) || pt.find((v) => !MALE_HINTS.test(v.name)) || pt[0];
-  if (gender === 'm') return pt.find((v) => MALE_HINTS.test(v.name)) || pt.find((v) => !FEMALE_HINTS.test(v.name)) || pt[0];
-  return pt[0];
+  const byGender = gender === 'f'
+    ? pt.filter((v) => FEMALE_HINTS.test(v.name) || !MALE_HINTS.test(v.name))
+    : gender === 'm'
+      ? pt.filter((v) => MALE_HINTS.test(v.name) || !FEMALE_HINTS.test(v.name))
+      : pt;
+  const pool = byGender.length ? byGender : pt;
+  return pool.find((v) => NATURAL_HINTS.test(v.name)) || pool[0]; // prefere voz natural
+}
+
+export function stopSpeaking() {
+  if ('speechSynthesis' in window) speechSynthesis.cancel();
 }
 
 export function speak(text, { rate = 1.0, pitch = 1.0, gender = null } = {}) {
   if (!ttsEnabled || muted || !('speechSynthesis' in window)) return;
-  const u = new SpeechSynthesisUtterance(text);
-  u.lang = 'pt-BR';
-  // se não há voz específica do sexo, distinguimos pelo tom (pitch) também
-  if (gender === 'f') pitch = Math.min(2, pitch * 1.18);
-  else if (gender === 'm') pitch = Math.max(0, pitch * 0.82);
-  u.rate = rate;
-  u.pitch = pitch;
-  u.volume = mix().voice_volume ?? 0.9;
-  const voice = pickVoice(gender);
-  if (voice) u.voice = voice;
   speechSynthesis.cancel();
-  speechSynthesis.speak(u);
+  // tom por sexo quando não há voz dedicada; leve suavização geral (menos robótico)
+  if (gender === 'f') pitch = Math.min(2, pitch * 1.12);
+  else if (gender === 'm') pitch = Math.max(0, pitch * 0.86);
+  const voice = pickVoice(gender);
+  const vol = mix().voice_volume ?? 0.9;
+  // fala frase a frase, com micro-pausas — cadência mais humana e fluida
+  const parts = String(text).replace(/\s+/g, ' ').match(/[^.!?…]+[.!?…]*/g) || [text];
+  for (const raw of parts) {
+    const sentence = raw.trim();
+    if (!sentence) continue;
+    const u = new SpeechSynthesisUtterance(sentence);
+    u.lang = 'pt-BR';
+    u.rate = rate * 0.97;   // um tico mais devagar soa mais natural
+    u.pitch = pitch;
+    u.volume = vol;
+    if (voice) u.voice = voice;
+    speechSynthesis.speak(u);
+  }
 }
 
 export function toggleMute() {

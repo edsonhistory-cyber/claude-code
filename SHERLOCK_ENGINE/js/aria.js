@@ -15,7 +15,7 @@ function cfg() { return getModule('SHERLOCK_ENGINE_AI') || {}; }
 
 export function ariaSay(text, { voice = true } = {}) {
   emit('UI_ARIA', { text });
-  if (voice) speak(text, { rate: 1.05, pitch: 1.1 });
+  if (voice) speak(text, { rate: 0.98, pitch: 1.04, gender: 'f' }); // assistente com voz feminina fluida
 }
 
 /** Mensagens contextuais (context_rules) conforme progresso real. */

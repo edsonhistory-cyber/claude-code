@@ -50,6 +50,7 @@ const EMPTY = () => ({
   muralPos: {},         // id do nó -> {x,y} em % (arraste livre no quadro)
   muralPostits: [],     // {id, x, y, text} anotações livres do jogador
   muralPinned: [],      // pids de suspeitos fixados no quadro
+  muralPhotos: [],      // {id, x, y, src} imagens (upload/colar), reduzidas
   suspicion: {},        // P00x -> 0..100 (deductionEngine)
   flags: {},            // avulsos
 });

@@ -5,7 +5,7 @@
  */
 import { getPack } from '../caseState.js';
 import { crimeScene, portrait } from '../art.js';
-import { sfx, ambience, speak } from '../audioManager.js';
+import { sfx, ambience, speak, stopSpeaking } from '../audioManager.js';
 
 export function playBriefing(onDone = () => {}) {
   const b = getPack().briefing;
@@ -15,6 +15,7 @@ export function playBriefing(onDone = () => {}) {
   const overlay = document.createElement('div');
   overlay.className = 'screen briefing-screen';
   overlay.innerHTML = `
+    <button class="btn btn-ghost briefing-skip">PULAR ▸</button>
     <div class="briefing-scene">
       ${crimeScene(b.scene)}
       <div class="briefing-tag mono">CENA DO CRIME · ${b.case_code}</div>
@@ -39,11 +40,14 @@ export function playBriefing(onDone = () => {}) {
   root.replaceChildren(overlay);
   ambience(b.scene && /palco|coxia|camarim|teatro/.test(b.scene) ? 'juri' : 'cidade');
   sfx('door_open');
-  if (b.synopsis) speak(b.synopsis.replace(/<[^>]+>/g, ''), { rate: 0.98, pitch: 0.85 });
+  if (b.synopsis) speak(b.synopsis.replace(/<[^>]+>/g, ''), { rate: 0.98, gender: 'f' });
 
-  overlay.querySelector('.briefing-start').onclick = () => {
+  const finish = () => {
+    stopSpeaking();                 // corta a narração ao pular/iniciar
     sfx('click');
     overlay.classList.add('cine-out');
     setTimeout(onDone, 350);
   };
+  overlay.querySelector('.briefing-start').onclick = finish;
+  overlay.querySelector('.briefing-skip').onclick = finish;
 }

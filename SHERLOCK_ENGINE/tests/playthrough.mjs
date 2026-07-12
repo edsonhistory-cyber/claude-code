@@ -27,6 +27,16 @@ async function closeModal() {
 async function skipCinematic() {
   try { await page.click('.cine-skip', { timeout: 2500 }); } catch { /* sem cinemática */ }
   await page.waitForTimeout(300);
+  await dismissBriefing();
+}
+async function dismissBriefing() {
+  try {
+    await page.waitForSelector('.briefing-skip, .briefing-start', { timeout: 3000 });
+    const skip = page.locator('.briefing-skip');
+    if (await skip.count()) await skip.first().click();
+    else await page.locator('.briefing-start').first().click();
+    await page.waitForTimeout(500);
+  } catch { /* sem briefing */ }
 }
 async function goCard(name) {
   await page.click('.screen-nav .btn:has-text("Central")').catch(() => {});

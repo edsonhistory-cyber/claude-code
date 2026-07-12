@@ -27,6 +27,17 @@ async function goCard(name) {
   await page.click(`.central-card:has(.card-title:has-text("${name}"))`);
   await page.waitForTimeout(300);
 }
+async function skipIntro() {
+  try { await page.click('.cine-skip', { timeout: 4000 }); } catch { /* sem cinemática */ }
+  await page.waitForTimeout(300);
+  try {
+    await page.waitForSelector('.briefing-skip, .briefing-start', { timeout: 4000 });
+    const skip = page.locator('.briefing-skip');
+    if (await skip.count()) await skip.first().click();
+    else await page.locator('.briefing-start').first().click();
+    await page.waitForTimeout(500);
+  } catch { /* sem briefing */ }
+}
 
 // semeia carreira com CASE001 concluído → CASE002 desbloqueado
 await page.goto('http://localhost:8123/index.html');
@@ -44,6 +55,7 @@ await page.waitForSelector('.episode-grid', { timeout: 8000 });
 const ep2 = page.locator('.episode-card', { hasText: 'Silêncio na Serra' });
 if (/🔒/.test(await ep2.textContent())) throw new Error('CASE002 deveria estar desbloqueado');
 await ep2.click();
+await skipIntro();
 await page.waitForSelector('.central-grid', { timeout: 10000 });
 
 // ── MAPA ──
