@@ -5,7 +5,7 @@
 import { getModule } from '../database.js';
 import { screenShell, el, toast, modal } from '../uiManager.js';
 import { getCase, getPack } from '../caseState.js';
-import { interrogatable, characterName, characterRole, intro, topicsFor, ask, presentEvidence, getStress, moodFor, moodLine, witnessStatement, markInterrogated, hasTree } from '../dialogManager.js';
+import { interrogatable, characterName, characterRole, characterGender, intro, topicsFor, ask, presentEvidence, getStress, moodFor, moodLine, witnessStatement, markInterrogated, hasTree } from '../dialogManager.js';
 import { enigmaButton } from '../enigmas.js';
 import { portrait } from '../art.js';
 import { sfx, ambience, speak } from '../audioManager.js';
@@ -108,8 +108,17 @@ function session(c) {
       <span class="mood mono">estado: ${mood.toUpperCase()}</span></div>`;
     content.append(head);
 
+    const gender = characterGender(c.key);
+    const voiceLabel = gender === 'f' ? 'voz feminina' : 'voz masculina';
     const line = tree && mood !== 'neutro' ? (moodLine(c.key) || intro(c.key)) : intro(c.key);
-    const speech = el('div', 'speech', `“${line}”`);
+    const speech = el('div', 'speech');
+    // fala com opção de OUVIR (áudio na voz do personagem) e LER (texto)
+    const say = (text) => {
+      speech.innerHTML = `<button class="btn btn-ghost speech-listen" title="Ouvir depoimento (${voiceLabel})">🔊</button><span class="speech-text">“${text}”</span>`;
+      speech.querySelector('.speech-listen').onclick = () => { sfx('radio_beep'); speak(text, { gender, rate: 0.98 }); };
+    };
+    say(line);
+    speak(line, { gender, rate: 0.98 }); // lê a fala de entrada automaticamente
     content.append(speech);
 
     // Depoimento formal (entrega evidências/flags) — convive com os tópicos
@@ -120,7 +129,7 @@ function session(c) {
       if (done) b.disabled = true;
       b.onclick = () => {
         const txt = witnessStatement(c.key);
-        if (txt) { speech.innerHTML = `“${txt}”`; speak(txt); }
+        if (txt) { say(txt); speak(txt, { gender, rate: 0.98 }); }
         getCase().flags[`stmt_${c.key}`] = true;
         b.disabled = true;
       };
@@ -136,8 +145,9 @@ function session(c) {
           if (topic.locked) return toast(`🔒 Requer: ${topic.lockedBy.join(', ')}`, 'warn');
           const ans = ask(c.key, topic.id);
           if (ans) {
-            speech.innerHTML = `“${ans.text}” <span class="truth mono">[análise: ${ans.truth || 'inconclusivo'}]</span>`;
-            speak(ans.text, { pitch: 0.9 });
+            say(ans.text);
+            speech.querySelector('.speech-text').innerHTML += ` <span class="truth mono">[análise: ${ans.truth || 'inconclusivo'}]</span>`;
+            speak(ans.text, { gender, rate: 0.98 });
             sfx('radio_beep');
             setTimeout(refresh, 1600);
           }

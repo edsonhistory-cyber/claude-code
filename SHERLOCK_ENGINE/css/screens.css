@@ -298,7 +298,10 @@
 .stress-fill { height: 100%; background: var(--accent); transition: width 400ms; }
 .stress-fill.hot { background: var(--danger); }
 .mood { font-size: .75rem; color: var(--warning); }
-.speech { margin: 14px 0; padding: 14px 18px; background: rgba(8,19,31,.7); border-left: 3px solid var(--accent); border-radius: 0 var(--radius) var(--radius) 0; font-style: italic; }
+.speech { margin: 14px 0; padding: 14px 18px; background: rgba(8,19,31,.7); border-left: 3px solid var(--accent); border-radius: 0 var(--radius) var(--radius) 0; font-style: italic; display: flex; gap: 10px; align-items: flex-start; }
+.speech-listen { flex: none; font-size: 1.1rem; padding: 4px 9px; font-style: normal; border-radius: 8px; }
+.speech-listen:hover { background: color-mix(in srgb, var(--accent) 22%, transparent); }
+.speech-text { flex: 1; }
 .truth { font-style: normal; font-size: .75rem; color: var(--warning); }
 .topic-list, .present-list { display: flex; flex-direction: column; gap: 8px; margin: 12px 0; }
 .topic { text-align: left; }
@@ -567,6 +570,9 @@ a.btn { text-decoration: none; display: inline-block; text-align: center; }
 }
 .cork-board .threads { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
 .cork-board .threads line { stroke: #e11d48; stroke-width: .55; filter: drop-shadow(0 1px 0 rgba(0,0,0,.5)); }
+.cork-board .live-thread { stroke: #ff5a76; stroke-width: .5; stroke-dasharray: 1.5 1; opacity: .85; }
+.cork-board.link-mode { box-shadow: inset 0 0 0 3px rgba(225, 29, 72, .5), inset 0 0 40px rgba(0,0,0,.35); }
+.cork-board.link-mode .board-item { cursor: crosshair; }
 .pin-note {
   position: absolute; transform: rotate(-2deg);
   max-width: 150px; padding: 8px 10px 7px;

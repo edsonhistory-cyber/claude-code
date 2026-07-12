@@ -113,14 +113,30 @@ export function stopAmbience() {
 }
 
 /** Voz pt-BR (narrador, A.R.I.A., legista) via SpeechSynthesis. */
-export function speak(text, { rate = 1.0, pitch = 1.0 } = {}) {
+// Escolhe uma voz pt-BR combinando com o sexo pedido (quando o SO oferece
+// mais de uma). Cai para qualquer voz pt e, por fim, a padrão.
+const FEMALE_HINTS = /female|mulher|maria|luciana|francisca|joana|ana|helena|fem|zira|google.*(feminin|female)/i;
+const MALE_HINTS = /male|homem|felipe|daniel|ricardo|joão|joao|antonio|masc|google.*(male|masculin)/i;
+function pickVoice(gender) {
+  const vs = ('speechSynthesis' in window ? speechSynthesis.getVoices() : []) || [];
+  const pt = vs.filter((v) => v.lang?.toLowerCase().startsWith('pt'));
+  if (!pt.length) return null;
+  if (gender === 'f') return pt.find((v) => FEMALE_HINTS.test(v.name)) || pt.find((v) => !MALE_HINTS.test(v.name)) || pt[0];
+  if (gender === 'm') return pt.find((v) => MALE_HINTS.test(v.name)) || pt.find((v) => !FEMALE_HINTS.test(v.name)) || pt[0];
+  return pt[0];
+}
+
+export function speak(text, { rate = 1.0, pitch = 1.0, gender = null } = {}) {
   if (!ttsEnabled || muted || !('speechSynthesis' in window)) return;
   const u = new SpeechSynthesisUtterance(text);
   u.lang = 'pt-BR';
+  // se não há voz específica do sexo, distinguimos pelo tom (pitch) também
+  if (gender === 'f') pitch = Math.min(2, pitch * 1.18);
+  else if (gender === 'm') pitch = Math.max(0, pitch * 0.82);
   u.rate = rate;
   u.pitch = pitch;
   u.volume = mix().voice_volume ?? 0.9;
-  const voice = speechSynthesis.getVoices().find((v) => v.lang?.startsWith('pt'));
+  const voice = pickVoice(gender);
   if (voice) u.voice = voice;
   speechSynthesis.cancel();
   speechSynthesis.speak(u);

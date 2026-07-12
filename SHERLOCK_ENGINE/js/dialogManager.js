@@ -29,6 +29,21 @@ export function characterRole(key) {
   return findCharacter(item?.pid)?.papel || '';
 }
 
+// Sexo do personagem para escolher a voz (campo explícito no pack ou heurística
+// pelo primeiro nome — exceções cobrem nomes terminados em 'a' que são masculinos).
+const MALE_NAMES = new Set(['tito', 'otto', 'ivo', 'téo', 'teo', 'davi', 'padre', 'seu', 'sr.', 'nando', 'franz', 'max', 'léo', 'leo', 'vito', 'beto', 'des.', 'insp.', 'ten.', 'dr.', 'gustavo', 'bruno', 'célio', 'celio', 'caio', 'gregor', 'vicente', 'augusto', 'ernani', 'otacílio', 'otacilio', 'amadeu', 'sandri', 'aluísio', 'aluisio', 'prado', 'souto', 'samir', 'rui', 'otávio', 'otavio', 'sérgio', 'sergio', 'aldo', 'klaus', 'heitor', 'ernesto', 'antônio', 'antonio', 'ícaro', 'icaro', 'carlos', 'joão', 'joao']);
+const FEMALE_NAMES = new Set(['dona', 'dra.', 'bel', 'vivi', 'bibi', 'yara', 'duda', 'marina', 'lia', 'sônia', 'sonia', 'vera', 'cátia', 'catia', 'alice', 'helena', 'renata', 'dília', 'dilia', 'wanda', 'bianca', 'camila', 'marta', 'sofia', 'olga', 'rute', 'cida', 'márcia', 'marcia', 'heloísa', 'heloisa']);
+export function characterGender(key) {
+  const c = findCharacter(interrogatable().find((x) => x.key === key)?.pid);
+  const explicit = (c?.sexo || c?.voz?.sexo || '').toLowerCase();
+  if (explicit.startsWith('f')) return 'f';
+  if (explicit.startsWith('m')) return 'm';
+  const first = (c?.nome || key).trim().split(/\s+/)[0].toLowerCase();
+  if (FEMALE_NAMES.has(first)) return 'f';
+  if (MALE_NAMES.has(first)) return 'm';
+  return first.endsWith('a') ? 'f' : 'm'; // heurística final
+}
+
 function profiles() {
   return getPack().behavior_profiles || getModule('SHERLOCK_ENGINE_HUMINT')?.behavior_profiles || [];
 }

@@ -10,6 +10,7 @@ import { portrait } from '../art.js';
 import { sfx, ambience } from '../audioManager.js';
 
 let linkFrom = null;
+let linkMode = false; // rolo de linha ativo: cliques conectam em vez de nada
 const POSTIT_COLORS = ['amarelo', 'azul', 'verde', 'rosa'];
 let postitColor = 'amarelo'; // cor selecionada para o próximo post-it
 
@@ -55,12 +56,15 @@ export function render() {
 
   const linkPanel = el('div', 'panel list-panel');
   linkPanel.append(el('h2', 'panel-title', 'QUADRO DE INVESTIGAÇÃO'));
-  linkPanel.append(el('p', 'muted', linkFrom
-    ? `Origem: ${linkFrom.label}. Toque em outra pista para ligar…`
-    : 'Arraste as pistas, fotos e post-its livremente. Toque em duas para ligá-las (conexões corretas valem +5).'));
+  linkPanel.append(el('p', 'muted', linkMode
+    ? (linkFrom ? `🧶 Fio preso em "${linkFrom.label}". Toque em outra pista para amarrar…` : '🧶 Modo linha ativo: toque numa pista e depois em outra para ligá-las (+5).')
+    : 'Arraste as pistas, fotos e post-its livremente. Ative o 🧶 rolo de linha para conectar.'));
 
   // barra de ferramentas do quadro
   const tools = el('div', 'mural-tools');
+  const yarnBtn = el('button', `btn ${linkMode ? 'btn-primary' : 'btn-ghost'}`, '🧶 Rolo de linha');
+  yarnBtn.title = 'Ligar evidências com o fio vermelho';
+  yarnBtn.onclick = () => { linkMode = !linkMode; linkFrom = null; sfx('click'); render(); };
   const addPostit = el('button', 'btn btn-ghost', '✚ Post-it');
   addPostit.onclick = () => {
     s.muralPostits.push({ id: `pt${Date.now() % 1e7}`, x: 40, y: 38, text: '', color: postitColor });
@@ -76,7 +80,7 @@ export function render() {
   }
   const pinBtn = el('button', 'btn btn-ghost', '📌 Fixar suspeito');
   pinBtn.onclick = () => openSuspectPicker(s);
-  tools.append(addPostit, swatches, pinBtn);
+  tools.append(yarnBtn, addPostit, swatches, pinBtn);
   linkPanel.append(tools);
 
   // posição default (grade) para nós ainda sem posição salva
@@ -100,7 +104,21 @@ export function render() {
     if (!labelPos[la] || !labelPos[lb]) return '';
     return `<line x1="${labelPos[la][0]}" y1="${labelPos[la][1]}" x2="${labelPos[lb][0]}" y2="${labelPos[lb][1]}"/>`;
   }).join('');
-  board.innerHTML = `<svg class="threads" viewBox="0 0 100 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">${lines}</svg>`;
+  board.innerHTML = `<svg class="threads" viewBox="0 0 100 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">${lines}<line class="live-thread" x1="0" y1="0" x2="0" y2="0" style="display:none"/></svg>`;
+  if (linkMode) board.classList.add('link-mode');
+  const liveThread = board.querySelector('.live-thread');
+  // fio vermelho ao vivo seguindo o cursor a partir da origem selecionada
+  if (linkMode && linkFrom && labelPos[linkFrom.label]) {
+    board.onpointermove = (e) => {
+      const r = board.getBoundingClientRect();
+      const mx = ((e.clientX - r.left) / r.width) * 100;
+      const my = ((e.clientY - r.top) / r.height) * 100;
+      liveThread.setAttribute('x1', labelPos[linkFrom.label][0]);
+      liveThread.setAttribute('y1', labelPos[linkFrom.label][1]);
+      liveThread.setAttribute('x2', mx); liveThread.setAttribute('y2', my);
+      liveThread.style.display = '';
+    };
+  }
 
   // nós (pistas + fotos de suspeitos) arrastáveis e conectáveis
   nodes.forEach((node, i) => {
@@ -114,7 +132,8 @@ export function render() {
     }
     elem.style.left = `${x}%`; elem.style.top = `${y}%`;
     makeDraggable(elem, board, (nx, ny) => { s.muralPos[node.id] = { x: nx, y: ny }; }, () => {
-      // clique (sem arraste) = conectar
+      // clique (sem arraste): só conecta com o rolo de linha ativo
+      if (!linkMode) return;
       sfx('click');
       if (!linkFrom) { linkFrom = node; render(); return; }
       if (linkFrom.id === node.id) { linkFrom = null; render(); return; }
