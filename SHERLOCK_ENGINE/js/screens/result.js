@@ -53,9 +53,14 @@ export function renderCredits() {
   const campaignDone = !next;
   const box = el('div', 'panel result-panel credits');
   box.innerHTML = `
+    <div class="turin-onca credits-crest" aria-hidden="true"></div>
     <div class="login-logo">SHERLOCK<span>ENGINE</span></div>
     <p class="mono">CASO 001 · "A ÚLTIMA PARADA" · CURITIBA-PR</p>
     <p>Um jogo de investigação cooperativo, offline, em português.</p>
+    <p class="turin-homage">Brasão da divisão: a <b>onça</b> — releitura da obra de
+    <b>João Turin</b> (1878–1949), escultor animalista e um dos líderes do
+    <b>Paranismo</b>. Identidade visual inspirada na araucária, no pinhão, na
+    gralha-azul e no petit-pavé da Rua XV.</p>
     <p class="muted">Design: JSONs da Sherlock Engine · Motor: HTML + CSS + Vanilla JS<br>
     Arte procedural SVG · SFX sintetizados via Web Audio · Vozes via SpeechSynthesis<br>
     Licenças de assets: assets/CREDITS.md</p>

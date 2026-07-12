@@ -843,3 +843,20 @@ a.btn { text-decoration: none; display: inline-block; text-align: center; }
 @keyframes carimbo { from { opacity: 0; transform: rotate(-14deg) scale(2.4); } 70% { opacity: 1; } to { opacity: 1; transform: rotate(-14deg) scale(1); } }
 @media (max-width: 560px) { .result-carimbo { width: 84px; height: 84px; top: -16px; right: -6px; } }
 @media (prefers-reduced-motion: reduce) { .result-grain { animation: none; } .result-carimbo { animation: none; } }
+
+
+/* ===== onca de Joao Turin (releitura paranista) — brasao da divisao ===== */
+.turin-onca {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300' viewBox='0 0 300 300'%3E%3Cg transform='translate(150 150)'%3E%3Ccircle r='132' fill='%230f1838' stroke='%2338bdf8' stroke-width='2' opacity='.9'/%3E%3Ccircle r='123' fill='none' stroke='%2338bdf8' stroke-width='1' opacity='.4'/%3E%3Cg fill='%230f1838' stroke='%2338bdf8' stroke-width='3.4' stroke-linejoin='round'%3E%3Cpath d='M-78 -66 C -96 -104, -60 -118, -46 -92 C -38 -78, -40 -66, -46 -58 Z'/%3E%3Cpath d='M 78 -66 C 96 -104, 60 -118, 46 -92 C 38 -78, 40 -66, 46 -58 Z'/%3E%3Cpath d='M0 -104 C -40 -104, -74 -84, -84 -46 C -92 -14, -80 18, -58 44 C -40 66, -20 84, 0 92 C 20 84, 40 66, 58 44 C 80 18, 92 -14, 84 -46 C 74 -84, 40 -104, 0 -104 Z'/%3E%3C/g%3E%3Cg fill='none' stroke='%2338bdf8' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M-30 -70 L-12 -40 M30 -70 L12 -40 M0 -52 L0 -30'/%3E%3Cpath d='M-52 -22 C -40 -34, -22 -34, -14 -20 C -26 -12, -44 -12, -52 -22 Z' fill='%230d1230'/%3E%3Cpath d='M 52 -22 C 40 -34, 22 -34, 14 -20 C 26 -12, 44 -12, 52 -22 Z' fill='%230d1230'/%3E%3Ccircle cx='-32' cy='-22' r='4.4' fill='%2338bdf8' stroke='none'/%3E%3Ccircle cx='32' cy='-22' r='4.4' fill='%2338bdf8' stroke='none'/%3E%3Cpath d='M-16 4 L0 -6 L16 4 L10 16 L-10 16 Z' fill='%2338bdf8' stroke='none' opacity='.9'/%3E%3Cpath d='M0 16 L0 30 M0 30 C -12 42, -26 40, -30 30 M0 30 C 12 42, 26 40, 30 30'/%3E%3Cpath d='M-34 22 L-72 14 M-34 32 L-70 34 M34 22 L72 14 M34 32 L70 34' stroke-width='2.2' opacity='.7'/%3E%3Cg stroke-width='2.4' opacity='.85'%3E%3Ccircle cx='-60' cy='-52' r='6'/%3E%3Ccircle cx='60' cy='-52' r='6'/%3E%3Ccircle cx='-70' cy='4' r='6'/%3E%3Ccircle cx='70' cy='4' r='6'/%3E%3Ccircle cx='-52' cy='52' r='6'/%3E%3Ccircle cx='52' cy='52' r='6'/%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: center; background-size: contain;
+}
+.header-crest { width: 30px; height: 30px; flex: 0 0 30px; margin-right: 6px; opacity: .95; align-self: center; }
+@media (max-width: 560px) { .header-crest { display: none; } }
+.credits-crest { width: 116px; height: 116px; margin: 0 auto 2px; }
+.turin-homage {
+  font-size: .78rem; line-height: 1.55;
+  color: color-mix(in srgb, var(--text) 72%, transparent);
+  border-left: 2px solid color-mix(in srgb, var(--accent) 45%, transparent);
+  padding-left: 12px; text-align: left; margin: 8px auto; max-width: 60ch;
+}
+@media (prefers-reduced-motion: no-preference) { .credits-crest { animation: sealPop .8s cubic-bezier(.2,.9,.2,1) both; } }

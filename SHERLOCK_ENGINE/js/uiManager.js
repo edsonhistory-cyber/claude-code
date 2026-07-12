@@ -125,6 +125,11 @@ export function screenShell(title, breadcrumb, accent) {
   const color = accent || cardInfo(title).color;
   if (color) root.style.setProperty('--accent', color);
   const header = el('header', 'screen-header');
+  // brasão da divisão: a onça de João Turin (releitura vetorial paranista)
+  const crest = el('span', 'turin-onca header-crest');
+  crest.setAttribute('aria-hidden', 'true');
+  crest.title = 'Divisão de Investigação · Curitiba';
+  header.append(crest);
   header.append(el('div', 'breadcrumb', breadcrumb));
   const hud = el('div', 'hud');
   hud.innerHTML = `

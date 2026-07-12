@@ -244,6 +244,7 @@ await page.waitForTimeout(1400); // deixa a entrada assentar antes do print
 await page.screenshot({ path: 'shot_resultado.png' });
 await page.click('.btn:has-text("CRÉDITOS")');
 await page.waitForSelector('.credits');
+await page.waitForTimeout(1200); // deixa a entrada assentar antes do print
 await page.screenshot({ path: 'shot_creditos.png' });
 
 // M4: volta ao QG — CASE001 concluído, CASE002 desbloqueado, carreira com XP
