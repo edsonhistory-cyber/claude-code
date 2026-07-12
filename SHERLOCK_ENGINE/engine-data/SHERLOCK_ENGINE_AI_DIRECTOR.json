@@ -2,7 +2,7 @@
   "schema": "SHERLOCK_ENGINE_AI_DIRECTOR",
   "version": "1.0",
   "director": {
-    "name": "A.R.I.A. Director",
+    "name": "G.R.A.L.H.A. Director",
     "purpose": "Controlar dinamicamente o ritmo da investigação."
   },
   "difficulty_manager": {
@@ -60,7 +60,7 @@
     }
   ],
   "assistant": {
-    "name": "A.R.I.A.",
+    "name": "G.R.A.L.H.A.",
     "max_hints": 5,
     "never_reveal_solution": true,
     "hint_levels": [

@@ -116,7 +116,7 @@ export async function boot() {
   await sleep(350);
 
   const aria = db.getModule('SHERLOCK_ENGINE_AI')?.assistant;
-  ui.bootLog(`Inicializando IA… ${aria?.name ?? 'A.R.I.A.'} online`, 92);
+  ui.bootLog(`Inicializando IA… ${aria?.name ?? 'G.R.A.L.H.A.'} online`, 92);
   initAria();
   await sleep(350);
   ui.bootLog('Acesso autorizado.', 100);

@@ -1,6 +1,6 @@
 /**
  * uiManager.js — Shell da interface: boot, login, Central 3×3, moldura das
- * telas (topbar com ato/pontuação/relógio), toasts, modais e painel A.R.I.A.
+ * telas (topbar com ato/pontuação/relógio), toasts, modais e painel G.R.A.L.H.A.
  * As telas de investigação vivem em js/screens/*.js.
  */
 import { getModule, t } from './database.js';
@@ -45,7 +45,7 @@ function show(node) {
   container.classList.add('fade-in');
 }
 
-// ── Toast + A.R.I.A. dock (persistem fora do #app) ──────────────────────────
+// ── Toast + G.R.A.L.H.A. dock (persistem fora do #app) ──────────────────────────
 function dock() {
   let d = document.getElementById('dock');
   if (!d) {
@@ -53,7 +53,7 @@ function dock() {
     d.id = 'dock';
     d.innerHTML = `<div id="toasts"></div>
       <div id="aria-panel" class="panel aria-panel" hidden>
-        <div class="aria-head">◈ A.R.I.A.</div><div id="aria-text"></div>
+        <div class="aria-head">◈ G.R.A.L.H.A.</div><div id="aria-text"></div>
         <div class="aria-actions">
           <button class="btn btn-ghost" id="aria-hint">PEDIR DICA (-20)</button>
           <button class="btn btn-ghost" id="aria-close">FECHAR</button>
@@ -84,7 +84,7 @@ export function showAria(text) {
   const d = dock();
   d.querySelector('#aria-panel').hidden = false;
   d.querySelector('#aria-text').textContent = text;
-  // auto-oculta para não bloquear a interface (o jogador pode reabrir no botão A.R.I.A.)
+  // auto-oculta para não bloquear a interface (o jogador pode reabrir no botão G.R.A.L.H.A.)
   clearTimeout(ariaHideTimer);
   ariaHideTimer = setTimeout(() => { d.querySelector('#aria-panel').hidden = true; }, 7000);
 }
@@ -137,7 +137,7 @@ export function screenShell(title, breadcrumb, accent) {
     <span class="hud-item" title="Hora do caso">🕑 ${ACT_TIME[s.act]}</span>
     <span class="hud-item hud-score" title="Pontuação">★ <b id="hud-score">${s.score}</b></span>`;
   const nav = el('div', 'screen-nav');
-  const ariaBtn = el('button', 'btn btn-ghost', '◈ A.R.I.A.');
+  const ariaBtn = el('button', 'btn btn-ghost', '◈ G.R.A.L.H.A.');
   ariaBtn.onclick = () => { showAria('Em que posso ajudar, detetive?'); sfx('radio_beep'); };
   const mute = el('button', 'btn btn-ghost', isMuted() ? '🔇' : '🔊');
   mute.onclick = () => { mute.innerHTML = toggleMute() ? '🔇' : '🔊'; };

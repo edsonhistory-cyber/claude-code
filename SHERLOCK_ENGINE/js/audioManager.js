@@ -112,7 +112,7 @@ export function stopAmbience() {
   ambienceNodes = [];
 }
 
-/** Voz pt-BR (narrador, A.R.I.A., legista) via SpeechSynthesis. */
+/** Voz pt-BR (narrador, G.R.A.L.H.A., legista) via SpeechSynthesis. */
 // Escolhe uma voz pt-BR combinando com o sexo pedido (quando o SO oferece
 // mais de uma). Cai para qualquer voz pt e, por fim, a padrão.
 const FEMALE_HINTS = /female|mulher|maria|luciana|francisca|joana|ana|helena|fem|zira|google.*(feminin|female)/i;

@@ -57,6 +57,7 @@ export function renderCredits() {
     <div class="login-logo">SHERLOCK<span>ENGINE</span></div>
     <p class="mono">CASO 001 · "A ÚLTIMA PARADA" · CURITIBA-PR</p>
     <p>Um jogo de investigação cooperativo, offline, em português.</p>
+    <p class="credits-dev"><span>DESENVOLVIMENTO</span><b>EDSON RODRIGO DE SOUZA</b></p>
     <p class="turin-homage">Brasão da divisão: a <b>onça</b> — releitura da obra de
     <b>João Turin</b> (1878–1949), escultor animalista e um dos líderes do
     <b>Paranismo</b>. Identidade visual inspirada na araucária, no pinhão, na

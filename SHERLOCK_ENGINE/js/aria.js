@@ -1,5 +1,5 @@
 /**
- * aria.js — A.R.I.A. (Artificial Reasoning & Investigation Assistant).
+ * aria.js — G.R.A.L.H.A. (Guia de Raciocinio Analitico, Logica e Heuristica Assistida).
  * Estados/dicas do SHERLOCK_ENGINE_AI.json. Nunca revela a solução
  * (personality.never_reveal_solution) — as dicas são as do hint_engine.
  */
