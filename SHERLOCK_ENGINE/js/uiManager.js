@@ -197,7 +197,15 @@ export function renderLogin(caseInfo) {
   hero.innerHTML = sceneMedia('ônibus');
   hero.setAttribute('aria-hidden', 'true');
   root.append(hero);
+  // poste ornamental de Curitiba (recorte de foto real) como decoração da capa
+  const poste = el('div', 'login-poste');
+  poste.setAttribute('aria-hidden', 'true');
+  root.append(poste);
   const panel = el('div', 'panel login-panel');
+  // selo: a araucária em petit-pavé (mosaico real do calçadão de Curitiba)
+  const emblema = el('div', 'login-emblema');
+  emblema.setAttribute('aria-hidden', 'true');
+  panel.append(emblema);
   panel.append(el('div', 'login-logo', 'SHERLOCK<span>ENGINE</span>'));
   panel.append(el('div', 'login-case', `CASO ${caseInfo?.id ?? ''} · ${t('APP_TITLE')}`));
   const user = el('input', 'input');
