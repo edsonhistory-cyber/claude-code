@@ -1,4 +1,12 @@
 {
-  "_comment": "Aponte cada chave para um arquivo em assets/audio/. Vazio = ambiencia procedural. Ver README.md.",
-  "tracks": {}
+  "_comment": "Trilha por modulo. Troque os .wav sinteticos por MP3/OGG CC0/Pixabay quando quiser (mantenha os nomes). Ver README.md.",
+  "tracks": {
+    "central": "ambience/ambience_city.wav",
+    "campanha": "menu/menu_theme.wav",
+    "mapa": "map/map_ambient.wav",
+    "lab": "laboratory/laboratory_ambient.wav",
+    "interrogatorio": "interrogation/interrogation_ambient.wav",
+    "juri": "jury/jury_theme.wav",
+    "ambience": "ambience/ambience_city.wav"
+  }
 }

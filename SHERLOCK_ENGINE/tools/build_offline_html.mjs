@@ -18,7 +18,7 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const OUT = process.argv[2] || path.join(root, 'sherlock_offline.html');
 const rel = (p) => path.relative(root, p).split(path.sep).join('/');
 
-const MIME = { '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.png': 'image/png', '.webp': 'image/webp', '.svg': 'image/svg+xml' };
+const MIME = { '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.png': 'image/png', '.webp': 'image/webp', '.svg': 'image/svg+xml', '.wav': 'audio/wav', '.mp3': 'audio/mpeg', '.ogg': 'audio/ogg' };
 const dataUri = async (file) => {
   const buf = await readFile(file);
   return `data:${MIME[path.extname(file).toLowerCase()] || 'application/octet-stream'};base64,${buf.toString('base64')}`;
@@ -90,6 +90,18 @@ if (existsSync(path.join(root, 'assets/images/map/map_cwb.json'))) {
   }
 }
 
+// ── 2b. áudio: manifesto + faixas embutidas em base64 (trilha por ambiente) ──
+let audioMap = {};
+const audioMfPath = path.join(root, 'assets/audio/manifest.audio.json');
+if (existsSync(audioMfPath)) {
+  const am = JSON.parse(await readFile(audioMfPath, 'utf-8'));
+  FILES['assets/audio/manifest.audio.json'] = JSON.stringify(am);
+  for (const relTrack of Object.values(am.tracks || {})) {
+    const f = path.join(root, 'assets/audio', relTrack);
+    if (existsSync(f)) audioMap[relTrack] = await dataUri(f);
+  }
+}
+
 // ── 3. CSS inline ───────────────────────────────────────────────────────────
 const css = (await readFile(path.join(root, 'css/theme.css'), 'utf-8'))
   + '\n' + (await readFile(path.join(root, 'css/screens.css'), 'utf-8'));
@@ -113,6 +125,7 @@ window.fetch = (url) => {
   return Promise.resolve(new Response('', { status: 404 }));
 };
 </script>
+<script>window.__SHERLOCK_AUDIO = ${JSON.stringify(audioMap)};</script>
 <script type="importmap">${JSON.stringify(importmap)}</script>
 </head>
 <body>

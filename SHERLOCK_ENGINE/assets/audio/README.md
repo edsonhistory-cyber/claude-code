@@ -11,9 +11,13 @@ Só coloque aqui áudio com licença compatível com jogos e **redistribuível**
 Evite qualquer faixa "só para uso pessoal" ou que exija licença paga.
 Registre a origem/licença de cada arquivo em `CREDITS.md` (modelo abaixo).
 
-> Observação: este repositório **não** inclui as faixas — o ambiente de
-> desenvolvimento onde ele foi montado bloqueia o acesso aos sites de áudio.
-> Baixe você mesmo e solte nas pastas com os nomes abaixo.
+> **Já incluído:** uma trilha **sintética própria (CC0)** gerada por
+> `tools/generate_music.mjs` — pads harmônicos + reverb, um `.wav` por
+> ambiente, apontados no `manifest.audio.json` e embutidos no build offline.
+> Como os sites de áudio estão bloqueados no ambiente de dev, não há faixas
+> de terceiros aqui. Para trocar por MP3/OGG (Pixabay/FreePD/etc.), baixe,
+> salve com o mesmo nome (trocando a extensão) e ajuste o manifesto.
+> Regenerar a trilha sintética: `node tools/generate_music.mjs`.
 
 ## Estrutura e nomes esperados (formatos: .mp3 ou .ogg)
 ```

@@ -152,7 +152,9 @@ export function musicBed(kind) {
     if (musicEl && musicEl.dataset.kind === kind) return; // já tocando essa
     stopMusic();
     try {
-      const el = new Audio('assets/audio/' + rel);
+      // no arquivo único offline, o build embute as faixas em base64 (data URL)
+      const src = globalThis.__SHERLOCK_AUDIO?.[rel] || ('assets/audio/' + rel);
+      const el = new Audio(src);
       el.loop = true; el.dataset.kind = kind;
       el.volume = Math.min(1, (mix().ambience_volume ?? 0.35) * 1.8);
       el.addEventListener('canplaythrough', () => stopAmbience(), { once: true });
