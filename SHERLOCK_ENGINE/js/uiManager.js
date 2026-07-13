@@ -126,10 +126,19 @@ export function screenShell(title, breadcrumb, accent) {
   if (color) root.style.setProperty('--accent', color);
   // identidade cromática/ambiente por módulo (ver .screen[data-mod] no CSS)
   root.dataset.mod = normKey(title);
-  // ambiente cinematográfico: luz, profundidade e poeira (atrás do conteúdo)
+  root.dataset.act = s.act;   // relógio do mundo: dia -> tarde -> entardecer
+  // ambiente cinematográfico: luz, profundidade, poeira e Curitiba viva
   const env = el('div', 'screen-env');
   env.setAttribute('aria-hidden', 'true');
-  env.innerHTML = '<span class="env-glow"></span><span class="env-pave"></span><span class="env-leak"></span><span class="env-dust"></span><span class="env-vignette"></span>';
+  env.innerHTML = `
+    <span class="env-glow"></span><span class="env-pave"></span>
+    <span class="env-time"></span><span class="env-leak"></span>
+    <span class="env-life">
+      <b class="life-bird lb1"></b><b class="life-bird lb2"></b><b class="life-bird lb3"></b>
+      <b class="life-leaf ll1"></b><b class="life-leaf ll2"></b><b class="life-leaf ll3"></b><b class="life-leaf ll4"></b>
+      <b class="life-bus"></b><b class="life-capy"></b>
+    </span>
+    <span class="env-dust"></span><span class="env-vignette"></span>`;
   root.append(env);
   const header = el('header', 'screen-header');
   // brasão da divisão: a onça de João Turin (releitura vetorial paranista)

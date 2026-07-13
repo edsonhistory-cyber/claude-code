@@ -1007,3 +1007,63 @@ a.btn { text-decoration: none; display: inline-block; text-align: center; }
   opacity: .07; mix-blend-mode: soft-light;
 }
 .screen[data-mod="LABORATORIO"] .env-pave, .screen[data-mod="EVIDENCIAS"] .env-pave { opacity: .1; mix-blend-mode: multiply; }
+
+
+/* ============================================================================
+   ONDA 2 — CURITIBA VIVA (camada ambiente atrás do conteudo)
+   Ciclo dia->tarde->entardecer pelo relogio do caso, gralha-azul voando,
+   folhas ao vento, onibus da Linha Turismo cruzando e capivara. Sutil.
+   ==========================================================================*/
+.env-life { overflow: hidden; }
+.env-life b { position: absolute; display: block; background-repeat: no-repeat; background-position: center; background-size: contain; will-change: transform, left, top; }
+
+/* gralha-azul planando */
+.life-bird { background-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%22-46 -108 106 116%22%3E%3Cpath d=%22M0 0 Q-30 -10 -42 -32 Q-22 -24 -11 -30 Q-29 -42 -24 -64 Q-11 -45 2 -47 Q0 -70 17 -80 Q17 -58 31 -53 Q47 -55 55 -42 Q39 -39 35 -24 Q47 -19 42 -2 Q22 -11 11 -2 Z%22 fill=%22%234a86e8%22/%3E%3Cpath d=%22M17 -80 Q9 -92 17 -103 Q25 -92 22 -78 Z%22 fill=%22%234a86e8%22/%3E%3Ccircle cx=%22-26%22 cy=%22-32%22 r=%222.6%22 fill=%22%23081018%22/%3E%3C/svg%3E"); opacity: .5; }
+.lb1 { width: 32px; height: 28px; top: 12%; animation: flyR 28s linear infinite; }
+.lb2 { width: 22px; height: 20px; top: 19%; animation: flyR 41s linear infinite -16s; }
+.lb3 { width: 27px; height: 24px; top: 8%;  animation: flyL 34s linear infinite -23s; }
+@keyframes flyR { 0%{left:-8%} 100%{left:108%} }
+@keyframes flyL { 0%{left:108%; transform: scaleX(-1)} 100%{left:-8%; transform: scaleX(-1)} }
+
+/* folhas/pinhoes ao vento */
+.life-leaf { width: 16px; height: 22px; background-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 20 28%22%3E%3Cpath d=%22M10 0 C2 8 2 20 10 28 C18 20 18 8 10 0 Z%22 fill=%22%232f8b57%22/%3E%3Cpath d=%22M10 3 L10 25%22 stroke=%22%23123024%22 stroke-width=%221%22/%3E%3C/svg%3E"); opacity: 0; }
+.ll1 { left: 18%; animation: leafFall 13s linear infinite; }
+.ll2 { left: 45%; animation: leafFall 17s linear infinite -6s; }
+.ll3 { left: 68%; animation: leafFall 15s linear infinite -10s; }
+.ll4 { left: 87%; animation: leafFall 19s linear infinite -3s; }
+@keyframes leafFall {
+  0%{ top:-6%; transform: rotate(0) translateX(0); opacity:0 }
+  12%{ opacity:.55 } 88%{ opacity:.55 }
+  100%{ top:106%; transform: rotate(340deg) translateX(34px); opacity:0 }
+}
+
+/* onibus verde da Linha Turismo (so no QG/Central; passa atras dos cards) */
+.life-bus { width: 132px; height: 66px; bottom: 3%; background-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 140 70%22%3E%3Crect x=%224%22 y=%2210%22 width=%22128%22 height=%2246%22 rx=%227%22 fill=%22%232f8b57%22/%3E%3Crect x=%224%22 y=%2230%22 width=%22128%22 height=%223%22 fill=%22%23123024%22/%3E%3Cg fill=%22%23bfe6d2%22%3E%3Crect x=%2212%22 y=%2214%22 width=%2216%22 height=%2211%22 rx=%222%22/%3E%3Crect x=%2234%22 y=%2214%22 width=%2216%22 height=%2211%22 rx=%222%22/%3E%3Crect x=%2256%22 y=%2214%22 width=%2216%22 height=%2211%22 rx=%222%22/%3E%3Crect x=%2278%22 y=%2214%22 width=%2216%22 height=%2211%22 rx=%222%22/%3E%3Crect x=%22100%22 y=%2214%22 width=%2216%22 height=%2211%22 rx=%222%22/%3E%3Crect x=%2212%22 y=%2237%22 width=%2216%22 height=%2212%22 rx=%222%22/%3E%3Crect x=%2234%22 y=%2237%22 width=%2216%22 height=%2212%22 rx=%222%22/%3E%3Crect x=%2256%22 y=%2237%22 width=%2216%22 height=%2212%22 rx=%222%22/%3E%3Crect x=%2278%22 y=%2237%22 width=%2216%22 height=%2212%22 rx=%222%22/%3E%3Crect x=%22100%22 y=%2237%22 width=%2216%22 height=%2212%22 rx=%222%22/%3E%3C/g%3E%3Ccircle cx=%2234%22 cy=%2258%22 r=%229%22 fill=%22%231a1a1a%22/%3E%3Ccircle cx=%2234%22 cy=%2258%22 r=%224%22 fill=%22%23555%22/%3E%3Ccircle cx=%22104%22 cy=%2258%22 r=%229%22 fill=%22%231a1a1a%22/%3E%3Ccircle cx=%22104%22 cy=%2258%22 r=%224%22 fill=%22%23555%22/%3E%3C/svg%3E"); opacity: .85; display: none; filter: drop-shadow(0 6px 8px rgba(0,0,0,.4)); }
+.life-capy { width: 92px; height: 58px; left: 2.5%; bottom: 1.5%; background-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 62%22%3E%3Cellipse cx=%2250%22 cy=%2234%22 rx=%2240%22 ry=%2222%22 fill=%22%237a5a3a%22/%3E%3Cpath d=%22M78 20 Q98 14 98 30 Q98 40 84 40 Q76 34 78 20 Z%22 fill=%22%237a5a3a%22/%3E%3Cellipse cx=%2284%22 cy=%2216%22 rx=%224%22 ry=%225%22 fill=%22%236a4a2c%22/%3E%3Ccircle cx=%2290%22 cy=%2226%22 r=%222.2%22 fill=%22%23201509%22/%3E%3Crect x=%2224%22 y=%2250%22 width=%227%22 height=%2212%22 rx=%223%22 fill=%22%235f462c%22/%3E%3Crect x=%2240%22 y=%2250%22 width=%227%22 height=%2212%22 rx=%223%22 fill=%22%235f462c%22/%3E%3Crect x=%2258%22 y=%2250%22 width=%227%22 height=%2212%22 rx=%223%22 fill=%22%235f462c%22/%3E%3Crect x=%2272%22 y=%2250%22 width=%227%22 height=%2212%22 rx=%223%22 fill=%22%235f462c%22/%3E%3C/svg%3E"); opacity: .7; display: none; filter: drop-shadow(0 5px 6px rgba(0,0,0,.4)); }
+.screen[data-mod="CENTRAL"] .life-bus, .screen[data-mod="CAMPANHA"] .life-bus { display: block; animation: busCross 48s linear infinite; }
+.screen[data-mod="CENTRAL"] .life-capy, .screen[data-mod="CAMPANHA"] .life-capy { display: block; animation: capyIdle 6s ease-in-out infinite; }
+@keyframes busCross { 0%{left:-16%} 100%{left:118%} }
+@keyframes capyIdle { 0%,100%{transform: scaleY(1)} 50%{transform: scaleY(1.03) translateY(-1px)} }
+
+/* ciclo do mundo: dia (ato1) -> entardecer (ato4) */
+.env-time { opacity: .55; mix-blend-mode: soft-light; }
+.screen[data-act="1"] .env-time { background: linear-gradient(180deg, rgba(150,195,235,.24), transparent 42%); }
+.screen[data-act="2"] .env-time { background: linear-gradient(180deg, rgba(255,212,150,.22), transparent 46%); }
+.screen[data-act="3"] .env-time { background: linear-gradient(180deg, rgba(255,168,108,.28), transparent 52%); }
+.screen[data-act="4"] .env-time { background: linear-gradient(0deg, rgba(255,150,90,.22), transparent 30%), linear-gradient(180deg, rgba(22,22,64,.42), transparent 56%); }
+
+@media (prefers-reduced-motion: reduce) {
+  .life-bird, .life-leaf, .life-bus, .life-capy { animation: none !important; }
+  .life-leaf { opacity: .4; } .life-bus, .life-capy { opacity: .5; }
+}
+
+/* Onda 2 — ajuste de presença: gralhas espalhadas na vertical, folhas maiores */
+.life-bird { opacity: .6; }
+.lb2 { top: 36%; }
+.lb3 { top: 56%; }
+.life-leaf { width: 18px; height: 25px; }
+@keyframes leafFall {
+  0%   { top: -6%; transform: rotate(0) translateX(0); opacity: 0; }
+  12%  { opacity: .66; } 88% { opacity: .66; }
+  100% { top: 106%; transform: rotate(340deg) translateX(36px); opacity: 0; }
+}
