@@ -75,35 +75,62 @@ export function sfx(name) {
 }
 
 /** Ambiente procedural por tela: ruído filtrado + pulsos discretos, em loop. */
+// Cada ambiente tem sua identidade sonora PROCEDURAL (offline, sem arquivos):
+// uma cama de ruído filtrado (room tone) + um drone tonal grave que "respira".
+const AMB_PRESETS = {
+  // kind:            ruído (room tone)                     drone tonal (emoção)
+  central:        { type: 'lowpass',  freq: 220, vol: 0.05, drone: [55],       dvol: 0.015, dtype: 'sine' },
+  campanha:       { type: 'bandpass', freq: 480, vol: 0.045, drone: [58],      dvol: 0.014, dtype: 'sine' },
+  lab:            { type: 'lowpass',  freq: 380, vol: 0.035, drone: [120, 240], dvol: 0.010, dtype: 'sine' },   // limpo/frio
+  juri:           { type: 'lowpass',  freq: 140, vol: 0.06, drone: [44],       dvol: 0.020, dtype: 'sine' },    // solene/madeira
+  interrogatorio: { type: 'bandpass', freq: 300, vol: 0.04, drone: [60, 61.4], dvol: 0.018, dtype: 'sine' },    // tenso (batimento)
+  evidencias:     { type: 'lowpass',  freq: 300, vol: 0.03, drone: [90],       dvol: 0.010, dtype: 'sine' },    // clínico/quieto
+  mapa:           { type: 'highpass', freq: 2200, vol: 0.028, drone: [],       dvol: 0,     dtype: 'sine' },    // vento/parque
+  mural:          { type: 'lowpass',  freq: 260, vol: 0.035, drone: [70],      dvol: 0.012, dtype: 'sine' },    // concentração
+  osint:          { type: 'bandpass', freq: 820, vol: 0.03, drone: [100],      dvol: 0.010, dtype: 'triangle' }, // digital
+  geoint:         { type: 'bandpass', freq: 620, vol: 0.03, drone: [80],       dvol: 0.012, dtype: 'triangle' }, // técnico
+  tempo:          { type: 'lowpass',  freq: 200, vol: 0.04, drone: [50],       dvol: 0.014, dtype: 'sine' },     // reflexivo
+  // aliases legados
+  cidade:         { type: 'bandpass', freq: 500, vol: 0.05, drone: [58],       dvol: 0.014, dtype: 'sine' },
+  parque:         { type: 'highpass', freq: 2500, vol: 0.02, drone: [],        dvol: 0,     dtype: 'sine' },
+  agua:           { type: 'bandpass', freq: 1200, vol: 0.05, drone: [],        dvol: 0,     dtype: 'sine' },
+};
+
 export function ambience(kind) {
   stopAmbience();
   if (muted || !kind) return;
   try {
     const a = ac();
+    const p = AMB_PRESETS[kind] || AMB_PRESETS.central;
+    const ambVol = mix().ambience_volume ?? 0.35;
+    const nodes = [];
+    // cama de ruído (room tone)
     const dur = 4;
     const buf = a.createBuffer(1, a.sampleRate * dur, a.sampleRate);
     const data = buf.getChannelData(0);
     for (let i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;
     const src = a.createBufferSource();
-    src.buffer = buf;
-    src.loop = true;
+    src.buffer = buf; src.loop = true;
     const filter = a.createBiquadFilter();
+    filter.type = p.type; filter.frequency.value = p.freq;
     const gain = a.createGain();
-    const presets = {
-      central: { type: 'lowpass', freq: 220, vol: 0.05 },   // sala de computadores
-      cidade: { type: 'bandpass', freq: 500, vol: 0.05 },
-      parque: { type: 'highpass', freq: 2500, vol: 0.02 },  // vento/pássaros
-      agua: { type: 'bandpass', freq: 1200, vol: 0.05 },    // cascata/lago
-      lab: { type: 'lowpass', freq: 350, vol: 0.04 },
-      juri: { type: 'lowpass', freq: 150, vol: 0.06 },
-    };
-    const p = presets[kind] || presets.central;
-    filter.type = p.type;
-    filter.frequency.value = p.freq;
-    gain.gain.value = p.vol * (mix().ambience_volume ?? 0.35);
+    gain.gain.value = p.vol * ambVol;
     src.connect(filter).connect(gain).connect(a.destination);
     src.start();
-    ambienceNodes = [src, filter, gain];
+    nodes.push(src, filter, gain);
+    // drone tonal que respira (LFO lento na amplitude)
+    for (const f of (p.drone || [])) {
+      const osc = a.createOscillator();
+      osc.type = p.dtype || 'sine'; osc.frequency.value = f;
+      const dg = a.createGain(); dg.gain.value = p.dvol * ambVol;
+      const lfo = a.createOscillator(); lfo.frequency.value = 0.12 + Math.random() * 0.08;
+      const lfoGain = a.createGain(); lfoGain.gain.value = p.dvol * ambVol * 0.6;
+      lfo.connect(lfoGain).connect(dg.gain);
+      osc.connect(dg).connect(a.destination);
+      osc.start(); lfo.start();
+      nodes.push(osc, dg, lfo, lfoGain);
+    }
+    ambienceNodes = nodes;
   } catch { /* sem gesto do usuário ainda */ }
 }
 

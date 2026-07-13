@@ -7,7 +7,7 @@ import { getModule, t } from './database.js';
 import { sceneMedia } from './art.js';
 import { emit, subscribe } from './eventManager.js';
 import { getCase } from './caseState.js';
-import { sfx, toggleMute, isMuted } from './audioManager.js';
+import { sfx, toggleMute, isMuted, ambience } from './audioManager.js';
 import { requestHint, ariaSay } from './aria.js';
 
 const app = () => document.getElementById('app');
@@ -118,6 +118,14 @@ export function modal(title, contentNode, actions = []) {
 // ── Relógio do mundo por ato (CASE001 world state) ──────────────────────────
 const ACT_TIME = { 1: '14:00', 2: '15:47', 3: '16:45', 4: '18:30' };
 
+// módulo -> ambiência sonora (procedural, ver audioManager.AMB_PRESETS)
+const AMB_KIND = {
+  'MAPA': 'mapa', 'LABORATORIO': 'lab', 'SALA DO JURI': 'juri',
+  'INTERROGATORIOS': 'interrogatorio', 'EVIDENCIAS': 'evidencias', 'MURAL': 'mural',
+  'OSINT': 'osint', 'GEOINT': 'geoint', 'LINHA DO TEMPO': 'tempo',
+  'CENTRAL': 'central', 'CAMPANHA': 'campanha', 'RESULTADO': 'central', 'CREDITOS': 'central',
+};
+
 export function screenShell(title, breadcrumb, accent) {
   const s = getCase();
   const root = el('div', 'screen');
@@ -127,6 +135,8 @@ export function screenShell(title, breadcrumb, accent) {
   // identidade cromática/ambiente por módulo (ver .screen[data-mod] no CSS)
   root.dataset.mod = normKey(title);
   root.dataset.act = s.act;   // relógio do mundo: dia -> tarde -> entardecer
+  // identidade SONORA por módulo (ambiência procedural, ver audioManager)
+  ambience(AMB_KIND[normKey(title)] || 'central');
   // ambiente cinematográfico: luz, profundidade, poeira e Curitiba viva
   const env = el('div', 'screen-env');
   env.setAttribute('aria-hidden', 'true');
