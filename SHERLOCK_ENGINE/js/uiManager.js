@@ -7,7 +7,7 @@ import { getModule, t } from './database.js';
 import { sceneMedia } from './art.js';
 import { emit, subscribe } from './eventManager.js';
 import { getCase } from './caseState.js';
-import { sfx, toggleMute, isMuted, ambience } from './audioManager.js';
+import { sfx, toggleMute, isMuted, ambience, musicBed } from './audioManager.js';
 import { requestHint, ariaSay } from './aria.js';
 
 const app = () => document.getElementById('app');
@@ -135,8 +135,11 @@ export function screenShell(title, breadcrumb, accent) {
   // identidade cromática/ambiente por módulo (ver .screen[data-mod] no CSS)
   root.dataset.mod = normKey(title);
   root.dataset.act = s.act;   // relógio do mundo: dia -> tarde -> entardecer
-  // identidade SONORA por módulo (ambiência procedural, ver audioManager)
-  ambience(AMB_KIND[normKey(title)] || 'central');
+  // identidade SONORA por módulo: faixa de assets/audio se existir, senão
+  // ambiência procedural (Web Audio). Ver assets/audio/README.md.
+  const ambKind = AMB_KIND[normKey(title)] || 'central';
+  ambience(ambKind);
+  musicBed(ambKind);
   // ambiente cinematográfico: luz, profundidade, poeira e Curitiba viva
   const env = el('div', 'screen-env');
   env.setAttribute('aria-hidden', 'true');

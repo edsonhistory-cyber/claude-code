@@ -134,6 +134,38 @@ export function ambience(kind) {
   } catch { /* sem gesto do usuário ainda */ }
 }
 
+// ── Trilha por ambiente (arquivos em assets/audio/, opcional) ───────────────
+// Se houver faixa no manifesto para o módulo, toca em loop e substitui o drone
+// procedural; senão, mantém a ambiência sintetizada. Ver assets/audio/README.md.
+let audioManifest = null, musicEl = null;
+async function getAudioManifest() {
+  if (audioManifest) return audioManifest;
+  try { audioManifest = await (await fetch('assets/audio/manifest.audio.json')).json(); }
+  catch { audioManifest = { tracks: {} }; }
+  return audioManifest;
+}
+export function musicBed(kind) {
+  if (muted || !kind) { stopMusic(); return; }
+  getAudioManifest().then((m) => {
+    const rel = m?.tracks?.[kind];
+    if (!rel) { stopMusic(); return; }              // sem faixa: ambiência procedural
+    if (musicEl && musicEl.dataset.kind === kind) return; // já tocando essa
+    stopMusic();
+    try {
+      const el = new Audio('assets/audio/' + rel);
+      el.loop = true; el.dataset.kind = kind;
+      el.volume = Math.min(1, (mix().ambience_volume ?? 0.35) * 1.8);
+      el.addEventListener('canplaythrough', () => stopAmbience(), { once: true });
+      el.addEventListener('error', () => { /* arquivo ausente: mantém procedural */ });
+      el.play().catch(() => { /* aguardando gesto do usuário */ });
+      musicEl = el;
+    } catch { /* ignore */ }
+  }).catch(() => {});
+}
+export function stopMusic() {
+  if (musicEl) { try { musicEl.pause(); musicEl.removeAttribute('src'); } catch { /* */ } musicEl = null; }
+}
+
 export function stopAmbience() {
   for (const n of ambienceNodes) { try { n.disconnect(); n.stop?.(); } catch { /* já parado */ } }
   ambienceNodes = [];
@@ -188,7 +220,7 @@ export function speak(text, { rate = 1.0, pitch = 1.0, gender = null } = {}) {
 
 export function toggleMute() {
   muted = !muted;
-  if (muted) { stopAmbience(); if ('speechSynthesis' in window) speechSynthesis.cancel(); }
+  if (muted) { stopAmbience(); stopMusic(); if ('speechSynthesis' in window) speechSynthesis.cancel(); }
   return muted;
 }
 
