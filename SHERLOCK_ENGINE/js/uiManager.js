@@ -124,6 +124,13 @@ export function screenShell(title, breadcrumb, accent) {
   // cor de destaque da tela: tudo que usa var(--accent) fica colorido por módulo
   const color = accent || cardInfo(title).color;
   if (color) root.style.setProperty('--accent', color);
+  // identidade cromática/ambiente por módulo (ver .screen[data-mod] no CSS)
+  root.dataset.mod = normKey(title);
+  // ambiente cinematográfico: luz, profundidade e poeira (atrás do conteúdo)
+  const env = el('div', 'screen-env');
+  env.setAttribute('aria-hidden', 'true');
+  env.innerHTML = '<span class="env-glow"></span><span class="env-pave"></span><span class="env-leak"></span><span class="env-dust"></span><span class="env-vignette"></span>';
+  root.append(env);
   const header = el('header', 'screen-header');
   // brasão da divisão: a onça de João Turin (releitura vetorial paranista)
   const crest = el('span', 'turin-onca header-crest');
