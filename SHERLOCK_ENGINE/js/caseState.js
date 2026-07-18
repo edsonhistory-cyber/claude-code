@@ -51,6 +51,7 @@ const EMPTY = () => ({
   muralPostits: [],     // {id, x, y, text} anotações livres do jogador
   muralPinned: [],      // pids de suspeitos fixados no quadro
   muralPhotos: [],      // {id, x, y, src} imagens (upload/colar), reduzidas
+  muralHidden: [],      // ids de pistas removidas do quadro pelo jogador
   suspicion: {},        // P00x -> 0..100 (deductionEngine)
   flags: {},            // avulsos
 });

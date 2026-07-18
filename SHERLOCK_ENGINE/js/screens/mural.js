@@ -19,6 +19,16 @@ function characterById(pid) {
     || (getModule('SHERLOCK_ENGINE_PERSONAGENS')?.personagens || []).find((p) => p.id === pid);
 }
 
+// botão de deletar padrão (aparece no hover; não inicia arraste nem conexão)
+function delBtn(onDel) {
+  const b = el('button', 'board-del', '×');
+  b.title = 'Remover do quadro';
+  b.setAttribute('aria-label', 'Remover do quadro');
+  b.onpointerdown = (e) => e.stopPropagation();
+  b.onclick = (e) => { e.stopPropagation(); onDel(); };
+  return b;
+}
+
 export function render() {
   const { body } = screenShell('Mural', 'CENTRAL › MURAL DE INVESTIGAÇÃO');
   ambience('central');
@@ -46,7 +56,8 @@ export function render() {
   body.append(grid);
 
   const kg = getPack().knowledge_graph || getModule('SHERLOCK_ENGINE_DATABASE')?.knowledge_graph || [];
-  const clues = (getPack().mural_nodes || []).filter((n) => !n.need || hasReq(n.need));
+  const hidden = s.muralHidden || (s.muralHidden = []);
+  const clues = (getPack().mural_nodes || []).filter((n) => (!n.need || hasReq(n.need)) && !hidden.includes(n.id));
   // suspeitos fixados no quadro (foto-polaroide arrastável e conectável)
   const pinned = (s.muralPinned || []).map((pid) => {
     const c = characterById(pid);
@@ -133,8 +144,15 @@ export function render() {
     if (node.kind === 'suspect') {
       elem = el('div', `board-item suspect-pin${linkFrom?.id === node.id ? ' active' : ''}`);
       elem.innerHTML = `<div class="suspect-portrait">${portrait(node.id)}</div><span>${node.label}</span>`;
+      elem.append(delBtn(() => {
+        s.muralPinned = s.muralPinned.filter((p) => p !== node.id);
+        delete s.muralPos[node.id];
+        sfx('click'); render();
+      }));
     } else {
-      elem = el('button', `btn chip pin-note n${i % 5} board-item${linkFrom?.id === node.id ? ' active' : ''}`, node.label);
+      elem = el('div', `pin-note chip n${i % 5} board-item${linkFrom?.id === node.id ? ' active' : ''}`);
+      elem.innerHTML = `<span class="pin-label">${node.label}</span>`;
+      elem.append(delBtn(() => { hidden.push(node.id); sfx('click'); render(); }));
     }
     elem.style.left = `${x}%`; elem.style.top = `${y}%`;
     makeDraggable(elem, board, (nx, ny) => { s.muralPos[node.id] = { x: nx, y: ny }; }, () => {
@@ -157,10 +175,7 @@ export function render() {
     ta.value = pt.text; ta.placeholder = 'anotação…';
     ta.oninput = () => { pt.text = ta.value; };
     ta.onpointerdown = (e) => e.stopPropagation(); // digitar sem arrastar
-    const del = el('button', 'postit-del', '×');
-    del.onpointerdown = (e) => e.stopPropagation();
-    del.onclick = () => { s.muralPostits = s.muralPostits.filter((p) => p.id !== pt.id); sfx('click'); render(); };
-    note.append(del, ta);
+    note.append(delBtn(() => { s.muralPostits = s.muralPostits.filter((p) => p.id !== pt.id); sfx('click'); render(); }), ta);
     makeDraggable(note, board, (nx, ny) => { pt.x = nx; pt.y = ny; });
     board.append(note);
   });
@@ -170,10 +185,7 @@ export function render() {
     const item = el('div', 'board-item board-photo');
     item.style.left = `${ph.x}%`; item.style.top = `${ph.y}%`;
     item.innerHTML = `<img src="${ph.src}" alt="foto do quadro">`;
-    const del = el('button', 'postit-del', '×');
-    del.onpointerdown = (e) => e.stopPropagation();
-    del.onclick = () => { s.muralPhotos = s.muralPhotos.filter((p) => p.id !== ph.id); sfx('click'); render(); };
-    item.append(del);
+    item.append(delBtn(() => { s.muralPhotos = s.muralPhotos.filter((p) => p.id !== ph.id); sfx('click'); render(); }));
     makeDraggable(item, board, (nx, ny) => { ph.x = nx; ph.y = ny; });
     board.append(item);
   });
