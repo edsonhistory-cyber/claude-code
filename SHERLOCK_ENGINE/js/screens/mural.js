@@ -184,9 +184,11 @@ export function render() {
   (s.muralPhotos || []).forEach((ph) => {
     const item = el('div', 'board-item board-photo');
     item.style.left = `${ph.x}%`; item.style.top = `${ph.y}%`;
-    item.innerHTML = `<img src="${ph.src}" alt="foto do quadro">`;
+    item.innerHTML = `<img src="${ph.src}" alt="foto do quadro"><span class="board-photo-zoom">🔍</span>`;
     item.append(delBtn(() => { s.muralPhotos = s.muralPhotos.filter((p) => p.id !== ph.id); sfx('click'); render(); }));
-    makeDraggable(item, board, (nx, ny) => { ph.x = nx; ph.y = ny; });
+    makeDraggable(item, board,
+      (nx, ny) => { ph.x = nx; ph.y = ny; },
+      () => openImageZoom(ph.src));   // clique (sem arraste) amplia para analisar
     board.append(item);
   });
 
@@ -247,7 +249,7 @@ function addPhoto(s, file) {
   reader.onload = () => {
     const img = new Image();
     img.onload = () => {
-      const max = 200, scale = Math.min(1, max / Math.max(img.width, img.height));
+      const max = 1000, scale = Math.min(1, max / Math.max(img.width, img.height)); // res. maior p/ zoom
       const cv = document.createElement('canvas');
       cv.width = Math.round(img.width * scale); cv.height = Math.round(img.height * scale);
       cv.getContext('2d').drawImage(img, 0, 0, cv.width, cv.height);
@@ -258,6 +260,45 @@ function addPhoto(s, file) {
     img.src = reader.result;
   };
   reader.readAsDataURL(file);
+}
+
+// Lightbox com zoom (＋/－, roda do mouse, arrastar p/ mover) para analisar prints.
+function openImageZoom(src) {
+  const ov = el('div', 'img-zoom-overlay');
+  ov.innerHTML = `
+    <div class="img-zoom-stage"><img class="img-zoom-img" src="${src}" alt="imagem ampliada" draggable="false"></div>
+    <div class="img-zoom-bar">
+      <button class="btn btn-ghost" data-z="out" title="Diminuir (−)">－</button>
+      <button class="btn btn-ghost" data-z="reset" title="100%">100%</button>
+      <button class="btn btn-ghost" data-z="in" title="Aumentar (+)">＋</button>
+      <button class="btn btn-primary" data-z="close" title="Fechar (Esc)">✕ Fechar</button>
+    </div>
+    <div class="img-zoom-hint">roda do mouse: zoom · arraste: mover · Esc: fechar</div>`;
+  document.body.append(ov);
+  const img = ov.querySelector('.img-zoom-img');
+  const stage = ov.querySelector('.img-zoom-stage');
+  const label = ov.querySelector('[data-z="reset"]');
+  let scale = 1, tx = 0, ty = 0;
+  const apply = () => { img.style.transform = `translate(${tx}px, ${ty}px) scale(${scale})`; label.textContent = Math.round(scale * 100) + '%'; };
+  const zoom = (f) => { scale = Math.min(10, Math.max(1, scale * f)); if (scale === 1) { tx = 0; ty = 0; } apply(); };
+  const close = () => { ov.remove(); document.removeEventListener('keydown', onKey); };
+  const onKey = (e) => {
+    if (e.key === 'Escape') close();
+    else if (e.key === '+' || e.key === '=') zoom(1.25);
+    else if (e.key === '-' || e.key === '_') zoom(0.8);
+  };
+  ov.querySelector('[data-z="in"]').onclick = () => zoom(1.25);
+  ov.querySelector('[data-z="out"]').onclick = () => zoom(0.8);
+  ov.querySelector('[data-z="reset"]').onclick = () => { scale = 1; tx = 0; ty = 0; apply(); };
+  ov.querySelector('[data-z="close"]').onclick = close;
+  ov.onclick = (e) => { if (e.target === ov || e.target === stage) close(); };
+  document.addEventListener('keydown', onKey);
+  stage.onwheel = (e) => { e.preventDefault(); zoom(e.deltaY < 0 ? 1.15 : 0.87); };
+  let drag = false, px = 0, py = 0;
+  img.onpointerdown = (e) => { drag = true; px = e.clientX; py = e.clientY; img.setPointerCapture?.(e.pointerId); e.preventDefault(); };
+  img.onpointermove = (e) => { if (!drag) return; tx += e.clientX - px; ty += e.clientY - py; px = e.clientX; py = e.clientY; apply(); };
+  img.onpointerup = () => { drag = false; };
+  sfx('camera_shutter'); apply();
 }
 
 function openSuspectPicker(s) {

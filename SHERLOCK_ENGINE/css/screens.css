@@ -1189,3 +1189,64 @@ a.btn { text-decoration: none; display: inline-block; text-align: center; }
   .board-del { transition: opacity .1s; }
   .pin-note, .free-postit, .board-photo, .cork-board .suspect-pin { transition: none; }
 }
+
+/* ===== Mural: lightbox de zoom das imagens (analisar prints) ===== */
+.board-photo { cursor: zoom-in; }
+.board-photo-zoom {
+  position: absolute; bottom: 4px; right: 4px; font-size: 11px; line-height: 1;
+  background: rgba(0,0,0,.55); color: #fff; border-radius: 50%; padding: 3px;
+  opacity: 0; transition: opacity .15s; pointer-events: none;
+}
+.board-photo:hover .board-photo-zoom { opacity: 1; }
+.img-zoom-overlay {
+  position: fixed; inset: 0; z-index: 200; display: flex; align-items: center; justify-content: center;
+  background: rgba(6,8,18,.93); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);
+  animation: modalFade .18s ease both;
+}
+.img-zoom-stage { max-width: 94vw; max-height: 84vh; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+.img-zoom-img {
+  max-width: 94vw; max-height: 84vh; transform-origin: center center;
+  will-change: transform; user-select: none; touch-action: none; cursor: grab;
+  border-radius: 4px; box-shadow: 0 24px 70px rgba(0,0,0,.75), 0 0 0 1px rgba(255,255,255,.08);
+}
+.img-zoom-img:active { cursor: grabbing; }
+.img-zoom-bar {
+  position: fixed; bottom: 26px; left: 50%; transform: translateX(-50%);
+  display: flex; gap: 8px; align-items: center;
+  background: rgba(16,20,44,.92); padding: 8px 10px; border-radius: 14px;
+  box-shadow: 0 12px 34px rgba(0,0,0,.55); border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+}
+.img-zoom-bar .btn { padding: .35em .8em; }
+.img-zoom-bar [data-z="reset"] { min-width: 66px; font-family: var(--font-mono); }
+.img-zoom-hint {
+  position: fixed; bottom: 78px; left: 50%; transform: translateX(-50%);
+  font-family: var(--font-mono); font-size: .72rem; color: rgba(255,255,255,.5);
+}
+
+/* ============================================================================
+   LEGIBILIDADE em ambientes CLAROS (Laboratório/Evidências): o cabeçalho vira
+   uma barra de vidro escura e as abas ganham fundo — texto sempre legível.
+   ==========================================================================*/
+.screen-header {
+  background: linear-gradient(180deg, rgba(10,14,32,.85), rgba(10,14,32,.60));
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  border-bottom: 1px solid color-mix(in srgb, var(--accent) 26%, transparent);
+  position: relative; z-index: 4;
+}
+.screen-header .breadcrumb { text-shadow: 0 1px 3px rgba(0,0,0,.6); }
+.screen-header .hud-item, .screen-header .btn { color: var(--text); }
+.screen-header .btn { text-shadow: 0 1px 2px rgba(0,0,0,.5); }
+
+/* abas (Laboratório etc.) legíveis mesmo sobre ambiente claro */
+.tab-btn {
+  background: rgba(12,18,40,.72);
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  color: var(--text);
+  border-color: color-mix(in srgb, var(--accent) 40%, transparent);
+}
+.tab-btn:hover { background: rgba(16,24,52,.86); border-color: var(--accent); }
+.tab-btn.active {
+  background: color-mix(in srgb, var(--accent) 32%, rgba(12,18,40,.82));
+  border-color: var(--accent); color: #fff;
+  box-shadow: 0 0 16px -4px color-mix(in srgb, var(--accent) 55%, transparent);
+}
