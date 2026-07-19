@@ -1,0 +1,276 @@
+{
+  "schema": "SHERLOCK_ENGINE_CINEMATICS",
+  "version": "1.0",
+  "scenes": [
+    {
+      "id": "CIN001",
+      "title": "Abertura",
+      "duration_sec": 75,
+      "camera": [
+        {
+          "shot": 1,
+          "type": "drone",
+          "location": "Rua 24 Horas",
+          "move": "descida lenta",
+          "time": "14:00"
+        },
+        {
+          "shot": 2,
+          "type": "tracking",
+          "location": "Ônibus Linha Turismo",
+          "move": "acompanha o ônibus"
+        },
+        {
+          "shot": 3,
+          "type": "close",
+          "target": "Otávio Bandeira",
+          "move": "zoom lento"
+        }
+      ],
+      "audio": {
+        "music": "Suspense leve",
+        "ambient": "Cidade de Curitiba",
+        "voiceover": "Caso CWB-1447 iniciado."
+      },
+      "transition": "fade_black"
+    },
+    {
+      "id": "CIN002",
+      "title": "Parada no KM18",
+      "duration_sec": 40,
+      "camera": [
+        {
+          "shot": 1,
+          "type": "wide",
+          "location": "Acostamento",
+          "move": "panorâmica"
+        },
+        {
+          "shot": 2,
+          "type": "inside_bus",
+          "target": "Porta-volumes",
+          "move": "fixa"
+        },
+        {
+          "shot": 3,
+          "type": "detail",
+          "target": "Garrafa térmica",
+          "move": "macro"
+        }
+      ],
+      "lighting": "Luz natural de outono",
+      "effect": "Som de freios e silêncio"
+    },
+    {
+      "id": "CIN003",
+      "title": "Descoberta do corpo",
+      "duration_sec": 55,
+      "camera": [
+        {
+          "shot": 1,
+          "type": "drone",
+          "location": "Parque Tanguá",
+          "move": "aproximação"
+        },
+        {
+          "shot": 2,
+          "type": "shoulder",
+          "target": "Equipe pericial"
+        },
+        {
+          "shot": 3,
+          "type": "close",
+          "target": "Garrafa"
+        }
+      ],
+      "music": "Suspense intenso"
+    },
+    {
+      "id": "CIN004",
+      "title": "Revelação Final",
+      "duration_sec": 90,
+      "camera": [
+        {
+          "shot": 1,
+          "type": "courtroom",
+          "move": "travelling"
+        },
+        {
+          "shot": 2,
+          "type": "close",
+          "target": "Sérgio Bento"
+        },
+        {
+          "shot": 3,
+          "type": "wide",
+          "target": "Sala do Júri"
+        }
+      ],
+      "voiceover": "Todas as evidências convergem para um único responsável.",
+      "ending": [
+        "Caso resolvido",
+        "Pontuação",
+        "Conquistas",
+        "Créditos"
+      ]
+    },
+    {
+      "id": "CIN101",
+      "title": "Silêncio na Serra",
+      "duration_sec": 50,
+      "camera": [
+        {
+          "shot": 1,
+          "type": "drone",
+          "location": "Serra do Mar",
+          "move": "mergulho na neblina",
+          "time": "08:40"
+        },
+        {
+          "shot": 2,
+          "type": "tracking",
+          "location": "Trem Serra Verde",
+          "move": "acompanha a litorina"
+        },
+        {
+          "shot": 3,
+          "type": "wide",
+          "location": "Túnel Roça Nova",
+          "move": "a boca do túnel engole o trem"
+        },
+        {
+          "shot": 4,
+          "type": "close",
+          "location": "Estação de Morretes",
+          "move": "plataforma vazia"
+        }
+      ],
+      "audio": {
+        "music": "Cordas tensas",
+        "ambient": "Trilhos e vento",
+        "voiceover": "Caso SRR-0904. O trem entrou no túnel com quarenta e três passageiros. Saiu com quarenta e dois respirando."
+      },
+      "transition": "fade_black"
+    },
+    {
+      "id": "CIN201",
+      "title": "Operação Eclipse",
+      "duration_sec": 50,
+      "camera": [
+        {
+          "shot": 1,
+          "type": "wide",
+          "location": "Fórum",
+          "move": "fachada ao anoitecer",
+          "time": "19:58"
+        },
+        {
+          "shot": 2,
+          "type": "steadicam",
+          "location": "Corredor",
+          "move": "câmeras de segurança piscando"
+        },
+        {
+          "shot": 3,
+          "type": "detail",
+          "location": "Subsolo",
+          "move": "o quadro geral desarma"
+        },
+        {
+          "shot": 4,
+          "type": "close",
+          "location": "Paiol",
+          "move": "escuridão de sete minutos"
+        }
+      ],
+      "audio": {
+        "music": "Pulso eletrônico",
+        "ambient": "Zumbido elétrico",
+        "voiceover": "Caso ECL-2112. Sete minutos de apagão no Fórum. Quando a luz voltou, a verdade estava pendurada no paiol de provas."
+      },
+      "transition": "fade_black"
+    },
+    {
+      "id": "CIN301",
+      "title": "O Colecionador",
+      "duration_sec": 50,
+      "camera": [
+        {
+          "shot": 1,
+          "type": "drone",
+          "location": "Casarão",
+          "move": "sobrevoo da gala",
+          "time": "19:30"
+        },
+        {
+          "shot": 2,
+          "type": "steadicam",
+          "location": "Galeria",
+          "move": "entre taças e telas"
+        },
+        {
+          "shot": 3,
+          "type": "wide",
+          "location": "Salão de leilões",
+          "move": "o martelo ergue-se"
+        },
+        {
+          "shot": 4,
+          "type": "close",
+          "location": "Jardim de inverno",
+          "move": "vitrais sob a lua"
+        }
+      ],
+      "audio": {
+        "music": "Valsa em surdina",
+        "ambient": "Taças e conversas",
+        "voiceover": "Caso COL-0077. No leilão beneficente do Batel, o lote mais caro da noite foi uma vida. E o colecionador estava na sala."
+      },
+      "transition": "fade_black"
+    },
+    {
+      "id": "CIN401",
+      "title": "O Último Ato",
+      "duration_sec": 55,
+      "camera": [
+        {
+          "shot": 1,
+          "type": "wide",
+          "location": "Teatro Guaíra",
+          "move": "o letreiro da estreia acende",
+          "time": "19:00"
+        },
+        {
+          "shot": 2,
+          "type": "steadicam",
+          "location": "Camarim",
+          "move": "lâmpadas do espelho, flores e uma carta"
+        },
+        {
+          "shot": 3,
+          "type": "tracking",
+          "location": "Coxia",
+          "move": "sombras entre as pernas de palco"
+        },
+        {
+          "shot": 4,
+          "type": "vertigo",
+          "location": "Urdimento",
+          "move": "a vara 7 range sobre a marca do monólogo"
+        }
+      ],
+      "audio": {
+        "music": "Overture interrompida",
+        "ambient": "Plateia e terceiro sinal",
+        "voiceover": "Caso ATO-0555. Na estreia mais aguardada do ano, o pano caiu antes do aplauso — e o teatro inteiro virou cena de crime."
+      },
+      "transition": "fade_black"
+    }
+  ],
+  "global_effects": {
+    "color_grading": "Azul frio com dourado",
+    "film_grain": true,
+    "lens_flare": "Suave",
+    "motion_blur": "Baixo"
+  }
+}

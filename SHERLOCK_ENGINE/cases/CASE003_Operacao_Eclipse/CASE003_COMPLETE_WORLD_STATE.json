@@ -1,0 +1,87 @@
+{
+  "schema": "CASE003_COMPLETE_WORLD_STATE",
+  "version": "1.0",
+  "case": "ECL-2112",
+  "global_state": {
+    "current_time": "18:00",
+    "weather_cycle": [
+      {
+        "time": "18:00",
+        "sky": "Anoitecer",
+        "light": "Baixa"
+      },
+      {
+        "time": "21:12",
+        "sky": "Apagão",
+        "light": "Nenhuma"
+      },
+      {
+        "time": "21:19",
+        "sky": "Noite",
+        "light": "Emergência"
+      }
+    ],
+    "game_flags": {
+      "crime_committed": false,
+      "body_found": false,
+      "jury_unlocked": false,
+      "case_closed": false
+    }
+  },
+  "state_timeline": [
+    {
+      "time": "21:10",
+      "characters": {
+        "Vera": "Sala de perícia",
+        "Téo": "Guarita do paiol"
+      },
+      "objects": {
+        "Quadro geral": "Sabotado"
+      }
+    },
+    {
+      "time": "21:14",
+      "characters": {
+        "Vera": "Corredor (jaleco)"
+      },
+      "flags": {
+        "crime_committed": true
+      }
+    },
+    {
+      "time": "21:40",
+      "characters": {
+        "Téo": "Vítima no paiol"
+      },
+      "flags": {
+        "body_found": true
+      }
+    },
+    {
+      "time": "23:00",
+      "flags": {
+        "jury_unlocked": true
+      }
+    }
+  ],
+  "area_states": {
+    "PAI": {
+      "accessible": true,
+      "hidden_evidence": [
+        "Lacre reimpresso"
+      ]
+    },
+    "SUB": {
+      "accessible": true
+    },
+    "COR": {
+      "accessible": true
+    }
+  },
+  "simulation": {
+    "npc_updates": "every_30_seconds",
+    "weather_updates": "timeline",
+    "lighting_updates": "timeline",
+    "world_sync": "event_based"
+  }
+}

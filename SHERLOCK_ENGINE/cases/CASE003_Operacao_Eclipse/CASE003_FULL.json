@@ -1,0 +1,111 @@
+{
+  "schema": "CASE003_FULL",
+  "version": "1.0",
+  "case": {
+    "id": "ECL-2112",
+    "title": "Operação Eclipse",
+    "status": "Playable",
+    "city": "Curitiba - PR",
+    "objective": "Descobrir quem matou o guarda Téo Almada e adulterou as provas durante o apagão do Fórum."
+  },
+  "acts": [
+    {
+      "id": "ACT1",
+      "title": "O Apagão",
+      "goal": "Reconstituir os 7 minutos de escuridão no Fórum.",
+      "unlock": [
+        "Mapa",
+        "Dossiês",
+        "Livro de ocorrências"
+      ]
+    },
+    {
+      "id": "ACT2",
+      "title": "O Paiol",
+      "goal": "Provar que o suicídio foi encenado e que o paiol foi violado.",
+      "unlock": [
+        "Registro do ponto",
+        "Backup das câmeras",
+        "Depoimentos"
+      ]
+    },
+    {
+      "id": "ACT3",
+      "title": "Laboratório",
+      "goal": "Ligar o lacre reimpresso e o HD clonado à perícia interna.",
+      "unlock": [
+        "Laudo",
+        "Lacre",
+        "HD de provas"
+      ]
+    },
+    {
+      "id": "ACT4",
+      "title": "Sala do Júri",
+      "goal": "Apresentar suspeito, local e método."
+    }
+  ],
+  "critical_path": [
+    "Registro do ponto",
+    "Paiol de Provas",
+    "Backup das câmeras",
+    "Lacre reimpresso",
+    "HD clonado",
+    "Laudo da dupla ligadura",
+    "Sala do Júri"
+  ],
+  "red_herrings": [
+    {
+      "character": "Rui Barros",
+      "reason": "Promotor pressionado, mas estava em audiência online gravada."
+    },
+    {
+      "character": "Otto Krieger",
+      "reason": "Eletricista com chave do quadro, porém a biometria o coloca fora do prédio."
+    },
+    {
+      "character": "Samir Duarte",
+      "reason": "Advogado da Fundação Pinhal, saiu pela catraca às 19:02."
+    }
+  ],
+  "dependencies": [
+    {
+      "from": "PERICIA",
+      "to": "INTELIGENCIA",
+      "token": "LACRE"
+    },
+    {
+      "from": "INTELIGENCIA",
+      "to": "ARQUIVO",
+      "token": "HASH"
+    },
+    {
+      "from": "ARQUIVO",
+      "to": "CAMPO",
+      "token": "PONTO"
+    },
+    {
+      "from": "CAMPO",
+      "to": "PERICIA",
+      "token": "APAGAO"
+    }
+  ],
+  "final_solution": {
+    "sealed": true,
+    "encoding": "base64",
+    "note": "Solução lacrada. Decodificada apenas na Sala do Júri, no momento do veredito.",
+    "data": "eyJzdXNwZWN0IjogIlZlcmEgTG9udHJhIiwgImxvY2F0aW9uIjogIlBhaW9sIGRlIFByb3ZhcyIsICJtZXRob2QiOiAiRW5mb3JjYW1lbnRvIGVuY2VuYWRvIGFww7NzIGVzdHJhbmd1bGFtZW50byIsICJwcm9vZnMiOiBbIkR1cGxhIG1hcmNhIGRlIGxpZ2FkdXJhIG5vIGxhdWRvIiwgIkJhY2t1cCBkYXMgY8OibWVyYXM6IGphbGVjbyDDoHMgMjE6MTQiLCAiUG9udG8gYmlvbcOpdHJpY286IHNhw61kYSDDoHMgMjE6MjUiLCAiTGFjcmUgcmVpbXByZXNzbyBmb3JhIGRlIHNlcXXDqm5jaWEiLCAiSEQgY2xvbmFkbyBjb20gaGFzaCBkaXZlcmdlbnRlIl19"
+  },
+  "completion": {
+    "required": [
+      "4 códigos do cofre",
+      "Linha do tempo correta",
+      "Acusação correta"
+    ],
+    "score_rank": {
+      "560": "Detetive de Elite",
+      "460": "Investigador Sênior",
+      "360": "Caso Resolvido"
+    }
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "schema": "SHERLOCK_CASE_CREATOR_SDK",
+  "version": "1.0",
+  "description": "SDK para criação de novos casos compatíveis com a Sherlock Engine.",
+  "required_files": [
+    "case.json",
+    "characters.json",
+    "locations.json",
+    "evidences.json",
+    "documents.json",
+    "events.json",
+    "dialogues.json"
+  ],
+  "case_template": {
+    "id": "CASEXXX",
+    "title": "",
+    "city": "",
+    "difficulty": "normal",
+    "players": 4,
+    "estimated_time": "120 min"
+  },
+  "entity_templates": {
+    "character": {
+      "id": "P001",
+      "name": "",
+      "role": "",
+      "bio": "",
+      "is_culprit": false
+    },
+    "location": {
+      "id": "L001",
+      "name": "",
+      "coordinates": [
+        0.0,
+        0.0
+      ],
+      "discoverable": true
+    },
+    "evidence": {
+      "id": "EV001",
+      "type": "object",
+      "importance": "Alta",
+      "unlock_condition": ""
+    },
+    "event": {
+      "id": "EVT001",
+      "time": "00:00",
+      "trigger": "",
+      "effects": []
+    }
+  },
+  "validators": {
+    "unique_ids": true,
+    "single_solution": true,
+    "all_required_files_present": true,
+    "cross_reference_check": true,
+    "timeline_consistency": true
+  },
+  "build_pipeline": [
+    "Validar JSONs",
+    "Gerar índices",
+    "Verificar referências",
+    "Empacotar assets",
+    "Construir caso",
+    "Executar testes automáticos"
+  ],
+  "extensions": {
+    "custom_minigames": true,
+    "custom_ai_rules": true,
+    "custom_scoring": true,
+    "multiple_endings": true
+  }
+}

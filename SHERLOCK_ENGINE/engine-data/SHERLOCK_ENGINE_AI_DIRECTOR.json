@@ -1,0 +1,82 @@
+{
+  "schema": "SHERLOCK_ENGINE_AI_DIRECTOR",
+  "version": "1.0",
+  "director": {
+    "name": "G.R.A.L.H.A. Director",
+    "purpose": "Controlar dinamicamente o ritmo da investigação."
+  },
+  "difficulty_manager": {
+    "adaptive": true,
+    "inputs": [
+      "tempo_sem_progresso",
+      "taxa_de_erros",
+      "dicas_utilizadas",
+      "evidencias_encontradas"
+    ],
+    "actions": [
+      "Liberar dica contextual",
+      "Ativar diálogo opcional",
+      "Destacar área relevante",
+      "Aumentar desafio"
+    ]
+  },
+  "cinematic_control": {
+    "music_layers": [
+      "calma",
+      "tensão",
+      "descoberta",
+      "acusação"
+    ],
+    "lighting_events": true,
+    "camera_presets": [
+      "cinema",
+      "investigação",
+      "laboratório",
+      "júri"
+    ]
+  },
+  "npc_ai": {
+    "dynamic_behavior": true,
+    "reaction_rules": [
+      "Personagens ficam mais nervosos quando confrontados.",
+      "Testemunhas lembram novos detalhes após evidências."
+    ]
+  },
+  "story_beats": [
+    {
+      "id": "SB01",
+      "trigger": "Primeira evidência",
+      "effect": "Trilha muda"
+    },
+    {
+      "id": "SB02",
+      "trigger": "Hipótese confirmada",
+      "effect": "Nova cinemática"
+    },
+    {
+      "id": "SB03",
+      "trigger": "Sala do Júri",
+      "effect": "Silêncio ambiente"
+    }
+  ],
+  "assistant": {
+    "name": "G.R.A.L.H.A.",
+    "max_hints": 5,
+    "never_reveal_solution": true,
+    "hint_levels": [
+      "sutil",
+      "moderado",
+      "forte"
+    ]
+  },
+  "stress_model": {
+    "team_tension": 0,
+    "increase_on": "erros consecutivos",
+    "decrease_on": "evidências críticas encontradas"
+  },
+  "future": {
+    "emotion_detection": true,
+    "voice_reaction": true,
+    "procedural_music": true
+  }
+}

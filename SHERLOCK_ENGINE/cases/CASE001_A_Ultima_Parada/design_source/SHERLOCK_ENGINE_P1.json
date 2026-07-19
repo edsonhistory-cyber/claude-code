@@ -1,0 +1,135 @@
+{
+  "project": {
+    "name": "SHERLOCK ENGINE",
+    "game_title": "A Última Parada",
+    "version": "4.0-Design",
+    "case_id": "CWB-1447",
+    "language": "pt-BR",
+    "genre": "Detetive cooperativo",
+    "platform": "HTML5 Offline",
+    "players": {
+      "min": 1,
+      "max": 4
+    },
+    "estimated_duration_minutes": [
+      90,
+      180
+    ]
+  },
+  "design_principles": {
+    "core_experience": [
+      "Dedução lógica",
+      "Cooperação obrigatória",
+      "Narrativa cinematográfica",
+      "Exploração livre",
+      "Sem internet"
+    ],
+    "visual_style": {
+      "theme": "Centro de investigação moderno",
+      "primary_colors": [
+        "#0B1723",
+        "#12334A",
+        "#C0392B",
+        "#E0B658"
+      ],
+      "fonts": [
+        "Bebas Neue",
+        "Oswald",
+        "Special Elite",
+        "Courier Prime"
+      ],
+      "lighting": "Escuro com destaques em azul e vermelho"
+    }
+  },
+  "architecture": {
+    "modules": [
+      {
+        "id": "login",
+        "title": "Tela de Login",
+        "next": "boot"
+      },
+      {
+        "id": "boot",
+        "title": "Inicialização do Sistema",
+        "next": "central"
+      },
+      {
+        "id": "central",
+        "title": "Central de Operações",
+        "children": [
+          "mapa",
+          "mural",
+          "linha_tempo",
+          "evidencias",
+          "laboratorio",
+          "osint",
+          "geoint",
+          "interrogatorios",
+          "camera",
+          "pontuacao",
+          "juri"
+        ]
+      }
+    ],
+    "save_system": {
+      "autosave": true,
+      "manual_save": true,
+      "storage": "localStorage"
+    }
+  },
+  "ui": {
+    "login": {
+      "background": "Painel metálico escuro",
+      "logo": "PROJECT SHERLOCK",
+      "fields": [
+        "usuario",
+        "senha"
+      ],
+      "buttons": [
+        "Entrar",
+        "Configurações"
+      ],
+      "effects": [
+        "scanner",
+        "glow azul",
+        "som teclado"
+      ]
+    },
+    "boot": {
+      "duration_seconds": 8,
+      "sequence": [
+        "Logo",
+        "Verificação de arquivos",
+        "Inicialização IA",
+        "Carregando módulos",
+        "Acesso liberado"
+      ]
+    },
+    "central": {
+      "widgets": [
+        "Mapa Curitiba",
+        "Relógio oficial",
+        "Missões",
+        "Pontuação",
+        "Alertas",
+        "Acesso aos dossiês"
+      ]
+    }
+  },
+  "audio": {
+    "ambient": "Sala de investigação",
+    "effects": [
+      "Clique",
+      "Scanner",
+      "Sirene distante",
+      "Rádio policial",
+      "Computador"
+    ]
+  },
+  "roadmap": {
+    "phase1": "Arquitetura e UI",
+    "phase2": "Laboratório",
+    "phase3": "Inteligência",
+    "phase4": "Conteúdo e polimento"
+  }
+}

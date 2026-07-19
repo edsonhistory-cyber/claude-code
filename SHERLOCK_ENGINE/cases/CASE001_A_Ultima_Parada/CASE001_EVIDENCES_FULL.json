@@ -1,0 +1,115 @@
+{
+  "schema": "CASE001_EVIDENCES_FULL",
+  "version": "1.0",
+  "case": "CWB-1447",
+  "evidences": [
+    {
+      "id": "EV001",
+      "name": "Garrafa térmica",
+      "category": "Objeto",
+      "collected_at": "KM18 / Ônibus",
+      "collection_time": "18:20",
+      "collector": "Perícia",
+      "chain_of_custody": [
+        "Coleta",
+        "Lacre",
+        "Laboratório",
+        "Arquivo"
+      ],
+      "analysis": [
+        "Toxicologia",
+        "Digitais",
+        "Fibras"
+      ],
+      "findings": [
+        "Vestígios de glicosídeo cardíaco",
+        "Microfibra azul na tampa",
+        "Digitais parciais"
+      ],
+      "related": [
+        "EV002",
+        "DOC004",
+        "P002"
+      ],
+      "value": "Crítica",
+      "used_in": [
+        "Interrogatório",
+        "Sala do Júri"
+      ]
+    },
+    {
+      "id": "EV002",
+      "name": "Luvas nitrílicas azuis",
+      "category": "Vestígio",
+      "collected_at": "Lixeira do Parque Barigui",
+      "collection_time": "17:05",
+      "collector": "Equipe de Campo",
+      "analysis": [
+        "Fibras",
+        "DNA",
+        "Resíduos químicos"
+      ],
+      "findings": [
+        "Compatíveis com fibras da garrafa",
+        "Traços do mesmo composto tóxico"
+      ],
+      "related": [
+        "EV001",
+        "P002"
+      ],
+      "value": "Alta"
+    },
+    {
+      "id": "EV003",
+      "name": "Vídeo da Bianca",
+      "category": "Vídeo",
+      "collected_at": "Celular da testemunha",
+      "analysis": [
+        "Frame a frame",
+        "Geolocalização",
+        "Metadados"
+      ],
+      "findings": [
+        "Vulto de manga verde",
+        "Horário coincide com o KM18"
+      ],
+      "related": [
+        "P005",
+        "P002",
+        "L001"
+      ],
+      "value": "Alta"
+    },
+    {
+      "id": "EV004",
+      "name": "Tacógrafo",
+      "category": "Documento técnico",
+      "analysis": [
+        "Cronologia",
+        "Velocidade",
+        "Paradas"
+      ],
+      "findings": [
+        "Parada de 6 minutos às 15:47",
+        "Sem falha mecânica registrada"
+      ],
+      "related": [
+        "DOC004",
+        "L001"
+      ],
+      "value": "Crítica"
+    }
+  ],
+  "evidence_levels": {
+    "Baixa": 10,
+    "Média": 30,
+    "Alta": 60,
+    "Crítica": 100
+  },
+  "jury_requirements": [
+    "EV001",
+    "EV002",
+    "EV003",
+    "EV004"
+  ]
+}

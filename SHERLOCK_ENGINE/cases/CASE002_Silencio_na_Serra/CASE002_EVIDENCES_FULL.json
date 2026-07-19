@@ -1,0 +1,113 @@
+{
+  "schema": "CASE002_EVIDENCES_FULL",
+  "version": "1.0",
+  "case": "SRR-0904",
+  "evidences": [
+    {
+      "id": "EV101",
+      "name": "Corda de nylon",
+      "category": "Vestígio",
+      "collected_at": "Margem do rio Nhundiaquara",
+      "collection_time": "17:05",
+      "collector": "Equipe de Campo",
+      "chain_of_custody": [
+        "Coleta",
+        "Lacre",
+        "Laboratório",
+        "Arquivo"
+      ],
+      "analysis": [
+        "Fibras",
+        "Nós",
+        "DNA"
+      ],
+      "findings": [
+        "Nylon 6 trançado, seção fina",
+        "Nó de amarração ferroviária",
+        "Vestígios de suor não identificado"
+      ],
+      "related": [
+        "EV102",
+        "P103"
+      ],
+      "value": "Crítica",
+      "used_in": [
+        "Interrogatório",
+        "Sala do Júri"
+      ]
+    },
+    {
+      "id": "EV102",
+      "name": "Luvas de serviço do pátio",
+      "category": "Objeto",
+      "collected_at": "Compartimento técnico do vagão 2",
+      "collection_time": "16:40",
+      "collector": "Perícia",
+      "analysis": [
+        "Fibras",
+        "Resíduos"
+      ],
+      "findings": [
+        "Fibras de nylon idênticas às da corda",
+        "Fuligem do túnel nas palmas"
+      ],
+      "related": [
+        "EV101",
+        "P103"
+      ],
+      "value": "Alta"
+    },
+    {
+      "id": "EV103",
+      "name": "Foto de longa exposição",
+      "category": "Imagem",
+      "collected_at": "Câmera da fotógrafa Sofia Weber",
+      "collection_time": "—",
+      "analysis": [
+        "Frame a frame",
+        "Metadados"
+      ],
+      "findings": [
+        "Vulto com lanterna de serviço às 14:53",
+        "EXIF coincide com o túnel"
+      ],
+      "related": [
+        "P104",
+        "P103"
+      ],
+      "value": "Alta"
+    },
+    {
+      "id": "EV104",
+      "name": "Registro do painel de energia",
+      "category": "Documento técnico",
+      "collected_at": "Painel do vagão 2",
+      "collection_time": "16:45",
+      "analysis": [
+        "Cronologia",
+        "Acionamentos"
+      ],
+      "findings": [
+        "Desligamento MANUAL às 14:52",
+        "Religamento às 14:56 — exatamente o túnel"
+      ],
+      "related": [
+        "DOC104",
+        "P103"
+      ],
+      "value": "Crítica"
+    }
+  ],
+  "evidence_levels": {
+    "Baixa": 10,
+    "Média": 30,
+    "Alta": 60,
+    "Crítica": 100
+  },
+  "jury_requirements": [
+    "EV101",
+    "EV102",
+    "EV103",
+    "EV104"
+  ]
+}

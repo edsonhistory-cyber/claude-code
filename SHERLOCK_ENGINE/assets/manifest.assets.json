@@ -1,0 +1,695 @@
+{
+  "_comment": "Lista curada baixada em tempo de BUILD por tools/fetch_assets.mjs. Produto final é offline: arquivos vão para assets/ e são servidos localmente. Cada download registra atribuicao em assets/CREDITS.md. Ajuste 'max' para calibrar o volume (meta ~60-100 imagens, nao 1000).",
+  "images": [
+    {
+      "id": "loc_r24",
+      "query": "Rua 24 Horas Curitiba",
+      "source": "wikimedia",
+      "max": 8,
+      "target": "assets/images/locations/rua24/",
+      "scene": "rua 24 horas"
+    },
+    {
+      "id": "loc_jb",
+      "query": "Jardim Botânico de Curitiba estufa",
+      "source": "wikimedia",
+      "max": 8,
+      "target": "assets/images/locations/jardim_botanico/",
+      "scene": "jardim botânico"
+    },
+    {
+      "id": "loc_mon",
+      "query": "Museu Oscar Niemeyer Curitiba",
+      "source": "wikimedia",
+      "max": 8,
+      "target": "assets/images/locations/mon/",
+      "scene": "mon"
+    },
+    {
+      "id": "loc_opera",
+      "query": "Ópera de Arame Curitiba",
+      "source": "wikimedia",
+      "max": 6,
+      "target": "assets/images/locations/opera_arame/",
+      "scene": "ópera de arame"
+    },
+    {
+      "id": "loc_barigui",
+      "query": "Parque Barigui Curitiba capivara lago",
+      "source": "wikimedia",
+      "max": 8,
+      "target": "assets/images/locations/barigui/",
+      "scene": "parque barigui"
+    },
+    {
+      "id": "loc_tangua",
+      "query": "Parque Tanguá",
+      "source": "wikimedia",
+      "max": 10,
+      "target": "assets/images/locations/tangua/",
+      "scene": "parque tanguá"
+    },
+    {
+      "id": "bus_linha",
+      "query": "Linha Turismo Curitiba ônibus",
+      "source": "wikimedia",
+      "max": 10,
+      "target": "assets/images/bus/",
+      "scene": "ônibus"
+    },
+    {
+      "id": "bus_linha2",
+      "query": "Linha Turismo Curitiba bus",
+      "source": "openverse",
+      "license": "cc0,cc-by",
+      "max": 6,
+      "target": "assets/images/bus/"
+    },
+    {
+      "id": "city",
+      "query": "Curitiba centro skyline",
+      "source": "openverse",
+      "license": "cc0,cc-by",
+      "max": 10,
+      "target": "assets/images/city/",
+      "scene": "central"
+    },
+    {
+      "id": "loc_km18",
+      "query": "BR-277 rodovia Paraná",
+      "source": "wikimedia",
+      "max": 4,
+      "target": "assets/images/locations/km18/",
+      "scene": "km18"
+    },
+    {
+      "id": "loc_serra",
+      "query": "Serra Verde Express",
+      "source": "wikimedia",
+      "max": 4,
+      "target": "assets/images/locations/serra/",
+      "scene": "serra"
+    },
+    {
+      "id": "loc_trem",
+      "query": "Serra Verde Express train Morretes",
+      "source": "wikimedia",
+      "max": 4,
+      "target": "assets/images/locations/trem/",
+      "scene": "trem"
+    },
+    {
+      "id": "loc_morretes",
+      "query": "Morretes estação ferroviária",
+      "source": "wikimedia",
+      "max": 4,
+      "target": "assets/images/locations/morretes/",
+      "scene": "estação"
+    },
+    {
+      "id": "loc_nhundiaquara",
+      "query": "Rio Nhundiaquara Morretes",
+      "source": "wikimedia",
+      "max": 4,
+      "target": "assets/images/locations/rio/",
+      "scene": "rio"
+    },
+    {
+      "id": "loc_mirante",
+      "query": "Serra do Mar Paraná mirante",
+      "source": "wikimedia",
+      "max": 5,
+      "target": "assets/images/locations/mirante/",
+      "scene": "mirante da serra"
+    },
+    {
+      "id": "loc_paiol",
+      "query": "Teatro do Paiol Curitiba",
+      "source": "wikimedia",
+      "max": 5,
+      "target": "assets/images/locations/paiol/",
+      "scene": "paiol"
+    },
+    {
+      "id": "loc_casarao",
+      "query": "Castelo do Batel Curitiba",
+      "source": "wikimedia",
+      "max": 5,
+      "target": "assets/images/locations/casarao/",
+      "scene": "casarão"
+    },
+    {
+      "id": "loc_galeria",
+      "query": "art gallery interior paintings",
+      "source": "openverse",
+      "license": "cc0,cc-by",
+      "max": 4,
+      "target": "assets/images/locations/galeria/",
+      "scene": "galeria"
+    },
+    {
+      "id": "loc_garagem",
+      "query": "classic car collection garage",
+      "source": "openverse",
+      "license": "cc0,cc-by",
+      "max": 4,
+      "target": "assets/images/locations/garagem/",
+      "scene": "garagem"
+    },
+    {
+      "id": "loc_guaira",
+      "query": "Teatro Guaíra Curitiba",
+      "source": "wikimedia",
+      "max": 5,
+      "target": "assets/images/locations/guaira/",
+      "scene": "teatro"
+    },
+    {
+      "id": "loc_psa",
+      "query": "Praça Santos Andrade Curitiba",
+      "source": "wikimedia",
+      "max": 4,
+      "target": "assets/images/locations/psa/",
+      "scene": "praça santos andrade"
+    }
+  ],
+  "maps": [
+    {
+      "id": "map_cwb",
+      "center": [
+        -25.4099,
+        -49.274
+      ],
+      "zoom": 14,
+      "size": 1280,
+      "target": "assets/images/map/"
+    }
+  ],
+  "scene_style": "photorealistic photograph, cinematic wide shot, detective thriller atmosphere, rich colors, volumetric light, high detail, no people, no text, no watermark",
+  "scenes_ai": [
+    {
+      "id": "ai_corredor",
+      "seed": 5101,
+      "scene": "corredor",
+      "prompt": "empty corridor inside a Brazilian courthouse at night, polished granite floor reflecting emergency lights, security cameras on the ceiling, wooden doors with brass plaques"
+    },
+    {
+      "id": "ai_subsolo",
+      "seed": 5102,
+      "scene": "subsolo",
+      "prompt": "dark basement utility room with an old electrical breaker panel on a concrete wall, hanging cable conduits, a single bare bulb, archive shelves in shadow"
+    },
+    {
+      "id": "ai_leilao",
+      "seed": 5103,
+      "scene": "salão de leilões",
+      "prompt": "elegant auction hall inside a Brazilian mansion at night, rows of velvet chairs facing an auctioneer podium, paintings displayed on easels, crystal chandelier warm light"
+    },
+    {
+      "id": "ai_jardim_inverno",
+      "seed": 5104,
+      "scene": "jardim de inverno",
+      "prompt": "victorian winter garden conservatory interior at night, glass roof with moonlight, lush tropical plants, wrought iron furniture, marble floor"
+    },
+    {
+      "id": "ai_forum",
+      "seed": 5105,
+      "scene": "fórum",
+      "prompt": "imposing Brazilian courthouse facade at dusk, neoclassical stone columns, wide granite steps, warm street lamps, Palácio da Justiça architecture"
+    },
+    {
+      "id": "ai_tunel",
+      "seed": 5106,
+      "scene": "túnel",
+      "prompt": "old stone railway tunnel mouth in lush Brazilian rainforest mountain, single train track vanishing into darkness, thin mist, dramatic light"
+    },
+    {
+      "id": "ai_palco",
+      "seed": 5201,
+      "scene": "palco",
+      "prompt": "empty theater stage seen from the house during technical rehearsal, single ghost light, red velvet curtains half open, scenic batten with counterweights above, dramatic haze"
+    },
+    {
+      "id": "ai_coxia",
+      "seed": 5202,
+      "scene": "coxia",
+      "prompt": "theater backstage wings at night, tall black legs curtains, rigging ropes and cleats, prop table with dim work lights, glow of the stage beyond"
+    },
+    {
+      "id": "ai_camarim",
+      "seed": 5203,
+      "scene": "camarim",
+      "prompt": "theater dressing room, mirror framed with warm light bulbs, stage makeup on the counter, costume rack, a bouquet of flowers, moody cinematic"
+    },
+    {
+      "id": "ai_urdimento",
+      "seed": 5204,
+      "scene": "urdimento",
+      "prompt": "theater fly loft catwalk high above the stage, steel grid, ropes and counterweight arbors in rows, one red-flagged batten, vertigo perspective looking down, dramatic light shafts"
+    }
+  ],
+  "portrait_style": "photorealistic portrait photograph, cinematic character still from a detective thriller, bust framing facing slightly toward viewer, neutral expression, shallow depth of field, moody dark teal studio background, dramatic warm key lighting, rich colors, 85mm lens, highly detailed skin texture, no text, no watermark",
+  "portraits": [
+    {
+      "id": "P001",
+      "seed": 4101,
+      "prompt": "58 year old Brazilian businessman, gray-streaked combed hair, navy suit and dark tie, confident weathered face"
+    },
+    {
+      "id": "P002",
+      "seed": 4102,
+      "prompt": "48 year old Brazilian bus driver, olive skin, short dark hair, green uniform shirt and driver cap"
+    },
+    {
+      "id": "P003",
+      "seed": 4103,
+      "prompt": "45 year old Brazilian woman fare collector, dark hair in a bun, yellow uniform blouse, kind tired eyes"
+    },
+    {
+      "id": "P004",
+      "seed": 4104,
+      "prompt": "35 year old Brazilian woman journalist, shoulder-length dark hair, rose blazer, holding a reporter microphone, sharp gaze"
+    },
+    {
+      "id": "P005",
+      "seed": 4105,
+      "prompt": "55 year old Brazilian businessman, rectangular glasses, receding gray hair, brown suit, stern expression"
+    },
+    {
+      "id": "P006",
+      "seed": 4106,
+      "prompt": "60 year old Brazilian woman field biologist, wide sun hat, khaki field vest, gray hair, gentle smile"
+    },
+    {
+      "id": "P007",
+      "seed": 4107,
+      "prompt": "24 year old Brazilian woman social media influencer, purple-dyed hair, holding a smartphone, trendy lilac jacket"
+    },
+    {
+      "id": "P008",
+      "seed": 4108,
+      "prompt": "50 year old private detective of German descent, round glasses, beige trench coat, salt-and-pepper short beard"
+    },
+    {
+      "id": "P101",
+      "seed": 4201,
+      "prompt": "52 year old Brazilian accountant, gray suit and tie, thinning brown hair, cautious expression, leather briefcase strap on shoulder"
+    },
+    {
+      "id": "P102",
+      "seed": 4202,
+      "prompt": "38 year old Brazilian woman lawyer, elegant dark blazer, thin glasses, straight black hair, composed confident look"
+    },
+    {
+      "id": "P103",
+      "seed": 4203,
+      "prompt": "40 year old Brazilian railway maintenance worker, orange hi-vis vest, work cap, stubble beard, guarded eyes"
+    },
+    {
+      "id": "P104",
+      "seed": 4204,
+      "prompt": "29 year old Brazilian woman photographer, camera hanging on neck strap, brown curly hair, green field jacket, adventurous look"
+    },
+    {
+      "id": "P105",
+      "seed": 4205,
+      "prompt": "65 year old antique collector, tweed jacket with vest, fedora hat, white mustache, old-fashioned glasses"
+    },
+    {
+      "id": "P106",
+      "seed": 4206,
+      "prompt": "50 year old Brazilian woman, graying hair in a bun, knitted cardigan, worried grieving expression"
+    },
+    {
+      "id": "P107",
+      "seed": 4207,
+      "prompt": "45 year old train conductor, navy railway uniform with peaked cap, thick mustache, dependable friendly look"
+    },
+    {
+      "id": "P201",
+      "seed": 4301,
+      "prompt": "35 year old Brazilian security guard, dark navy uniform shirt with badge, very short hair, earnest honest face"
+    },
+    {
+      "id": "P202",
+      "seed": 4302,
+      "prompt": "42 year old Brazilian woman forensic expert, white lab coat, hair tied back, analytical piercing gaze"
+    },
+    {
+      "id": "P203",
+      "seed": 4303,
+      "prompt": "48 year old Brazilian prosecutor, black suit, red tie, slicked-back dark hair, ambitious expression"
+    },
+    {
+      "id": "P204",
+      "seed": 4304,
+      "prompt": "23 year old Brazilian woman forensic intern, white lab coat over a hoodie, round glasses, ponytail, curious eyes"
+    },
+    {
+      "id": "P205",
+      "seed": 4305,
+      "prompt": "58 year old electrician, blue work overalls, tool belt, gray beard, holding a small flashlight"
+    },
+    {
+      "id": "P206",
+      "seed": 4306,
+      "prompt": "44 year old Brazilian lawyer of Lebanese descent, tailored charcoal suit, trimmed dark beard, calm calculating look"
+    },
+    {
+      "id": "P207",
+      "seed": 4307,
+      "prompt": "46 year old Brazilian woman police chief, formal dark police blazer with insignia, short curly hair, authoritative expression"
+    },
+    {
+      "id": "P301",
+      "seed": 4401,
+      "prompt": "55 year old Brazilian auctioneer, black tuxedo with bow tie, silver hair, charismatic showman smile"
+    },
+    {
+      "id": "P302",
+      "seed": 4402,
+      "prompt": "62 year old elegant Brazilian woman art patron, pearl necklace, silver hair in an updo, deep green velvet dress, enigmatic smile"
+    },
+    {
+      "id": "P303",
+      "seed": 4403,
+      "prompt": "32 year old Brazilian heir, designer suit without tie, luxury watch, carefully styled hair, entitled smirk"
+    },
+    {
+      "id": "P304",
+      "seed": 4404,
+      "prompt": "47 year old Brazilian woman art collector, bold red dress, large statement earrings, sharp confident gaze"
+    },
+    {
+      "id": "P305",
+      "seed": 4405,
+      "prompt": "66 year old Brazilian catholic priest, black cassock with white clerical collar, kind wrinkled face, white hair"
+    },
+    {
+      "id": "P306",
+      "seed": 4406,
+      "prompt": "50 year old event coordinator, gray suit, discreet earpiece, holding a clipboard, attentive posture"
+    },
+    {
+      "id": "P307",
+      "seed": 4407,
+      "prompt": "26 year old Brazilian woman camera operator, headphones around neck, black t-shirt, professional video camera on shoulder"
+    },
+    {
+      "id": "P401",
+      "seed": 4501,
+      "prompt": "54 year old Brazilian stage actor in period costume vest, theatrical grey swept-back hair, subtle stage makeup, commanding dignified presence"
+    },
+    {
+      "id": "P402",
+      "seed": 4502,
+      "prompt": "49 year old Brazilian woman theater director, black turtleneck, red-framed glasses, severe dark bob haircut, intense controlling gaze"
+    },
+    {
+      "id": "P403",
+      "seed": 4503,
+      "prompt": "28 year old Brazilian understudy actor, handsome, styled dark hair, half-finished stage makeup on one side, ambitious eager eyes"
+    },
+    {
+      "id": "P404",
+      "seed": 4504,
+      "prompt": "36 year old Brazilian woman stage manager, headset with microphone, black backstage clothes, clipboard under arm, alert precise expression"
+    },
+    {
+      "id": "P405",
+      "seed": 4505,
+      "prompt": "60 year old theater rigger, grey ponytail and beard stubble, leather tool belt, flannel shirt with rolled sleeves, calloused hands"
+    },
+    {
+      "id": "P406",
+      "seed": 4506,
+      "prompt": "50 year old elegant Brazilian woman talent agent, dark evening gown, diamond earrings, composed grief, pearl clutch"
+    },
+    {
+      "id": "P407",
+      "seed": 4507,
+      "prompt": "33 year old lighting technician, dark beanie, black t-shirt, coiled cable over the shoulder, quiet observant look"
+    },
+    {
+      "id": "P021",
+      "seed": 4521,
+      "prompt": "52 year old Brazilian woman police chief detective, tailored dark blazer, badge on lanyard, short professional haircut, commanding intelligent gaze"
+    },
+    {
+      "id": "P022",
+      "seed": 4522,
+      "prompt": "38 year old Brazilian military police lieutenant, beige field uniform and beret, upright posture, dutiful serious face"
+    },
+    {
+      "id": "P023",
+      "seed": 4523,
+      "prompt": "31 year old Brazilian woman tour guide, yellow polo uniform with lanyard, ponytail, warm attentive smile"
+    },
+    {
+      "id": "P024",
+      "seed": 4524,
+      "prompt": "58 year old Brazilian street coffee vendor, apron over sweater, flat cap, weathered friendly face"
+    },
+    {
+      "id": "P025",
+      "seed": 4525,
+      "prompt": "47 year old Brazilian forensic pathologist, white lab coat, surgical mask lowered to the neck, tired precise eyes"
+    },
+    {
+      "id": "P026",
+      "seed": 4526,
+      "prompt": "41 year old Brazilian investigative reporter, rolled sleeves shirt, lanyard press badge, pen behind the ear"
+    },
+    {
+      "id": "P121",
+      "seed": 4527,
+      "prompt": "55 year old woman chef of a train dining car, white chef jacket and neckerchief, hair in a net, sharp memory in the eyes"
+    },
+    {
+      "id": "P122",
+      "seed": 4528,
+      "prompt": "44 year old railway brakeman, navy coveralls, heavy gloves tucked in belt, lantern in hand"
+    },
+    {
+      "id": "P123",
+      "seed": 4529,
+      "prompt": "63 year old German tourist, rain jacket, camera with big lens on the neck, curious expression"
+    },
+    {
+      "id": "P124",
+      "seed": 4530,
+      "prompt": "57 year old Brazilian small-town police chief, gray suit slightly worn, mustache, calm authority"
+    },
+    {
+      "id": "P125",
+      "seed": 4531,
+      "prompt": "49 year old woman railway ticket clerk, cardigan over uniform blouse, reading glasses on a chain"
+    },
+    {
+      "id": "P221",
+      "seed": 4532,
+      "prompt": "66 year old Brazilian appeals judge, black robe, silver hair, stern deep-set eyes"
+    },
+    {
+      "id": "P222",
+      "seed": 4533,
+      "prompt": "61 year old Brazilian cleaning lady, teal work uniform, hair kerchief, kind knowing face"
+    },
+    {
+      "id": "P223",
+      "seed": 4534,
+      "prompt": "24 year old IT intern, hoodie under blazer, glasses, energy drink stance, nervous smile"
+    },
+    {
+      "id": "P224",
+      "seed": 4535,
+      "prompt": "45 year old Brazilian woman defense attorney, sharp burgundy suit, sleek hair, calculating stare"
+    },
+    {
+      "id": "P225",
+      "seed": 4536,
+      "prompt": "53 year old chief of courthouse security, dark uniform with insignia, buzz cut, square jaw"
+    },
+    {
+      "id": "P321",
+      "seed": 4537,
+      "prompt": "35 year old Brazilian barman, black vest and bow tie, towel over the shoulder, observant smirk"
+    },
+    {
+      "id": "P322",
+      "seed": 4538,
+      "prompt": "50 year old chef in white double-breasted jacket, toque, flour-dusted forearms crossed"
+    },
+    {
+      "id": "P323",
+      "seed": 4539,
+      "prompt": "42 year old private security guard, black suit, earpiece coil, broad shoulders, watchful eyes"
+    },
+    {
+      "id": "P324",
+      "seed": 4540,
+      "prompt": "59 year old art dealer, velvet jacket, silk scarf, thin mustache, appraising gaze"
+    },
+    {
+      "id": "P325",
+      "seed": 4541,
+      "prompt": "46 year old woman society columnist, cocktail dress, statement glasses, compact camera in gloved hand"
+    },
+    {
+      "id": "P421",
+      "seed": 4542,
+      "prompt": "29 year old woman theater makeup artist, brush belt, apron with stains, hair bun with pencil, focused eyes"
+    },
+    {
+      "id": "P422",
+      "seed": 4543,
+      "prompt": "68 year old theater prompter, cardigan, reading glasses low on the nose, worn script under the arm"
+    },
+    {
+      "id": "P423",
+      "seed": 4544,
+      "prompt": "40 year old woman executive producer, black blazer, phone in hand, headset earring, pragmatic look"
+    },
+    {
+      "id": "P424",
+      "seed": 4545,
+      "prompt": "54 year old theater critic, tweed jacket with bow tie, notebook and fountain pen, skeptical raised eyebrow"
+    },
+    {
+      "id": "P425",
+      "seed": 4546,
+      "prompt": "64 year old stage door keeper, gray work coat, keyring on the belt, gentle vigilant face"
+    }
+  ],
+  "object_style": "photorealistic forensic evidence photograph, object on dark gray evidence table next to a small yellow numbered marker, soft studio light, shallow depth of field, police documentation style, extremely detailed, no text overlay, no watermark",
+  "objects": [
+    {
+      "id": "EV001",
+      "seed": 6001,
+      "prompt": "scratched stainless steel thermos flask with the lid half open"
+    },
+    {
+      "id": "EV002",
+      "seed": 6002,
+      "prompt": "pair of blue nitrile gloves, one inside out"
+    },
+    {
+      "id": "EV003",
+      "seed": 6003,
+      "prompt": "smartphone inside a transparent evidence bag, screen showing a paused blurry video frame of a bus interior"
+    },
+    {
+      "id": "EV004",
+      "seed": 6004,
+      "prompt": "vintage analog bus tachograph device with its round paper chart disc removed beside it"
+    },
+    {
+      "id": "EV101",
+      "seed": 6101,
+      "prompt": "coiled white nylon rope with frayed end"
+    },
+    {
+      "id": "EV102",
+      "seed": 6102,
+      "prompt": "worn leather railway work gloves stained with grease"
+    },
+    {
+      "id": "EV103",
+      "seed": 6103,
+      "prompt": "printed long-exposure night photograph of a railway tunnel with light trails, lying on the table"
+    },
+    {
+      "id": "EV104",
+      "seed": 6104,
+      "prompt": "printed power log sheet from an electrical panel with timestamped readings, slightly curled"
+    },
+    {
+      "id": "EV201",
+      "seed": 6201,
+      "prompt": "plastic tamper-evident security seal tag, cut open, with a magnifier beside it"
+    },
+    {
+      "id": "EV202",
+      "seed": 6202,
+      "prompt": "external hard drive inside an antistatic bag"
+    },
+    {
+      "id": "EV203",
+      "seed": 6203,
+      "prompt": "black surveillance DVR recorder unit with disconnected cables"
+    },
+    {
+      "id": "EV204",
+      "seed": 6204,
+      "prompt": "wall-mounted biometric fingerprint time clock terminal, removed and placed on the table"
+    },
+    {
+      "id": "EV301",
+      "seed": 6301,
+      "prompt": "thin hollow hypodermic needle on white gauze, macro close-up"
+    },
+    {
+      "id": "EV302",
+      "seed": 6302,
+      "prompt": "open auction catalog booklet with handwritten ink annotations in the margins"
+    },
+    {
+      "id": "EV303",
+      "seed": 6303,
+      "prompt": "professional camcorder SD memory card inside a small transparent evidence bag"
+    },
+    {
+      "id": "EV304",
+      "seed": 6304,
+      "prompt": "printed bidding record sheets with paddle numbers and a fountain pen"
+    }
+  ],
+  "audio": [
+    {
+      "id": "amb_cidade",
+      "query": "city street ambience people",
+      "source": "freesound",
+      "license": "cc0",
+      "max": 2,
+      "target": "assets/audio/ambience/"
+    },
+    {
+      "id": "amb_jardim",
+      "query": "birds garden wind ambience",
+      "source": "freesound",
+      "license": "cc0",
+      "max": 2,
+      "target": "assets/audio/ambience/"
+    },
+    {
+      "id": "amb_barigui",
+      "query": "lake water birds park ambience",
+      "source": "freesound",
+      "license": "cc0",
+      "max": 2,
+      "target": "assets/audio/ambience/"
+    },
+    {
+      "id": "amb_tangua",
+      "query": "waterfall wind ambience",
+      "source": "freesound",
+      "license": "cc0",
+      "max": 2,
+      "target": "assets/audio/ambience/"
+    },
+    {
+      "id": "mus_suspense",
+      "query": "suspense investigation loop",
+      "source": "pixabay",
+      "license": "royalty-free",
+      "max": 3,
+      "target": "assets/audio/music/"
+    }
+  ],
+  "notes": {
+    "retratos_personagens": "Gerados por IA (Pollinations.ai, sem rostos reais — resolve a restrição de privacidade do BRIEF §5.1). Prompts neutros: descrevem só aparência/profissão, nunca papel na trama.",
+    "sfx_ui": "Nao baixar: sintetizar clique/scanner/unlock/cofre no audioManager.js (Web Audio).",
+    "vozes": "SpeechSynthesis pt-BR, sem download.",
+    "cenas": "Itens com \"scene\" alimentam assets/images/scenes/manifest.json — o jogo troca a ilustração SVG pela 1ª foto baixada de cada cena. Retratos alimentam assets/images/portraits/manifest.json."
+  }
+}

@@ -1,0 +1,131 @@
+{
+  "assets": {
+    "image_style": "Fotorealismo cinematográfico 8K",
+    "lighting": "Contraste alto, tons frios com destaques dourados",
+    "images": [
+      {
+        "id": "IMG001",
+        "name": "Tela Login",
+        "prompt": "Sala de investigação futurista, monitores azuis, iluminação baixa, clima policial.",
+        "resolution": "3840x2160",
+        "usage": "01_login.html"
+      },
+      {
+        "id": "IMG002",
+        "name": "Central de Operações",
+        "prompt": "Grande centro de comando com mapa de Curitiba, mural de evidências, dezenas de monitores.",
+        "resolution": "3840x2160",
+        "usage": "03_central_operacoes.html"
+      },
+      {
+        "id": "IMG003",
+        "name": "Laboratório",
+        "prompt": "Laboratório forense moderno com microscópios, analisadores químicos e bancadas iluminadas.",
+        "resolution": "3840x2160"
+      },
+      {
+        "id": "IMG004",
+        "name": "Sala de Interrogatório",
+        "prompt": "Sala escura com mesa metálica, vidro espelhado e gravador ligado.",
+        "resolution": "3840x2160"
+      }
+    ],
+    "icons": [
+      "Laboratório",
+      "Mapa",
+      "OSINT",
+      "GEOINT",
+      "Câmeras",
+      "IA",
+      "Pontuação",
+      "Arquivos"
+    ],
+    "sounds": [
+      {
+        "id": "S001",
+        "name": "Boot",
+        "duration": "6s"
+      },
+      {
+        "id": "S002",
+        "name": "Scanner",
+        "duration": "2s"
+      },
+      {
+        "id": "S003",
+        "name": "Rádio policial",
+        "loop": true
+      },
+      {
+        "id": "S004",
+        "name": "Clique UI",
+        "duration": "0.2s"
+      }
+    ],
+    "animations": [
+      "Boot do sistema",
+      "Linhas do mural conectando evidências",
+      "Ônibus percorrendo o mapa",
+      "Scanner de documentos",
+      "Fade cinematográfico"
+    ]
+  },
+  "screens": [
+    {
+      "id": "01_login.html",
+      "description": "Autenticação"
+    },
+    {
+      "id": "02_boot.html",
+      "description": "Inicialização"
+    },
+    {
+      "id": "03_central_operacoes.html",
+      "description": "Hub principal"
+    },
+    {
+      "id": "04_mapa.html",
+      "description": "Mapa interativo"
+    },
+    {
+      "id": "05_laboratorio.html",
+      "description": "Perícia"
+    },
+    {
+      "id": "06_interrogatorio.html",
+      "description": "Entrevistas"
+    },
+    {
+      "id": "07_osint.html",
+      "description": "Pesquisa"
+    },
+    {
+      "id": "08_geoint.html",
+      "description": "Reconstrução"
+    },
+    {
+      "id": "09_juri.html",
+      "description": "Acusação final"
+    }
+  ],
+  "future_cases": [
+    {
+      "id": "CASE002",
+      "title": "Silêncio na Serra"
+    },
+    {
+      "id": "CASE003",
+      "title": "O Colecionador"
+    },
+    {
+      "id": "CASE004",
+      "title": "Operação Eclipse"
+    }
+  ],
+  "build_notes": {
+    "offline": true,
+    "engine": "HTML + CSS + JavaScript",
+    "save": "localStorage",
+    "expandable": true
+  }
+}

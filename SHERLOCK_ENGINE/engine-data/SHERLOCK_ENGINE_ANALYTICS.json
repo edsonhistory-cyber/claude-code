@@ -1,0 +1,66 @@
+{
+  "schema": "SHERLOCK_ENGINE_ANALYTICS",
+  "version": "1.0",
+  "telemetry": {
+    "enabled": true,
+    "offline_buffer": true,
+    "anonymous_mode": true
+  },
+  "metrics": {
+    "gameplay": [
+      "tempo_total",
+      "tempo_por_dossie",
+      "enigmas_resolvidos",
+      "dicas_utilizadas",
+      "erros_por_enigma",
+      "acusacoes_incorretas"
+    ],
+    "investigation": [
+      "evidencias_coletadas",
+      "documentos_lidos",
+      "interrogatorios",
+      "hipoteses_criadas",
+      "hipoteses_refutadas"
+    ]
+  },
+  "heatmaps": {
+    "enabled": true,
+    "track": [
+      "locais_visitados",
+      "objetos_inspecionados",
+      "clics_interface"
+    ]
+  },
+  "reports": [
+    {
+      "id": "REP001",
+      "name": "Desempenho da Investigação",
+      "fields": [
+        "pontuacao",
+        "tempo",
+        "precisao",
+        "taxa_de_descoberta"
+      ]
+    },
+    {
+      "id": "REP002",
+      "name": "Balanceamento do Caso",
+      "fields": [
+        "enigmas_dificeis",
+        "enigmas_faceis",
+        "pistas_ignoradas"
+      ]
+    }
+  ],
+  "achievements_analysis": {
+    "track_unlocks": true,
+    "completion_rate": true
+  },
+  "export": {
+    "formats": [
+      "json",
+      "csv"
+    ],
+    "include_timestamps": true
+  }
+}

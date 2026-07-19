@@ -1,0 +1,89 @@
+{
+  "schema": "SHERLOCK_ENGINE_ASSET_LIBRARY",
+  "version": "1.0",
+  "summary": {
+    "target_total_assets": 5000,
+    "categories": 10,
+    "quality": "4K-8K",
+    "formats": [
+      "webp",
+      "ogg",
+      "mp4",
+      "json",
+      "svg"
+    ]
+  },
+  "libraries": {
+    "images": {
+      "folders": [
+        "cenarios",
+        "personagens",
+        "objetos",
+        "documentos",
+        "ui",
+        "mapas",
+        "evidencias"
+      ],
+      "naming": "IMG_<categoria>_<0001>"
+    },
+    "audio": {
+      "folders": [
+        "musicas",
+        "ambientes",
+        "sfx",
+        "vozes"
+      ],
+      "naming": "AUD_<tipo>_<0001>"
+    },
+    "video": {
+      "folders": [
+        "cinematicas",
+        "reconstrucoes",
+        "transicoes"
+      ],
+      "naming": "VID_<tipo>_<0001>"
+    },
+    "icons": {
+      "style": "outline + filled",
+      "size": [
+        16,
+        24,
+        32,
+        64,
+        128
+      ]
+    },
+    "fonts": [
+      "Bebas Neue",
+      "Oswald",
+      "Noto Sans",
+      "Courier Prime",
+      "Special Elite"
+    ]
+  },
+  "asset_tags": [
+    "curitiba",
+    "linha_turismo",
+    "forense",
+    "laboratorio",
+    "suspeito",
+    "evidencia",
+    "cinematica",
+    "ui",
+    "npc",
+    "caso001"
+  ],
+  "pipeline": {
+    "source": "Asset Library",
+    "optimization": "automatic",
+    "thumbnail_generation": true,
+    "duplicate_detection": true,
+    "checksum": "SHA-256"
+  },
+  "future_support": {
+    "dlc": true,
+    "mods": true,
+    "multi_case": true,
+    "streaming_assets": true
+  }
+}

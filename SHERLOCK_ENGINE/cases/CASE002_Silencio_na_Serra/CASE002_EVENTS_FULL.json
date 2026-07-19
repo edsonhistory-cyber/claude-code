@@ -1,0 +1,129 @@
+{
+  "schema": "CASE002_EVENTS_FULL",
+  "version": "1.0",
+  "case": "SRR-0904",
+  "timeline": [
+    {
+      "id": "EVT0101",
+      "time": "13:10",
+      "location": "Estação Curitiba",
+      "title": "Embarque no Serra Verde",
+      "trigger": "Início do caso",
+      "effects": [
+        "Ativa mapa",
+        "Libera manifesto"
+      ]
+    },
+    {
+      "id": "EVT0102",
+      "time": "14:20",
+      "location": "Mirante do Marumbi",
+      "title": "Discussão pela mala",
+      "trigger": "Parada panorâmica",
+      "effects": [
+        "Red herring Ernesto",
+        "Libera depoimentos"
+      ]
+    },
+    {
+      "id": "EVT0103",
+      "time": "14:52",
+      "location": "Túnel Roça Nova",
+      "title": "Luzes do vagão 2 apagam",
+      "trigger": "Painel de energia",
+      "effects": [
+        "Escuridão de 4 minutos",
+        "Oportunidade do crime"
+      ]
+    },
+    {
+      "id": "EVT0104",
+      "time": "14:56",
+      "location": "Túnel Roça Nova",
+      "title": "\"Heitor dormiu\"",
+      "trigger": "Saída do túnel",
+      "effects": [
+        "Ninguém percebe o crime"
+      ]
+    },
+    {
+      "id": "EVT0105",
+      "time": "15:15",
+      "location": "Ponte do Nhundiaquara",
+      "title": "Objeto atirado ao rio",
+      "trigger": "Pescador testemunha",
+      "effects": [
+        "Libera EV101"
+      ]
+    },
+    {
+      "id": "EVT0106",
+      "time": "15:40",
+      "location": "Mirante da Serra",
+      "title": "Corpo descoberto",
+      "trigger": "Chegada ao mirante",
+      "effects": [
+        "Cena do crime",
+        "Perícia"
+      ]
+    },
+    {
+      "id": "EVT0107",
+      "time": "16:30",
+      "location": "Estação Morretes",
+      "title": "Perícia embarca",
+      "trigger": "Fim da linha",
+      "effects": [
+        "Pertences recolhidos"
+      ]
+    },
+    {
+      "id": "EVT0108",
+      "time": "17:30",
+      "location": "Central",
+      "title": "Sala do Júri",
+      "trigger": "4 códigos",
+      "effects": [
+        "Acusação final"
+      ]
+    }
+  ],
+  "dynamic_events": [
+    {
+      "id": "DYN101",
+      "name": "Neblina fecha a serra",
+      "chance": 0.2
+    },
+    {
+      "id": "DYN102",
+      "name": "Ligação da G.R.A.L.H.A.",
+      "chance": 0.15
+    }
+  ],
+  "player_choices": [
+    {
+      "choice": "Acusar cedo",
+      "result": "Penalidade de pontuação"
+    },
+    {
+      "choice": "Usar dica",
+      "result": "-20 pontos"
+    }
+  ],
+  "unlock_matrix": {
+    "DOC104": [
+      "EVT0103"
+    ],
+    "EV101": [
+      "EVT0105"
+    ],
+    "JURY": [
+      "EVT0108"
+    ]
+  },
+  "scoring": {
+    "critical_event": 100,
+    "optional_event": 25,
+    "secret_event": 75
+  }
+}

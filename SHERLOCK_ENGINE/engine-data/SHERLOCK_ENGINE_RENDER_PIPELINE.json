@@ -1,0 +1,89 @@
+{
+  "schema": "SHERLOCK_ENGINE_RENDER_PIPELINE",
+  "version": "1.0",
+  "renderer": {
+    "api": [
+      "WebGL2",
+      "WebGPU",
+      "OpenGL ES 3.0"
+    ],
+    "targets": [
+      "Web",
+      "Windows",
+      "Linux",
+      "Android"
+    ],
+    "frame_targets": {
+      "desktop": 60,
+      "mobile": 60
+    }
+  },
+  "materials": {
+    "workflow": "PBR",
+    "maps": [
+      "Albedo",
+      "Normal",
+      "Roughness",
+      "Metallic",
+      "AO",
+      "Emission"
+    ]
+  },
+  "lighting": {
+    "global_illumination": true,
+    "dynamic_shadows": true,
+    "shadow_cascades": 4,
+    "day_night_cycle": true
+  },
+  "environment": {
+    "weather": [
+      "Sunny",
+      "Cloudy",
+      "Rain",
+      "Fog"
+    ],
+    "volumetric_fog": true,
+    "water_reflections": true,
+    "vegetation_wind": true
+  },
+  "camera": {
+    "taa": true,
+    "motion_blur": true,
+    "depth_of_field": true,
+    "bloom": true,
+    "color_grading": true
+  },
+  "optimization": {
+    "lod": true,
+    "occlusion_culling": true,
+    "texture_streaming": true,
+    "mesh_instancing": true,
+    "dynamic_resolution": true
+  },
+  "quality_presets": {
+    "Low": {
+      "resolution_scale": 0.7
+    },
+    "Medium": {
+      "resolution_scale": 0.85
+    },
+    "High": {
+      "resolution_scale": 1.0
+    },
+    "Ultra": {
+      "raytracing_ready": false
+    }
+  },
+  "debug": {
+    "wireframe": true,
+    "light_complexity": true,
+    "fps_overlay": true,
+    "gpu_profiler": true
+  },
+  "future": {
+    "ray_tracing": true,
+    "path_tracing": true,
+    "dlss_fsr_xess": true,
+    "hdr": true
+  }
+}

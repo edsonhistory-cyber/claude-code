@@ -1,0 +1,69 @@
+{
+  "schema": "SHERLOCK_ENGINE_DIALOGOS",
+  "version": "1.0",
+  "narrador": {
+    "abertura": [
+      "Caso CWB-1447 iniciado.",
+      "Uma morte durante o passeio da Linha Turismo mudou Curitiba para sempre.",
+      "Sua equipe foi convocada para descobrir a verdade."
+    ]
+  },
+  "ia": {
+    "boas_vindas": "Bem-vindo, detetive. Todos os módulos estão operacionais.",
+    "nova_evidencia": "Uma nova evidência foi adicionada ao banco de dados.",
+    "dica": "Existem conexões ainda não exploradas entre os suspeitos.",
+    "fim": "Investigação concluída. Preparando a Sala do Júri."
+  },
+  "personagens": [
+    {
+      "id": "sergio",
+      "nome": "Sérgio Bento",
+      "interrogatorio": {
+        "neutro": "Conduzi o ônibus normalmente. A parada foi por segurança.",
+        "pressionado": "Já falei tudo o que sei.",
+        "confrontado": "Não lembro exatamente quanto tempo fiquei dentro do ônibus.",
+        "desmascarado": "Vocês estão interpretando tudo errado."
+      }
+    },
+    {
+      "id": "renata",
+      "nome": "Renata Salgado",
+      "interrogatorio": {
+        "neutro": "Minha reportagem dependia da delação de Otávio.",
+        "pressionado": "Eu precisava dele vivo.",
+        "confrontado": "Verifiquem meu telefone. Está tudo registrado."
+      }
+    },
+    {
+      "id": "dilia",
+      "nome": "Dília Karas",
+      "interrogatorio": {
+        "neutro": "A parada não fazia parte da rota.",
+        "pressionado": "O motorista pediu que todos descessem.",
+        "confrontado": "Eu o vi voltar sozinho para o ônibus."
+      }
+    },
+    {
+      "id": "bianca",
+      "nome": "Bianca Alcântara",
+      "interrogatorio": {
+        "neutro": "Eu gravei praticamente toda a viagem.",
+        "pressionado": "Posso mostrar os vídeos.",
+        "confrontado": "Tem um vulto de manga verde em um dos arquivos."
+      }
+    }
+  ],
+  "radio": [
+    "Central para equipe Alfa. Novas informações disponíveis.",
+    "Perícia solicita análise da garrafa térmica.",
+    "Todas as unidades permaneçam no canal."
+  ],
+  "legista": [
+    "A ingestão ocorreu aproximadamente às 16 horas.",
+    "O veneno estava presente no café da vítima."
+  ],
+  "juri": {
+    "sucesso": "As provas são consistentes. O tribunal aceita a acusação.",
+    "falha": "As evidências ainda são insuficientes para uma condenação."
+  }
+}

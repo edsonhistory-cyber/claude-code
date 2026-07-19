@@ -1,0 +1,52 @@
+{
+  "schema": "CASE005_IMAGES_FULL",
+  "version": "1.0",
+  "case": "ATO-0555",
+  "style": {
+    "quality": "SVG procedural",
+    "look": "Veludo de teatro: vermelho do pano + latão do foyer",
+    "aspect_default": "16:9"
+  },
+  "categories": {
+    "locations": [
+      {
+        "id": "IMG_T001",
+        "name": "Teatro Guaíra",
+        "views": [
+          "fachada"
+        ]
+      },
+      {
+        "id": "IMG_T002",
+        "name": "Palco",
+        "views": [
+          "vara 7"
+        ]
+      },
+      {
+        "id": "IMG_T003",
+        "name": "Coxia",
+        "views": [
+          "bastidores"
+        ]
+      },
+      {
+        "id": "IMG_T004",
+        "name": "Urdimento",
+        "views": [
+          "passarela"
+        ]
+      },
+      {
+        "id": "IMG_T005",
+        "name": "Camarins",
+        "views": [
+          "espelho"
+        ]
+      }
+    ]
+  },
+  "statistics": {
+    "total": 5
+  }
+}

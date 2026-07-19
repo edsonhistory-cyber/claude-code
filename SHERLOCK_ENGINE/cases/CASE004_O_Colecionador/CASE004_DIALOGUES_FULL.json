@@ -1,0 +1,140 @@
+{
+  "schema": "CASE004_DIALOGUES_FULL",
+  "version": "1.0",
+  "case": "COL-0077",
+  "dialogue_tree": {
+    "HELENA_SARTI": {
+      "intro": "Uma tragédia no meu leilão beneficente. Diga como posso ajudar — tenho amigos em todas as instituições.",
+      "topics": {
+        "blecaute": {
+          "question": "Quem pediu o blecaute cênico do lote 77?",
+          "answers": [
+            {
+              "id": "H1",
+              "text": "Ideia do cerimonial. Teatro dá preço às coisas.",
+              "truth": "falso",
+              "stress": "+20"
+            },
+            {
+              "id": "H2",
+              "text": "Detalhe de produção. Eu não desço a esse nível.",
+              "truth": "falso",
+              "stress": "+15"
+            }
+          ],
+          "unlock_if": [
+            "DOC304"
+          ]
+        },
+        "cadeira": {
+          "question": "Por que a senhora revisou pessoalmente a cadeira do palco?",
+          "answers": [
+            {
+              "id": "H3",
+              "text": "Jamais toquei naquela cadeira. Estofado é assunto de tapeceiro.",
+              "truth": "falso",
+              "unlock": "Contradição 04"
+            }
+          ],
+          "unlock_if": [
+            "DOC305"
+          ]
+        },
+        "acerto": {
+          "question": "Que 'acerto final' Gustavo cobrava da senhora?",
+          "answers": [
+            {
+              "id": "H10",
+              "text": "Comissões de leilões antigos. Contabilidade, não drama.",
+              "truth": "falso",
+              "stress": "+20"
+            },
+            {
+              "id": "H11",
+              "text": "Gustavo confundia insistência com direito. Um defeito fatal... de caráter.",
+              "truth": "parcial",
+              "stress": "+10"
+            }
+          ],
+          "unlock_if": [
+            "DOC308"
+          ]
+        }
+      }
+    },
+    "YARA_CAMPOS": {
+      "intro": "Gustavo e eu disputávamos lotes, não vidas. Meu lance vencedor saiu por telefone — de Lisboa.",
+      "topics": {
+        "lance": {
+          "question": "O lance-fantasma de meio milhão foi seu?",
+          "answers": [
+            {
+              "id": "Y1",
+              "text": "Meio milhão sem comprador? Isso não é lance, é cortina de fumaça. Verifiquem de QUAL tablet saiu.",
+              "truth": "verdadeiro",
+              "unlock": "DOC309"
+            }
+          ],
+          "unlock_if": [
+            "EV304"
+          ]
+        },
+        "rivalidade": {
+          "question": "Sua rivalidade com Gustavo era só de lances?",
+          "answers": [
+            {
+              "id": "Y10",
+              "text": "Ele vendia 'proveniências delicadas'. Eu compro história limpa. Perdi lotes; ele perdeu a linha.",
+              "truth": "verdadeiro"
+            }
+          ]
+        }
+      }
+    },
+    "CELIO_MENDES": {
+      "intro": "Sou o cerimonial. Cada segundo daquela noite passou pela minha planilha.",
+      "topics": {
+        "roteiro": {
+          "question": "O blecaute do lote 77 estava no roteiro original?",
+          "answers": [
+            {
+              "id": "CE1",
+              "text": "Não. Entrou na véspera, por ordem direta da Sra. Sarti. Está tudo anotado — leve o meu registro.",
+              "truth": "verdadeiro",
+              "unlock": "DOC305"
+            }
+          ],
+          "unlock_if": [
+            "DOC304"
+          ]
+        },
+        "onze_minutos": {
+          "question": "O que aconteceu nos onze minutos da revisão da cadeira?",
+          "answers": [
+            {
+              "id": "CE10",
+              "text": "Portas fechadas, equipe dispensada. Anotei porque nunca tinha acontecido em vinte e dois anos.",
+              "truth": "verdadeiro"
+            }
+          ],
+          "unlock_if": [
+            "DOC305"
+          ]
+        }
+      }
+    }
+  },
+  "conversation_rules": {
+    "max_questions_per_round": 5,
+    "allow_repeat": true,
+    "memory_enabled": true,
+    "stress_affects_answers": true,
+    "evidence_unlocks_new_topics": true
+  },
+  "voice_tags": {
+    "helena": "aveludada",
+    "yara": "cortante",
+    "celio": "meticuloso"
+  },
+  "cinematic_triggers": []
+}

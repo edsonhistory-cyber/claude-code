@@ -1,0 +1,103 @@
+{
+  "schema": "SHERLOCK_ENGINE_SOUND_DESIGN",
+  "version": "1.0",
+  "audio_engine": {
+    "spatial_audio": true,
+    "dynamic_mixing": true,
+    "sample_rate_hz": 48000
+  },
+  "music": {
+    "layers": [
+      {
+        "id": "MUS001",
+        "name": "Investigação",
+        "mood": "Neutro"
+      },
+      {
+        "id": "MUS002",
+        "name": "Suspense",
+        "mood": "Tensão"
+      },
+      {
+        "id": "MUS003",
+        "name": "Descoberta",
+        "mood": "Triunfo"
+      },
+      {
+        "id": "MUS004",
+        "name": "Júri",
+        "mood": "Dramático"
+      }
+    ],
+    "transitions": "Adaptativas"
+  },
+  "ambient_zones": [
+    {
+      "location": "Rua 24 Horas",
+      "sounds": [
+        "Conversas",
+        "Passos",
+        "Ônibus"
+      ]
+    },
+    {
+      "location": "Jardim Botânico",
+      "sounds": [
+        "Pássaros",
+        "Vento"
+      ]
+    },
+    {
+      "location": "MON",
+      "sounds": [
+        "Eco",
+        "Visitantes"
+      ]
+    },
+    {
+      "location": "Parque Barigui",
+      "sounds": [
+        "Capivaras",
+        "Água",
+        "Ciclistas"
+      ]
+    },
+    {
+      "location": "Parque Tanguá",
+      "sounds": [
+        "Cascata",
+        "Vento",
+        "Silêncio dramático"
+      ]
+    }
+  ],
+  "sfx": [
+    "Clique em evidência",
+    "Documento aberto",
+    "Flash de câmera",
+    "Scanner AFIS",
+    "Microscópio",
+    "Token desbloqueado",
+    "Cofre aberto",
+    "Acusação confirmada"
+  ],
+  "voice_system": {
+    "tts_supported": true,
+    "voice_profiles": [
+      "Narrador",
+      "G.R.A.L.H.A.",
+      "Legista",
+      "Investigador"
+    ]
+  },
+  "adaptive_rules": [
+    "Aumentar tensão quando hipótese se aproxima da verdade.",
+    "Reduzir música durante interrogatórios importantes.",
+    "Destacar efeitos ao encontrar evidências críticas."
+  ],
+  "future": {
+    "dolby_atmos": true,
+    "binaural_audio": true,
+    "procedural_music": true
+  }
+}

@@ -1,0 +1,363 @@
+{
+  "schema": "SHERLOCK_ENGINE_PERSONAGENS",
+  "version": "1.0",
+  "total_personagens": 20,
+  "personagens": [
+    {
+      "id": "P001",
+      "nome": "Otávio Bandeira",
+      "papel": "Vítima",
+      "idade": 58,
+      "profissao": "Empresário",
+      "aparencia": {
+        "estilo": "Fotorealista",
+        "altura_aprox": "1.75 m",
+        "roupa": "Condizente com a profissão",
+        "expressao_neutra": "Olhando levemente para a câmera",
+        "resolucao": "2048x3072"
+      },
+      "animacoes": [
+        "Piscar",
+        "Respiração",
+        "Olhar lateral",
+        "Falar durante interrogatório"
+      ],
+      "voz": {
+        "idioma": "pt-BR",
+        "tom": "Natural"
+      },
+      "interrogatorio": {
+        "estresse": 50,
+        "confianca": 50,
+        "cooperacao": 50
+      },
+      "inventario": [
+        "Carteira",
+        "Celular",
+        "Chaves"
+      ]
+    },
+    {
+      "id": "P002",
+      "nome": "Sérgio Bento",
+      "papel": "Suspeito",
+      "idade": 48,
+      "profissao": "Motorista",
+      "aparencia": {
+        "estilo": "Fotorealista",
+        "altura_aprox": "1.75 m",
+        "roupa": "Condizente com a profissão",
+        "expressao_neutra": "Olhando levemente para a câmera",
+        "resolucao": "2048x3072"
+      },
+      "animacoes": [
+        "Piscar",
+        "Respiração",
+        "Olhar lateral",
+        "Falar durante interrogatório"
+      ],
+      "voz": {
+        "idioma": "pt-BR",
+        "tom": "Natural"
+      },
+      "interrogatorio": {
+        "estresse": 50,
+        "confianca": 50,
+        "cooperacao": 50
+      },
+      "inventario": [
+        "Carteira",
+        "Celular",
+        "Chaves"
+      ]
+    },
+    {
+      "id": "P003",
+      "nome": "Dília Karas",
+      "papel": "Testemunha",
+      "idade": 45,
+      "profissao": "Cobradora",
+      "aparencia": {
+        "estilo": "Fotorealista",
+        "altura_aprox": "1.75 m",
+        "roupa": "Condizente com a profissão",
+        "expressao_neutra": "Olhando levemente para a câmera",
+        "resolucao": "2048x3072"
+      },
+      "animacoes": [
+        "Piscar",
+        "Respiração",
+        "Olhar lateral",
+        "Falar durante interrogatório"
+      ],
+      "voz": {
+        "idioma": "pt-BR",
+        "tom": "Natural"
+      },
+      "interrogatorio": {
+        "estresse": 50,
+        "confianca": 50,
+        "cooperacao": 50
+      },
+      "inventario": [
+        "Carteira",
+        "Celular",
+        "Chaves"
+      ]
+    },
+    {
+      "id": "P004",
+      "nome": "Renata Salgado",
+      "papel": "Suspeita aparente",
+      "idade": 35,
+      "profissao": "Jornalista",
+      "aparencia": {
+        "estilo": "Fotorealista",
+        "altura_aprox": "1.75 m",
+        "roupa": "Condizente com a profissão",
+        "expressao_neutra": "Olhando levemente para a câmera",
+        "resolucao": "2048x3072"
+      },
+      "animacoes": [
+        "Piscar",
+        "Respiração",
+        "Olhar lateral",
+        "Falar durante interrogatório"
+      ],
+      "voz": {
+        "idioma": "pt-BR",
+        "tom": "Natural"
+      },
+      "interrogatorio": {
+        "estresse": 50,
+        "confianca": 50,
+        "cooperacao": 50
+      },
+      "inventario": [
+        "Carteira",
+        "Celular",
+        "Chaves"
+      ]
+    },
+    {
+      "id": "P005",
+      "nome": "Aldo Meireles",
+      "papel": "Suspeito aparente",
+      "idade": 55,
+      "profissao": "Ex-sócio",
+      "aparencia": {
+        "estilo": "Fotorealista",
+        "altura_aprox": "1.75 m",
+        "roupa": "Condizente com a profissão",
+        "expressao_neutra": "Olhando levemente para a câmera",
+        "resolucao": "2048x3072"
+      },
+      "animacoes": [
+        "Piscar",
+        "Respiração",
+        "Olhar lateral",
+        "Falar durante interrogatório"
+      ],
+      "voz": {
+        "idioma": "pt-BR",
+        "tom": "Natural"
+      },
+      "interrogatorio": {
+        "estresse": 50,
+        "confianca": 50,
+        "cooperacao": 50
+      },
+      "inventario": [
+        "Carteira",
+        "Celular",
+        "Chaves"
+      ]
+    },
+    {
+      "id": "P006",
+      "nome": "Wanda Kruger",
+      "papel": "Testemunha",
+      "idade": 60,
+      "profissao": "Bióloga",
+      "aparencia": {
+        "estilo": "Fotorealista",
+        "altura_aprox": "1.75 m",
+        "roupa": "Condizente com a profissão",
+        "expressao_neutra": "Olhando levemente para a câmera",
+        "resolucao": "2048x3072"
+      },
+      "animacoes": [
+        "Piscar",
+        "Respiração",
+        "Olhar lateral",
+        "Falar durante interrogatório"
+      ],
+      "voz": {
+        "idioma": "pt-BR",
+        "tom": "Natural"
+      },
+      "interrogatorio": {
+        "estresse": 50,
+        "confianca": 50,
+        "cooperacao": 50
+      },
+      "inventario": [
+        "Carteira",
+        "Celular",
+        "Chaves"
+      ]
+    },
+    {
+      "id": "P007",
+      "nome": "Bianca Alcântara",
+      "papel": "Testemunha-chave",
+      "idade": 24,
+      "profissao": "Influencer",
+      "aparencia": {
+        "estilo": "Fotorealista",
+        "altura_aprox": "1.75 m",
+        "roupa": "Condizente com a profissão",
+        "expressao_neutra": "Olhando levemente para a câmera",
+        "resolucao": "2048x3072"
+      },
+      "animacoes": [
+        "Piscar",
+        "Respiração",
+        "Olhar lateral",
+        "Falar durante interrogatório"
+      ],
+      "voz": {
+        "idioma": "pt-BR",
+        "tom": "Natural"
+      },
+      "interrogatorio": {
+        "estresse": 50,
+        "confianca": 50,
+        "cooperacao": 50
+      },
+      "inventario": [
+        "Carteira",
+        "Celular",
+        "Chaves"
+      ]
+    },
+    {
+      "id": "P008",
+      "nome": "Klaus Vogel",
+      "papel": "Red Herring",
+      "idade": 50,
+      "profissao": "Detetive particular",
+      "aparencia": {
+        "estilo": "Fotorealista",
+        "altura_aprox": "1.75 m",
+        "roupa": "Condizente com a profissão",
+        "expressao_neutra": "Olhando levemente para a câmera",
+        "resolucao": "2048x3072"
+      },
+      "animacoes": [
+        "Piscar",
+        "Respiração",
+        "Olhar lateral",
+        "Falar durante interrogatório"
+      ],
+      "voz": {
+        "idioma": "pt-BR",
+        "tom": "Natural"
+      },
+      "interrogatorio": {
+        "estresse": 50,
+        "confianca": 50,
+        "cooperacao": 50
+      },
+      "inventario": [
+        "Carteira",
+        "Celular",
+        "Chaves"
+      ]
+    },
+    {
+      "id": "P009",
+      "nome": "NPC 9",
+      "papel": "NPC",
+      "funcao": "Guia turístico",
+      "utilizacao": "Testemunha secundária ou ambientação"
+    },
+    {
+      "id": "P010",
+      "nome": "NPC 10",
+      "papel": "NPC",
+      "funcao": "Vigilante do parque",
+      "utilizacao": "Testemunha secundária ou ambientação"
+    },
+    {
+      "id": "P011",
+      "nome": "NPC 11",
+      "papel": "NPC",
+      "funcao": "Fotógrafo",
+      "utilizacao": "Testemunha secundária ou ambientação"
+    },
+    {
+      "id": "P012",
+      "nome": "NPC 12",
+      "papel": "NPC",
+      "funcao": "Casal de turistas",
+      "utilizacao": "Testemunha secundária ou ambientação"
+    },
+    {
+      "id": "P013",
+      "nome": "NPC 13",
+      "papel": "NPC",
+      "funcao": "Motorista de aplicativo",
+      "utilizacao": "Testemunha secundária ou ambientação"
+    },
+    {
+      "id": "P014",
+      "nome": "NPC 14",
+      "papel": "NPC",
+      "funcao": "Vendedor ambulante",
+      "utilizacao": "Testemunha secundária ou ambientação"
+    },
+    {
+      "id": "P015",
+      "nome": "NPC 15",
+      "papel": "NPC",
+      "funcao": "Jardineiro",
+      "utilizacao": "Testemunha secundária ou ambientação"
+    },
+    {
+      "id": "P016",
+      "nome": "NPC 16",
+      "papel": "NPC",
+      "funcao": "Funcionário da bilheteria",
+      "utilizacao": "Testemunha secundária ou ambientação"
+    },
+    {
+      "id": "P017",
+      "nome": "NPC 17",
+      "papel": "NPC",
+      "funcao": "Ciclista",
+      "utilizacao": "Testemunha secundária ou ambientação"
+    },
+    {
+      "id": "P018",
+      "nome": "NPC 18",
+      "papel": "NPC",
+      "funcao": "Corredor",
+      "utilizacao": "Testemunha secundária ou ambientação"
+    },
+    {
+      "id": "P019",
+      "nome": "NPC 19",
+      "papel": "NPC",
+      "funcao": "Policial militar",
+      "utilizacao": "Testemunha secundária ou ambientação"
+    },
+    {
+      "id": "P020",
+      "nome": "NPC 20",
+      "papel": "NPC",
+      "funcao": "Perito criminal",
+      "utilizacao": "Testemunha secundária ou ambientação"
+    }
+  ]
+}

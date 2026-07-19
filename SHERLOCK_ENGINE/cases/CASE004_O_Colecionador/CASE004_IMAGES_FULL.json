@@ -1,0 +1,45 @@
+{
+  "schema": "CASE004_IMAGES_FULL",
+  "version": "1.0",
+  "case": "COL-0077",
+  "style": {
+    "quality": "SVG procedural",
+    "look": "Gala noturna: dourado dos candelabros + veludo",
+    "aspect_default": "16:9"
+  },
+  "categories": {
+    "locations": [
+      {
+        "id": "IMG_C001",
+        "name": "Casarão do Batel",
+        "views": [
+          "fachada"
+        ]
+      },
+      {
+        "id": "IMG_C002",
+        "name": "Salão de leilões",
+        "views": [
+          "palco"
+        ]
+      },
+      {
+        "id": "IMG_C003",
+        "name": "Galeria",
+        "views": [
+          "quadros"
+        ]
+      },
+      {
+        "id": "IMG_C004",
+        "name": "Jardim de inverno",
+        "views": [
+          "vitrais"
+        ]
+      }
+    ]
+  },
+  "statistics": {
+    "total": 4
+  }
+}

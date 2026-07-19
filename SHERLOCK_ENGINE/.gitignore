@@ -1,0 +1,10 @@
+# dependências de teste (Playwright)
+node_modules/
+package-lock.json
+
+# artefatos de build (HTML offline gerado por tools/build_offline_html.mjs)
+sherlock_offline.html
+SherlockEngine_completo.html
+
+# capturas de tela de teste
+shot*.png

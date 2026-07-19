@@ -1,0 +1,105 @@
+{
+  "schema": "SHERLOCK_ENGINE_CORE",
+  "version": "1.0",
+  "engine": {
+    "name": "Sherlock Engine",
+    "runtime": "HTML5 + CSS3 + Vanilla JavaScript",
+    "offline": true,
+    "save": "localStorage",
+    "tick_rate_fps": 60
+  },
+  "modules": [
+    {
+      "id": "login",
+      "loads": [
+        "boot"
+      ]
+    },
+    {
+      "id": "boot",
+      "loads": [
+        "central"
+      ]
+    },
+    {
+      "id": "central",
+      "loads": [
+        "map",
+        "lab",
+        "mural",
+        "timeline",
+        "inventory",
+        "ai"
+      ]
+    },
+    {
+      "id": "map",
+      "depends": [
+        "database",
+        "events"
+      ]
+    },
+    {
+      "id": "lab",
+      "depends": [
+        "objects",
+        "documents",
+        "audio"
+      ]
+    },
+    {
+      "id": "jury",
+      "depends": [
+        "database",
+        "gameplay"
+      ]
+    }
+  ],
+  "event_bus": {
+    "description": "Barramento interno de eventos",
+    "events": [
+      "LOGIN_SUCCESS",
+      "NEW_EVIDENCE",
+      "DOCUMENT_UNLOCKED",
+      "TOKEN_SHARED",
+      "CASE_SOLVED",
+      "SAVE_GAME"
+    ]
+  },
+  "systems": {
+    "inventory": {
+      "max_items": 200,
+      "stackable": false,
+      "auto_sort": true
+    },
+    "progression": {
+      "acts": 4,
+      "unlock_mode": "event_based"
+    },
+    "rendering": {
+      "theme": "Dark Ops",
+      "particle_system": true,
+      "animations": true
+    }
+  },
+  "performance": {
+    "lazy_load_assets": true,
+    "image_format": "webp",
+    "audio_format": "ogg",
+    "preload": [
+      "ui",
+      "fonts",
+      "boot_audio"
+    ]
+  },
+  "security": {
+    "solution_storage": "encoded",
+    "integrity_check": true,
+    "debug_mode": false
+  },
+  "expansion": {
+    "supports_new_cases": true,
+    "supports_plugins": true,
+    "case_loader": "json"
+  }
+}

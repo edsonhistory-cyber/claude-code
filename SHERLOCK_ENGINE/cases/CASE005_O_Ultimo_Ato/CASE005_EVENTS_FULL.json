@@ -1,0 +1,121 @@
+{
+  "schema": "CASE005_EVENTS_FULL",
+  "version": "1.0",
+  "case": "ATO-0555",
+  "timeline": [
+    {
+      "id": "EVT0401",
+      "time": "16:40",
+      "location": "Urdimento",
+      "title": "Passagem exclusiva no urdimento",
+      "trigger": "Registro da chefe de palco",
+      "effects": [
+        "Sabotagem armada",
+        "Janela sem técnicos"
+      ]
+    },
+    {
+      "id": "EVT0402",
+      "time": "19:00",
+      "location": "Teatro Guaíra",
+      "title": "Público entra para a estreia",
+      "trigger": "Início do caso",
+      "effects": [
+        "Ativa mapa",
+        "Libera escala da equipe"
+      ]
+    },
+    {
+      "id": "EVT0403",
+      "time": "19:40",
+      "location": "Coxia",
+      "title": "Vicente discute na coxia",
+      "trigger": "Testemunha de bastidor",
+      "effects": [
+        "“Amanhã todos saberão”",
+        "Motivo em aberto"
+      ]
+    },
+    {
+      "id": "EVT0404",
+      "time": "20:55",
+      "location": "Coxia",
+      "title": "Deixa do efeito neve adiantada",
+      "trigger": "Roteiro de deixas",
+      "effects": [
+        "Vara 7 armada para o monólogo"
+      ]
+    },
+    {
+      "id": "EVT0405",
+      "time": "20:57",
+      "location": "Passarela",
+      "title": "Silhueta desce da passarela",
+      "trigger": "Gravação da coxia",
+      "effects": [
+        "Clique metálico no áudio"
+      ]
+    },
+    {
+      "id": "EVT0406",
+      "time": "21:14",
+      "location": "Palco",
+      "title": "A vara 7 despenca no monólogo",
+      "trigger": "Plateia",
+      "effects": [
+        "Cena do crime",
+        "Pano fechado"
+      ]
+    },
+    {
+      "id": "EVT0407",
+      "time": "21:40",
+      "location": "Teatro Guaíra",
+      "title": "Perícia isola palco e urdimento",
+      "trigger": "Delegacia acionada",
+      "effects": [
+        "Coleta de vestígios"
+      ]
+    },
+    {
+      "id": "EVT0408",
+      "time": "23:00",
+      "location": "Central",
+      "title": "Sala do Júri",
+      "trigger": "4 códigos",
+      "effects": [
+        "Acusação final"
+      ]
+    }
+  ],
+  "dynamic_events": [
+    {
+      "id": "DYN401",
+      "name": "Fã invade a porta de palco",
+      "chance": 0.2
+    }
+  ],
+  "player_choices": [
+    {
+      "choice": "Acusar cedo",
+      "result": "Penalidade de pontuação"
+    },
+    {
+      "choice": "Usar dica",
+      "result": "-20 pontos"
+    }
+  ],
+  "unlock_matrix": {
+    "EV404": [
+      "EVT0404"
+    ],
+    "JURY": [
+      "EVT0408"
+    ]
+  },
+  "scoring": {
+    "critical_event": 100,
+    "optional_event": 25,
+    "secret_event": 75
+  }
+}

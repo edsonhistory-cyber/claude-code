@@ -1,0 +1,120 @@
+{
+  "schema": "CASE003_EVENTS_FULL",
+  "version": "1.0",
+  "case": "ECL-2112",
+  "timeline": [
+    {
+      "id": "EVT0201",
+      "time": "18:00",
+      "location": "Fórum",
+      "title": "Fórum fecha ao público",
+      "trigger": "Início do caso",
+      "effects": [
+        "Ativa mapa",
+        "Libera livro de ocorrências"
+      ]
+    },
+    {
+      "id": "EVT0202",
+      "time": "20:30",
+      "location": "Perícia",
+      "title": "Vera declara saída",
+      "trigger": "Livro de ocorrências",
+      "effects": [
+        "Álibi declarado"
+      ]
+    },
+    {
+      "id": "EVT0203",
+      "time": "21:10",
+      "location": "Subsolo",
+      "title": "Sabotagem no quadro geral",
+      "trigger": "Consumo de energia",
+      "effects": [
+        "Prepara o apagão"
+      ]
+    },
+    {
+      "id": "EVT0204",
+      "time": "21:12",
+      "location": "Fórum",
+      "title": "Apagão de 7 minutos",
+      "trigger": "Queda manual",
+      "effects": [
+        "Câmeras principais cegas",
+        "Oportunidade do crime"
+      ]
+    },
+    {
+      "id": "EVT0205",
+      "time": "21:14",
+      "location": "Corredor das Câmeras",
+      "title": "Vulto de jaleco no backup",
+      "trigger": "Sistema redundante",
+      "effects": [
+        "Libera EV203"
+      ]
+    },
+    {
+      "id": "EVT0206",
+      "time": "21:19",
+      "location": "Paiol de Provas",
+      "title": "Luz volta; paiol 'intacto'",
+      "trigger": "Religamento",
+      "effects": [
+        "Lacre trocado"
+      ]
+    },
+    {
+      "id": "EVT0207",
+      "time": "21:40",
+      "location": "Paiol de Provas",
+      "title": "Téo encontrado enforcado",
+      "trigger": "Ronda da delegada",
+      "effects": [
+        "Cena do crime",
+        "Perícia externa"
+      ]
+    },
+    {
+      "id": "EVT0208",
+      "time": "23:00",
+      "location": "Central",
+      "title": "Sala do Júri",
+      "trigger": "4 códigos",
+      "effects": [
+        "Acusação final"
+      ]
+    }
+  ],
+  "dynamic_events": [
+    {
+      "id": "DYN201",
+      "name": "Gerador de emergência falha",
+      "chance": 0.2
+    }
+  ],
+  "player_choices": [
+    {
+      "choice": "Acusar cedo",
+      "result": "Penalidade de pontuação"
+    },
+    {
+      "choice": "Usar dica",
+      "result": "-20 pontos"
+    }
+  ],
+  "unlock_matrix": {
+    "EV203": [
+      "EVT0205"
+    ],
+    "JURY": [
+      "EVT0208"
+    ]
+  },
+  "scoring": {
+    "critical_event": 100,
+    "optional_event": 25,
+    "secret_event": 75
+  }
+}

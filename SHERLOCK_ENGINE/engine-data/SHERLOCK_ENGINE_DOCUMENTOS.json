@@ -1,0 +1,547 @@
+{
+  "schema": "SHERLOCK_ENGINE_DOCUMENTOS",
+  "version": "1.0",
+  "total_documentos": 20,
+  "documentos": [
+    {
+      "id": "DOC001",
+      "titulo": "Laudo Toxicológico",
+      "categoria": "laudo",
+      "estado": "Disponível",
+      "imagem": {
+        "arquivo": "doc001.webp",
+        "resolucao": "2480x3508",
+        "estilo": "Escaneamento realista"
+      },
+      "interacao": {
+        "zoom": true,
+        "rotacionar": false,
+        "luz_uv": true,
+        "pesquisar_texto": true
+      },
+      "metadados": {
+        "origem": "Caso CWB-1447",
+        "cadeia_custodia": "Registrada",
+        "nivel_sigilo": "Confidencial"
+      },
+      "uso": [
+        "Investigação",
+        "Enigma",
+        "Linha do tempo"
+      ]
+    },
+    {
+      "id": "DOC002",
+      "titulo": "Laudo Cadavérico",
+      "categoria": "laudo",
+      "estado": "Disponível",
+      "imagem": {
+        "arquivo": "doc002.webp",
+        "resolucao": "2480x3508",
+        "estilo": "Escaneamento realista"
+      },
+      "interacao": {
+        "zoom": true,
+        "rotacionar": false,
+        "luz_uv": true,
+        "pesquisar_texto": true
+      },
+      "metadados": {
+        "origem": "Caso CWB-1447",
+        "cadeia_custodia": "Registrada",
+        "nivel_sigilo": "Confidencial"
+      },
+      "uso": [
+        "Investigação",
+        "Enigma",
+        "Linha do tempo"
+      ]
+    },
+    {
+      "id": "DOC003",
+      "titulo": "Manifesto da Linha Turismo",
+      "categoria": "transporte",
+      "estado": "Disponível",
+      "imagem": {
+        "arquivo": "doc003.webp",
+        "resolucao": "2480x3508",
+        "estilo": "Escaneamento realista"
+      },
+      "interacao": {
+        "zoom": true,
+        "rotacionar": false,
+        "luz_uv": false,
+        "pesquisar_texto": true
+      },
+      "metadados": {
+        "origem": "Caso CWB-1447",
+        "cadeia_custodia": "Registrada",
+        "nivel_sigilo": "Confidencial"
+      },
+      "uso": [
+        "Investigação",
+        "Enigma",
+        "Linha do tempo"
+      ]
+    },
+    {
+      "id": "DOC004",
+      "titulo": "Disco do Tacógrafo",
+      "categoria": "transporte",
+      "estado": "Disponível",
+      "imagem": {
+        "arquivo": "doc004.webp",
+        "resolucao": "2480x3508",
+        "estilo": "Escaneamento realista"
+      },
+      "interacao": {
+        "zoom": true,
+        "rotacionar": false,
+        "luz_uv": false,
+        "pesquisar_texto": true
+      },
+      "metadados": {
+        "origem": "Caso CWB-1447",
+        "cadeia_custodia": "Registrada",
+        "nivel_sigilo": "Confidencial"
+      },
+      "uso": [
+        "Investigação",
+        "Enigma",
+        "Linha do tempo"
+      ]
+    },
+    {
+      "id": "DOC005",
+      "titulo": "Relatório da Perícia",
+      "categoria": "policial",
+      "estado": "Disponível",
+      "imagem": {
+        "arquivo": "doc005.webp",
+        "resolucao": "2480x3508",
+        "estilo": "Escaneamento realista"
+      },
+      "interacao": {
+        "zoom": true,
+        "rotacionar": false,
+        "luz_uv": false,
+        "pesquisar_texto": true
+      },
+      "metadados": {
+        "origem": "Caso CWB-1447",
+        "cadeia_custodia": "Registrada",
+        "nivel_sigilo": "Confidencial"
+      },
+      "uso": [
+        "Investigação",
+        "Enigma",
+        "Linha do tempo"
+      ]
+    },
+    {
+      "id": "DOC006",
+      "titulo": "Boletim de Ocorrência",
+      "categoria": "policial",
+      "estado": "Disponível",
+      "imagem": {
+        "arquivo": "doc006.webp",
+        "resolucao": "2480x3508",
+        "estilo": "Escaneamento realista"
+      },
+      "interacao": {
+        "zoom": true,
+        "rotacionar": false,
+        "luz_uv": false,
+        "pesquisar_texto": true
+      },
+      "metadados": {
+        "origem": "Caso CWB-1447",
+        "cadeia_custodia": "Registrada",
+        "nivel_sigilo": "Confidencial"
+      },
+      "uso": [
+        "Investigação",
+        "Enigma",
+        "Linha do tempo"
+      ]
+    },
+    {
+      "id": "DOC007",
+      "titulo": "Recorte Jornal 2019",
+      "categoria": "imprensa",
+      "estado": "Disponível",
+      "imagem": {
+        "arquivo": "doc007.webp",
+        "resolucao": "2480x3508",
+        "estilo": "Escaneamento realista"
+      },
+      "interacao": {
+        "zoom": true,
+        "rotacionar": false,
+        "luz_uv": false,
+        "pesquisar_texto": true
+      },
+      "metadados": {
+        "origem": "Caso CWB-1447",
+        "cadeia_custodia": "Registrada",
+        "nivel_sigilo": "Confidencial"
+      },
+      "uso": [
+        "Investigação",
+        "Enigma",
+        "Linha do tempo"
+      ]
+    },
+    {
+      "id": "DOC008",
+      "titulo": "Contrato Imobiliário",
+      "categoria": "financeiro",
+      "estado": "Disponível",
+      "imagem": {
+        "arquivo": "doc008.webp",
+        "resolucao": "2480x3508",
+        "estilo": "Escaneamento realista"
+      },
+      "interacao": {
+        "zoom": true,
+        "rotacionar": false,
+        "luz_uv": false,
+        "pesquisar_texto": true
+      },
+      "metadados": {
+        "origem": "Caso CWB-1447",
+        "cadeia_custodia": "Registrada",
+        "nivel_sigilo": "Confidencial"
+      },
+      "uso": [
+        "Investigação",
+        "Enigma",
+        "Linha do tempo"
+      ]
+    },
+    {
+      "id": "DOC009",
+      "titulo": "Extrato Bancário",
+      "categoria": "financeiro",
+      "estado": "Disponível",
+      "imagem": {
+        "arquivo": "doc009.webp",
+        "resolucao": "2480x3508",
+        "estilo": "Escaneamento realista"
+      },
+      "interacao": {
+        "zoom": true,
+        "rotacionar": false,
+        "luz_uv": false,
+        "pesquisar_texto": true
+      },
+      "metadados": {
+        "origem": "Caso CWB-1447",
+        "cadeia_custodia": "Registrada",
+        "nivel_sigilo": "Confidencial"
+      },
+      "uso": [
+        "Investigação",
+        "Enigma",
+        "Linha do tempo"
+      ]
+    },
+    {
+      "id": "DOC010",
+      "titulo": "Mapa da Linha Turismo",
+      "categoria": "mapa",
+      "estado": "Disponível",
+      "imagem": {
+        "arquivo": "doc010.webp",
+        "resolucao": "2480x3508",
+        "estilo": "Escaneamento realista"
+      },
+      "interacao": {
+        "zoom": true,
+        "rotacionar": false,
+        "luz_uv": false,
+        "pesquisar_texto": true
+      },
+      "metadados": {
+        "origem": "Caso CWB-1447",
+        "cadeia_custodia": "Registrada",
+        "nivel_sigilo": "Confidencial"
+      },
+      "uso": [
+        "Investigação",
+        "Enigma",
+        "Linha do tempo"
+      ]
+    },
+    {
+      "id": "DOC011",
+      "titulo": "Croqui do Ônibus",
+      "categoria": "croqui",
+      "estado": "Disponível",
+      "imagem": {
+        "arquivo": "doc011.webp",
+        "resolucao": "2480x3508",
+        "estilo": "Escaneamento realista"
+      },
+      "interacao": {
+        "zoom": true,
+        "rotacionar": false,
+        "luz_uv": false,
+        "pesquisar_texto": true
+      },
+      "metadados": {
+        "origem": "Caso CWB-1447",
+        "cadeia_custodia": "Registrada",
+        "nivel_sigilo": "Confidencial"
+      },
+      "uso": [
+        "Investigação",
+        "Enigma",
+        "Linha do tempo"
+      ]
+    },
+    {
+      "id": "DOC012",
+      "titulo": "Mensagem de WhatsApp",
+      "categoria": "digital",
+      "estado": "Disponível",
+      "imagem": {
+        "arquivo": "doc012.webp",
+        "resolucao": "2480x3508",
+        "estilo": "Escaneamento realista"
+      },
+      "interacao": {
+        "zoom": true,
+        "rotacionar": false,
+        "luz_uv": false,
+        "pesquisar_texto": true
+      },
+      "metadados": {
+        "origem": "Caso CWB-1447",
+        "cadeia_custodia": "Registrada",
+        "nivel_sigilo": "Confidencial"
+      },
+      "uso": [
+        "Investigação",
+        "Enigma",
+        "Linha do tempo"
+      ]
+    },
+    {
+      "id": "DOC013",
+      "titulo": "E-mail da Delação",
+      "categoria": "digital",
+      "estado": "Disponível",
+      "imagem": {
+        "arquivo": "doc013.webp",
+        "resolucao": "2480x3508",
+        "estilo": "Escaneamento realista"
+      },
+      "interacao": {
+        "zoom": true,
+        "rotacionar": false,
+        "luz_uv": false,
+        "pesquisar_texto": true
+      },
+      "metadados": {
+        "origem": "Caso CWB-1447",
+        "cadeia_custodia": "Registrada",
+        "nivel_sigilo": "Confidencial"
+      },
+      "uso": [
+        "Investigação",
+        "Enigma",
+        "Linha do tempo"
+      ]
+    },
+    {
+      "id": "DOC014",
+      "titulo": "Agenda da Vítima",
+      "categoria": "digital",
+      "estado": "Disponível",
+      "imagem": {
+        "arquivo": "doc014.webp",
+        "resolucao": "2480x3508",
+        "estilo": "Escaneamento realista"
+      },
+      "interacao": {
+        "zoom": true,
+        "rotacionar": false,
+        "luz_uv": false,
+        "pesquisar_texto": true
+      },
+      "metadados": {
+        "origem": "Caso CWB-1447",
+        "cadeia_custodia": "Registrada",
+        "nivel_sigilo": "Confidencial"
+      },
+      "uso": [
+        "Investigação",
+        "Enigma",
+        "Linha do tempo"
+      ]
+    },
+    {
+      "id": "DOC015",
+      "titulo": "Registro Funcional",
+      "categoria": "arquivo",
+      "estado": "Disponível",
+      "imagem": {
+        "arquivo": "doc015.webp",
+        "resolucao": "2480x3508",
+        "estilo": "Escaneamento realista"
+      },
+      "interacao": {
+        "zoom": true,
+        "rotacionar": false,
+        "luz_uv": false,
+        "pesquisar_texto": true
+      },
+      "metadados": {
+        "origem": "Caso CWB-1447",
+        "cadeia_custodia": "Registrada",
+        "nivel_sigilo": "Confidencial"
+      },
+      "uso": [
+        "Investigação",
+        "Enigma",
+        "Linha do tempo"
+      ]
+    },
+    {
+      "id": "DOC016",
+      "titulo": "CNH Sérgio Bento",
+      "categoria": "identificação",
+      "estado": "Disponível",
+      "imagem": {
+        "arquivo": "doc016.webp",
+        "resolucao": "2480x3508",
+        "estilo": "Escaneamento realista"
+      },
+      "interacao": {
+        "zoom": true,
+        "rotacionar": false,
+        "luz_uv": true,
+        "pesquisar_texto": true
+      },
+      "metadados": {
+        "origem": "Caso CWB-1447",
+        "cadeia_custodia": "Registrada",
+        "nivel_sigilo": "Confidencial"
+      },
+      "uso": [
+        "Investigação",
+        "Enigma",
+        "Linha do tempo"
+      ]
+    },
+    {
+      "id": "DOC017",
+      "titulo": "RG Otávio",
+      "categoria": "identificação",
+      "estado": "Disponível",
+      "imagem": {
+        "arquivo": "doc017.webp",
+        "resolucao": "2480x3508",
+        "estilo": "Escaneamento realista"
+      },
+      "interacao": {
+        "zoom": true,
+        "rotacionar": false,
+        "luz_uv": true,
+        "pesquisar_texto": true
+      },
+      "metadados": {
+        "origem": "Caso CWB-1447",
+        "cadeia_custodia": "Registrada",
+        "nivel_sigilo": "Confidencial"
+      },
+      "uso": [
+        "Investigação",
+        "Enigma",
+        "Linha do tempo"
+      ]
+    },
+    {
+      "id": "DOC018",
+      "titulo": "Nota Fiscal Garrafa",
+      "categoria": "financeiro",
+      "estado": "Disponível",
+      "imagem": {
+        "arquivo": "doc018.webp",
+        "resolucao": "2480x3508",
+        "estilo": "Escaneamento realista"
+      },
+      "interacao": {
+        "zoom": true,
+        "rotacionar": false,
+        "luz_uv": false,
+        "pesquisar_texto": true
+      },
+      "metadados": {
+        "origem": "Caso CWB-1447",
+        "cadeia_custodia": "Registrada",
+        "nivel_sigilo": "Confidencial"
+      },
+      "uso": [
+        "Investigação",
+        "Enigma",
+        "Linha do tempo"
+      ]
+    },
+    {
+      "id": "DOC019",
+      "titulo": "Bilhete Anônimo",
+      "categoria": "evidência",
+      "estado": "Disponível",
+      "imagem": {
+        "arquivo": "doc019.webp",
+        "resolucao": "2480x3508",
+        "estilo": "Escaneamento realista"
+      },
+      "interacao": {
+        "zoom": true,
+        "rotacionar": false,
+        "luz_uv": true,
+        "pesquisar_texto": true
+      },
+      "metadados": {
+        "origem": "Caso CWB-1447",
+        "cadeia_custodia": "Registrada",
+        "nivel_sigilo": "Confidencial"
+      },
+      "uso": [
+        "Investigação",
+        "Enigma",
+        "Linha do tempo"
+      ]
+    },
+    {
+      "id": "DOC020",
+      "titulo": "Relatório Final",
+      "categoria": "policial",
+      "estado": "Disponível",
+      "imagem": {
+        "arquivo": "doc020.webp",
+        "resolucao": "2480x3508",
+        "estilo": "Escaneamento realista"
+      },
+      "interacao": {
+        "zoom": true,
+        "rotacionar": false,
+        "luz_uv": false,
+        "pesquisar_texto": true
+      },
+      "metadados": {
+        "origem": "Caso CWB-1447",
+        "cadeia_custodia": "Registrada",
+        "nivel_sigilo": "Confidencial"
+      },
+      "uso": [
+        "Investigação",
+        "Enigma",
+        "Linha do tempo"
+      ]
+    }
+  ]
+}

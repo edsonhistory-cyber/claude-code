@@ -1,0 +1,157 @@
+{
+  "schema": "SHERLOCK_ENGINE_EVIDENCE_GRAPH",
+  "version": "1.0",
+  "graph": {
+    "nodes": [
+      {
+        "id": "P001",
+        "type": "person",
+        "label": "Otávio Bandeira"
+      },
+      {
+        "id": "P002",
+        "type": "person",
+        "label": "Sérgio Bento"
+      },
+      {
+        "id": "P003",
+        "type": "person",
+        "label": "Renata Salgado"
+      },
+      {
+        "id": "L001",
+        "type": "location",
+        "label": "KM18"
+      },
+      {
+        "id": "L002",
+        "type": "location",
+        "label": "Parque Tanguá"
+      },
+      {
+        "id": "O001",
+        "type": "object",
+        "label": "Garrafa térmica"
+      },
+      {
+        "id": "O002",
+        "type": "object",
+        "label": "Luvas azuis"
+      },
+      {
+        "id": "E001",
+        "type": "evidence",
+        "label": "Veneno no café"
+      },
+      {
+        "id": "E002",
+        "type": "evidence",
+        "label": "Microfibra azul"
+      },
+      {
+        "id": "D001",
+        "type": "document",
+        "label": "Tacógrafo"
+      },
+      {
+        "id": "D002",
+        "type": "document",
+        "label": "Registro funcional"
+      },
+      {
+        "id": "V001",
+        "type": "video",
+        "label": "Vídeo da Bianca"
+      }
+    ],
+    "edges": [
+      {
+        "from": "P001",
+        "to": "O001",
+        "relation": "proprietário"
+      },
+      {
+        "from": "O001",
+        "to": "E001",
+        "relation": "contém"
+      },
+      {
+        "from": "O002",
+        "to": "E002",
+        "relation": "contém"
+      },
+      {
+        "from": "E002",
+        "to": "O001",
+        "relation": "compatível_com"
+      },
+      {
+        "from": "D001",
+        "to": "L001",
+        "relation": "confirma_parada"
+      },
+      {
+        "from": "V001",
+        "to": "P002",
+        "relation": "mostra"
+      },
+      {
+        "from": "P002",
+        "to": "O002",
+        "relation": "utilizou"
+      },
+      {
+        "from": "P002",
+        "to": "D002",
+        "relation": "relacionado"
+      },
+      {
+        "from": "L001",
+        "to": "O001",
+        "relation": "local_envenenamento"
+      },
+      {
+        "from": "L002",
+        "to": "P001",
+        "relation": "local_morte"
+      }
+    ]
+  },
+  "inference_rules": [
+    {
+      "id": "INF001",
+      "if": [
+        "Tacógrafo",
+        "Vídeo da Bianca",
+        "Microfibra azul"
+      ],
+      "then": "A oportunidade do motorista aumenta."
+    },
+    {
+      "id": "INF002",
+      "if": [
+        "Veneno no café",
+        "Garrafa térmica"
+      ],
+      "then": "Descartar hipótese do chá."
+    }
+  ],
+  "visualization": {
+    "layout": "force-directed",
+    "node_colors": {
+      "person": "#3498db",
+      "evidence": "#e74c3c",
+      "object": "#f1c40f",
+      "document": "#2ecc71",
+      "location": "#9b59b6"
+    },
+    "edge_style": "curved",
+    "physics": true
+  },
+  "queries": [
+    "connectedEvidence(personId)",
+    "shortestPath(nodeA,nodeB)",
+    "findContradictions()",
+    "buildEvidenceChain()"
+  ]
+}

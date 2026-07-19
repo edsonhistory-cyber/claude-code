@@ -1,0 +1,107 @@
+{
+  "schema": "SHERLOCK_ENGINE_DEDUCTION",
+  "version": "1.0",
+  "engine": {
+    "name": "Holmes Inference Engine",
+    "reasoning": "Bayesian + Rule Based",
+    "auto_update": true
+  },
+  "suspect_model": {
+    "factors": [
+      {
+        "name": "Motivo",
+        "weight": 0.35
+      },
+      {
+        "name": "Meios",
+        "weight": 0.25
+      },
+      {
+        "name": "Oportunidade",
+        "weight": 0.25
+      },
+      {
+        "name": "Álibi",
+        "weight": 0.15
+      }
+    ],
+    "score_range": "0-100"
+  },
+  "inference_rules": [
+    {
+      "id": "R001",
+      "if": [
+        "Tacógrafo confirma parada",
+        "Motorista sozinho",
+        "Veneno na garrafa"
+      ],
+      "then": "Aumentar suspeita de Sérgio Bento em +35"
+    },
+    {
+      "id": "R002",
+      "if": [
+        "Chá recusado",
+        "Veneno no café"
+      ],
+      "then": "Eliminar Wanda como autora"
+    },
+    {
+      "id": "R003",
+      "if": [
+        "Aldo não reembarcou"
+      ],
+      "then": "Eliminar oportunidade de Aldo"
+    }
+  ],
+  "hypothesis_engine": {
+    "states": [
+      "Hipótese criada",
+      "Em análise",
+      "Fortalecida",
+      "Refutada",
+      "Confirmada"
+    ],
+    "max_active": 20
+  },
+  "evidence_matrix": {
+    "required_strength": 100,
+    "links": [
+      {
+        "evidence": "EV001",
+        "supports": [
+          "Método"
+        ]
+      },
+      {
+        "evidence": "EV002",
+        "supports": [
+          "Autor"
+        ]
+      },
+      {
+        "evidence": "EV003",
+        "supports": [
+          "Oportunidade"
+        ]
+      },
+      {
+        "evidence": "DOC004",
+        "supports": [
+          "Linha do tempo"
+        ]
+      }
+    ]
+  },
+  "jury_ready": {
+    "conditions": [
+      "Hipótese confirmada",
+      "Quatro provas críticas",
+      "Nenhuma contradição ativa"
+    ]
+  },
+  "ai_hooks": {
+    "hint_when_stuck": true,
+    "suggest_next_evidence": true,
+    "explain_reasoning": false
+  }
+}

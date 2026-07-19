@@ -1,0 +1,111 @@
+{
+  "schema": "CASE003_EVIDENCES_FULL",
+  "version": "1.0",
+  "case": "ECL-2112",
+  "evidences": [
+    {
+      "id": "EV201",
+      "name": "Lacre reimpresso",
+      "category": "Vestígio",
+      "collected_at": "Prateleira 14 do paiol",
+      "collection_time": "22:10",
+      "collector": "Perícia externa",
+      "chain_of_custody": [
+        "Coleta",
+        "Lacre",
+        "Laboratório",
+        "Arquivo"
+      ],
+      "analysis": [
+        "Microimpressão",
+        "Numeração"
+      ],
+      "findings": [
+        "Numeração fora da sequência do lote",
+        "Microimpressão da impressora da sala de perícia interna"
+      ],
+      "related": [
+        "EV202",
+        "P202"
+      ],
+      "value": "Crítica",
+      "used_in": [
+        "Interrogatório",
+        "Sala do Júri"
+      ]
+    },
+    {
+      "id": "EV202",
+      "name": "HD de provas clonado",
+      "category": "Digital",
+      "collected_at": "Caixa lacrada CWB-1447/SRR-0904",
+      "collection_time": "22:20",
+      "collector": "Perícia externa",
+      "analysis": [
+        "Hash",
+        "Forense digital"
+      ],
+      "findings": [
+        "Hash divergente do termo de custódia",
+        "Setores zerados às 21:16"
+      ],
+      "related": [
+        "EV201",
+        "P202"
+      ],
+      "value": "Crítica"
+    },
+    {
+      "id": "EV203",
+      "name": "Backup das câmeras",
+      "category": "Vídeo",
+      "collected_at": "Pendrive da estagiária Alice",
+      "collection_time": "—",
+      "analysis": [
+        "Frame a frame",
+        "Metadados"
+      ],
+      "findings": [
+        "Sistema redundante gravou o corredor",
+        "Vulto de jaleco às 21:14"
+      ],
+      "related": [
+        "P204",
+        "P202"
+      ],
+      "value": "Alta"
+    },
+    {
+      "id": "EV204",
+      "name": "Registro do ponto biométrico",
+      "category": "Documento técnico",
+      "collected_at": "Servidor do Fórum",
+      "collection_time": "22:40",
+      "analysis": [
+        "Cronologia",
+        "Digitais"
+      ],
+      "findings": [
+        "Saída real de Vera: 21:25",
+        "Livro de ocorrências declara 20:30"
+      ],
+      "related": [
+        "P202",
+        "DOC204"
+      ],
+      "value": "Alta"
+    }
+  ],
+  "evidence_levels": {
+    "Baixa": 10,
+    "Média": 30,
+    "Alta": 60,
+    "Crítica": 100
+  },
+  "jury_requirements": [
+    "EV201",
+    "EV202",
+    "EV203",
+    "EV204"
+  ]
+}

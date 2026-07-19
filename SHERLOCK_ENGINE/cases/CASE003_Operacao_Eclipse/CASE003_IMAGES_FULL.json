@@ -1,0 +1,45 @@
+{
+  "schema": "CASE003_IMAGES_FULL",
+  "version": "1.0",
+  "case": "ECL-2112",
+  "style": {
+    "quality": "SVG procedural",
+    "look": "Noite institucional: azul frio + luz de emergência",
+    "aspect_default": "16:9"
+  },
+  "categories": {
+    "locations": [
+      {
+        "id": "IMG_E001",
+        "name": "Fórum",
+        "views": [
+          "fachada noturna"
+        ]
+      },
+      {
+        "id": "IMG_E002",
+        "name": "Paiol de Provas",
+        "views": [
+          "prateleiras"
+        ]
+      },
+      {
+        "id": "IMG_E003",
+        "name": "Subsolo",
+        "views": [
+          "quadro geral"
+        ]
+      },
+      {
+        "id": "IMG_E004",
+        "name": "Corredor das Câmeras",
+        "views": [
+          "luz de emergência"
+        ]
+      }
+    ]
+  },
+  "statistics": {
+    "total": 4
+  }
+}

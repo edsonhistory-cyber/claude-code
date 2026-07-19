@@ -1,0 +1,119 @@
+{
+  "schema": "CASE005_DOCUMENTS_FULL",
+  "version": "1.0",
+  "case": "ATO-0555",
+  "documents": [
+    {
+      "id": "DOC401",
+      "title": "Laudo Cadavérico Preliminar",
+      "type": "Laudo Médico-Legal",
+      "author": "Legista",
+      "classification": "Confidencial",
+      "summary": "Trauma crânio-encefálico por impacto da vara cênica 7. Morte instantânea, em cena aberta, às 21:14."
+    },
+    {
+      "id": "DOC402",
+      "title": "Laudo de Mecânica Cênica",
+      "type": "Laboratório",
+      "summary": "O pino de segurança da vara 7 foi serrado em 80% da seção — ruptura calculada para a carga do efeito neve. Não há fadiga de material.",
+      "related": [
+        "EV401"
+      ]
+    },
+    {
+      "id": "DOC403",
+      "title": "Escala da Equipe de Palco",
+      "type": "Operacional",
+      "summary": "42 pessoas na produção. Acesso ao urdimento: chefe de palco, maquinista escalado e direção (passe livre). O bar técnico registra Gregor e Tito juntos às 21:14.",
+      "fields": [
+        "Nome",
+        "Função",
+        "Urdimento"
+      ]
+    },
+    {
+      "id": "DOC404",
+      "title": "Roteiro de Deixas",
+      "type": "Operacional",
+      "summary": "A deixa do efeito neve (vara 7) foi ADIANTADA na véspera, da cena 12 para o monólogo final — quando só a vítima está na marca.",
+      "related": [
+        "EVT0404"
+      ]
+    },
+    {
+      "id": "DOC405",
+      "title": "Registro da Chefe de Palco",
+      "type": "Registro",
+      "summary": "Lia Menezes anota: \"direção pediu passagem exclusiva no urdimento às 16:40 — revisão particular, sem técnicos\"."
+    },
+    {
+      "id": "DOC406",
+      "title": "Dossiê — Marina Vaz",
+      "type": "Inteligência",
+      "classification": "Restrito",
+      "summary": "Diretora premiada pelo texto de 'O Último Ato'. Registrou a obra em nome próprio. Dívidas de produção quitadas após o prêmio.",
+      "related": [
+        "P402"
+      ]
+    },
+    {
+      "id": "DOC407",
+      "title": "Notícia — O Prêmio da Temporada",
+      "type": "Notícia",
+      "summary": "\"O texto que consagrou Marina Vaz nasceu pronto\", ironiza um crítico. \"Ninguém viu rascunho, ninguém viu processo.\""
+    },
+    {
+      "id": "DOC408",
+      "title": "Carta de Vicente Aranha",
+      "type": "Manuscrito",
+      "summary": "No camarim, uma carta inacabada ao espólio de Otelo Ramos: \"amanhã, na coletiva, tudo vem à luz\" — e uma palavra cifrada.",
+      "related": [
+        "P401"
+      ]
+    },
+    {
+      "id": "DOC409",
+      "title": "Original de Otelo Ramos (1987)",
+      "type": "Arquivo",
+      "summary": "Datiloscrito inédito guardado no arquivo do teatro: cenas, falas e até o título coincidem com a peça premiada. A prova do plágio.",
+      "related": [
+        "EV404"
+      ]
+    },
+    {
+      "id": "DOC410",
+      "title": "Relatório Final do Caso",
+      "type": "Conclusão",
+      "summary": "Consolidação de todas as provas — o último ato diante do júri.",
+      "requires": [
+        "EV401",
+        "EV402",
+        "EV403",
+        "EV404"
+      ]
+    }
+  ],
+  "index": {
+    "medical": [
+      "DOC401",
+      "DOC402"
+    ],
+    "operational": [
+      "DOC403",
+      "DOC404",
+      "DOC405"
+    ],
+    "historical": [
+      "DOC406",
+      "DOC407"
+    ],
+    "financial": [],
+    "intelligence": [
+      "DOC408",
+      "DOC409"
+    ],
+    "final": [
+      "DOC410"
+    ]
+  }
+}

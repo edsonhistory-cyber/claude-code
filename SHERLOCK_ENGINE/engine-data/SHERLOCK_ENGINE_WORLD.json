@@ -1,0 +1,111 @@
+{
+  "schema": "SHERLOCK_ENGINE_WORLD",
+  "version": "1.0",
+  "world": {
+    "name": "Curitiba Investigativa",
+    "country": "Brasil",
+    "state": "Paraná",
+    "time_system": {
+      "date": "Sábado de outono",
+      "start_time": "14:00",
+      "end_time": "18:30",
+      "weather": "Parcialmente nublado",
+      "temperature_c": 19
+    }
+  },
+  "districts": [
+    {
+      "id": "W001",
+      "name": "Centro",
+      "points": [
+        "Rua 24 Horas",
+        "Praça Osório",
+        "Calçadão XV"
+      ],
+      "ambient": "Movimento intenso"
+    },
+    {
+      "id": "W002",
+      "name": "Jardim Botânico",
+      "points": [
+        "Estufa",
+        "Jardins",
+        "Estacionamento"
+      ],
+      "ambient": "Turístico"
+    },
+    {
+      "id": "W003",
+      "name": "Centro Cívico",
+      "points": [
+        "MON",
+        "Bosque"
+      ],
+      "ambient": "Institucional"
+    },
+    {
+      "id": "W004",
+      "name": "Parque Barigui",
+      "points": [
+        "Lago",
+        "Lixeira",
+        "Estacionamento"
+      ],
+      "ambient": "Lazer"
+    },
+    {
+      "id": "W005",
+      "name": "Parque Tanguá",
+      "points": [
+        "Mirante",
+        "Cascata",
+        "Túneis"
+      ],
+      "ambient": "Pôr do sol"
+    }
+  ],
+  "bus": {
+    "name": "Linha Turismo",
+    "levels": 2,
+    "zones": [
+      "Cabine do motorista",
+      "Porta dianteira",
+      "Escada",
+      "Andar inferior",
+      "Andar superior",
+      "Porta-volumes",
+      "Saída traseira"
+    ]
+  },
+  "npc_system": {
+    "spawn_rules": "Baseado em horário e local",
+    "categories": [
+      "Turistas",
+      "Casais",
+      "Famílias",
+      "Corredores",
+      "Fotógrafos",
+      "Funcionários",
+      "Policiais"
+    ]
+  },
+  "dynamic_events": [
+    "Ônibus chega ao ponto",
+    "Mudança de clima",
+    "Grupo de turistas aparece",
+    "Viatura policial estaciona",
+    "Pássaros levantam voo"
+  ],
+  "lighting": {
+    "14:00": "Luz forte",
+    "16:00": "Luz quente",
+    "17:50": "Pôr do sol cinematográfico",
+    "18:30": "Anoitecer"
+  },
+  "world_rules": [
+    "Nenhum NPC conhece toda a verdade.",
+    "Cada local possui pistas específicas.",
+    "Eventos seguem a cronologia do caso.",
+    "Locais podem ser revisitados."
+  ]
+}

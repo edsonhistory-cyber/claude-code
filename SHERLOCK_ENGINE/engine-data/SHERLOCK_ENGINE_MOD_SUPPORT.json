@@ -1,0 +1,70 @@
+{
+  "schema": "SHERLOCK_ENGINE_MOD_SUPPORT",
+  "version": "1.0",
+  "description": "Sistema oficial de suporte a mods da Sherlock Engine.",
+  "mod_format": {
+    "extension": ".smod",
+    "manifest": "mod.json",
+    "min_engine_version": "1.0"
+  },
+  "manifest_schema": {
+    "id": "string",
+    "name": "string",
+    "author": "string",
+    "version": "string",
+    "description": "string",
+    "dependencies": [],
+    "entry_points": []
+  },
+  "supported_content": {
+    "cases": true,
+    "characters": true,
+    "locations": true,
+    "evidences": true,
+    "documents": true,
+    "dialogues": true,
+    "audio": true,
+    "images": true,
+    "videos": true,
+    "ui_themes": true,
+    "minigames": true,
+    "ai_rules": true
+  },
+  "plugin_hooks": [
+    "onGameStart",
+    "onCaseLoaded",
+    "onEvidenceCollected",
+    "onDialogueFinished",
+    "onCaseSolved",
+    "onGameExit"
+  ],
+  "sandbox": {
+    "enabled": true,
+    "filesystem_access": "restricted",
+    "network_access": false,
+    "max_memory_mb": 256
+  },
+  "validation": {
+    "verify_manifest": true,
+    "verify_signatures": true,
+    "check_conflicts": true,
+    "scan_duplicate_ids": true
+  },
+  "mod_manager": {
+    "enable_disable": true,
+    "load_order": true,
+    "dependency_resolution": true,
+    "profiles": true
+  },
+  "distribution": {
+    "package_format": "ZIP + manifest",
+    "digital_signature": true,
+    "checksum": "SHA-256"
+  },
+  "future": {
+    "official_mod_store": true,
+    "steam_workshop": true,
+    "community_ratings": true,
+    "automatic_updates": true
+  }
+}

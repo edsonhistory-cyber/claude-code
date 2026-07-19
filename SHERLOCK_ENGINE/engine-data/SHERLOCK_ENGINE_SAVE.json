@@ -1,0 +1,84 @@
+{
+  "schema": "SHERLOCK_ENGINE_SAVE",
+  "version": "1.0",
+  "storage": {
+    "provider": "localStorage",
+    "save_key": "sherlock_case001_save",
+    "autosave_interval_seconds": 60,
+    "backup_slots": 5
+  },
+  "profile": {
+    "player_name": "",
+    "difficulty": "normal",
+    "language": "pt-BR",
+    "created_at": "",
+    "last_played": ""
+  },
+  "progress": {
+    "current_act": 1,
+    "completed_dossiers": [],
+    "timeline_completed": false,
+    "jury_unlocked": false,
+    "case_solved": false
+  },
+  "inventory": {
+    "evidence": [],
+    "documents": [],
+    "objects": [],
+    "photos": [],
+    "audio_logs": []
+  },
+  "checkpoints": [
+    {
+      "id": "CP1",
+      "title": "Início"
+    },
+    {
+      "id": "CP2",
+      "title": "Primeira Evidência"
+    },
+    {
+      "id": "CP3",
+      "title": "KM18"
+    },
+    {
+      "id": "CP4",
+      "title": "Sala do Júri"
+    },
+    {
+      "id": "CP5",
+      "title": "Caso Resolvido"
+    }
+  ],
+  "statistics": {
+    "play_time_seconds": 0,
+    "evidence_found": 0,
+    "documents_read": 0,
+    "enigmas_solved": 0,
+    "hints_used": 0,
+    "score": 0
+  },
+  "achievements": [
+    {
+      "id": "ACH001",
+      "name": "Primeira Evidência"
+    },
+    {
+      "id": "ACH002",
+      "name": "Perito"
+    },
+    {
+      "id": "ACH003",
+      "name": "Mestre dos Enigmas"
+    },
+    {
+      "id": "ACH004",
+      "name": "Detetive de Elite"
+    }
+  ],
+  "serialization": {
+    "format": "JSON",
+    "compression": "none",
+    "checksum": "SHA-256"
+  }
+}

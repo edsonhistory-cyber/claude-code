@@ -1,0 +1,140 @@
+{
+  "schema": "CASE005_DIALOGUES_FULL",
+  "version": "1.0",
+  "case": "ATO-0555",
+  "dialogue_tree": {
+    "MARINA_VAZ": {
+      "intro": "Perdi meu ator no palco que eu dirigia. Se querem dramaturgia, leiam o jornal — eu só quero o culpado.",
+      "topics": {
+        "deixa": {
+          "question": "Quem adiantou a deixa do efeito neve?",
+          "answers": [
+            {
+              "id": "M1",
+              "text": "Deixa é assunto da chefe de palco. Eu dirijo atores, não roldanas.",
+              "truth": "falso",
+              "stress": "+20"
+            },
+            {
+              "id": "M2",
+              "text": "Talvez o próprio Vicente — ele adorava plateia no clímax.",
+              "truth": "falso",
+              "stress": "+15"
+            }
+          ],
+          "unlock_if": [
+            "DOC404"
+          ]
+        },
+        "urdimento": {
+          "question": "A senhora subiu ao urdimento na tarde da estreia?",
+          "answers": [
+            {
+              "id": "M3",
+              "text": "Nunca subi ao urdimento. Tenho vertigem — qualquer um da equipe confirma.",
+              "truth": "falso",
+              "unlock": "Contradição 05"
+            }
+          ],
+          "unlock_if": [
+            "DOC405"
+          ]
+        },
+        "texto": {
+          "question": "Como nasceu o texto de 'O Último Ato'?",
+          "answers": [
+            {
+              "id": "M10",
+              "text": "Vinte anos de gaveta. Escrevi entre montagens, em guardanapos, em quartos de hotel.",
+              "truth": "falso",
+              "stress": "+20"
+            },
+            {
+              "id": "M11",
+              "text": "Inspiração não se explica, detetive. Se explicasse, todo crítico seria dramaturgo.",
+              "truth": "parcial",
+              "stress": "+10"
+            }
+          ],
+          "unlock_if": [
+            "DOC407"
+          ]
+        }
+      }
+    },
+    "LIA_MENEZES": {
+      "intro": "Sou a chefe de palco. Nada sobe ou desce naquele urdimento sem passar pela minha planilha.",
+      "topics": {
+        "passagem": {
+          "question": "O que a senhora registrou sobre a passagem no urdimento?",
+          "answers": [
+            {
+              "id": "L1",
+              "text": "Às 16:40 a direção pediu o urdimento vazio — revisão particular. Está anotado, com hora e assinatura. Leve o registro.",
+              "truth": "verdadeiro",
+              "unlock": "DOC405"
+            }
+          ],
+          "unlock_if": [
+            "DOC404"
+          ]
+        },
+        "vara7": {
+          "question": "Quem mexeu na vara 7 depois da manutenção?",
+          "answers": [
+            {
+              "id": "L10",
+              "text": "Oficialmente, ninguém. Mas o contrapeso estava 2 cm fora da marca de giz quando montei a noite. Anotei também.",
+              "truth": "verdadeiro"
+            }
+          ]
+        }
+      }
+    },
+    "SONIA_ARANHA": {
+      "intro": "Trinta anos casada com o palco — e o palco o levou. Perguntem logo o que precisam.",
+      "topics": {
+        "seguro": {
+          "question": "O seguro de vida de Vicente beneficia a senhora?",
+          "answers": [
+            {
+              "id": "S1",
+              "text": "A beneficiária é a nossa filha, não eu. Vicente andava obcecado com um texto antigo — procurem no arquivo do teatro.",
+              "truth": "verdadeiro",
+              "unlock": "DOC409"
+            }
+          ],
+          "unlock_if": [
+            "DOC403"
+          ]
+        },
+        "coletiva": {
+          "question": "O que Vicente anunciaria na coletiva?",
+          "answers": [
+            {
+              "id": "S10",
+              "text": "'Reparação histórica', ele dizia. Andava com um datiloscrito velho debaixo do braço e o nome de Otelo Ramos na boca.",
+              "truth": "verdadeiro"
+            }
+          ],
+          "unlock_if": [
+            "DOC408"
+          ]
+        }
+      }
+    }
+  },
+  "conversation_rules": {
+    "max_questions_per_round": 5,
+    "allow_repeat": true,
+    "memory_enabled": true,
+    "stress_affects_answers": true,
+    "evidence_unlocks_new_topics": true
+  },
+  "voice_tags": {
+    "marina": "cortante",
+    "lia": "precisa",
+    "sonia": "grave"
+  },
+  "cinematic_triggers": []
+}

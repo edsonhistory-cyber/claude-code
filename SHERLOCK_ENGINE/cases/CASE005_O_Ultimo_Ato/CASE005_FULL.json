@@ -1,0 +1,110 @@
+{
+  "schema": "CASE005_FULL",
+  "version": "1.0",
+  "case": {
+    "id": "ATO-0555",
+    "title": "O Último Ato",
+    "status": "Playable",
+    "city": "Curitiba - PR (Centro)",
+    "objective": "Descobrir quem derrubou a vara cênica sobre o ator Vicente Aranha na estreia — e por quê."
+  },
+  "acts": [
+    {
+      "id": "ACT1",
+      "title": "A Estreia",
+      "goal": "Reconstituir a noite de estreia no Teatro Guaíra.",
+      "unlock": [
+        "Mapa",
+        "Dossiês",
+        "Escala da equipe"
+      ]
+    },
+    {
+      "id": "ACT2",
+      "title": "A Vara 7",
+      "goal": "Explicar a queda: acidente técnico ou sabotagem?",
+      "unlock": [
+        "Script da direção",
+        "Gravação da coxia",
+        "Depoimentos"
+      ]
+    },
+    {
+      "id": "ACT3",
+      "title": "Laboratório",
+      "goal": "Ligar o pino serrado às mãos que o trocaram.",
+      "unlock": [
+        "Laudo",
+        "Pino",
+        "Original de Otelo Ramos"
+      ]
+    },
+    {
+      "id": "ACT4",
+      "title": "Sala do Júri",
+      "goal": "Apresentar suspeito, local e método — o pano final."
+    }
+  ],
+  "critical_path": [
+    "Pino de segurança serrado",
+    "Urdimento",
+    "Gravação da coxia",
+    "Script anotado da direção",
+    "Original de Otelo Ramos",
+    "Sala do Júri"
+  ],
+  "red_herrings": [
+    {
+      "character": "Gregor Elias",
+      "reason": "Maquinista com advertências antigas, mas estava no bar técnico com o iluminador."
+    },
+    {
+      "character": "Caio Falcão",
+      "reason": "Substituto ambicioso, porém preso à cadeira de maquiagem sob testemunha."
+    },
+    {
+      "character": "Sônia Aranha",
+      "reason": "Esposa e empresária, mas filmada na fileira A pela transmissão."
+    }
+  ],
+  "dependencies": [
+    {
+      "from": "PERICIA",
+      "to": "INTELIGENCIA",
+      "token": "CABO"
+    },
+    {
+      "from": "INTELIGENCIA",
+      "to": "ARQUIVO",
+      "token": "DEIXA"
+    },
+    {
+      "from": "ARQUIVO",
+      "to": "CAMPO",
+      "token": "PLAGIO"
+    },
+    {
+      "from": "CAMPO",
+      "to": "PERICIA",
+      "token": "VARA"
+    }
+  ],
+  "final_solution": {
+    "sealed": true,
+    "encoding": "base64",
+    "note": "Solução lacrada. Decodificada apenas na Sala do Júri, no momento do veredito.",
+    "data": "eyJzdXNwZWN0IjogIk1hcmluYSBWYXoiLCAibG9jYXRpb24iOiAiUGFsY28g4oCUIHZhcmEgNyIsICJtZXRob2QiOiAiU2Fib3RhZ2VtIGRvIGNvbnRyYXBlc28gZGEgdmFyYSBjw6puaWNhIiwgInByb29mcyI6IFsiUGlubyBkZSBzZWd1cmFuw6dhIHNlcnJhZG8gbmEgdmFyYSA3IiwgIlNjcmlwdCBjb20gYSBkZWl4YSBkbyBlZmVpdG8gbmV2ZSBhZGlhbnRhZGEgcGVsYSBkaXJlw6fDo28iLCAiR3JhdmHDp8OjbyBkYSBjb3hpYTogc2lsaHVldGEgZGVzY2UgZGEgcGFzc2FyZWxhIMOgcyAyMDo1NyIsICJSZWdpc3RybyBkZSBMaWE6IHBhc3NhZ2VtIGV4Y2x1c2l2YSBubyB1cmRpbWVudG8gw6BzIDE2OjQwIiwgIk9yaWdpbmFsIGRlIE90ZWxvIFJhbW9zIHByb3ZhIG8gcGzDoWdpbyBkbyB0ZXh0byBwcmVtaWFkbyJdfQ=="
+  },
+  "completion": {
+    "required": [
+      "4 códigos do cofre",
+      "Linha do tempo correta",
+      "Acusação correta"
+    ],
+    "score_rank": {
+      "560": "Detetive de Elite",
+      "460": "Investigador Sênior",
+      "360": "Caso Resolvido"
+    }
+  }
+}

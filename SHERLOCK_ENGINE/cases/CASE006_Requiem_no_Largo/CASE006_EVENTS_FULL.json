@@ -1,0 +1,122 @@
+{
+  "schema": "CASE006_EVENTS_FULL",
+  "version": "1.0",
+  "case": "MPR-1876",
+  "timeline": [
+    {
+      "id": "EVT0301",
+      "time": "19:30",
+      "location": "Largo da Ordem",
+      "title": "Convidados chegam ao leilão",
+      "trigger": "Início do caso",
+      "effects": [
+        "Ativa mapa",
+        "Libera lista de convidados"
+      ]
+    },
+    {
+      "id": "EVT0302",
+      "time": "20:40",
+      "location": "Galeria",
+      "title": "Otávio confronta a anfitriã",
+      "trigger": "Testemunha do corredor",
+      "effects": [
+        "Motivo em aberto",
+        "Libera depoimentos"
+      ]
+    },
+    {
+      "id": "EVT0303",
+      "time": "21:55",
+      "location": "Salão nobre",
+      "title": "Blecaute cênico do lote 77",
+      "trigger": "Roteiro do leilão",
+      "effects": [
+        "Salão às escuras por 90 segundos",
+        "Oportunidade do crime"
+      ]
+    },
+    {
+      "id": "EVT0304",
+      "time": "21:57",
+      "location": "Salão nobre",
+      "title": "Otávio senta na cadeira do palco",
+      "trigger": "Retomada das luzes",
+      "effects": [
+        "Temporizador da toxina"
+      ]
+    },
+    {
+      "id": "EVT0305",
+      "time": "22:10",
+      "location": "Salão nobre",
+      "title": "Lance-fantasma de meio milhão",
+      "trigger": "Registro de lances",
+      "effects": [
+        "Libera EV304"
+      ]
+    },
+    {
+      "id": "EVT0306",
+      "time": "22:25",
+      "location": "Salão nobre",
+      "title": "Otávio colapsa no martelo final",
+      "trigger": "Plateia",
+      "effects": [
+        "Cena do crime",
+        "Perícia"
+      ]
+    },
+    {
+      "id": "EVT0307",
+      "time": "23:10",
+      "location": "Passeio Público",
+      "title": "Convidados retidos para triagem",
+      "trigger": "Delegacia acionada",
+      "effects": [
+        "Depoimentos colhidos"
+      ]
+    },
+    {
+      "id": "EVT0308",
+      "time": "23:45",
+      "location": "Central",
+      "title": "Sala do Júri",
+      "trigger": "4 códigos",
+      "effects": [
+        "Acusação final",
+        "Fim da campanha"
+      ]
+    }
+  ],
+  "dynamic_events": [
+    {
+      "id": "DYN301",
+      "name": "Convidado tenta sair pela garagem",
+      "chance": 0.2
+    }
+  ],
+  "player_choices": [
+    {
+      "choice": "Acusar cedo",
+      "result": "Penalidade de pontuação"
+    },
+    {
+      "choice": "Usar dica",
+      "result": "-20 pontos"
+    }
+  ],
+  "unlock_matrix": {
+    "EV304": [
+      "EVT0305"
+    ],
+    "JURY": [
+      "EVT0308"
+    ]
+  },
+  "scoring": {
+    "critical_event": 100,
+    "optional_event": 25,
+    "secret_event": 75
+  }
+}

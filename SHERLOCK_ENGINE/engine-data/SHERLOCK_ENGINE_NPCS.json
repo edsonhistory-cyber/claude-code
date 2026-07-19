@@ -1,0 +1,115 @@
+{
+  "schema": "SHERLOCK_ENGINE_NPCS",
+  "version": "1.0",
+  "spawn_system": {
+    "max_active_npcs": 120,
+    "spawn_mode": "zone_and_time",
+    "despawn_distance_m": 250
+  },
+  "categories": [
+    {
+      "id": "CAT001",
+      "name": "Turistas",
+      "count": 80,
+      "behaviors": [
+        "Fotografar",
+        "Conversar",
+        "Entrar no ônibus",
+        "Consultar mapa"
+      ]
+    },
+    {
+      "id": "CAT002",
+      "name": "Funcionários",
+      "count": 25,
+      "behaviors": [
+        "Limpeza",
+        "Orientação",
+        "Bilheteria",
+        "Manutenção"
+      ]
+    },
+    {
+      "id": "CAT003",
+      "name": "Segurança",
+      "count": 10,
+      "behaviors": [
+        "Patrulhar",
+        "Observar",
+        "Responder perguntas"
+      ]
+    },
+    {
+      "id": "CAT004",
+      "name": "Polícia",
+      "count": 5,
+      "behaviors": [
+        "Isolar área",
+        "Registrar ocorrência",
+        "Auxiliar perícia"
+      ]
+    }
+  ],
+  "daily_routines": [
+    {
+      "location": "Rua 24 Horas",
+      "time": "14:00",
+      "npc_types": [
+        "Turistas",
+        "Ambulantes",
+        "Fotógrafos"
+      ]
+    },
+    {
+      "location": "Jardim Botânico",
+      "time": "15:20",
+      "npc_types": [
+        "Visitantes",
+        "Jardineiros",
+        "Segurança"
+      ]
+    },
+    {
+      "location": "Parque Barigui",
+      "time": "16:45",
+      "npc_types": [
+        "Corredores",
+        "Famílias",
+        "Ciclistas"
+      ]
+    },
+    {
+      "location": "Parque Tanguá",
+      "time": "17:50",
+      "npc_types": [
+        "Turistas",
+        "Casais",
+        "Fotógrafos"
+      ]
+    }
+  ],
+  "interaction_system": {
+    "dialogue_types": [
+      "Cumprimento",
+      "Informação",
+      "Testemunho",
+      "Boato",
+      "Negação"
+    ],
+    "reputation_required": false
+  },
+  "witness_generation": {
+    "dynamic_memory": true,
+    "accuracy_levels": [
+      "Alta",
+      "Média",
+      "Baixa"
+    ],
+    "false_memories_enabled": true
+  },
+  "future_expansion": {
+    "procedural_names": true,
+    "procedural_faces": true,
+    "procedural_schedules": true
+  }
+}

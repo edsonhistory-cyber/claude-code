@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 300 300">
+  
+  <g transform="translate(150 150)">
+    <!-- moldura de medalhão -->
+    <circle r="132" fill="#0f1838" stroke="#38bdf8" stroke-width="2" opacity=".9"/>
+    <circle r="123" fill="none" stroke="#38bdf8" stroke-width="1" opacity=".4"/>
+    <g fill="#0f1838" stroke="#38bdf8" stroke-width="3.4" stroke-linejoin="round">
+      <!-- orelhas -->
+      <path d="M-78 -66 C -96 -104, -60 -118, -46 -92 C -38 -78, -40 -66, -46 -58 Z"/>
+      <path d="M 78 -66 C 96 -104, 60 -118, 46 -92 C 38 -78, 40 -66, 46 -58 Z"/>
+      <!-- cabeça (onça, estilo totem art déco) -->
+      <path d="M0 -104
+        C -40 -104, -74 -84, -84 -46
+        C -92 -14, -80 18, -58 44
+        C -40 66, -20 84, 0 92
+        C 20 84, 40 66, 58 44
+        C 80 18, 92 -14, 84 -46
+        C 74 -84, 40 -104, 0 -104 Z"/>
+    </g>
+    <!-- traços internos (ciano) -->
+    <g fill="none" stroke="#38bdf8" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
+      <!-- testa: marca em V paranista -->
+      <path d="M-30 -70 L-12 -40 M30 -70 L12 -40 M0 -52 L0 -30"/>
+      <!-- olhos felinos -->
+      <path d="M-52 -22 C -40 -34, -22 -34, -14 -20 C -26 -12, -44 -12, -52 -22 Z" fill="#0d1230"/>
+      <path d="M 52 -22 C 40 -34, 22 -34, 14 -20 C 26 -12, 44 -12, 52 -22 Z" fill="#0d1230"/>
+      <circle cx="-32" cy="-22" r="4.4" fill="#38bdf8" stroke="none"/>
+      <circle cx="32" cy="-22" r="4.4" fill="#38bdf8" stroke="none"/>
+      <!-- focinho + nariz -->
+      <path d="M-16 4 L0 -6 L16 4 L10 16 L-10 16 Z" fill="#38bdf8" stroke="none" opacity=".9"/>
+      <path d="M0 16 L0 30 M0 30 C -12 42, -26 40, -30 30 M0 30 C 12 42, 26 40, 30 30"/>
+      <!-- bigodes / vincos -->
+      <path d="M-34 22 L-72 14 M-34 32 L-70 34 M34 22 L72 14 M34 32 L70 34" stroke-width="2.2" opacity=".7"/>
+      <!-- rosetas -->
+      <g stroke-width="2.4" opacity=".85">
+        <circle cx="-60" cy="-52" r="6"/><circle cx="60" cy="-52" r="6"/>
+        <circle cx="-70" cy="4" r="6"/><circle cx="70" cy="4" r="6"/>
+        <circle cx="-52" cy="52" r="6"/><circle cx="52" cy="52" r="6"/>
+      </g>
+    </g>
+  </g>
+</svg>

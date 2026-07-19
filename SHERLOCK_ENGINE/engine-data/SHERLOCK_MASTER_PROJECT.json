@@ -1,0 +1,110 @@
+{
+  "schema": "SHERLOCK_MASTER_PROJECT",
+  "version": "1.0",
+  "description": "Arquivo mestre responsável por registrar e orquestrar todos os módulos da Sherlock Engine.",
+  "engine": {
+    "name": "Sherlock Engine",
+    "build": "1.0.0",
+    "entry_case": "CASE001",
+    "default_language": "pt-BR"
+  },
+  "modules": [
+    {
+      "id": "CORE",
+      "file": "SHERLOCK_ENGINE_DEDUCTION.json",
+      "required": true
+    },
+    {
+      "id": "WORLD",
+      "file": "CASE001_COMPLETE_WORLD_STATE.json",
+      "required": true
+    },
+    {
+      "id": "EVENTS",
+      "file": "CASE001_EVENTS_FULL.json",
+      "required": true
+    },
+    {
+      "id": "DIALOGUES",
+      "file": "CASE001_DIALOGUES_FULL.json",
+      "required": true
+    },
+    {
+      "id": "EVIDENCES",
+      "file": "CASE001_EVIDENCES_FULL.json",
+      "required": true
+    },
+    {
+      "id": "DOCUMENTS",
+      "file": "CASE001_DOCUMENTS_FULL.json",
+      "required": true
+    },
+    {
+      "id": "IMAGES",
+      "file": "CASE001_IMAGES_FULL.json",
+      "required": true
+    },
+    {
+      "id": "CAMPAIGN",
+      "file": "SHERLOCK_ENGINE_CAMPAIGN.json",
+      "required": false
+    },
+    {
+      "id": "MULTIPLAYER",
+      "file": "SHERLOCK_ENGINE_MULTIPLAYER.json",
+      "required": false
+    },
+    {
+      "id": "LAB",
+      "file": "SHERLOCK_ENGINE_FORENSIC_LAB_SIMULATOR.json",
+      "required": false
+    },
+    {
+      "id": "AI",
+      "file": "SHERLOCK_ENGINE_AI_DIRECTOR.json",
+      "required": true
+    },
+    {
+      "id": "RENDER",
+      "file": "SHERLOCK_ENGINE_RENDER_PIPELINE.json",
+      "required": true
+    },
+    {
+      "id": "NETWORK",
+      "file": "SHERLOCK_ENGINE_NETWORK_ARCHITECTURE.json",
+      "required": false
+    },
+    {
+      "id": "SAVE",
+      "file": "SHERLOCK_ENGINE_SAVEGAME_FORMAT.json",
+      "required": true
+    }
+  ],
+  "startup_sequence": [
+    "Validar versões",
+    "Carregar módulos",
+    "Verificar dependências",
+    "Inicializar banco de dados",
+    "Inicializar IA",
+    "Inicializar interface",
+    "Carregar campanha",
+    "Entrar no menu principal"
+  ],
+  "dependency_rules": {
+    "abort_on_missing_required_module": true,
+    "allow_optional_modules": true,
+    "hot_reload_supported": true
+  },
+  "diagnostics": {
+    "boot_log": true,
+    "performance_report": true,
+    "missing_asset_scan": true,
+    "integrity_check": true
+  },
+  "future": {
+    "plugin_registry": true,
+    "asset_streaming": true,
+    "distributed_builds": true,
+    "automatic_case_updates": true
+  }
+}

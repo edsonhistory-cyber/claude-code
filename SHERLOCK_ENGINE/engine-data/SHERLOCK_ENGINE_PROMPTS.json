@@ -1,0 +1,76 @@
+{
+  "schema": "SHERLOCK_ENGINE_PROMPTS",
+  "version": "1.0",
+  "style_guide": {
+    "visual": "Fotorealismo cinematográfico",
+    "quality": "8K",
+    "camera_defaults": {
+      "lens": "35mm",
+      "aspect": "16:9",
+      "hdr": true
+    },
+    "palette": [
+      "Azul petróleo",
+      "Cinza aço",
+      "Dourado",
+      "Vermelho de evidência"
+    ]
+  },
+  "categories": {
+    "cenarios": [
+      {
+        "id": "PRM001",
+        "asset": "Rua 24 Horas",
+        "prompt": "Rua 24 Horas em Curitiba, outono às 14h, ônibus Linha Turismo verde e amarelo parado, pedestres naturais, iluminação cinematográfica, ultra realista, 35mm, HDR, 8K.",
+        "negative": [
+          "cartoon",
+          "baixa resolução",
+          "texto",
+          "marca d'água"
+        ]
+      },
+      {
+        "id": "PRM002",
+        "asset": "Parque Tanguá",
+        "prompt": "Mirante do Parque Tanguá ao pôr do sol, atmosfera dramática, cascata ao fundo, luz dourada, ultra realista, 8K."
+      }
+    ],
+    "personagens": [
+      {
+        "id": "PRM101",
+        "personagem": "Sérgio Bento",
+        "prompt": "Homem brasileiro de 48 anos, motorista de ônibus, uniforme verde da Linha Turismo, expressão séria, retrato policial, fundo neutro, iluminação Rembrandt, ultra realista."
+      },
+      {
+        "id": "PRM102",
+        "personagem": "Renata Salgado",
+        "prompt": "Jornalista investigativa de 35 anos, roupa casual elegante, segurando gravador, retrato fotográfico, ultra realista."
+      }
+    ],
+    "objetos": [
+      {
+        "id": "PRM201",
+        "objeto": "Garrafa térmica",
+        "prompt": "Garrafa térmica de aço escovado sobre bancada forense, iluminação de laboratório, macro fotografia, ultra detalhada."
+      },
+      {
+        "id": "PRM202",
+        "objeto": "Luvas azuis",
+        "prompt": "Par de luvas nitrílicas azuis descartadas em lixeira de parque, fotografia pericial, alta nitidez."
+      }
+    ],
+    "ui": [
+      {
+        "id": "PRM301",
+        "tela": "Central de Operações",
+        "prompt": "Centro de comando investigativo futurista, dezenas de monitores, mapa de Curitiba, mural de evidências, iluminação azul e dourada, estilo filme policial."
+      }
+    ]
+  },
+  "generation_rules": {
+    "consistency": "Manter identidade visual em todos os assets.",
+    "faces": "Mesmo personagem deve preservar aparência entre imagens.",
+    "lighting": "Compatível com horário da linha do tempo.",
+    "resolution": "Mínimo 3840x2160."
+  }
+}

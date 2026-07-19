@@ -1,0 +1,127 @@
+{
+  "schema": "SHERLOCK_ENGINE_GAMEPLAY",
+  "version": "1.0",
+  "game_states": [
+    {
+      "id": "BOOT",
+      "next": "LOGIN"
+    },
+    {
+      "id": "LOGIN",
+      "next": "CENTRAL"
+    },
+    {
+      "id": "CENTRAL",
+      "next": [
+        "MAPA",
+        "DOSSIES",
+        "LAB",
+        "MURAL"
+      ]
+    },
+    {
+      "id": "INVESTIGACAO",
+      "next": "JURI"
+    },
+    {
+      "id": "JURI",
+      "next": "RESULTADO"
+    },
+    {
+      "id": "RESULTADO",
+      "next": "CREDITOS"
+    }
+  ],
+  "mission_flow": {
+    "principal": [
+      "Analisar cena",
+      "Coletar evidências",
+      "Resolver enigmas",
+      "Cruzar informações",
+      "Desbloquear cofre",
+      "Apresentar acusação"
+    ],
+    "secundarias": [
+      "Encontrar todos os documentos",
+      "Completar linha do tempo",
+      "Analisar todos os celulares",
+      "Descobrir todos os red herrings"
+    ]
+  },
+  "inventory": {
+    "capacity": 200,
+    "categories": [
+      "Documentos",
+      "Fotos",
+      "Vídeos",
+      "Áudios",
+      "Vestígios",
+      "Objetos"
+    ]
+  },
+  "chain_of_custody": {
+    "required_fields": [
+      "quem_coletou",
+      "onde",
+      "quando",
+      "lacre",
+      "laboratorio"
+    ]
+  },
+  "score": {
+    "coletar_evidencia": 10,
+    "resolver_enigma": 50,
+    "linha_tempo": 80,
+    "cofre": 100,
+    "acusacao_correta": 300,
+    "erro": -20
+  },
+  "difficulty": {
+    "facil": {
+      "dicas": true,
+      "penalidade": 0
+    },
+    "normal": {
+      "dicas": true,
+      "penalidade": 20
+    },
+    "dificil": {
+      "dicas": false,
+      "penalidade": 40
+    }
+  },
+  "multiplayer": {
+    "players": 4,
+    "roles": [
+      "Perícia",
+      "Inteligência",
+      "Campo",
+      "Arquivo"
+    ],
+    "shared_tokens": [
+      "CAFE",
+      "RODAS",
+      "KM18",
+      "ROTAS"
+    ],
+    "cofre_codes": [
+      "PER-77",
+      "INT-40",
+      "CAM-19",
+      "ARQ-02"
+    ]
+  },
+  "victory": {
+    "conditions": [
+      "Todos os códigos obtidos",
+      "Suspeito correto",
+      "Local correto",
+      "Método correto"
+    ]
+  },
+  "future_support": {
+    "new_cases": true,
+    "mod_support": true,
+    "random_events": false
+  }
+}

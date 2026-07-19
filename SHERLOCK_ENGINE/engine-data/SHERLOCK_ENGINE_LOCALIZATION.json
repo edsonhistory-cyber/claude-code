@@ -1,0 +1,71 @@
+{
+  "schema": "SHERLOCK_ENGINE_LOCALIZATION",
+  "version": "1.0",
+  "default_language": "pt-BR",
+  "supported_languages": [
+    {
+      "code": "pt-BR",
+      "name": "Português (Brasil)",
+      "rtl": false
+    },
+    {
+      "code": "en-US",
+      "name": "English",
+      "rtl": false
+    },
+    {
+      "code": "es-ES",
+      "name": "Español",
+      "rtl": false
+    },
+    {
+      "code": "fr-FR",
+      "name": "Français",
+      "rtl": false
+    },
+    {
+      "code": "de-DE",
+      "name": "Deutsch",
+      "rtl": false
+    }
+  ],
+  "strings": {
+    "APP_TITLE": {
+      "pt-BR": "A Última Parada",
+      "en-US": "The Last Stop"
+    },
+    "BTN_START": {
+      "pt-BR": "Iniciar Investigação",
+      "en-US": "Start Investigation"
+    },
+    "BTN_CONTINUE": {
+      "pt-BR": "Continuar",
+      "en-US": "Continue"
+    },
+    "BTN_EXIT": {
+      "pt-BR": "Sair",
+      "en-US": "Exit"
+    },
+    "MSG_NEW_EVIDENCE": {
+      "pt-BR": "Nova evidência registrada.",
+      "en-US": "New evidence registered."
+    },
+    "MSG_CASE_SOLVED": {
+      "pt-BR": "Caso resolvido.",
+      "en-US": "Case solved."
+    }
+  },
+  "formatting": {
+    "date": "DD/MM/YYYY",
+    "time": "24h",
+    "currency": "BRL"
+  },
+  "voice": {
+    "tts": true,
+    "default_voice": "pt-BR"
+  },
+  "fonts": {
+    "latin": "Noto Sans",
+    "mono": "Courier Prime"
+  }
+}

@@ -1,0 +1,91 @@
+{
+  "schema": "SHERLOCK_ENGINE_ANIMATIONS",
+  "version": "1.0",
+  "global": {
+    "engine": "CSS Animations + Web Animations API",
+    "fps_target": 60,
+    "default_duration_ms": 300,
+    "easing": "cubic-bezier(0.25,0.8,0.25,1)"
+  },
+  "animations": [
+    {
+      "id": "AN001",
+      "name": "Boot Sequence",
+      "target": "02_boot.html",
+      "steps": [
+        "Fade in do logo",
+        "Scanner horizontal",
+        "Barra de progresso",
+        "Glitch discreto",
+        "Fade para Central"
+      ]
+    },
+    {
+      "id": "AN002",
+      "name": "Mural de Evidências",
+      "target": "05_mural.html",
+      "effects": [
+        "Linhas vermelhas desenhadas",
+        "Cartões aparecem com fade",
+        "Pulso em novas evidências"
+      ]
+    },
+    {
+      "id": "AN003",
+      "name": "Mapa da Investigação",
+      "target": "04_mapa.html",
+      "effects": [
+        "Ônibus percorre a rota",
+        "Marcadores surgem",
+        "Zoom suave"
+      ]
+    },
+    {
+      "id": "AN004",
+      "name": "Laboratório",
+      "target": "08_laboratorio.html",
+      "effects": [
+        "Scanner laser",
+        "Rotação 3D da evidência",
+        "Resultado com brilho"
+      ]
+    },
+    {
+      "id": "AN005",
+      "name": "Interrogatório",
+      "target": "16_interrogatorio.html",
+      "effects": [
+        "Close no suspeito",
+        "Barra de estresse animada",
+        "Iluminação reduzida ao confrontar"
+      ]
+    },
+    {
+      "id": "AN006",
+      "name": "Sala do Júri",
+      "target": "19_juri.html",
+      "effects": [
+        "Abertura das cortinas",
+        "Lacre rompido",
+        "Veredito com selo animado"
+      ]
+    }
+  ],
+  "microinteractions": [
+    "Hover em botões",
+    "Clique com ripple",
+    "Tooltip fade",
+    "Toast deslizando",
+    "Cards expandindo",
+    "Contador numérico animado"
+  ],
+  "particles": {
+    "enabled": true,
+    "types": [
+      "poeira",
+      "luz",
+      "faíscas discretas"
+    ],
+    "max_particles": 120
+  }
+}

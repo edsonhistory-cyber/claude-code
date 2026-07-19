@@ -1,0 +1,1270 @@
+{
+  "schema": "CASE_CONTENT_PACK",
+  "version": "1.0",
+  "case": "CASE004",
+  "map_title": "CASARÃO DO BATEL · NOITE DO LEILÃO",
+  "osint_placeholder": "Ex.: \"Helena Sarti\", \"MUSEU\", \"Gustavo Braga\"…",
+  "final_enigma": "EN310",
+  "tokens": [
+    "TOXINA",
+    "CATALOGO",
+    "LANCE",
+    "TROFEU"
+  ],
+  "characters": [
+    {
+      "id": "P301",
+      "nome": "Gustavo Braga",
+      "papel": "Vítima",
+      "profissao": "Leiloeiro"
+    },
+    {
+      "id": "P302",
+      "nome": "Helena Sarti",
+      "papel": "Anfitriã",
+      "profissao": "Mecenas e colecionadora"
+    },
+    {
+      "id": "P303",
+      "nome": "Bruno Sarti",
+      "papel": "Suspeito aparente",
+      "profissao": "Herdeiro"
+    },
+    {
+      "id": "P304",
+      "nome": "Yara Campos",
+      "papel": "Suspeita aparente",
+      "profissao": "Colecionadora rival"
+    },
+    {
+      "id": "P305",
+      "nome": "Padre Inácio",
+      "papel": "Red Herring",
+      "profissao": "Beneficiário do leilão"
+    },
+    {
+      "id": "P306",
+      "nome": "Célio Mendes",
+      "papel": "Testemunha",
+      "profissao": "Cerimonial"
+    },
+    {
+      "id": "P307",
+      "nome": "Duda Reis",
+      "papel": "Testemunha-chave",
+      "profissao": "Operadora de câmera"
+    },
+    {
+      "id": "P321",
+      "nome": "Max Barcellos",
+      "papel": "Testemunha",
+      "profissao": "Barman do salão",
+      "bio": "Servia o bar a oito metros do palco. Trinta comandas provam quem esteve encostado no balcão a noite toda."
+    },
+    {
+      "id": "P322",
+      "nome": "Chef Amadeu",
+      "papel": "Outros",
+      "profissao": "Chef do buffet",
+      "bio": "A cozinha fica ao lado do elevador de serviço. Ninguém da brigada subiu ao palco — os aventais estavam todos na linha."
+    },
+    {
+      "id": "P323",
+      "nome": "Vito Serra",
+      "papel": "Equipe",
+      "profissao": "Segurança do casarão",
+      "bio": "Controlava as credenciais de palco. Registro impecável — exceto pelo passe da casa, que não deixa rastro."
+    },
+    {
+      "id": "P324",
+      "nome": "Léo Sandri",
+      "papel": "Outros",
+      "profissao": "Marchand",
+      "bio": "Autenticou as obras do leilão. Reconheceu três peças desaparecidas de coleções europeias — e não disse nada."
+    },
+    {
+      "id": "P325",
+      "nome": "Bibi Moraes",
+      "papel": "Outros",
+      "profissao": "Colunista social",
+      "bio": "Fotografou cada mesa para a coluna. Suas fotos casam com o áudio: ninguém da lista saiu do salão no blecaute — exceto quem não estava sentado."
+    }
+  ],
+  "dossiers": {
+    "PERICIA": {
+      "nome": "Perícia",
+      "enigmas": [
+        "EN307",
+        "EN301"
+      ],
+      "code": "PER-04",
+      "emits": "TOXINA",
+      "receives": "TROFEU"
+    },
+    "INTELIGENCIA": {
+      "nome": "Inteligência",
+      "enigmas": [
+        "EN302",
+        "EN306",
+        "EN308"
+      ],
+      "code": "INT-51",
+      "emits": "CATALOGO",
+      "receives": "TOXINA"
+    },
+    "ARQUIVO": {
+      "nome": "Arquivo",
+      "enigmas": [
+        "EN309"
+      ],
+      "code": "ARQ-19",
+      "emits": "LANCE",
+      "receives": "CATALOGO"
+    },
+    "CAMPO": {
+      "nome": "Campo",
+      "enigmas": [
+        "EN303",
+        "EN304",
+        "EN305"
+      ],
+      "code": "CAM-66",
+      "emits": "TROFEU",
+      "receives": "LANCE"
+    }
+  },
+  "enigma_gates": {
+    "EN301": {
+      "token": "TROFEU",
+      "needs": [
+        "tox_done"
+      ],
+      "hintLocked": "Requer o token TROFEU (Campo) e a toxicologia concluída."
+    },
+    "EN302": {
+      "needs": [
+        "doc:DOC308"
+      ],
+      "hintLocked": "Requer a Agenda de Gustavo (DOC308 — recolha os pertences na galeria)."
+    },
+    "EN303": {
+      "needs": [
+        "ev:EV304"
+      ],
+      "hintLocked": "Requer o registro de lances coletado no sistema do leilão."
+    },
+    "EN304": {},
+    "EN305": {
+      "needs": [
+        "contradicao"
+      ],
+      "hintLocked": "Requer a Contradição 04 (confronte Helena com o registro do cerimonial)."
+    },
+    "EN306": {
+      "needs": [
+        "ev:EV303"
+      ],
+      "hintLocked": "Requer a gravação do leilão (converse com Duda nos Interrogatórios)."
+    },
+    "EN307": {
+      "needs": [
+        "ev:EV301",
+        "tox_done"
+      ],
+      "hintLocked": "Requer a agulha do estofado e a toxicologia."
+    },
+    "EN308": {
+      "token": "TOXINA",
+      "hintLocked": "Requer o token TOXINA (Perícia)."
+    },
+    "EN309": {
+      "token": "CATALOGO",
+      "needs": [
+        "doc:DOC303"
+      ],
+      "hintLocked": "Requer o token CATALOGO (Inteligência) e a lista de convidados lida."
+    }
+  },
+  "acts_progress": {
+    "act2": [
+      "ev:EV304",
+      "en:EN304"
+    ],
+    "act3": [
+      "tox_done"
+    ]
+  },
+  "stops": [
+    {
+      "id": "CAS",
+      "name": "Casarão do Batel — fachada",
+      "time": "19:30",
+      "scene": "casarão",
+      "ambience": "cidade",
+      "pos": [
+        60,
+        50
+      ]
+    },
+    {
+      "id": "GAL",
+      "name": "Galeria de arte",
+      "time": "20:40",
+      "scene": "galeria",
+      "ambience": "central",
+      "pos": [
+        150,
+        100
+      ]
+    },
+    {
+      "id": "ESC",
+      "name": "Escritório da anfitriã (lacrado)",
+      "time": "—",
+      "scene": "galeria",
+      "ambience": "lab",
+      "pos": [
+        70,
+        180
+      ],
+      "off_route": true
+    },
+    {
+      "id": "SAL",
+      "name": "Salão de leilões",
+      "time": "21:55",
+      "scene": "salão de leilões",
+      "ambience": "juri",
+      "pos": [
+        240,
+        80
+      ],
+      "danger": true
+    },
+    {
+      "id": "JAR",
+      "name": "Jardim de inverno",
+      "time": "23:10",
+      "scene": "jardim de inverno",
+      "ambience": "parque",
+      "pos": [
+        310,
+        160
+      ]
+    },
+    {
+      "id": "GAR",
+      "name": "Garagem e serviço",
+      "time": "23:20",
+      "scene": "garagem",
+      "ambience": "cidade",
+      "pos": [
+        200,
+        225
+      ]
+    }
+  ],
+  "hotspots": {
+    "CAS": [
+      {
+        "nome": "Portaria de gala",
+        "desc": "Lista de convidados e credenciais.",
+        "action": {
+          "type": "doc",
+          "id": "DOC303",
+          "toast": "📄 Lista de convidados obtida (DOC303) — 112 nomes, acesso ao palco restrito a três.",
+          "already": "A lista já está com você."
+        }
+      },
+      {
+        "nome": "Vallet e entrada",
+        "desc": "Movimentação de carros da noite.",
+        "action": {
+          "type": "note",
+          "toast": "Nenhum carro saiu entre 21:30 e 23:00 — o assassino ficou para os aplausos."
+        }
+      }
+    ],
+    "GAL": [
+      {
+        "nome": "Corredor das telas",
+        "desc": "Onde Gustavo confrontou a anfitriã às 20:40.",
+        "action": {
+          "type": "flag",
+          "flag": "confronto_visto",
+          "score": 5,
+          "reason": "Confronto registrado",
+          "toast": "Um garçom ouviu Gustavo: \"ou o acerto sai hoje, ou amanhã eu falo\". A anfitriã sorriu e o conduziu ao salão."
+        }
+      },
+      {
+        "nome": "Pertences da vítima",
+        "desc": "Pasta e agenda no guarda-volumes.",
+        "action": {
+          "type": "doc",
+          "id": "DOC308",
+          "toast": "📄 Agenda de Gustavo recolhida (DOC308): \"acerto final com H.\" — e uma palavra cifrada.",
+          "already": "O guarda-volumes está vazio."
+        }
+      },
+      {
+        "nome": "Mesa da colunista",
+        "desc": "Bibi fotografou todas as mesas.",
+        "action": {
+          "type": "note",
+          "toast": "As fotos da coluna mostram todas as mesas ocupadas no blecaute — exceto a cadeira 1 da mesa 1."
+        }
+      }
+    ],
+    "ESC": [
+      {
+        "nome": "Cofre atrás do quadro",
+        "desc": "Aberto pela equipe com mandado.",
+        "action": {
+          "type": "doc",
+          "id": "DOC309",
+          "toast": "📄 Planilha-Mestra da rede (DOC309): MUSEU assina as ordens dos três casos anteriores.",
+          "already": "O cofre já foi inventariado."
+        }
+      },
+      {
+        "nome": "Escrivaninha",
+        "desc": "O catálogo pessoal da anfitriã.",
+        "action": {
+          "type": "evidence",
+          "id": "EV302",
+          "nome": "Catálogo anotado do leilão",
+          "toast": "🧾 EV302 Catálogo anotado coletado — as margens carregam a contabilidade da rede!",
+          "already": "O catálogo já está na Central."
+        }
+      }
+    ],
+    "SAL": [
+      {
+        "nome": "Cadeira do palco — lote 77",
+        "desc": "Onde Gustavo sentou após o blecaute.",
+        "action": {
+          "type": "evidence",
+          "id": "EV301",
+          "nome": "Agulha oca no estofado",
+          "doc": "DOC301",
+          "toast": "🧾 EV301 Agulha oca coletada no estofado. Laudo preliminar (DOC301) disponível.",
+          "already": "A cadeira já foi desmontada pela perícia."
+        }
+      },
+      {
+        "nome": "Mesa de som e roteiro",
+        "desc": "O roteiro da noite, com anexos.",
+        "action": {
+          "type": "doc",
+          "id": "DOC304",
+          "toast": "📄 Roteiro do leilão obtido (DOC304): o blecaute do lote 77 entrou NA VÉSPERA.",
+          "already": "O roteiro já está na Central."
+        }
+      },
+      {
+        "nome": "Sistema de lances",
+        "desc": "Tablets sincronizados por mesa.",
+        "action": {
+          "type": "evidence",
+          "id": "EV304",
+          "nome": "Registro de lances",
+          "toast": "🧾 EV304 Registro de lances coletado — há um lance-fantasma de meio milhão.",
+          "already": "O sistema já foi espelhado."
+        }
+      },
+      {
+        "nome": "Bar do salão",
+        "desc": "Trinta comandas, trinta álibis.",
+        "action": {
+          "type": "flag",
+          "flag": "comandas_vistas",
+          "score": 5,
+          "reason": "Comandas conferidas",
+          "toast": "O barman carimba hora em cada comanda — o herdeiro tem sete carimbos entre 21:30 e 22:40."
+        }
+      }
+    ],
+    "JAR": [
+      {
+        "nome": "Convidados retidos",
+        "desc": "Triagem da delegacia.",
+        "action": {
+          "type": "flag",
+          "flag": "triagem_vista",
+          "toast": "O bar confirma: Bruno Sarti não deixou o balcão entre 21:30 e 22:40. Trinta testemunhas."
+        }
+      },
+      {
+        "nome": "Vitrais e mesas",
+        "desc": "O padre recebia doações aqui.",
+        "action": {
+          "type": "flag",
+          "flag": "padre_visto",
+          "toast": "Padre Inácio passou a noite no jardim de inverno recebendo doações — longe do palco."
+        }
+      }
+    ],
+    "GAR": [
+      {
+        "nome": "Elevador de serviço",
+        "desc": "Liga a garagem ao palco.",
+        "action": {
+          "type": "flag",
+          "flag": "elevador_visto",
+          "score": 5,
+          "reason": "Rota de serviço mapeada",
+          "toast": "📷 O elevador de serviço sobe direto ao fundo do palco — a chave fica com a casa, não com convidados."
+        }
+      },
+      {
+        "nome": "Lixeira da cozinha",
+        "desc": "Varredura de rotina.",
+        "action": {
+          "type": "flag",
+          "flag": "luva_seda",
+          "score": 5,
+          "reason": "Luva de seda encontrada",
+          "sfx": "camera_shutter",
+          "toast": "📷 Uma luva de seda — tamanho P — descartada entre guardanapos. Perfumada."
+        }
+      }
+    ]
+  },
+  "osint": [
+    {
+      "match": "helena|sarti",
+      "title": "Dossiê social — Helena Sarti",
+      "source": "Imprensa (SRC001) · Empresas (SRC002)",
+      "body": "Mecenas do Batel. Sócia oculta da Bandeira Urbanismo (CWB-1447), instituidora da Fundação Pinhal (SRR-0904). Sempre a um passo — e um advogado — de distância.",
+      "unlock": "DOC306",
+      "unlockLabel": "Dossiê — Helena Sarti (DOC306)"
+    },
+    {
+      "match": "museu|codinome",
+      "title": "Análise — Codinomes da rede",
+      "source": "Inteligência (SRC005)",
+      "body": "JARDINEIRO paga, MAQUINISTA executa, RODAS transporta. MUSEU assina. Quatro casos, uma caneta.",
+      "unlock": "DOC307",
+      "unlockLabel": "Notícia — A Colecionadora do Batel (DOC307)",
+      "enigma": "EN308"
+    },
+    {
+      "match": "gustavo|braga",
+      "title": "Perfil — Gustavo Braga",
+      "source": "Registros (SRC002)",
+      "body": "Leiloeiro de elite. Movimentava as \"peças\" da rede em leilões fechados. Nas últimas semanas, cobrava um \"acerto final\"."
+    },
+    {
+      "match": "bruno|sarti filho",
+      "title": "Perfil — Bruno Sarti",
+      "source": "Financeiro (SRC005)",
+      "body": "Herdeiro com dívidas de pôquer. A mãe cortou a mesada — mas o bar do salão o registra das 21:30 às 22:40."
+    },
+    {
+      "match": "yara|campos",
+      "title": "Perfil — Yara Campos",
+      "source": "Registros (SRC002)",
+      "body": "Rival histórica de Gustavo. Lance vencedor dado por telefone, de Lisboa — fuso e operadora conferem."
+    },
+    {
+      "match": "duda|reis|camera",
+      "title": "Perfil — Duda Reis",
+      "source": "Registros (SRC002)",
+      "body": "Operadora de câmera freelancer. Filmou 14 leilões da casa Braga — e entregou o cartão sem pestanejar. 'Imagem é fato', diz."
+    },
+    {
+      "match": "celio|mendes|cerimonial",
+      "title": "Perfil — Célio Mendes",
+      "source": "Registros (SRC002)",
+      "body": "Cerimonial há 22 anos. Sua planilha registra cada minuto — inclusive os onze que a anfitriã passou 'revisando' a cadeira."
+    },
+    {
+      "match": "lote 77|blecaute",
+      "title": "O lote 77",
+      "source": "Leilões (SRC001)",
+      "body": "Um relógio de bolso 'de proveniência delicada'. Avaliado em meio milhão — exatamente o valor do lance-fantasma que cobriu o blecaute."
+    }
+  ],
+  "interrogatable": [
+    {
+      "key": "HELENA_SARTI",
+      "pid": "P302"
+    },
+    {
+      "key": "YARA_CAMPOS",
+      "pid": "P304"
+    },
+    {
+      "key": "CELIO_MENDES",
+      "pid": "P306"
+    },
+    {
+      "key": "DUDA_REIS",
+      "pid": "P307"
+    },
+    {
+      "key": "BRUNO_SARTI",
+      "pid": "P303"
+    },
+    {
+      "key": "PADRE_INACIO",
+      "pid": "P305"
+    },
+    {
+      "key": "MAX_BARCELLOS",
+      "pid": "P321"
+    },
+    {
+      "key": "CHEF_AMADEU",
+      "pid": "P322"
+    },
+    {
+      "key": "VITO_SERRA",
+      "pid": "P323"
+    },
+    {
+      "key": "LEO_SANDRI",
+      "pid": "P324"
+    },
+    {
+      "key": "BIBI_MORAES",
+      "pid": "P325"
+    }
+  ],
+  "witness_statements": {
+    "DUDA_REIS": {
+      "intro": "A câmera oficial gravou a noite inteira — inclusive o blecaute, em modo noturno. Ninguém pediu para eu desligar. Levem o cartão.",
+      "flag": "duda_gravacao",
+      "note": "Duda entregou a gravação oficial do leilão.",
+      "gives_evidence": {
+        "id": "EV303",
+        "nome": "Gravação do leilão"
+      }
+    },
+    "BRUNO_SARTI": {
+      "intro": "Minha mãe cortou minha mesada, não meu álibi: eu estava no bar, pergunte ao barman. Trinta pessoas me viram perder dinheiro no palpite do lote 76.",
+      "flag": "bruno_bar",
+      "note": "Bruno ficou no bar das 21:30 às 22:40 — trinta testemunhas."
+    },
+    "PADRE_INACIO": {
+      "intro": "Recebi doações no jardim de inverno a noite toda. Do palco, só ouvi o martelo — e depois os gritos.",
+      "flag": "padre_jardim",
+      "note": "Padre Inácio não deixou o jardim de inverno."
+    },
+    "MAX_BARCELLOS": {
+      "intro": "Balcão é confessionário, detetive. Trinta comandas, trinta álibis — e o do herdeiro tem carimbo de hora.",
+      "flag": "max_comandas",
+      "note": "Max confirmou pelas comandas: Bruno não deixou o bar."
+    },
+    "CHEF_AMADEU": {
+      "intro": "Minha brigada não sobe ao palco — avental branco aparece no escuro, detetive. Mas às 21:50 alguém usou o elevador de serviço SEM pedir a chave na cozinha. Ele desce sozinho quando chamado de cima.",
+      "flag": "amadeu_elevador",
+      "note": "O chef notou o elevador de serviço chamado de cima às 21:50."
+    },
+    "VITO_SERRA": {
+      "intro": "Credencial de palco: leiloeiro, cerimonial, anfitriã. Mas o passe da CASA — o master — não registra log. Está no quadro de chaves do escritório. Estava, aliás.",
+      "flag": "vito_passe",
+      "note": "O segurança revelou: o passe master da casa sumiu do quadro do escritório."
+    },
+    "LEO_SANDRI": {
+      "intro": "Autentiquei três peças que o mercado dava por 'desaparecidas' desde 2019. Proveniência? 'Coleção particular'. Eu assino laudos, não perguntas — mas vocês deviam perguntar.",
+      "flag": "sandri_pecas",
+      "note": "O marchand confirmou peças desaparecidas circulando nos leilões da casa."
+    },
+    "BIBI_MORAES": {
+      "intro": "Minha coluna fotografa TUDO. No blecaute usei o infravermelho da nova câmera — moderninha, não? A mesa 1 tem uma cadeira vazia que ninguém explicou. A foto está no meu editor.",
+      "flag": "bibi_infravermelho",
+      "note": "A colunista fotografou a cadeira 1 da mesa 1 vazia durante o blecaute."
+    }
+  },
+  "moods": {
+    "HELENA_SARTI": {
+      "neutro": "Uma tragédia no meu leilão beneficente. Diga como posso ajudar — tenho amigos em todas as instituições.",
+      "pressionado": "Cuidado com o tom, detetive. Curadoria também se aplica a acusações.",
+      "confrontado": "Colecionar exige paciência. A sua está acabando, a minha não.",
+      "desmascarado": "Peças raras exigem molduras à altura. Vocês têm provas; eu tenho advogados. Veremos qual coleção vence."
+    }
+  },
+  "behavior_profiles": [
+    {
+      "character": "Helena Sarti",
+      "baseline": {
+        "stress": 20,
+        "confidence": 98,
+        "cooperation": 60
+      },
+      "microexpressions": [
+        "Ajusta o colar",
+        "Sorriso de vitrine"
+      ],
+      "triggers": [
+        {
+          "evidence": "Gravação do leilão",
+          "effect": "+25 estresse"
+        },
+        {
+          "evidence": "Registro de lances",
+          "effect": "+30 estresse"
+        },
+        {
+          "evidence": "Catálogo anotado do leilão",
+          "effect": "Contradição desbloqueada"
+        }
+      ]
+    },
+    {
+      "character": "Yara Campos",
+      "baseline": {
+        "stress": 30,
+        "confidence": 85,
+        "cooperation": 75
+      },
+      "microexpressions": [
+        "Tamborila no leque"
+      ],
+      "triggers": []
+    }
+  ],
+  "contradiction": {
+    "character": "HELENA_SARTI",
+    "requiresTopic": "HELENA_SARTI:cadeira",
+    "evidences": [
+      "EV302",
+      "EV301"
+    ],
+    "name": "Contradição 04",
+    "reaction": "Helena jurou que jamais tocou na cadeira — o cerimonial registrou a revisão pessoal dela na tarde do evento, e o catálogo com a letra dela detalha o lote 77. Contradição 04 registrada.",
+    "enigma": "EN305"
+  },
+  "lab": {
+    "tabs": [
+      {
+        "id": "tox",
+        "nome": "Toxicologia",
+        "test": {
+          "name": "Cromatografia (TOX002)",
+          "ms": 2200
+        },
+        "sample": {
+          "title": "EV301 Agulha oca — reservatório",
+          "needs": [
+            "ev:EV301"
+          ],
+          "lockMsg": "Requer a agulha coletada na cadeira do palco."
+        },
+        "effects": {
+          "analyzed": "tox_done",
+          "unlockDoc": "DOC302",
+          "score": 15,
+          "reason": "Toxina identificada",
+          "toast": "🧪 Glicosídeo cardíaco concentrado — idêntico ao do caso CWB-1447. Laudo DOC302 emitido.",
+          "speak": "A toxina é quimicamente idêntica à do caso da Linha Turismo. Mesmo fornecedor. Mesma rede."
+        },
+        "results": [
+          "Glicosídeo cardíaco concentrado",
+          "Assinatura química idêntica ao CWB-1447"
+        ],
+        "note": "A rede reutiliza o próprio arsenal — a assinatura a condena.",
+        "enigma": "EN307"
+      },
+      {
+        "id": "meca",
+        "nome": "Mecanismos",
+        "test": {
+          "name": "Desmontagem do disparador",
+          "ms": 1800
+        },
+        "sample": {
+          "title": "EV301 Disparador do encosto",
+          "needs": [
+            "ev:EV301"
+          ],
+          "lockMsg": "Requer a agulha e o mecanismo do estofado."
+        },
+        "effects": {
+          "analyzed": "meca_done",
+          "score": 15,
+          "reason": "Mecanismo compreendido",
+          "toast": "⚙ Disparo por pressão do peso do próprio ocupante — armado em menos de dois minutos por mãos treinadas... ou muito bem instruídas."
+        },
+        "results": [
+          "Acionamento por pressão do assento",
+          "Montagem estimada: 90 a 120 segundos"
+        ],
+        "note": "Exatamente a duração do blecaute cênico."
+      },
+      {
+        "id": "grafo",
+        "nome": "Grafoscopia",
+        "test": {
+          "name": "Confronto de escrita",
+          "ms": 2000
+        },
+        "sample": {
+          "title": "EV302 Catálogo × amostras de escrita",
+          "needs": [
+            "ev:EV302"
+          ],
+          "lockMsg": "Requer o catálogo anotado do escritório."
+        },
+        "effects": {
+          "analyzed": "grafo_done",
+          "score": 15,
+          "reason": "Autoria confirmada",
+          "toast": "✒ As anotações das margens e a assinatura MUSEU saem da mesma mão: a da anfitriã."
+        },
+        "results": [
+          "Grafia idêntica à de Helena Sarti",
+          "Codinome MUSEU assinado com a mesma caneta-tinteiro"
+        ],
+        "note": "MUSEU tem nome, sobrenome e caneta."
+      },
+      {
+        "id": "audio",
+        "nome": "Áudio Forense",
+        "test": {
+          "name": "Isolamento do microfone de lapela",
+          "ms": 1600
+        },
+        "sample": {
+          "title": "EV303 Trilha de áudio do blecaute",
+          "needs": [
+            "ev:EV303"
+          ],
+          "lockMsg": "Requer a gravação do leilão (fale com Duda)."
+        },
+        "effects": {
+          "analyzed": "audio_done",
+          "score": 15,
+          "reason": "Áudio isolado",
+          "toast": "🎙 No blecaute: passos leves, um clique metálico e o farfalhar de seda — a 40 cm do microfone do púlpito."
+        },
+        "results": [
+          "Clique metálico às 21:56:12",
+          "Farfalhar de seda e perfume citado por 3 testemunhas"
+        ],
+        "note": "Cruze com a luva de seda da garagem."
+      }
+    ]
+  },
+  "geoint": {
+    "tach": {
+      "title": "SISTEMA DE LANCES — VALOR × HORA",
+      "needs": [
+        "ev:EV304"
+      ],
+      "lockMsg": "🔒 Colete o registro de lances no salão (Mapa → Salão de leilões).",
+      "hint": "Regra GEO001: lance sem comprador vinculado é anomalia. Clique no intervalo anômalo.",
+      "doneMsg": "✔ EN303: lance-fantasma das 22:10 identificado.",
+      "enigma": "EN303",
+      "points": [
+        [
+          "19:30",
+          0
+        ],
+        [
+          "20:00",
+          10
+        ],
+        [
+          "20:30",
+          15
+        ],
+        [
+          "21:00",
+          20
+        ],
+        [
+          "21:30",
+          25
+        ],
+        [
+          "21:50",
+          30
+        ],
+        [
+          "21:55",
+          0
+        ],
+        [
+          "22:00",
+          35
+        ],
+        [
+          "22:10",
+          60
+        ],
+        [
+          "22:15",
+          30
+        ],
+        [
+          "22:20",
+          40
+        ],
+        [
+          "22:25",
+          0
+        ],
+        [
+          "22:40",
+          0
+        ],
+        [
+          "23:00",
+          0
+        ],
+        [
+          "23:30",
+          0
+        ]
+      ],
+      "segments": [
+        {
+          "id": "l76",
+          "at": 4.6,
+          "w": 26
+        },
+        {
+          "id": "fantasma",
+          "at": 7.7,
+          "w": 30,
+          "correct": true,
+          "label": "R$ 500 MIL · SEM COMPRADOR"
+        },
+        {
+          "id": "final",
+          "at": 10.6,
+          "w": 24
+        },
+        {
+          "id": "fim",
+          "at": 12.6,
+          "w": 24
+        }
+      ],
+      "wrongMsg": "Lances legítimos, com comprador vinculado e mesa identificada. (-20)",
+      "okMsg": "🔓 EN303 resolvido! O lance-fantasma saiu do tablet da mesa da anfitriã — cortina de fumaça para o palco."
+    },
+    "sat": {
+      "title": "PLANTA DO CASARÃO — VISÃO AÉREA",
+      "hint": "Marque o ponto onde o crime foi armado.",
+      "doneMsg": "✔ EN304: salão de leilões marcado.",
+      "enigma": "EN304",
+      "terrain": "urban",
+      "route": "M60 50 L150 100 L240 80 L310 160 L200 225",
+      "marks": [
+        {
+          "id": "cas",
+          "x": 60,
+          "y": 50
+        },
+        {
+          "id": "gal",
+          "x": 150,
+          "y": 100
+        },
+        {
+          "id": "sal",
+          "x": 240,
+          "y": 80,
+          "correct": true,
+          "label": "⚠ LOTE 77"
+        },
+        {
+          "id": "jar",
+          "x": 310,
+          "y": 160
+        }
+      ],
+      "wrongMsg": "Área coberta por testemunhas a noite toda. (-20)",
+      "okMsg": "🔓 EN304 resolvido! O palco do salão: 90 segundos de escuridão sob medida.",
+      "bonus": {
+        "token": "LANCE",
+        "flag": "rota_palco_vista",
+        "score": 15,
+        "reason": "Rota do palco sobreposta",
+        "btn": "SOBREPOR ROTA DE SERVIÇO (token LANCE)",
+        "btnDone": "✔ ROTA DE SERVIÇO COMPARADA",
+        "lockMsg": "🔒 Sobreposição da rota de serviço requer o token LANCE (Arquivo).",
+        "toast": "🛗 Do escritório ao fundo do palco pelo elevador de serviço — 45 segundos, sem cruzar o salão.",
+        "overlay": "M70 180 L200 225 L240 80",
+        "overlayLabel": "ROTA DE SERVIÇO"
+      }
+    }
+  },
+  "enigmas": {
+    "EN301": {
+      "type": "sequence",
+      "attach": {
+        "kind": "evidence",
+        "ref": "EV301"
+      },
+      "btn": "RECONSTITUIR RÓTULO DO FRASCO",
+      "btnDone": "✔ RÓTULO RECONSTITUÍDO",
+      "title": "EN301 — Frasco da Toxina",
+      "prompt": "O micro-reservatório traz um rótulo raspado. O espectro recupera os fragmentos — reordene:",
+      "answer": "DIGOXINA",
+      "okMsg": "🔓 EN301 resolvido! DIGOXINA concentrada — a assinatura química da rede.",
+      "wrongMsg": "Sequência incorreta. O espectro reinicia.",
+      "doneMsg": "O rótulo já foi reconstituído: DIGOXINA."
+    },
+    "EN302": {
+      "type": "input",
+      "attach": {
+        "kind": "document",
+        "ref": "DOC308"
+      },
+      "btn": "DECIFRAR (CÉSAR)",
+      "btnDone": "✔ CIFRA QUEBRADA",
+      "title": "EN302 — Agenda de Gustavo",
+      "prompt": "Na margem da data do leilão: <b class=\"mono\">PXVHX</b><br>A cifra da rede — deslocamento de 3 (P→M…):",
+      "submit": "DECIFRAR",
+      "answer": "MUSEU",
+      "okMsg": "🔓 EN302 resolvido! Gustavo escreveu: MUSEU — ele sabia com quem faria o acerto.",
+      "wrongMsg": "Não confere. Tente outro deslocamento. (-20)",
+      "doneMsg": "A cifra já foi quebrada: MUSEU."
+    },
+    "EN305": {
+      "type": "choice",
+      "attach": {
+        "kind": "interrogation",
+        "ref": "HELENA_SARTI"
+      },
+      "btn": "REGISTRAR CONTRADIÇÃO NO DOSSIÊ (EN305)",
+      "title": "EN305 — Quebra de Álibi",
+      "prompt": "Qual par de declarações forma a <b>contradição decisiva</b>?",
+      "options": [
+        "“O blecaute foi ideia do cerimonial.”<br><span class=\"muted\">×</span> Célio: “entrou na véspera, por ordem direta dela”.",
+        "“Jamais toquei naquela cadeira.”<br><span class=\"muted\">×</span> Registro do cerimonial: revisão pessoal na tarde do evento.",
+        "“Não desço a detalhes de produção.”<br><span class=\"muted\">×</span> Lance-fantasma disparado do tablet da mesa dela."
+      ],
+      "correct": 1,
+      "okMsg": "🔓 EN305 resolvido! Álibi de Helena formalmente quebrado.",
+      "wrongMsg": "Contradição relevante, mas não decisiva. (-20)"
+    },
+    "EN306": {
+      "type": "frames",
+      "attach": {
+        "kind": "evidence",
+        "ref": "EV303"
+      },
+      "btn": "ANALISAR QUADRO A QUADRO",
+      "btnDone": "✔ SILHUETA LOCALIZADA",
+      "title": "EN306 — Gravação do Blecaute",
+      "prompt": "O modo noturno fatiou os 90 segundos em 8 janelas. Uma mostra a <b>silhueta que circula com desenvoltura</b>. Clique nela.",
+      "times": [
+        "21:55:10",
+        "21:55:25",
+        "21:55:40",
+        "21:55:55",
+        "21:56:10",
+        "21:56:25",
+        "21:56:40",
+        "21:56:55"
+      ],
+      "correct": 4,
+      "markColor": "#E0B658",
+      "okMsg": "🔓 EN306 resolvido! A silhueta arma o encosto às 21:56:10 — o clique metálico do áudio.",
+      "wrongMsg": "Só plateia imóvel nesta janela. (-20)",
+      "doneMsg": "A silhueta já foi localizada às 21:56:10."
+    },
+    "EN307": {
+      "type": "compare",
+      "attach": {
+        "kind": "lab",
+        "ref": "tox"
+      },
+      "btn": "COMPARAR ASSINATURA QUÍMICA (EN307)",
+      "title": "EN307 — Assinatura da Toxina",
+      "prompt": "Espectrômetro: à esquerda, o <b>perfil da toxina do caso CWB-1447</b>. Qual amostra da agulha é IDÊNTICA (picos e cor)?",
+      "reference": {
+        "waves": 3,
+        "color": "#2F8B57"
+      },
+      "options": [
+        {
+          "waves": 3,
+          "color": "#2F8B57"
+        },
+        {
+          "waves": 5,
+          "color": "#2F8B57"
+        },
+        {
+          "waves": 3,
+          "color": "#c05f7c"
+        }
+      ],
+      "correct": 0,
+      "okMsg": "🔓 EN307 resolvido! Mesma toxina do primeiro caso — a rede se condenou pela própria assinatura.",
+      "wrongMsg": "Perfis divergem. (-20)"
+    },
+    "EN308": {
+      "type": "choice",
+      "attach": {
+        "kind": "osint"
+      },
+      "btn": "IDENTIFICAR O CODINOME MUSEU (EN308)",
+      "btnDone": "✔ EN308: MUSEU identificado",
+      "title": "EN308 — Quem é MUSEU?",
+      "prompt": "MUSEU assina as ordens dos quatro casos. Cruzando dossiês, grafoscopia e a planilha-mestra: <b>quem é MUSEU?</b>",
+      "options": [
+        "Yara Campos",
+        "Bruno Sarti",
+        "Helena Sarti",
+        "Padre Inácio"
+      ],
+      "correct": 2,
+      "okMsg": "🔓 EN308 resolvido! MUSEU = Helena Sarti. A Colecionadora assinava a própria coleção.",
+      "wrongMsg": "A grafia e o dossiê não batem. (-20)"
+    },
+    "EN309": {
+      "type": "choice",
+      "attach": {
+        "kind": "document",
+        "ref": "DOC303"
+      },
+      "btn": "CRUZAR ACESSO AO PALCO",
+      "btnDone": "✔ ACESSO CONFIRMADO",
+      "title": "EN309 — Lista de Convidados",
+      "prompt": "Cruzando a lista × credenciais de palco: <b>além do leiloeiro e do cerimonial, quem tinha acesso livre ao palco?</b>",
+      "options": [
+        "Bruno Sarti",
+        "Helena Sarti",
+        "Yara Campos",
+        "Padre Inácio"
+      ],
+      "correct": 1,
+      "okMsg": "🔓 EN309 resolvido! Só a anfitriã circulava livre pelo palco.",
+      "wrongMsg": "A credencial dessa pessoa não dá acesso ao palco. (-20)",
+      "doneMsg": "Já confirmado: acesso livre era da anfitriã."
+    }
+  },
+  "doc_extras": {
+    "DOC308": "<div class=\"cipher\">Na margem da data do leilão:<br><b class=\"mono\">DFHUWR: PXVHX</b></div>",
+    "DOC303": "<table class=\"manifest\"><tr><th>Nome</th><th>Mesa</th><th>Acesso ao palco</th></tr><tr><td>Gustavo Braga</td><td>Palco</td><td>✔ (leiloeiro)</td></tr><tr><td>Helena Sarti</td><td>1</td><td>✔ (anfitriã)</td></tr><tr><td>Célio Mendes</td><td>Serviço</td><td>✔ (cerimonial)</td></tr><tr><td>Bruno Sarti</td><td>Bar</td><td>—</td></tr><tr><td>Yara Campos</td><td>Telefone</td><td>—</td></tr><tr><td>Padre Inácio</td><td>Jardim</td><td>—</td></tr></table>",
+    "DOC301_speak": "Puntura única na região lombar. Toxina de ação retardada: o colapso veio vinte e oito minutos após a inoculação.",
+    "DOC301": "<table class=\"manifest\"><tr><th>Exame</th><th>Achado</th></tr><tr><td>Puntura</td><td>Única, região lombar, agulha fina</td></tr><tr><td>Toxina</td><td>Ação retardada — colapso em 28 min</td></tr><tr><td>Defesa</td><td>Nenhuma: a vítima não sentiu o disparo</td></tr></table><p class=\"muted\">Assina: IML — prioridade máxima, caso conexo.</p>",
+    "DOC302": "<table class=\"manifest\"><tr><th>Amostra</th><th>Resultado</th></tr><tr><td>Reservatório da agulha</td><td>Glicosídeo cardíaco concentrado</td></tr><tr><td>Confronto CWB-1447</td><td><b>Assinatura química IDÊNTICA</b></td></tr></table><p>Mesmo fornecedor, mesma rede — quatro casos, um arsenal.</p>",
+    "DOC304": "<div class=\"cipher\">ROTEIRO DA NOITE — v. FINAL<br>Lote 76 · Lote 77: <b>BLECAUTE CÊNICO 90s</b> (adicionado na véspera)</div><p>Nenhum leilão precisa de escuridão. Este precisou.</p>",
+    "DOC305": "<p>Registro do cerimonial, 16:12:</p><blockquote>\"A Sra. Sarti pediu para revisar pessoalmente a cadeira do palco. Recusou ajuda da equipe. Durou onze minutos.\"</blockquote>",
+    "DOC306": "<table class=\"manifest\"><tr><th>Vínculo</th><th>Caso</th></tr><tr><td>Sócia oculta — Bandeira Urbanismo</td><td>CWB-1447</td></tr><tr><td>Instituidora — Fundação Pinhal</td><td>SRR-0904</td></tr><tr><td>Visitas ao Fórum na semana do apagão</td><td>ECL-2112</td></tr></table><p class=\"muted\">Sempre a um passo — e um advogado — de distância.</p>",
+    "DOC307": "<p><b>COLUNA SOCIAL — BIBI MORAES</b></p><blockquote>\"Helena Sarti coleciona arte, relógios e — dizem os maldosos — favores. Sua lista de convidados vale mais que muitos cofres.\"</blockquote>",
+    "DOC310": "<p><b>CHECKLIST DO JÚRI</b></p><table class=\"manifest\"><tr><th>Item</th><th>Status</th></tr><tr><td>4 evidências analisadas</td><td>—</td></tr><tr><td>Contradição registrada</td><td>—</td></tr><tr><td>Linha do tempo validada</td><td>—</td></tr><tr><td>4 códigos dos dossiês</td><td>—</td></tr></table>"
+  },
+  "deduction": {
+    "factors": {
+      "P302": {
+        "Motivo": [
+          "doc:DOC309",
+          "en:EN302"
+        ],
+        "Meios": [
+          "en:EN307",
+          "en:EN301"
+        ],
+        "Oportunidade": [
+          "en:EN303",
+          "en:EN304",
+          "en:EN306"
+        ],
+        "Alibi": [
+          "contradicao"
+        ]
+      },
+      "P303": {
+        "Motivo": [
+          "osint:bruno"
+        ],
+        "Meios": [],
+        "Oportunidade": [],
+        "Alibi": []
+      },
+      "P304": {
+        "Motivo": [
+          "flag:confronto_visto"
+        ],
+        "Meios": [],
+        "Oportunidade": [],
+        "Alibi": []
+      },
+      "P305": {
+        "Motivo": [],
+        "Meios": [],
+        "Oportunidade": [
+          "flag:padre_visto"
+        ],
+        "Alibi": []
+      }
+    },
+    "eliminations": [
+      {
+        "id": "R302",
+        "suspect": "P303",
+        "when": [
+          "flag:bruno_bar"
+        ],
+        "note": "Trinta testemunhas no bar entre 21:30 e 22:40."
+      },
+      {
+        "id": "R303",
+        "suspect": "P304",
+        "when": [
+          "ev:EV304"
+        ],
+        "note": "Lance vencedor por telefone, de Lisboa — fuso e operadora conferem."
+      },
+      {
+        "id": "R304",
+        "suspect": "P305",
+        "when": [
+          "flag:padre_jardim"
+        ],
+        "note": "Passou a noite no jardim de inverno, sem acesso ao palco."
+      }
+    ],
+    "critical_enigmas": [
+      "EN301",
+      "EN303",
+      "EN306",
+      "EN307"
+    ]
+  },
+  "knowledge_graph": [
+    {
+      "from": "EV301",
+      "to": "SAL",
+      "relation": "armada_no_blecaute"
+    },
+    {
+      "from": "EV302",
+      "to": "P302",
+      "relation": "grafia_da_anfitriã"
+    },
+    {
+      "from": "EV303",
+      "to": "P302",
+      "relation": "silhueta_e_perfume"
+    },
+    {
+      "from": "EV304",
+      "to": "P302",
+      "relation": "tablet_da_mesa_1"
+    },
+    {
+      "from": "DOC309",
+      "to": "P302",
+      "relation": "museu_assina"
+    }
+  ],
+  "mural_nodes": [
+    {
+      "id": "EV301",
+      "label": "Agulha oca",
+      "need": "ev:EV301"
+    },
+    {
+      "id": "EV302",
+      "label": "Catálogo anotado",
+      "need": "ev:EV302"
+    },
+    {
+      "id": "EV303",
+      "label": "Gravação do leilão",
+      "need": "ev:EV303"
+    },
+    {
+      "id": "EV304",
+      "label": "Registro de lances",
+      "need": "ev:EV304"
+    },
+    {
+      "id": "DOC309",
+      "label": "Planilha-Mestra",
+      "need": "doc:DOC309"
+    },
+    {
+      "id": "P302",
+      "label": "Helena Sarti"
+    },
+    {
+      "id": "SAL",
+      "label": "Salão de leilões"
+    }
+  ],
+  "jury": {
+    "suspects": [
+      "P302",
+      "P303",
+      "P304",
+      "P305",
+      "P306",
+      "P307"
+    ],
+    "locations": [
+      "Casarão — fachada",
+      "Galeria de arte",
+      "Salão de leilões do Casarão",
+      "Jardim de inverno",
+      "Garagem e serviço"
+    ],
+    "methods": [
+      "Agulha com toxina no encosto da cadeira",
+      "Veneno na taça de espumante",
+      "Disparo silenciado no blecaute",
+      "Estrangulamento no palco",
+      "Mal súbito natural"
+    ]
+  },
+  "opening_cinematic": "CIN301",
+  "victim_dossier": {
+    "resumo": "Gustavo Braga, leiloeiro de elite, colapsou no martelo final do lote 77 — 28 minutos depois de uma agulha oca disparar do encosto da cadeira, durante o blecaute cênico. Cobrava um acerto final da anfitriã.",
+    "ligacoes": [
+      "Lote 77",
+      "Blecaute cênico",
+      "Acerto final com H.",
+      "Leilões fechados da rede"
+    ]
+  },
+  "organizations": [
+    {
+      "icone": "🏰",
+      "nome": "Casa Sarti",
+      "desc": "Anfitriã do leilão beneficente do Batel."
+    },
+    {
+      "icone": "🔨",
+      "nome": "Leilões Braga",
+      "desc": "Casa de leilões da vítima — vitrine das peças da rede."
+    },
+    {
+      "icone": "⛪",
+      "nome": "Obras do Padre Inácio",
+      "desc": "Beneficiária oficial da noite."
+    },
+    {
+      "icone": "🕸",
+      "nome": "Rede MUSEU",
+      "desc": "JARDINEIRO paga, MAQUINISTA executa, RODAS transporta. MUSEU assina."
+    }
+  ],
+  "briefing": {
+    "case_code": "COL-0077",
+    "title": "O Colecionador",
+    "local": "Casarão do Batel · Curitiba",
+    "data": "Noite de gala, 22:25",
+    "scene": "casarão",
+    "victim": "Gustavo Braga — leiloeiro",
+    "synopsis": "No leilão beneficente mais elegante do ano, o lote 77 exigia um blecaute cênico de noventa segundos. Quando as luzes voltaram, o leiloeiro Gustavo Braga bateu o martelo final — e colapsou. Vinte e oito minutos antes, uma agulha oca disparou do encosto de sua cadeira. Nesta sala, sob os candelabros, está a cabeça de toda a rede: o Colecionador.",
+    "howto": [
+      "Explore casarão, galeria, salão e jardim no <b>Mapa</b>.",
+      "Rode toxicologia e grafoscopia no <b>Laboratório</b>.",
+      "Interrogue os convidados; apresente provas para expor a anfitriã.",
+      "Cheque lances no <b>GEOINT</b> e a rede no <b>OSINT</b>.",
+      "Feche o <b>Mural</b>, a <b>Linha do Tempo</b> e a <b>Sala do Júri</b>."
+    ],
+    "victim_pid": "P301"
+  }
+}

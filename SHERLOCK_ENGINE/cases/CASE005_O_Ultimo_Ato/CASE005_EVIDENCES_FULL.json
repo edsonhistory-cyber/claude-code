@@ -1,0 +1,109 @@
+{
+  "schema": "CASE005_EVIDENCES_FULL",
+  "version": "1.0",
+  "case": "ATO-0555",
+  "evidences": [
+    {
+      "id": "EV401",
+      "name": "Pino de segurança serrado",
+      "category": "Vestígio",
+      "collected_at": "Urdimento — vara 7",
+      "collection_time": "21:50",
+      "collector": "Perícia",
+      "chain_of_custody": [
+        "Coleta",
+        "Lacre",
+        "Laboratório",
+        "Arquivo"
+      ],
+      "analysis": [
+        "Mecânica cênica",
+        "Perfil de corte"
+      ],
+      "findings": [
+        "Pino serrado em 80% da seção",
+        "Ruptura programada para a carga do efeito neve"
+      ],
+      "related": [
+        "EV402",
+        "P402"
+      ],
+      "value": "Crítica",
+      "used_in": [
+        "Interrogatório",
+        "Sala do Júri"
+      ]
+    },
+    {
+      "id": "EV402",
+      "name": "Luva de cabo cortada",
+      "category": "Vestígio",
+      "collected_at": "Coxia — travas da vara 7",
+      "collection_time": "21:55",
+      "collector": "Perícia",
+      "analysis": [
+        "Fibras",
+        "Ferramenta"
+      ],
+      "findings": [
+        "Corte limpo de alicate, não desgaste",
+        "Fibras da luva presas na trava"
+      ],
+      "related": [
+        "EV401"
+      ],
+      "value": "Alta"
+    },
+    {
+      "id": "EV403",
+      "name": "Gravação da coxia",
+      "category": "Vídeo",
+      "collected_at": "Câmera de ensaio do iluminador",
+      "collection_time": "—",
+      "analysis": [
+        "Frame a frame",
+        "Áudio"
+      ],
+      "findings": [
+        "Silhueta sobe à passarela às 20:56 e desce 90 segundos depois",
+        "Clique metálico registrado às 20:57"
+      ],
+      "related": [
+        "P402"
+      ],
+      "value": "Alta"
+    },
+    {
+      "id": "EV404",
+      "name": "Script anotado da direção",
+      "category": "Documento técnico",
+      "collected_at": "Mesa da direção",
+      "collection_time": "22:05",
+      "analysis": [
+        "Documentoscopia",
+        "Cronologia de deixas"
+      ],
+      "findings": [
+        "Deixa do efeito neve adiantada NA VÉSPERA",
+        "Anotações com a caligrafia da direção"
+      ],
+      "related": [
+        "P402",
+        "EV401"
+      ],
+      "value": "Crítica"
+    }
+  ],
+  "evidence_levels": {
+    "Baixa": 10,
+    "Média": 30,
+    "Alta": 60,
+    "Crítica": 100
+  },
+  "jury_requirements": [
+    "EV401",
+    "EV402",
+    "EV403",
+    "EV404"
+  ]
+}

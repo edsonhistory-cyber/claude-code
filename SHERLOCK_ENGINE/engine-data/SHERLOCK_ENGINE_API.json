@@ -1,0 +1,116 @@
+{
+  "schema": "SHERLOCK_ENGINE_API",
+  "version": "1.0",
+  "architecture": "Event Driven",
+  "modules": [
+    {
+      "id": "core",
+      "exports": [
+        "boot",
+        "shutdown",
+        "loadCase"
+      ]
+    },
+    {
+      "id": "database",
+      "exports": [
+        "query",
+        "insert",
+        "update",
+        "graphSearch"
+      ]
+    },
+    {
+      "id": "inventory",
+      "exports": [
+        "addItem",
+        "removeItem",
+        "listItems"
+      ]
+    },
+    {
+      "id": "events",
+      "exports": [
+        "emit",
+        "subscribe",
+        "unsubscribe"
+      ]
+    },
+    {
+      "id": "save",
+      "exports": [
+        "saveGame",
+        "loadGame",
+        "autosave"
+      ]
+    },
+    {
+      "id": "ai",
+      "exports": [
+        "hint",
+        "analyzeProgress",
+        "notify"
+      ]
+    }
+  ],
+  "messages": [
+    {
+      "event": "LOGIN_SUCCESS",
+      "payload": {
+        "player": "string"
+      }
+    },
+    {
+      "event": "EVIDENCE_COLLECTED",
+      "payload": {
+        "evidenceId": "string"
+      }
+    },
+    {
+      "event": "DOCUMENT_OPENED",
+      "payload": {
+        "documentId": "string"
+      }
+    },
+    {
+      "event": "TOKEN_UNLOCKED",
+      "payload": {
+        "token": "string"
+      }
+    },
+    {
+      "event": "CASE_SOLVED",
+      "payload": {
+        "score": "number"
+      }
+    }
+  ],
+  "json_load_order": [
+    "SHERLOCK_ENGINE_CORE.json",
+    "SHERLOCK_ENGINE_DATABASE.json",
+    "SHERLOCK_ENGINE_EVENTS.json",
+    "SHERLOCK_ENGINE_GAMEPLAY.json",
+    "SHERLOCK_ENGINE_CASE001_FULL.json"
+  ],
+  "asset_pipeline": {
+    "images": "webp",
+    "audio": "ogg",
+    "video": "mp4",
+    "documents": "json"
+  },
+  "plugin_system": {
+    "enabled": true,
+    "plugin_points": [
+      "new_case",
+      "new_ai",
+      "new_lab_module",
+      "new_minigame",
+      "new_language"
+    ]
+  },
+  "errors": {
+    "404_CASE_NOT_FOUND": "Caso não localizado.",
+    "1001_INVALID_TOKEN": "Token inválido.",
+    "2001_SAVE_FAILED": "Falha ao salvar progresso."
+  }
+}

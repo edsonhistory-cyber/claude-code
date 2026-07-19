@@ -1,0 +1,82 @@
+{
+  "schema": "SHERLOCK_CASE_EDITOR",
+  "version": "1.0",
+  "application": {
+    "name": "Sherlock Studio",
+    "purpose": "Editor visual para criação de casos",
+    "minimum_resolution": "1920x1080"
+  },
+  "workspace": {
+    "panels": [
+      "Explorador do Caso",
+      "Mapa",
+      "Linha do Tempo",
+      "Personagens",
+      "Evidências",
+      "Documentos",
+      "Diálogos",
+      "Eventos",
+      "Console de Validação"
+    ]
+  },
+  "drag_drop": {
+    "enabled": true,
+    "supported_entities": [
+      "Personagem",
+      "Local",
+      "Objeto",
+      "Documento",
+      "Evidência",
+      "Evento",
+      "NPC"
+    ]
+  },
+  "visual_editors": [
+    {
+      "name": "Timeline Editor",
+      "features": [
+        "Mover eventos",
+        "Alterar horários",
+        "Detectar conflitos"
+      ]
+    },
+    {
+      "name": "Evidence Graph Editor",
+      "features": [
+        "Criar ligações",
+        "Excluir ligações",
+        "Validar dependências"
+      ]
+    },
+    {
+      "name": "Dialogue Editor",
+      "features": [
+        "Árvore de diálogos",
+        "Condições",
+        "Desbloqueios"
+      ]
+    }
+  ],
+  "validators": [
+    "IDs duplicados",
+    "Referências inválidas",
+    "Linha do tempo inconsistente",
+    "Múltiplos culpados",
+    "Pistas sem uso",
+    "Eventos inalcançáveis"
+  ],
+  "export": {
+    "formats": [
+      "JSON",
+      "HTML",
+      "ZIP do Caso"
+    ],
+    "include_assets": true
+  },
+  "future": {
+    "ai_case_generator": true,
+    "voice_generator": true,
+    "image_generator": true,
+    "multiplayer_preview": true
+  }
+}

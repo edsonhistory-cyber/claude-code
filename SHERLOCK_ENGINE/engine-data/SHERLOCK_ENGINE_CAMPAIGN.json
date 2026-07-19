@@ -1,0 +1,82 @@
+{
+  "schema": "SHERLOCK_ENGINE_CAMPAIGN",
+  "version": "1.0",
+  "campaign": {
+    "title": "Sherlock Chronicles",
+    "mode": "Story Campaign",
+    "persistent_world": true
+  },
+  "episodes": [
+    {
+      "id": "CASE001",
+      "title": "A Última Parada",
+      "city": "Curitiba",
+      "unlock": "Inicial"
+    },
+    {
+      "id": "CASE002",
+      "title": "Silêncio na Serra",
+      "unlock": "Concluir CASE001"
+    },
+    {
+      "id": "CASE003",
+      "title": "Operação Eclipse",
+      "unlock": "Concluir CASE002"
+    },
+    {
+      "id": "CASE004",
+      "title": "O Colecionador",
+      "unlock": "Concluir CASE003"
+    },
+    {
+      "id": "CASE005",
+      "title": "O Último Ato",
+      "unlock": "Concluir CASE004"
+    },
+    {
+      "id": "CASE006",
+      "title": "Réquiem no Largo",
+      "unlock": "Concluir CASE005"
+    }
+  ],
+  "global_story": {
+    "main_antagonist": "Organização desconhecida",
+    "threads": [
+      "Corrupção",
+      "Lavagem de dinheiro",
+      "Manipulação de provas",
+      "Rede criminosa",
+      "O preço do aplauso"
+    ]
+  },
+  "progression": {
+    "carry_over": [
+      "Nível",
+      "Especializações",
+      "Conquistas",
+      "Itens cosméticos",
+      "Banco de conhecimento"
+    ]
+  },
+  "decision_system": {
+    "choices_affect_future_cases": true,
+    "multiple_campaign_endings": true,
+    "reputation": [
+      "Perícia",
+      "Imprensa",
+      "Polícia",
+      "População"
+    ]
+  },
+  "campaign_hub": {
+    "headquarters": true,
+    "evidence_archive": true,
+    "case_selection": true,
+    "trophy_room": true
+  },
+  "future": {
+    "dlc_campaigns": true,
+    "seasonal_cases": true,
+    "community_campaigns": true
+  }
+}

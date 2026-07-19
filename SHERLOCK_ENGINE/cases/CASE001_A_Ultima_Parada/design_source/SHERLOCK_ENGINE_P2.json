@@ -1,0 +1,150 @@
+{
+  "case": {
+    "id": "CWB-1447",
+    "title": "A Última Parada",
+    "city": "Curitiba - PR",
+    "date": "Sábado de outono",
+    "victim": {
+      "name": "Otávio Bandeira",
+      "age": 58,
+      "profession": "Empresário",
+      "cause_of_death": "Envenenamento por glicosídeo cardíaco de espirradeira",
+      "time_of_death": "17:50",
+      "location": "Mirante do Parque Tanguá"
+    }
+  },
+  "timeline": [
+    {
+      "time": "14:00",
+      "location": "Rua 24 Horas",
+      "event": "Embarque"
+    },
+    {
+      "time": "15:20",
+      "location": "Jardim Botânico",
+      "event": "Discussão com Aldo"
+    },
+    {
+      "time": "15:35",
+      "location": "MON",
+      "event": "Fotografias ocultas"
+    },
+    {
+      "time": "15:47",
+      "location": "KM18",
+      "event": "Parada forjada"
+    },
+    {
+      "time": "16:05",
+      "location": "Ópera de Arame",
+      "event": "Ligação sigilosa"
+    },
+    {
+      "time": "16:45",
+      "location": "Barigui",
+      "event": "Descarte de luvas"
+    },
+    {
+      "time": "17:50",
+      "location": "Tanguá",
+      "event": "Morte"
+    }
+  ],
+  "locations": [
+    {
+      "id": "r24",
+      "name": "Rua 24 Horas",
+      "image_spec": {
+        "style": "Fotorealista",
+        "time": "14:00",
+        "weather": "Outono ensolarado",
+        "camera": "35mm altura humana",
+        "resolution": "4096x2304",
+        "purpose": "Tela de abertura e mapa"
+      }
+    },
+    {
+      "id": "jb",
+      "name": "Jardim Botânico",
+      "image_spec": {
+        "style": "Fotorealista",
+        "focus": "Estufa e jardins",
+        "lighting": "15:20 luz natural"
+      }
+    },
+    {
+      "id": "mon",
+      "name": "Museu Oscar Niemeyer",
+      "image_spec": {
+        "style": "Fotorealista",
+        "focus": "Museu e ônibus"
+      }
+    },
+    {
+      "id": "barigui",
+      "name": "Parque Barigui",
+      "image_spec": {
+        "style": "Fotorealista",
+        "focus": "Capivaras, lago e estacionamento"
+      }
+    },
+    {
+      "id": "tangua",
+      "name": "Parque Tanguá",
+      "image_spec": {
+        "style": "Cinematográfico",
+        "time": "Pôr do sol",
+        "purpose": "Cena da morte"
+      }
+    }
+  ],
+  "characters": [
+    {
+      "id": "sergio",
+      "role": "Motorista",
+      "status": "Suspeito",
+      "appearance": "48 anos, uniforme verde da Linha Turismo, boné verde"
+    },
+    {
+      "id": "dilia",
+      "role": "Cobradora",
+      "status": "Testemunha"
+    },
+    {
+      "id": "renata",
+      "role": "Jornalista",
+      "status": "Suspeita aparente"
+    },
+    {
+      "id": "aldo",
+      "role": "Ex-sócio",
+      "status": "Red herring"
+    },
+    {
+      "id": "wanda",
+      "role": "Bióloga",
+      "status": "Red herring"
+    },
+    {
+      "id": "bianca",
+      "role": "Influencer",
+      "status": "Testemunha-chave"
+    },
+    {
+      "id": "klaus",
+      "role": "Detetive particular",
+      "status": "Identidade falsa"
+    }
+  ],
+  "bus": {
+    "model": "Linha Turismo Curitiba",
+    "levels": 2,
+    "important_points": [
+      "Porta-volumes dianteiro",
+      "Banco da vítima",
+      "Banco do motorista",
+      "Escada",
+      "Porta frontal"
+    ]
+  }
+}

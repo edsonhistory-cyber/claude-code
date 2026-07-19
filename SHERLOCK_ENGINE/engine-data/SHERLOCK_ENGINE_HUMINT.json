@@ -1,0 +1,124 @@
+{
+  "schema": "SHERLOCK_ENGINE_HUMINT",
+  "version": "1.0",
+  "interrogation_engine": {
+    "phases": [
+      "Rapport",
+      "Perguntas abertas",
+      "Confronto",
+      "Apresentação de provas",
+      "Encerramento"
+    ],
+    "meters": [
+      "Confiança",
+      "Estresse",
+      "Credibilidade",
+      "Cooperação"
+    ],
+    "max_questions_per_round": 5
+  },
+  "behavior_profiles": [
+    {
+      "character": "Sérgio Bento",
+      "baseline": {
+        "stress": 45,
+        "confidence": 70,
+        "cooperation": 35
+      },
+      "microexpressions": [
+        "Desvia o olhar",
+        "Engole em seco",
+        "Cruza os braços"
+      ],
+      "triggers": [
+        {
+          "evidence": "Vídeo da Bianca",
+          "effect": "+25 estresse"
+        },
+        {
+          "evidence": "Tacógrafo",
+          "effect": "+35 estresse"
+        },
+        {
+          "evidence": "Fibra azul",
+          "effect": "Contradição desbloqueada"
+        }
+      ]
+    },
+    {
+      "character": "Renata Salgado",
+      "baseline": {
+        "stress": 30,
+        "confidence": 85,
+        "cooperation": 90
+      },
+      "microexpressions": [
+        "Mantém contato visual",
+        "Respiração estável"
+      ],
+      "triggers": [
+        {
+          "evidence": "Gravação",
+          "effect": "Confirma delação"
+        }
+      ]
+    }
+  ],
+  "question_types": [
+    {
+      "id": "OPEN",
+      "effect": "Baixa pressão"
+    },
+    {
+      "id": "CLOSED",
+      "effect": "Resposta objetiva"
+    },
+    {
+      "id": "PRESSURE",
+      "effect": "Aumenta estresse"
+    },
+    {
+      "id": "EVIDENCE",
+      "effect": "Confronta com prova"
+    },
+    {
+      "id": "SILENCE",
+      "effect": "Espera reação"
+    }
+  ],
+  "memory_system": {
+    "remember_previous_answers": true,
+    "detect_contradictions": true,
+    "contradiction_threshold": 3
+  },
+  "body_language": {
+    "eye_contact": [
+      "Normal",
+      "Evita",
+      "Fixo"
+    ],
+    "posture": [
+      "Relaxada",
+      "Defensiva",
+      "Agressiva"
+    ],
+    "voice": [
+      "Calma",
+      "Trêmula",
+      "Elevada"
+    ]
+  },
+  "results": {
+    "truth_levels": [
+      "Provável",
+      "Inconclusivo",
+      "Suspeito",
+      "Mentira provável"
+    ],
+    "unlock_on_success": [
+      "Nova pergunta",
+      "Nova evidência",
+      "Nova cinemática"
+    ]
+  }
+}

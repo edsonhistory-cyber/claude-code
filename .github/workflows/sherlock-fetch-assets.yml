@@ -1,0 +1,45 @@
+# Baixa as fotos reais dos locais (Wikimedia/Openverse) num runner do GitHub
+# (que tem internet completa) e comita em SHERLOCK_ENGINE/assets/.
+# Gatilho: push que altere o arquivo-sinal assets/.fetch-request
+# (workflow_dispatch exigiria o arquivo na branch main).
+name: sherlock-fetch-assets
+
+on:
+  push:
+    paths:
+      - 'SHERLOCK_ENGINE/assets/.fetch-request'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sherlock-fetch-assets
+  cancel-in-progress: false
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # histórico completo p/ rebase seguro no push
+
+      - name: Instalar ImageMagick (montagem do mapa)
+        run: sudo apt-get update -q && sudo apt-get install -y -q --no-install-recommends imagemagick
+
+      - name: Baixar assets (build-time)
+        run: node SHERLOCK_ENGINE/tools/fetch_assets.mjs
+
+      - name: Comitar assets baixados
+        run: |
+          git config user.name "sherlock-assets-bot"
+          git config user.email "actions@github.com"
+          git add SHERLOCK_ENGINE/assets
+          if git diff --cached --quiet; then
+            echo "Nenhum asset novo."
+          else
+            git commit -m "chore(sherlock-engine): fotos reais baixadas na build (Wikimedia/Openverse) [skip ci]"
+            # a branch pode ter avançado durante a run — rebase antes do push
+            git pull --rebase origin "${GITHUB_REF_NAME}"
+            git push origin HEAD:"${GITHUB_REF_NAME}"
+          fi

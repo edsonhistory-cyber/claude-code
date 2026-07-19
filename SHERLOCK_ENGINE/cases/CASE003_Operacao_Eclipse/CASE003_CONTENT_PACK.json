@@ -1,0 +1,1292 @@
+{
+  "schema": "CASE_CONTENT_PACK",
+  "version": "1.0",
+  "case": "CASE003",
+  "map_title": "FÓRUM DE CURITIBA · NOITE DO APAGÃO",
+  "osint_placeholder": "Ex.: \"Vera Lontra\", \"mega-julgamento\", \"Téo Almada\"…",
+  "final_enigma": "EN210",
+  "tokens": [
+    "LACRE",
+    "HASH",
+    "PONTO",
+    "APAGAO"
+  ],
+  "characters": [
+    {
+      "id": "P201",
+      "nome": "Téo Almada",
+      "papel": "Vítima",
+      "profissao": "Guarda do paiol"
+    },
+    {
+      "id": "P202",
+      "nome": "Vera Lontra",
+      "papel": "Suspeita",
+      "profissao": "Perita criminal"
+    },
+    {
+      "id": "P203",
+      "nome": "Rui Barros",
+      "papel": "Suspeito aparente",
+      "profissao": "Promotor"
+    },
+    {
+      "id": "P204",
+      "nome": "Alice Fontoura",
+      "papel": "Testemunha-chave",
+      "profissao": "Estagiária de perícia"
+    },
+    {
+      "id": "P205",
+      "nome": "Otto Krieger",
+      "papel": "Red Herring",
+      "profissao": "Eletricista do Fórum"
+    },
+    {
+      "id": "P206",
+      "nome": "Samir Duarte",
+      "papel": "Suspeito aparente",
+      "profissao": "Advogado da Fundação Pinhal"
+    },
+    {
+      "id": "P207",
+      "nome": "Cátia Melo",
+      "papel": "Testemunha",
+      "profissao": "Delegada de custódia"
+    },
+    {
+      "id": "P221",
+      "nome": "Des. Prado Lima",
+      "papel": "Outros",
+      "profissao": "Juiz do mega-julgamento",
+      "bio": "Preside o processo contra a rede. Se as provas do paiol caírem, o julgamento desaba junto."
+    },
+    {
+      "id": "P222",
+      "nome": "Dona Cida",
+      "papel": "Testemunha",
+      "profissao": "Zeladora do Fórum",
+      "bio": "Faz a ronda de limpeza às 21h. Achou um jaleco descartado no lixo do subsolo — dobrado, não jogado."
+    },
+    {
+      "id": "P223",
+      "nome": "Beto Lira",
+      "papel": "Outros",
+      "profissao": "Estagiário de TI",
+      "bio": "Mantém o sistema de câmeras. Jura que o backup noturno nunca falhou antes — exceto na noite do apagão."
+    },
+    {
+      "id": "P224",
+      "nome": "Márcia Toledo",
+      "papel": "Outros",
+      "profissao": "Advogada da defesa",
+      "bio": "Defende a rede no mega-julgamento. Protocolou pedido de nulidade das provas horas ANTES do apagão."
+    },
+    {
+      "id": "P225",
+      "nome": "Insp. Souto",
+      "papel": "Equipe",
+      "profissao": "Chefe da guarda do Fórum",
+      "bio": "Escalou Téo para o plantão sozinho — remanejamento pedido de cima na véspera."
+    }
+  ],
+  "dossiers": {
+    "PERICIA": {
+      "nome": "Perícia",
+      "enigmas": [
+        "EN207",
+        "EN201"
+      ],
+      "code": "PER-13",
+      "emits": "LACRE",
+      "receives": "APAGAO"
+    },
+    "INTELIGENCIA": {
+      "nome": "Inteligência",
+      "enigmas": [
+        "EN202",
+        "EN206",
+        "EN208"
+      ],
+      "code": "INT-88",
+      "emits": "HASH",
+      "receives": "LACRE"
+    },
+    "ARQUIVO": {
+      "nome": "Arquivo",
+      "enigmas": [
+        "EN209"
+      ],
+      "code": "ARQ-55",
+      "emits": "PONTO",
+      "receives": "HASH"
+    },
+    "CAMPO": {
+      "nome": "Campo",
+      "enigmas": [
+        "EN203",
+        "EN204",
+        "EN205"
+      ],
+      "code": "CAM-77",
+      "emits": "APAGAO",
+      "receives": "PONTO"
+    }
+  },
+  "enigma_gates": {
+    "EN201": {
+      "token": "APAGAO",
+      "needs": [
+        "hash_done"
+      ],
+      "hintLocked": "Requer o token APAGAO (Campo) e a forense digital concluída."
+    },
+    "EN202": {
+      "needs": [
+        "doc:DOC208"
+      ],
+      "hintLocked": "Requer o Bloco de Anotações de Téo (DOC208 — vasculhe a guarita)."
+    },
+    "EN203": {
+      "needs": [
+        "ev:EV204"
+      ],
+      "hintLocked": "Requer o registro do ponto biométrico coletado no servidor."
+    },
+    "EN204": {},
+    "EN205": {
+      "needs": [
+        "contradicao"
+      ],
+      "hintLocked": "Requer a Contradição 03 (confronte Vera com o ponto biométrico)."
+    },
+    "EN206": {
+      "needs": [
+        "ev:EV203"
+      ],
+      "hintLocked": "Requer o backup das câmeras (converse com Alice nos Interrogatórios)."
+    },
+    "EN207": {
+      "needs": [
+        "ev:EV201",
+        "doc:DOC205",
+        "lacre_done"
+      ],
+      "hintLocked": "Requer o lacre coletado, o controle de lacres da Cátia e a microimpressão analisada."
+    },
+    "EN208": {
+      "token": "LACRE",
+      "hintLocked": "Requer o token LACRE (Perícia)."
+    },
+    "EN209": {
+      "token": "HASH",
+      "needs": [
+        "doc:DOC204"
+      ],
+      "hintLocked": "Requer o token HASH (Inteligência) e o registro do ponto lido."
+    }
+  },
+  "acts_progress": {
+    "act2": [
+      "ev:EV204",
+      "en:EN204"
+    ],
+    "act3": [
+      "hash_done"
+    ]
+  },
+  "stops": [
+    {
+      "id": "FOR",
+      "name": "Fórum — fachada",
+      "time": "18:00",
+      "scene": "fórum",
+      "ambience": "cidade",
+      "pos": [
+        60,
+        60
+      ]
+    },
+    {
+      "id": "GUA",
+      "name": "Guarita do paiol",
+      "time": "21:05",
+      "scene": "corredor",
+      "ambience": "central",
+      "pos": [
+        140,
+        110
+      ]
+    },
+    {
+      "id": "PER",
+      "name": "Sala de perícia (lacrada)",
+      "time": "—",
+      "scene": "paiol",
+      "ambience": "lab",
+      "pos": [
+        80,
+        190
+      ],
+      "off_route": true
+    },
+    {
+      "id": "PAI",
+      "name": "Paiol de Provas",
+      "time": "21:40",
+      "scene": "paiol",
+      "ambience": "juri",
+      "pos": [
+        230,
+        90
+      ],
+      "danger": true
+    },
+    {
+      "id": "SUB",
+      "name": "Subsolo — quadro geral",
+      "time": "21:10",
+      "scene": "subsolo",
+      "ambience": "lab",
+      "pos": [
+        300,
+        170
+      ]
+    },
+    {
+      "id": "COR",
+      "name": "Corredor das câmeras",
+      "time": "21:14",
+      "scene": "corredor",
+      "ambience": "central",
+      "pos": [
+        200,
+        220
+      ]
+    }
+  ],
+  "hotspots": {
+    "FOR": [
+      {
+        "nome": "Recepção e catracas",
+        "desc": "Registro de entrada e saída do público.",
+        "action": {
+          "type": "note",
+          "toast": "Catraca: Samir Duarte saiu às 19:02. Nenhuma entrada de visitante após as 19:30."
+        }
+      },
+      {
+        "nome": "Gerador de emergência",
+        "desc": "Deveria assumir em 30 segundos.",
+        "action": {
+          "type": "flag",
+          "flag": "gerador_visto",
+          "toast": "O gerador foi desarmado ANTES do apagão — quem fez isso conhecia a rotina de testes."
+        }
+      },
+      {
+        "nome": "Protocolo do Fórum",
+        "desc": "Registros de petições do dia.",
+        "action": {
+          "type": "flag",
+          "flag": "peticao_vista",
+          "score": 5,
+          "reason": "Petição prévia registrada",
+          "toast": "Pedido de nulidade protocolado às 16:02 — antes do apagão existir. Alguém contava com ele."
+        }
+      }
+    ],
+    "GUA": [
+      {
+        "nome": "Mesa de Téo",
+        "desc": "O livro de ocorrências e os pertences do guarda.",
+        "action": {
+          "type": "doc",
+          "id": "DOC203",
+          "toast": "📄 Livro de ocorrências recolhido (DOC203) — a assinatura das 20:30 tem tinta diferente.",
+          "already": "O livro já está na Central."
+        }
+      },
+      {
+        "nome": "Gaveta pessoal",
+        "desc": "Bloco de anotações da ronda.",
+        "action": {
+          "type": "doc",
+          "id": "DOC208",
+          "toast": "📄 Bloco de Téo recolhido (DOC208) — há uma palavra cifrada e o desenho de um jaleco.",
+          "already": "A gaveta está vazia."
+        }
+      }
+    ],
+    "PER": [
+      {
+        "nome": "Impressora de lacres",
+        "desc": "Só a perícia interna tem acesso.",
+        "action": {
+          "type": "flag",
+          "flag": "impressora_vista",
+          "score": 5,
+          "reason": "Impressora periciada",
+          "toast": "🖨 A bandeja guarda o lote 4600 — e uma folha de teste com o nº 4612 impresso duas vezes."
+        }
+      },
+      {
+        "nome": "Armário de jalecos",
+        "desc": "Três ganchos, dois jalecos.",
+        "action": {
+          "type": "flag",
+          "flag": "jaleco_faltando",
+          "score": 5,
+          "reason": "Jaleco ausente registrado",
+          "sfx": "camera_shutter",
+          "toast": "📷 Falta um jaleco no gancho de Vera. O da foto do corredor?"
+        }
+      }
+    ],
+    "PAI": [
+      {
+        "nome": "Corpo na viga — cena",
+        "desc": "Téo foi encontrado às 21:40.",
+        "action": {
+          "type": "doc",
+          "id": "DOC201",
+          "toast": "📄 Laudo preliminar (DOC201): DUAS marcas de ligadura — suicídio encenado.",
+          "already": "A cena já foi periciada e está lacrada."
+        }
+      },
+      {
+        "nome": "Prateleira 14 — caixa CWB/SRR",
+        "desc": "As provas do mega-julgamento.",
+        "action": {
+          "type": "evidence",
+          "id": "EV201",
+          "nome": "Lacre reimpresso",
+          "toast": "🧾 EV201 Lacre reimpresso coletado — numeração fora do lote!",
+          "already": "O lacre já está no laboratório."
+        }
+      },
+      {
+        "nome": "Caixa de provas aberta",
+        "desc": "O HD do mega-julgamento.",
+        "action": {
+          "type": "evidence",
+          "id": "EV202",
+          "nome": "HD de provas clonado",
+          "toast": "🧾 EV202 HD coletado — a forense digital dirá se é o original.",
+          "already": "O HD já está no laboratório."
+        }
+      }
+    ],
+    "SUB": [
+      {
+        "nome": "Quadro geral de energia",
+        "desc": "A chave mestra foi baixada à mão.",
+        "action": {
+          "type": "flag",
+          "flag": "quadro_visto",
+          "toast": "📍 Alavanca baixada manualmente às 21:12 — sem curto, sem sobrecarga. Compare com o consumo no GEOINT."
+        }
+      },
+      {
+        "nome": "Porta de serviço",
+        "desc": "Acesso restrito por biometria.",
+        "action": {
+          "type": "evidence",
+          "id": "EV204",
+          "nome": "Registro do ponto biométrico",
+          "doc": "DOC204",
+          "toast": "🧾 EV204 Registro do ponto coletado. Relatório (DOC204) disponível.",
+          "already": "O registro já está na Central."
+        }
+      }
+    ],
+    "COR": [
+      {
+        "nome": "Câmeras principais",
+        "desc": "Cegas durante o apagão.",
+        "action": {
+          "type": "note",
+          "toast": "As câmeras principais dependem da rede. O sistema REDUNDANTE, porém, grava em bateria — fale com a estagiária Alice."
+        }
+      },
+      {
+        "nome": "Luz de emergência",
+        "desc": "Único ponto aceso às 21:14.",
+        "action": {
+          "type": "flag",
+          "flag": "luz_vista",
+          "toast": "A luz de emergência ilumina exatamente o trecho onde o backup flagrou o vulto de jaleco."
+        }
+      },
+      {
+        "nome": "Lixeira do subsolo",
+        "desc": "Ronda da zeladoria.",
+        "action": {
+          "type": "flag",
+          "flag": "jaleco_visto",
+          "score": 5,
+          "reason": "Jaleco recuperado",
+          "toast": "Um jaleco dobrado entre sacos — sem etiqueta, tamanho M, cheiro de álcool isopropílico."
+        }
+      }
+    ]
+  },
+  "osint": [
+    {
+      "match": "vera|lontra",
+      "title": "Ficha profissional — Vera Lontra",
+      "source": "Registros (SRC002)",
+      "body": "Perita criminal exemplar há 18 anos. Afastamento súbito de 3 dias no mês passado, sem BO correspondente. Colegas notaram: voltou 'diferente'.",
+      "unlock": "DOC206",
+      "unlockLabel": "Ficha Funcional de Vera Lontra (DOC206)"
+    },
+    {
+      "match": "mega[- ]?julgamento|rede|organiza[çc][ãa]o",
+      "title": "Cobertura — Mega-julgamento da Rede",
+      "source": "Notícias (SRC001)",
+      "body": "As provas físicas dos casos CWB-1447 e SRR-0904 são a espinha dorsal da acusação. A defesa tentou três vezes acessar o paiol. O julgamento começa em nove dias.",
+      "unlock": "DOC207",
+      "unlockLabel": "Notícia — Mega-julgamento (DOC207)"
+    },
+    {
+      "match": "filho|jardineiro|dep[óo]sito",
+      "title": "Movimentação atípica — conta vinculada",
+      "source": "Financeiro (SRC005)",
+      "body": "Um depósito de origem oculta quitou a dívida do filho de uma servidora do Fórum um dia após o apagão. Codinome do pagador: JARDINEIRO — o mesmo padrão da Fundação Pinhal.",
+      "unlock": "DOC209",
+      "unlockLabel": "Extrato — Conta do Filho de Vera (DOC209)",
+      "enigma": "EN208"
+    },
+    {
+      "match": "t[ée]o|almada",
+      "title": "Perfil — Téo Almada",
+      "source": "Registros (SRC002)",
+      "body": "Guarda noturno há 22 anos. Anotava tudo. A última linha do livro de ocorrências fala em 'movimento na perícia depois do expediente'."
+    },
+    {
+      "match": "otto|krieger",
+      "title": "Ficha — Otto Krieger",
+      "source": "Registros (SRC002)",
+      "body": "Eletricista terceirizado. Biometria: última entrada às 13:20, saída às 17:40. Não estava no prédio durante o apagão."
+    },
+    {
+      "match": "samir|duarte",
+      "title": "Perfil — Samir Duarte",
+      "source": "Registros (SRC002) · Imprensa (SRC001)",
+      "body": "Advogado da Fundação Pinhal. Protocolou os três pedidos de acesso ao paiol. Saiu pela catraca às 19:02 — filmado pela recepção."
+    },
+    {
+      "match": "alice|fontoura",
+      "title": "Perfil — Alice Fontoura",
+      "source": "Registros (SRC002)",
+      "body": "Estagiária de perícia, primeira da turma. Foi dela o pente-fino que achou a divergência de hash — contra a orientação de 'não mexer'."
+    },
+    {
+      "match": "paiol|prateleira",
+      "title": "O paiol de provas",
+      "source": "Infraestrutura (SRC002)",
+      "body": "Sala-cofre com 2.400 caixas. A prateleira 14 guarda os casos da rede — e foi a única revisitada na noite do apagão."
+    },
+    {
+      "match": "nulidade|defesa|toledo",
+      "title": "Movimento da defesa",
+      "source": "Justiça (SRC001)",
+      "body": "O pedido de nulidade das provas foi protocolado às 16h — quatro horas ANTES do apagão. Ou a defesa é vidente, ou foi avisada."
+    }
+  ],
+  "interrogatable": [
+    {
+      "key": "VERA_LONTRA",
+      "pid": "P202"
+    },
+    {
+      "key": "CATIA_MELO",
+      "pid": "P207"
+    },
+    {
+      "key": "RUI_BARROS",
+      "pid": "P203"
+    },
+    {
+      "key": "ALICE_FONTOURA",
+      "pid": "P204"
+    },
+    {
+      "key": "OTTO_KRIEGER",
+      "pid": "P205"
+    },
+    {
+      "key": "SAMIR_DUARTE",
+      "pid": "P206"
+    },
+    {
+      "key": "DONA_CIDA",
+      "pid": "P222"
+    },
+    {
+      "key": "PRADO_LIMA",
+      "pid": "P221"
+    },
+    {
+      "key": "BETO_LIRA",
+      "pid": "P223"
+    },
+    {
+      "key": "MARCIA_TOLEDO",
+      "pid": "P224"
+    },
+    {
+      "key": "INSP_SOUTO",
+      "pid": "P225"
+    }
+  ],
+  "witness_statements": {
+    "ALICE_FONTOURA": {
+      "intro": "O sistema principal caiu, mas o redundante grava em bateria — fui eu que insisti para instalarem. O backup está neste pendrive. Às 21:14... vejam vocês mesmos.",
+      "flag": "alice_backup",
+      "note": "Alice entregou o backup do sistema redundante.",
+      "gives_evidence": {
+        "id": "EV203",
+        "nome": "Backup das câmeras"
+      }
+    },
+    "OTTO_KRIEGER": {
+      "intro": "Quadro geral não cai sozinho, detetive. Aquilo foi mão humana. Mas a minha estava longe: bati o ponto às 17:40 e fui pra casa.",
+      "flag": "otto_fora",
+      "note": "Otto aponta sabotagem manual; biometria confirma que saiu às 17:40."
+    },
+    "SAMIR_DUARTE": {
+      "intro": "Pedi acesso ao paiol três vezes — pelas vias LEGAIS. Perdi as três. Saí do Fórum às 19:02 e há uma câmera que confirma.",
+      "flag": "samir_fora",
+      "note": "Samir saiu às 19:02; os pedidos de acesso eram protocolados."
+    },
+    "DONA_CIDA": {
+      "intro": "Jaleco no lixo do subsolo, dobradinho como roupa de domingo. Quem joga fora não dobra, meu filho.",
+      "flag": "cida_jaleco",
+      "note": "Dona Cida encontrou o jaleco dobrado no lixo do subsolo."
+    },
+    "PRADO_LIMA": {
+      "intro": "Se aquelas provas caírem, quatrocentas páginas de denúncia viram confete. O apagão não atacou um guarda, atacou um julgamento. Tragam-me a cadeia de custódia intacta.",
+      "flag": "prado_julgamento",
+      "note": "O juiz enquadrou o crime como ataque ao mega-julgamento."
+    },
+    "BETO_LIRA": {
+      "intro": "O backup noturno roda 21:00 em ponto, há três anos, sem falhar. Na noite do apagão ele 'pulou' — mas o log mostra que ALGUÉM pausou o serviço às 20:58. Pausou. Com senha de administrador.",
+      "flag": "beto_backup",
+      "note": "O estagiário provou: o backup foi pausado manualmente com senha de admin."
+    },
+    "MARCIA_TOLEDO": {
+      "intro": "Protocolei a nulidade às 16h porque a defesa monitora VÍCIOS, detetive. Se me perguntam como eu 'sabia' do apagão: não sabia. Mas alguém do seu lado do balcão sabia — e me telefonou às 15:40.",
+      "flag": "marcia_telefonema",
+      "note": "A advogada revelou: recebeu um telefonema interno às 15:40 antecipando 'vícios' nas provas."
+    },
+    "INSP_SOUTO": {
+      "intro": "O remanejamento veio 'de cima', por memorando sem assinatura digital. Vinte anos de guarda e nunca vi escala mudar na véspera. Guardei o papel — periciem a impressora.",
+      "flag": "souto_memorando",
+      "note": "O inspetor entregou o memorando apócrifo que isolou Téo no plantão."
+    }
+  },
+  "moods": {
+    "VERA_LONTRA": {
+      "neutro": "Dezoito anos de perícia. Eu processo cenas de crime — não participo delas.",
+      "pressionado": "Refaça a pergunta consultando o meu histórico impecável.",
+      "confrontado": "Biometria falha. Lacres falham. Tudo falha, detetive.",
+      "desmascarado": "Eles levaram meu filho por três dias. TRÊS DIAS. Vocês teriam feito o mesmo."
+    },
+    "CATIA_MELO": {
+      "neutro": "Custódia é liturgia: lacre, livro, assinatura. Alguém profanou a minha.",
+      "pressionado": "Cuidado. Eu numerei cada lacre desta casa.",
+      "confrontado": "Fora do lote. Reimpresso. Na MINHA sala. Isso não é falha — é assinatura.",
+      "desmascarado": "—"
+    },
+    "RUI_BARROS": {
+      "neutro": "O mega-julgamento é a obra da minha carreira. Nada pode contaminá-lo.",
+      "pressionado": "Pressionar peritos faz parte do cargo. Leia o regimento.",
+      "confrontado": "Eu pedi celeridade, não crime. Há um oceano entre os dois.",
+      "desmascarado": "—"
+    }
+  },
+  "behavior_profiles": [
+    {
+      "character": "Vera Lontra",
+      "baseline": {
+        "stress": 35,
+        "confidence": 90,
+        "cooperation": 70
+      },
+      "microexpressions": [
+        "Ajusta o crachá",
+        "Fala em jargão técnico"
+      ],
+      "triggers": [
+        {
+          "evidence": "Backup das câmeras",
+          "effect": "+25 estresse"
+        },
+        {
+          "evidence": "Registro do ponto biométrico",
+          "effect": "+35 estresse"
+        },
+        {
+          "evidence": "Lacre reimpresso",
+          "effect": "Contradição desbloqueada"
+        }
+      ]
+    },
+    {
+      "character": "Rui Barros",
+      "baseline": {
+        "stress": 45,
+        "confidence": 75,
+        "cooperation": 85
+      },
+      "microexpressions": [
+        "Consulta o relógio"
+      ],
+      "triggers": []
+    }
+  ],
+  "contradiction": {
+    "character": "VERA_LONTRA",
+    "requiresTopic": "VERA_LONTRA:apagao",
+    "evidences": [
+      "EV204",
+      "EV203"
+    ],
+    "name": "Contradição 03",
+    "reaction": "Vera jurou que estava em casa — o ponto biométrico registra a saída dela às 21:25, seis minutos depois do fim do apagão. Contradição 03 registrada.",
+    "enigma": "EN205"
+  },
+  "lab": {
+    "tabs": [
+      {
+        "id": "lacre",
+        "nome": "Microimpressão",
+        "test": {
+          "name": "Comparador de microimpressão",
+          "ms": 2000
+        },
+        "sample": {
+          "title": "EV201 Lacre reimpresso × lote oficial",
+          "needs": [
+            "ev:EV201"
+          ],
+          "lockMsg": "Requer o lacre coletado na prateleira 14."
+        },
+        "effects": {
+          "analyzed": "lacre_done",
+          "score": 15,
+          "reason": "Microimpressão comparada",
+          "toast": "🔍 A trama de microimpressão bate com a impressora da sala de perícia interna — não com a gráfica oficial."
+        },
+        "results": [
+          "Impresso na sala de perícia interna",
+          "Numeração 4612: lote não distribuído"
+        ],
+        "note": "Cruze com o controle de lacres da Cátia (EN207).",
+        "enigma": "EN207"
+      },
+      {
+        "id": "hash",
+        "nome": "Forense Digital",
+        "test": {
+          "name": "Verificação de hash (SHA-256)",
+          "ms": 2400
+        },
+        "sample": {
+          "title": "EV202 HD de provas × termo de custódia",
+          "needs": [
+            "ev:EV202"
+          ],
+          "lockMsg": "Requer o HD coletado no paiol."
+        },
+        "effects": {
+          "analyzed": "hash_done",
+          "unlockDoc": "DOC202",
+          "score": 15,
+          "reason": "Hash verificado",
+          "toast": "💽 Hash divergente! O HD é um clone; setores zerados às 21:16. Laudo DOC202 emitido."
+        },
+        "results": [
+          "Hash divergente do termo de custódia",
+          "Clonagem executada às 21:16 — durante o apagão"
+        ],
+        "note": "O original saiu do paiol dentro de um jaleco."
+      },
+      {
+        "id": "ml",
+        "nome": "Medicina Legal",
+        "test": {
+          "name": "Revisão do laudo de ligaduras",
+          "ms": 1800
+        },
+        "sample": {
+          "title": "DOC201 Laudo — dupla ligadura",
+          "needs": [
+            "doc:DOC201"
+          ],
+          "lockMsg": "Requer o laudo preliminar (periciar a cena no paiol)."
+        },
+        "effects": {
+          "analyzed": "ml_done",
+          "score": 15,
+          "reason": "Encenação confirmada",
+          "toast": "⚕ Confirmado: sulco horizontal VITAL sob o sulco oblíquo post-mortem. Téo foi estrangulado e depois pendurado.",
+          "speak": "Duas marcas de ligadura. A primeira, horizontal, foi a causa da morte. A segunda foi encenação."
+        },
+        "results": [
+          "Estrangulamento vital + enforcamento post-mortem",
+          "Altura do ponto de força: 1,65 m ± 5 cm"
+        ],
+        "note": "O suicídio foi encenado por alguém treinado em cenas de crime."
+      },
+      {
+        "id": "docsc",
+        "nome": "Documentoscopia",
+        "test": {
+          "name": "Análise de tintas",
+          "ms": 1600
+        },
+        "sample": {
+          "title": "DOC203 Livro de ocorrências — assinatura das 20:30",
+          "needs": [
+            "doc:DOC203"
+          ],
+          "lockMsg": "Requer o livro de ocorrências da guarita."
+        },
+        "effects": {
+          "analyzed": "docsc_done",
+          "score": 15,
+          "reason": "Tinta divergente",
+          "toast": "📄 A assinatura de saída '20:30' usa tinta diferente da página — foi adicionada DEPOIS, sobre a mesa da perícia."
+        },
+        "results": [
+          "Tinta da assinatura difere do restante da página",
+          "Pressão do traço indica escrita apressada"
+        ],
+        "note": "O álibi de papel foi fabricado."
+      }
+    ]
+  },
+  "geoint": {
+    "tach": {
+      "title": "CONSUMO DE ENERGIA DO FÓRUM × HORA",
+      "needs": [
+        "ev:EV204"
+      ],
+      "lockMsg": "🔒 Colete o registro do ponto biométrico no subsolo (Mapa → Subsolo).",
+      "hint": "Regra GEO001: queda total sem curto nem sobrecarga indica acionamento manual. Clique no intervalo anômalo.",
+      "doneMsg": "✔ EN203: queda manual às 21:12 identificada.",
+      "enigma": "EN203",
+      "points": [
+        [
+          "18:00",
+          40
+        ],
+        [
+          "18:30",
+          38
+        ],
+        [
+          "19:00",
+          30
+        ],
+        [
+          "19:30",
+          26
+        ],
+        [
+          "20:00",
+          24
+        ],
+        [
+          "20:30",
+          22
+        ],
+        [
+          "21:00",
+          22
+        ],
+        [
+          "21:12",
+          0
+        ],
+        [
+          "21:19",
+          0
+        ],
+        [
+          "21:20",
+          24
+        ],
+        [
+          "21:40",
+          30
+        ],
+        [
+          "22:00",
+          34
+        ],
+        [
+          "22:30",
+          30
+        ],
+        [
+          "23:00",
+          26
+        ],
+        [
+          "23:30",
+          24
+        ]
+      ],
+      "segments": [
+        {
+          "id": "j19",
+          "at": 2.6,
+          "w": 26
+        },
+        {
+          "id": "apagao",
+          "at": 6.8,
+          "w": 30,
+          "correct": true,
+          "label": "7 MIN · MANUAL"
+        },
+        {
+          "id": "j22",
+          "at": 10.7,
+          "w": 26
+        },
+        {
+          "id": "j23",
+          "at": 12.7,
+          "w": 24
+        }
+      ],
+      "wrongMsg": "Consumo normal de prédio vazio à noite. (-20)",
+      "okMsg": "🔓 EN203 resolvido! Queda total às 21:12 sem falha elétrica: a alavanca foi baixada à mão."
+    },
+    "sat": {
+      "title": "PLANTA DO FÓRUM — VISÃO AÉREA",
+      "hint": "Marque o ponto de onde partiu o apagão.",
+      "doneMsg": "✔ EN204: quadro geral do subsolo marcado.",
+      "enigma": "EN204",
+      "terrain": "urban",
+      "route": "M60 60 L140 110 L230 90 L200 220",
+      "marks": [
+        {
+          "id": "for",
+          "x": 60,
+          "y": 60
+        },
+        {
+          "id": "pai",
+          "x": 230,
+          "y": 90
+        },
+        {
+          "id": "sub",
+          "x": 300,
+          "y": 170,
+          "correct": true,
+          "label": "⚠ QUADRO GERAL"
+        },
+        {
+          "id": "cor",
+          "x": 200,
+          "y": 220
+        }
+      ],
+      "wrongMsg": "Este setor tem circuito próprio — o apagão não partiu daqui. (-20)",
+      "okMsg": "🔓 EN204 resolvido! O quadro geral do subsolo: acesso por porta biométrica.",
+      "bonus": {
+        "token": "PONTO",
+        "flag": "rota_fuga_vista",
+        "score": 15,
+        "reason": "Rota interna sobreposta",
+        "btn": "SOBREPOR ROTA INTERNA (token PONTO)",
+        "btnDone": "✔ ROTA INTERNA COMPARADA",
+        "lockMsg": "🔒 Sobreposição da rota interna requer o token PONTO (Arquivo).",
+        "toast": "🚪 Da sala de perícia ao subsolo e ao paiol sem cruzar NENHUMA câmera principal — só o corredor do sistema redundante.",
+        "overlay": "M80 190 L300 170 L230 90 L200 220",
+        "overlayLabel": "ROTA INTERNA"
+      }
+    }
+  },
+  "enigmas": {
+    "EN201": {
+      "type": "sequence",
+      "attach": {
+        "kind": "evidence",
+        "ref": "EV202"
+      },
+      "btn": "RECONSTITUIR RÓTULO DO CLONE",
+      "btnDone": "✔ RÓTULO RECONSTITUÍDO",
+      "title": "EN201 — Rótulo do HD",
+      "prompt": "A forense recuperou fragmentos do rótulo térmico gravado pelo clonador — reordene:",
+      "answer": "CLONE",
+      "okMsg": "🔓 EN201 resolvido! O HD do paiol é um CLONE — o original sumiu.",
+      "wrongMsg": "Sequência incorreta. O leitor reinicia.",
+      "doneMsg": "O rótulo já foi reconstituído: CLONE."
+    },
+    "EN202": {
+      "type": "input",
+      "attach": {
+        "kind": "document",
+        "ref": "DOC208"
+      },
+      "btn": "DECIFRAR (CÉSAR)",
+      "btnDone": "✔ CIFRA QUEBRADA",
+      "title": "EN202 — Bloco de Téo",
+      "prompt": "No verso da escala, ao lado do desenho de um jaleco: <b class=\"mono\">SURYD</b><br>A mesma cifra dos casos anteriores — deslocamento de 3 (S→P…):",
+      "submit": "DECIFRAR",
+      "answer": "PROVA",
+      "okMsg": "🔓 EN202 resolvido! Téo anotou: PROVA — ele viu alguém mexendo nas provas.",
+      "wrongMsg": "Não confere. Tente outro deslocamento. (-20)",
+      "doneMsg": "A cifra já foi quebrada: PROVA."
+    },
+    "EN205": {
+      "type": "choice",
+      "attach": {
+        "kind": "interrogation",
+        "ref": "VERA_LONTRA"
+      },
+      "btn": "REGISTRAR CONTRADIÇÃO NO DOSSIÊ (EN205)",
+      "title": "EN205 — Quebra de Álibi",
+      "prompt": "Qual par de declarações forma a <b>contradição decisiva</b>?",
+      "options": [
+        "“Assinei a saída às 20:30.”<br><span class=\"muted\">×</span> Documentoscopia: tinta adicionada depois.",
+        "“Eu estava em casa durante o apagão.”<br><span class=\"muted\">×</span> Ponto biométrico: saída às 21:25.",
+        "“Não participo de cenas de crime.”<br><span class=\"muted\">×</span> Laudo: encenação por alguém treinado."
+      ],
+      "correct": 1,
+      "okMsg": "🔓 EN205 resolvido! Álibi de Vera formalmente quebrado.",
+      "wrongMsg": "Contradição relevante, mas não decisiva. (-20)"
+    },
+    "EN206": {
+      "type": "frames",
+      "attach": {
+        "kind": "evidence",
+        "ref": "EV203"
+      },
+      "btn": "ANALISAR QUADRO A QUADRO",
+      "btnDone": "✔ VULTO LOCALIZADO",
+      "title": "EN206 — Backup das Câmeras",
+      "prompt": "O sistema redundante gravou o corredor durante o apagão. Uma janela mostra o <b>vulto de jaleco</b>. Clique nela.",
+      "times": [
+        "21:12",
+        "21:13",
+        "21:14",
+        "21:15",
+        "21:16",
+        "21:17",
+        "21:18",
+        "21:19"
+      ],
+      "correct": 2,
+      "markColor": "#c9d4da",
+      "okMsg": "🔓 EN206 resolvido! O jaleco cruza o corredor às 21:14 — rumo ao paiol.",
+      "wrongMsg": "Só escuridão e luz de emergência nesta janela. (-20)",
+      "doneMsg": "O vulto já foi localizado na janela das 21:14."
+    },
+    "EN207": {
+      "type": "compare",
+      "attach": {
+        "kind": "lab",
+        "ref": "lacre"
+      },
+      "btn": "COMPARAR MICROIMPRESSÃO (EN207)",
+      "title": "EN207 — Microimpressão do Lacre",
+      "prompt": "Comparador: à esquerda, a <b>trama do lacre da prateleira 14</b>. Qual padrão de impressora é IDÊNTICO (passo e cor)?",
+      "reference": {
+        "waves": 5,
+        "color": "#E0B658"
+      },
+      "options": [
+        {
+          "waves": 5,
+          "color": "#E0B658"
+        },
+        {
+          "waves": 3,
+          "color": "#E0B658"
+        },
+        {
+          "waves": 5,
+          "color": "#3b6ea5"
+        }
+      ],
+      "correct": 0,
+      "okMsg": "🔓 EN207 resolvido! Trama idêntica à impressora da sala de perícia interna.",
+      "wrongMsg": "Padrões divergem. (-20)"
+    },
+    "EN208": {
+      "type": "choice",
+      "attach": {
+        "kind": "osint"
+      },
+      "btn": "IDENTIFICAR O BENEFICIÁRIO (EN208)",
+      "btnDone": "✔ EN208: beneficiário identificado",
+      "title": "EN208 — Depósito JARDINEIRO",
+      "prompt": "O codinome <b>JARDINEIRO</b> quitou uma dívida um dia após o apagão. Cruzando com as fichas do Fórum: <b>de quem era a dívida?</b>",
+      "options": [
+        "Do promotor Rui Barros",
+        "Do filho de Vera Lontra",
+        "Do eletricista Otto Krieger",
+        "Da estagiária Alice Fontoura"
+      ],
+      "correct": 1,
+      "okMsg": "🔓 EN208 resolvido! A rede pagou a dívida do filho de Vera — a moeda da chantagem.",
+      "wrongMsg": "O extrato não bate com essa ficha. (-20)"
+    },
+    "EN209": {
+      "type": "choice",
+      "attach": {
+        "kind": "document",
+        "ref": "DOC204"
+      },
+      "btn": "CRUZAR BIOMETRIA",
+      "btnDone": "✔ MENTIRA CONFIRMADA",
+      "title": "EN209 — Registro do Ponto",
+      "prompt": "Cruzando o livro de ocorrências × biometria: <b>quem declarou um horário falso de saída?</b>",
+      "options": [
+        "Rui Barros",
+        "Otto Krieger",
+        "Vera Lontra",
+        "Samir Duarte"
+      ],
+      "correct": 2,
+      "okMsg": "🔓 EN209 resolvido! Vera declarou 20:30; a biometria registra 21:25.",
+      "wrongMsg": "A biometria confirma o horário declarado dessa pessoa. (-20)",
+      "doneMsg": "Já confirmado: Vera mentiu no horário."
+    }
+  },
+  "doc_extras": {
+    "DOC208": "<div class=\"cipher\">No verso da escala, ao lado do desenho de um jaleco:<br><b class=\"mono\">DYLVR: SURYD</b></div>",
+    "DOC204": "<table class=\"manifest\"><tr><th>Servidor</th><th>Declarado</th><th>Biometria</th></tr><tr><td>Vera Lontra</td><td>20:30</td><td>21:25</td></tr><tr><td>Rui Barros</td><td>21:30</td><td>21:30</td></tr><tr><td>Otto Krieger</td><td>17:40</td><td>17:40</td></tr><tr><td>Cátia Melo</td><td>22:00</td><td>22:00</td></tr></table>",
+    "DOC201_speak": "Duas marcas de ligadura. O sulco horizontal é vital: estrangulamento. O sulco oblíquo é post mortem: encenação.",
+    "DOC201": "<table class=\"manifest\"><tr><th>Exame</th><th>Achado</th></tr><tr><td>Sulco 1</td><td>Horizontal, vital — estrangulamento</td></tr><tr><td>Sulco 2</td><td>Oblíquo, <b>post-mortem</b> — encenação</td></tr><tr><td>Hora</td><td>Dentro da janela do apagão</td></tr></table><p class=\"muted\">Dois sulcos, uma mentira: ninguém se enforca duas vezes.</p>",
+    "DOC202": "<div class=\"cipher\">HASH DO TERMO: a3f9…c210<br>HASH DO HD: <b>7b12…e884 — DIVERGENTE</b></div><p>Setores regravados às 20:03. O clone é bom — mas relógio de sistema não mente.</p>",
+    "DOC203": "<p>Livro de ocorrências, última linha de Téo (21:05):</p><blockquote>\"Movimento na perícia depois do expediente. Vou conferir.\"</blockquote><p>A assinatura de saída nunca aconteceu.</p>",
+    "DOC205": "<table class=\"manifest\"><tr><th>Lote de lacres</th><th>Status</th></tr><tr><td>4400–4499</td><td>Em uso oficial</td></tr><tr><td>Lacre da prateleira 14</td><td><b>Numeração fora do lote</b> — reimpresso</td></tr></table>",
+    "DOC206": "<table class=\"manifest\"><tr><th>Registro</th><th>Detalhe</th></tr><tr><td>18 anos de perícia</td><td>Ficha ilibada</td></tr><tr><td>Afastamento recente</td><td>3 dias, 'motivos familiares'</td></tr><tr><td>Coincidência</td><td>O afastamento cobre a data da clonagem</td></tr></table>",
+    "DOC207": "<p><b>GAZETA — JUSTIÇA</b></p><blockquote>\"Provas dos casos CWB-1447 e SRR-0904 sustentam o mega-julgamento da organização. A defesa alega 'fragilidade na cadeia de custódia'.\"</blockquote><p class=\"muted\">A defesa sabia onde bater. Antes de todo mundo.</p>",
+    "DOC209": "<table class=\"manifest\"><tr><th>Data</th><th>Operação</th></tr><tr><td>D+1 do apagão</td><td>Depósito de origem oculta — conta do filho</td></tr><tr><td>Padrão</td><td>Idêntico ao caso SRR-0904 (compra de dívida)</td></tr></table><p>A rede repete a fórmula: acha a dor, paga a dor, cobra a alma.</p>",
+    "DOC210": "<p><b>CHECKLIST DO JÚRI</b></p><table class=\"manifest\"><tr><th>Item</th><th>Status</th></tr><tr><td>4 evidências analisadas</td><td>—</td></tr><tr><td>Contradição registrada</td><td>—</td></tr><tr><td>Linha do tempo validada</td><td>—</td></tr><tr><td>4 códigos dos dossiês</td><td>—</td></tr></table>"
+  },
+  "deduction": {
+    "factors": {
+      "P202": {
+        "Motivo": [
+          "doc:DOC209",
+          "osint:jardineiro"
+        ],
+        "Meios": [
+          "en:EN207",
+          "en:EN201"
+        ],
+        "Oportunidade": [
+          "en:EN203",
+          "en:EN204",
+          "en:EN206"
+        ],
+        "Alibi": [
+          "contradicao"
+        ]
+      },
+      "P203": {
+        "Motivo": [
+          "doc:DOC207"
+        ],
+        "Meios": [],
+        "Oportunidade": [],
+        "Alibi": []
+      },
+      "P205": {
+        "Motivo": [],
+        "Meios": [
+          "flag:quadro_visto"
+        ],
+        "Oportunidade": [],
+        "Alibi": []
+      },
+      "P206": {
+        "Motivo": [
+          "doc:DOC207"
+        ],
+        "Meios": [],
+        "Oportunidade": [],
+        "Alibi": []
+      }
+    },
+    "eliminations": [
+      {
+        "id": "R202",
+        "suspect": "P203",
+        "when": [
+          "doc:DOC204"
+        ],
+        "note": "Audiência online gravada até 21:30 — biometria e vídeo coincidem."
+      },
+      {
+        "id": "R203",
+        "suspect": "P205",
+        "when": [
+          "flag:otto_fora"
+        ],
+        "note": "Biometria: Otto saiu às 17:40 e não voltou."
+      },
+      {
+        "id": "R204",
+        "suspect": "P206",
+        "when": [
+          "flag:samir_fora"
+        ],
+        "note": "Samir saiu às 19:02 pela catraca, filmado pela recepção."
+      }
+    ],
+    "critical_enigmas": [
+      "EN201",
+      "EN203",
+      "EN206",
+      "EN207"
+    ]
+  },
+  "knowledge_graph": [
+    {
+      "from": "EV201",
+      "to": "PER",
+      "relation": "impresso_na_perícia"
+    },
+    {
+      "from": "EV202",
+      "to": "EV201",
+      "relation": "mesma_violação"
+    },
+    {
+      "from": "EV203",
+      "to": "P202",
+      "relation": "jaleco_no_corredor"
+    },
+    {
+      "from": "EV204",
+      "to": "P202",
+      "relation": "saída_21h25"
+    },
+    {
+      "from": "DOC209",
+      "to": "P202",
+      "relation": "chantagem_paga"
+    }
+  ],
+  "mural_nodes": [
+    {
+      "id": "EV201",
+      "label": "Lacre reimpresso",
+      "need": "ev:EV201"
+    },
+    {
+      "id": "EV202",
+      "label": "HD clonado",
+      "need": "ev:EV202"
+    },
+    {
+      "id": "EV203",
+      "label": "Backup das câmeras",
+      "need": "ev:EV203"
+    },
+    {
+      "id": "EV204",
+      "label": "Ponto biométrico",
+      "need": "ev:EV204"
+    },
+    {
+      "id": "DOC209",
+      "label": "Depósito JARDINEIRO",
+      "need": "doc:DOC209"
+    },
+    {
+      "id": "P202",
+      "label": "Vera Lontra"
+    },
+    {
+      "id": "PER",
+      "label": "Sala de perícia"
+    }
+  ],
+  "jury": {
+    "suspects": [
+      "P202",
+      "P203",
+      "P204",
+      "P205",
+      "P206",
+      "P207"
+    ],
+    "locations": [
+      "Fórum — fachada",
+      "Guarita da entrada",
+      "Paiol de Provas",
+      "Subsolo — quadro geral",
+      "Corredor das câmeras"
+    ],
+    "methods": [
+      "Enforcamento encenado após estrangulamento",
+      "Suicídio por enforcamento",
+      "Descarga elétrica no apagão",
+      "Queda da escada de serviço",
+      "Envenenamento no café da guarita"
+    ]
+  },
+  "opening_cinematic": "CIN201",
+  "victim_dossier": {
+    "resumo": "Téo Almada, guarda do paiol de provas do Fórum, encontrado enforcado na viga após um apagão de 7 minutos. A cena simula suicídio — mas o laudo aponta dois sulcos de ligadura e o HD do mega-julgamento foi clonado.",
+    "ligacoes": [
+      "Paiol de provas",
+      "Apagão de 7 minutos",
+      "HD clonado",
+      "Mega-julgamento",
+      "Lacre reimpresso"
+    ]
+  },
+  "organizations": [
+    {
+      "icone": "⚖️",
+      "nome": "Tribunal de Justiça do PR",
+      "desc": "Sede do mega-julgamento da rede."
+    },
+    {
+      "icone": "🔬",
+      "nome": "Perícia Oficial",
+      "desc": "Custódia técnica das provas dos casos CWB-1447 e SRR-0904."
+    },
+    {
+      "icone": "🕸",
+      "nome": "Rede MUSEU",
+      "desc": "Ré do mega-julgamento — e principal beneficiária do apagão."
+    },
+    {
+      "icone": "🛡",
+      "nome": "Guarda do Fórum",
+      "desc": "Responsável pela segurança do paiol de provas."
+    }
+  ],
+  "briefing": {
+    "case_code": "ECL-2112",
+    "title": "Operação Eclipse",
+    "local": "Fórum Central · Curitiba",
+    "data": "21 de dezembro, 21:12",
+    "scene": "fórum",
+    "victim": "Téo Almada — guarda do paiol de provas",
+    "synopsis": "Sete minutos de apagão engoliram o Fórum. Quando os geradores religaram, o guarda Téo Almada foi encontrado enforcado no paiol de provas. À primeira vista, um suicídio. Mas há dois sulcos no pescoço, o HD do mega-julgamento da rede foi clonado, e um lacre reimpresso na prateleira 14. Alguém apagou as luzes para reescrever a verdade.",
+    "howto": [
+      "Percorra guarita, perícia, paiol e subsolo no <b>Mapa</b>.",
+      "Confronte hash e biometria no <b>Laboratório</b> e nos documentos.",
+      "Interrogue peritos e advogados; apresente provas.",
+      "Rastreie o apagão no <b>GEOINT</b> e a rede no <b>OSINT</b>.",
+      "Ligue tudo no <b>Mural</b>, ordene a <b>Linha do Tempo</b> e julgue na <b>Sala do Júri</b>."
+    ],
+    "victim_pid": "P201"
+  }
+}

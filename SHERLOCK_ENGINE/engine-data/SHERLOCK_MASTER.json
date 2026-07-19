@@ -1,0 +1,88 @@
+{
+  "schema": "SHERLOCK_MASTER",
+  "version": "1.0",
+  "engine": {
+    "name": "Sherlock Engine",
+    "entry_point": "index.html",
+    "startup_sequence": [
+      "SHERLOCK_ENGINE_CORE.json",
+      "SHERLOCK_ENGINE_API.json",
+      "SHERLOCK_ENGINE_DATABASE.json",
+      "SHERLOCK_ENGINE_EVENTS.json",
+      "SHERLOCK_ENGINE_SAVE.json",
+      "SHERLOCK_ENGINE_GAMEPLAY.json",
+      "SHERLOCK_ENGINE_UI.json",
+      "SHERLOCK_ENGINE_AUDIO.json",
+      "SHERLOCK_ENGINE_ANIMATIONS.json",
+      "SHERLOCK_ENGINE_AI.json",
+      "SHERLOCK_ENGINE_WORLD.json",
+      "SHERLOCK_ENGINE_GEOINT.json",
+      "SHERLOCK_ENGINE_OSINT.json",
+      "SHERLOCK_ENGINE_HUMINT.json",
+      "SHERLOCK_ENGINE_FORENSICS.json",
+      "SHERLOCK_ENGINE_PERSONAGENS.json",
+      "SHERLOCK_ENGINE_OBJETOS.json",
+      "SHERLOCK_ENGINE_DOCUMENTOS.json",
+      "SHERLOCK_ENGINE_IMAGENS.json",
+      "SHERLOCK_ENGINE_PROMPTS.json",
+      "SHERLOCK_ENGINE_ENIGMAS.json",
+      "SHERLOCK_ENGINE_DIALOGOS.json",
+      "SHERLOCK_ENGINE_CINEMATICS.json",
+      "SHERLOCK_ENGINE_EVIDENCE_GRAPH.json",
+      "SHERLOCK_ENGINE_CASE001_FULL.json"
+    ]
+  },
+  "module_registry": {
+    "required": [
+      "core",
+      "api",
+      "database",
+      "events",
+      "save",
+      "gameplay",
+      "ui",
+      "audio",
+      "animations",
+      "ai",
+      "world",
+      "geoint",
+      "osint",
+      "humint",
+      "forensics",
+      "case001"
+    ],
+    "optional": [
+      "mods",
+      "dlc",
+      "cases",
+      "localization",
+      "analytics"
+    ]
+  },
+  "asset_manifest": {
+    "images": "SHERLOCK_ENGINE_IMAGENS.json",
+    "audio": "SHERLOCK_ENGINE_AUDIO.json",
+    "prompts": "SHERLOCK_ENGINE_PROMPTS.json",
+    "documents": "SHERLOCK_ENGINE_DOCUMENTOS.json"
+  },
+  "boot_validation": {
+    "check_missing_modules": true,
+    "check_duplicate_ids": true,
+    "validate_cross_references": true,
+    "validate_case_integrity": true
+  },
+  "future_cases": [
+    {
+      "id": "CASE002",
+      "title": "Silêncio na Serra"
+    },
+    {
+      "id": "CASE003",
+      "title": "Operação Eclipse"
+    },
+    {
+      "id": "CASE004",
+      "title": "O Colecionador"
+    }
+  ]
+}

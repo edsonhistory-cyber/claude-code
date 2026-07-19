@@ -1,0 +1,111 @@
+{
+  "schema": "CASE004_FULL",
+  "version": "1.0",
+  "case": {
+    "id": "COL-0077",
+    "title": "O Colecionador",
+    "status": "Playable",
+    "city": "Curitiba - PR (Batel)",
+    "objective": "Descobrir quem matou o leiloeiro Gustavo Braga e desmascarar o Colecionador — a cabeça da rede."
+  },
+  "acts": [
+    {
+      "id": "ACT1",
+      "title": "O Leilão",
+      "goal": "Reconstituir a noite do leilão beneficente no Casarão do Batel.",
+      "unlock": [
+        "Mapa",
+        "Dossiês",
+        "Lista de convidados"
+      ]
+    },
+    {
+      "id": "ACT2",
+      "title": "O Lote 77",
+      "goal": "Explicar o blecaute cênico do lote final e a cadeira da vítima.",
+      "unlock": [
+        "Registro de lances",
+        "Gravação do leilão",
+        "Depoimentos"
+      ]
+    },
+    {
+      "id": "ACT3",
+      "title": "Laboratório",
+      "goal": "Ligar a agulha do estofado à toxina da rede.",
+      "unlock": [
+        "Laudo",
+        "Agulha",
+        "Catálogo"
+      ]
+    },
+    {
+      "id": "ACT4",
+      "title": "Sala do Júri",
+      "goal": "Apresentar suspeito, local e método — e encerrar a campanha."
+    }
+  ],
+  "critical_path": [
+    "Registro de lances",
+    "Salão de leilões",
+    "Gravação do leilão",
+    "Agulha oca",
+    "Catálogo anotado",
+    "Codinome MUSEU",
+    "Sala do Júri"
+  ],
+  "red_herrings": [
+    {
+      "character": "Bruno Sarti",
+      "reason": "Herdeiro endividado, mas ficou no bar do salão sob 30 testemunhas."
+    },
+    {
+      "character": "Padre Inácio",
+      "reason": "Beneficiário do leilão, sem qualquer acesso ao palco."
+    },
+    {
+      "character": "Yara Campos",
+      "reason": "Rival de Gustavo em leilões, porém deu o lance vencedor à distância."
+    }
+  ],
+  "dependencies": [
+    {
+      "from": "PERICIA",
+      "to": "INTELIGENCIA",
+      "token": "TOXINA"
+    },
+    {
+      "from": "INTELIGENCIA",
+      "to": "ARQUIVO",
+      "token": "CATALOGO"
+    },
+    {
+      "from": "ARQUIVO",
+      "to": "CAMPO",
+      "token": "LANCE"
+    },
+    {
+      "from": "CAMPO",
+      "to": "PERICIA",
+      "token": "TROFEU"
+    }
+  ],
+  "final_solution": {
+    "sealed": true,
+    "encoding": "base64",
+    "note": "Solução lacrada. Decodificada apenas na Sala do Júri, no momento do veredito.",
+    "data": "eyJzdXNwZWN0IjogIkhlbGVuYSBTYXJ0aSIsICJsb2NhdGlvbiI6ICJTYWzDo28gZGUgbGVpbMO1ZXMgZG8gQ2FzYXLDo28iLCAibWV0aG9kIjogIkFndWxoYSBjb20gdG94aW5hIG5vIGVuY29zdG8gZGEgY2FkZWlyYSIsICJwcm9vZnMiOiBbIkFndWxoYSBvY2Egbm8gZXN0b2ZhZG8gZG8gbG90ZSA3NyIsICJDYXTDoWxvZ28gYW5vdGFkbzogTVVTRVUgY29tYW5kYSBhIHJlZGUiLCAiTGFuY2UtZmFudGFzbWEgY29icmluZG8gYSBtb3ZpbWVudGHDp8OjbyIsICJHcmF2YcOnw6NvIGRvIGxlaWzDo286IGFwZW5hcyBlbGEgY2lyY3VsYSBubyBibGVjYXV0ZSBkbyBsb3RlIGZpbmFsIiwgIlRveGluYSBpZMOqbnRpY2Egw6AgZG8gY2FzbyBDV0ItMTQ0NyJdfQ=="
+  },
+  "completion": {
+    "required": [
+      "4 códigos do cofre",
+      "Linha do tempo correta",
+      "Acusação correta"
+    ],
+    "score_rank": {
+      "560": "Detetive de Elite",
+      "460": "Investigador Sênior",
+      "360": "Caso Resolvido"
+    }
+  }
+}

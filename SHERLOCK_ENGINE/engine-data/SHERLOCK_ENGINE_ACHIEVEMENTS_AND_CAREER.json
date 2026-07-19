@@ -1,0 +1,127 @@
+{
+  "schema": "SHERLOCK_ENGINE_ACHIEVEMENTS_AND_CAREER",
+  "version": "1.0",
+  "career": {
+    "starting_rank": "Recruta",
+    "max_level": 100,
+    "xp_sources": {
+      "evidence": 25,
+      "document": 10,
+      "interrogation": 40,
+      "case_solved": 500,
+      "perfect_case": 250
+    },
+    "ranks": [
+      "Recruta",
+      "Investigador",
+      "Inspetor",
+      "Detetive",
+      "Detetive Sênior",
+      "Especialista",
+      "Comissário",
+      "Lenda"
+    ]
+  },
+  "specializations": [
+    {
+      "id": "SPEC01",
+      "name": "Perícia",
+      "skills": [
+        "DNA",
+        "AFIS",
+        "Toxicologia",
+        "Documentoscopia"
+      ]
+    },
+    {
+      "id": "SPEC02",
+      "name": "Inteligência",
+      "skills": [
+        "OSINT",
+        "SIGINT",
+        "Análise Financeira",
+        "Perfil Criminal"
+      ]
+    },
+    {
+      "id": "SPEC03",
+      "name": "Campo",
+      "skills": [
+        "Interrogatório",
+        "Reconstrução",
+        "GEOINT",
+        "Observação"
+      ]
+    },
+    {
+      "id": "SPEC04",
+      "name": "Arquivo",
+      "skills": [
+        "Cronologia",
+        "Pesquisa",
+        "Correlação",
+        "Histórico"
+      ]
+    }
+  ],
+  "achievements": [
+    {
+      "id": "ACH001",
+      "name": "Primeira Evidência",
+      "xp": 50
+    },
+    {
+      "id": "ACH002",
+      "name": "Caso Sem Dicas",
+      "xp": 200
+    },
+    {
+      "id": "ACH003",
+      "name": "Perícia Perfeita",
+      "xp": 250
+    },
+    {
+      "id": "ACH004",
+      "name": "Acusação Irrefutável",
+      "xp": 300
+    },
+    {
+      "id": "ACH005",
+      "name": "Detetive de Elite",
+      "xp": 500
+    }
+  ],
+  "career_history": {
+    "store_cases": true,
+    "store_statistics": true,
+    "store_best_scores": true
+  },
+  "daily_weekly_challenges": {
+    "daily": [
+      "Resolver um enigma",
+      "Analisar três evidências",
+      "Concluir um interrogatório"
+    ],
+    "weekly": [
+      "Resolver um caso",
+      "Obter classificação 5 estrelas",
+      "Não utilizar dicas"
+    ]
+  },
+  "rewards": {
+    "unlockables": [
+      "Distintivos",
+      "Temas da interface",
+      "Molduras de perfil",
+      "Cartões de investigador",
+      "Trilhas sonoras",
+      "Galeria conceitual"
+    ]
+  },
+  "future": {
+    "season_pass": true,
+    "guilds": true,
+    "global_leaderboards": true,
+    "cross_case_progression": true
+  }
+}

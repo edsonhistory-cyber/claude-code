@@ -1,0 +1,106 @@
+{
+  "schema": "CASE001_COMPLETE_WORLD_STATE",
+  "version": "1.0",
+  "case": "CWB-1447",
+  "global_state": {
+    "current_time": "14:00",
+    "weather_cycle": [
+      {
+        "time": "14:00",
+        "sky": "Parcialmente nublado",
+        "light": "Alta"
+      },
+      {
+        "time": "16:00",
+        "sky": "Aberto",
+        "light": "Quente"
+      },
+      {
+        "time": "17:50",
+        "sky": "Pôr do sol",
+        "light": "Dourada"
+      },
+      {
+        "time": "18:30",
+        "sky": "Anoitecer",
+        "light": "Baixa"
+      }
+    ],
+    "game_flags": {
+      "crime_committed": false,
+      "body_found": false,
+      "jury_unlocked": false,
+      "case_closed": false
+    }
+  },
+  "state_timeline": [
+    {
+      "time": "14:00",
+      "characters": {
+        "Otavio": "Ônibus - andar superior",
+        "Sergio": "Cabine",
+        "Renata": "Assento 5",
+        "Bianca": "Andar superior filmando",
+        "Dilia": "Recepção de passageiros"
+      },
+      "objects": {
+        "Garrafa": "Porta-volumes",
+        "Luvas": "Ocultas",
+        "Tacografo": "Ativo"
+      }
+    },
+    {
+      "time": "15:47",
+      "characters": {
+        "Sergio": "Sozinho no ônibus",
+        "Demais": "Fora do veículo"
+      },
+      "objects": {
+        "Garrafa": "Manipulada",
+        "Veneno": "Aplicado"
+      },
+      "flags": {
+        "crime_committed": true
+      }
+    },
+    {
+      "time": "17:50",
+      "characters": {
+        "Otavio": "Vítima no mirante"
+      },
+      "flags": {
+        "body_found": true
+      }
+    },
+    {
+      "time": "18:30",
+      "flags": {
+        "jury_unlocked": true
+      }
+    }
+  ],
+  "area_states": {
+    "KM18": {
+      "accessible": true,
+      "hidden_evidence": [
+        "Microfibra"
+      ]
+    },
+    "Barigui": {
+      "accessible": true,
+      "hidden_evidence": [
+        "Luvas"
+      ]
+    },
+    "Tangua": {
+      "accessible": true,
+      "scene_locked_after_finish": true
+    }
+  },
+  "simulation": {
+    "npc_updates": "every_30_seconds",
+    "weather_updates": "timeline",
+    "lighting_updates": "timeline",
+    "world_sync": "event_based"
+  }
+}

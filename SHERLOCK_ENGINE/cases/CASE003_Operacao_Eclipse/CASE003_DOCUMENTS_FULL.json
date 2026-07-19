@@ -1,0 +1,117 @@
+{
+  "schema": "CASE003_DOCUMENTS_FULL",
+  "version": "1.0",
+  "case": "ECL-2112",
+  "documents": [
+    {
+      "id": "DOC201",
+      "title": "Laudo Cadavérico Preliminar",
+      "type": "Laudo Médico-Legal",
+      "author": "Legista",
+      "classification": "Confidencial",
+      "summary": "Duas marcas de ligadura: sulco oblíquo post-mortem (corda do enforcamento) sobre sulco horizontal vital. Petéquias conjuntivais. Suicídio encenado."
+    },
+    {
+      "id": "DOC202",
+      "title": "Laudo de Informática Forense",
+      "type": "Laboratório",
+      "summary": "O HD da caixa CWB-1447/SRR-0904 é um clone: hash divergente do termo de custódia; setores zerados às 21:16.",
+      "related": [
+        "EV202"
+      ]
+    },
+    {
+      "id": "DOC203",
+      "title": "Livro de Ocorrências da Guarita",
+      "type": "Operacional",
+      "summary": "Última linha de Téo, 21:05: \"movimento na perícia depois do expediente\". Assinatura de saída de Vera às 20:30 — tinta diferente do restante da página.",
+      "fields": [
+        "Hora",
+        "Ocorrência",
+        "Assinatura"
+      ]
+    },
+    {
+      "id": "DOC204",
+      "title": "Registro do Ponto Biométrico",
+      "type": "Registro Técnico",
+      "summary": "Biometria não mente: Vera Lontra saiu às 21:25. Otto Krieger não entrou no prédio após as 17:40. Rui Barros permaneceu em audiência online até 21:30.",
+      "related": [
+        "EV204"
+      ]
+    },
+    {
+      "id": "DOC205",
+      "title": "Controle de Lacres da Custódia",
+      "type": "Registro",
+      "summary": "A delegada Cátia registra: lote de lacres nº 4400-4499 em uso; o lacre da prateleira 14 é o nº 4612 — de um lote ainda não distribuído, guardado na sala de perícia."
+    },
+    {
+      "id": "DOC206",
+      "title": "Ficha Funcional de Vera Lontra",
+      "type": "RH",
+      "classification": "Restrito",
+      "summary": "Perita criminal há 18 anos, ilibada. Afastamento recente de 3 dias por \"motivos familiares\" — mesmo período do sequestro-relâmpago do filho, nunca registrado em BO.",
+      "related": [
+        "P202"
+      ]
+    },
+    {
+      "id": "DOC207",
+      "title": "Notícia — Mega-julgamento da Rede",
+      "type": "Notícia",
+      "summary": "\"Provas dos casos CWB-1447 e SRR-0904 sustentam o mega-julgamento da organização.\" A defesa pediu — e perdeu — três vezes o acesso ao paiol."
+    },
+    {
+      "id": "DOC208",
+      "title": "Bloco de Anotações de Téo",
+      "type": "Manuscrito",
+      "summary": "No verso da escala de ronda, uma palavra cifrada e o desenho de um jaleco.",
+      "related": [
+        "P201"
+      ]
+    },
+    {
+      "id": "DOC209",
+      "title": "Extrato — Conta do Filho de Vera",
+      "type": "Financeiro",
+      "summary": "Depósito de origem oculta quita a \"dívida\" do filho um dia após o apagão. O mesmo padrão da Fundação Pinhal: quitação por codinome — desta vez, JARDINEIRO."
+    },
+    {
+      "id": "DOC210",
+      "title": "Relatório Final do Caso",
+      "type": "Conclusão",
+      "summary": "Consolidação de todas as provas para a Sala do Júri.",
+      "requires": [
+        "EV201",
+        "EV202",
+        "EV203",
+        "EV204"
+      ]
+    }
+  ],
+  "index": {
+    "medical": [
+      "DOC201"
+    ],
+    "operational": [
+      "DOC203",
+      "DOC204",
+      "DOC205"
+    ],
+    "historical": [
+      "DOC206"
+    ],
+    "financial": [
+      "DOC209"
+    ],
+    "intelligence": [
+      "DOC202",
+      "DOC207",
+      "DOC208"
+    ],
+    "final": [
+      "DOC210"
+    ]
+  }
+}

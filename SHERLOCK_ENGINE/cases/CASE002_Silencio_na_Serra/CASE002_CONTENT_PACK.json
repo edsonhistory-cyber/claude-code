@@ -1,0 +1,1321 @@
+{
+  "schema": "CASE_CONTENT_PACK",
+  "version": "1.0",
+  "case": "CASE002",
+  "map_title": "SERRA VERDE · CURITIBA → MORRETES",
+  "osint_placeholder": "Ex.: \"Fundação Pinhal\", \"Ivo Rezende\", \"Heitor Salles\"…",
+  "final_enigma": "EN110",
+  "tokens": [
+    "FIBRA",
+    "TRILHOS",
+    "LUZES",
+    "TUNEL"
+  ],
+  "characters": [
+    {
+      "id": "P101",
+      "nome": "Heitor Salles",
+      "papel": "Vítima",
+      "profissao": "Contador"
+    },
+    {
+      "id": "P102",
+      "nome": "Camila Fontes",
+      "papel": "Suspeita aparente",
+      "profissao": "Advogada"
+    },
+    {
+      "id": "P103",
+      "nome": "Ivo Rezende",
+      "papel": "Suspeito",
+      "profissao": "Auxiliar ferroviário"
+    },
+    {
+      "id": "P104",
+      "nome": "Sofia Weber",
+      "papel": "Testemunha-chave",
+      "profissao": "Fotógrafa"
+    },
+    {
+      "id": "P105",
+      "nome": "Ernesto Gruber",
+      "papel": "Red Herring",
+      "profissao": "Colecionador"
+    },
+    {
+      "id": "P106",
+      "nome": "Marta Salles",
+      "papel": "Suspeita aparente",
+      "profissao": "Irmã da vítima"
+    },
+    {
+      "id": "P107",
+      "nome": "Davi Prado",
+      "papel": "Testemunha",
+      "profissao": "Chefe de trem"
+    },
+    {
+      "id": "P121",
+      "nome": "Olga Steiner",
+      "papel": "Testemunha",
+      "profissao": "Chef do vagão-restaurante",
+      "bio": "Serviu o vagão 2 minutos antes do túnel. Lembra de cada pedido — e de quem NÃO estava no assento na volta das luzes."
+    },
+    {
+      "id": "P122",
+      "nome": "Nando Cruz",
+      "papel": "Equipe",
+      "profissao": "Guarda-freios",
+      "bio": "Percorreu a composição após o alarme. Encontrou a porta de comunicação do vagão 2 destravada, contra o protocolo."
+    },
+    {
+      "id": "P123",
+      "nome": "Franz Keller",
+      "papel": "Testemunha",
+      "profissao": "Turista",
+      "bio": "Fotografava a paisagem no vagão 1. Sua câmera registrou o reflexo de alguém atravessando entre vagões no escuro."
+    },
+    {
+      "id": "P124",
+      "nome": "Dr. Aluísio Franco",
+      "papel": "Equipe",
+      "profissao": "Delegado de Morretes",
+      "bio": "Recebeu a composição na estação e lacrou o vagão 2. Cedeu a investigação à força-tarefa da capital."
+    },
+    {
+      "id": "P125",
+      "nome": "Rute Campos",
+      "papel": "Outros",
+      "profissao": "Bilheteira",
+      "bio": "Vendeu o bilhete 43 — pago em dinheiro, sem nome, na janela dos fundos. O assento ficou vazio a viagem toda."
+    }
+  ],
+  "dossiers": {
+    "PERICIA": {
+      "nome": "Perícia",
+      "enigmas": [
+        "EN107",
+        "EN101"
+      ],
+      "code": "PER-91",
+      "emits": "FIBRA",
+      "receives": "TUNEL"
+    },
+    "INTELIGENCIA": {
+      "nome": "Inteligência",
+      "enigmas": [
+        "EN102",
+        "EN106",
+        "EN108"
+      ],
+      "code": "INT-27",
+      "emits": "TRILHOS",
+      "receives": "FIBRA"
+    },
+    "ARQUIVO": {
+      "nome": "Arquivo",
+      "enigmas": [
+        "EN109"
+      ],
+      "code": "ARQ-63",
+      "emits": "LUZES",
+      "receives": "TRILHOS"
+    },
+    "CAMPO": {
+      "nome": "Campo",
+      "enigmas": [
+        "EN103",
+        "EN104",
+        "EN105"
+      ],
+      "code": "CAM-08",
+      "emits": "TUNEL",
+      "receives": "LUZES"
+    }
+  },
+  "enigma_gates": {
+    "EN101": {
+      "token": "TUNEL",
+      "needs": [
+        "fib_done"
+      ],
+      "hintLocked": "Requer o token TUNEL (Campo) e a microscopia de fibras concluída."
+    },
+    "EN102": {
+      "needs": [
+        "doc:DOC108"
+      ],
+      "hintLocked": "Requer o Caderno de Heitor (DOC108 — recolha os pertences em Morretes)."
+    },
+    "EN103": {
+      "needs": [
+        "ev:EV104"
+      ],
+      "hintLocked": "Requer o registro do painel de energia coletado no vagão 2."
+    },
+    "EN104": {},
+    "EN105": {
+      "needs": [
+        "contradicao"
+      ],
+      "hintLocked": "Requer a Contradição 02 (confronte Ivo com o registro do painel)."
+    },
+    "EN106": {
+      "needs": [
+        "ev:EV103"
+      ],
+      "hintLocked": "Requer a foto de longa exposição (converse com Sofia nos Interrogatórios)."
+    },
+    "EN107": {
+      "needs": [
+        "ev:EV101",
+        "ev:EV102",
+        "fib_done"
+      ],
+      "hintLocked": "Requer a corda do rio e as luvas de serviço, mais a microscopia."
+    },
+    "EN108": {
+      "token": "FIBRA",
+      "hintLocked": "Requer o token FIBRA (Perícia)."
+    },
+    "EN109": {
+      "token": "TRILHOS",
+      "needs": [
+        "doc:DOC103"
+      ],
+      "hintLocked": "Requer o token TRILHOS (Inteligência) e o Manifesto lido."
+    }
+  },
+  "acts_progress": {
+    "act2": [
+      "ev:EV104",
+      "en:EN104"
+    ],
+    "act3": [
+      "fib_done"
+    ]
+  },
+  "stops": [
+    {
+      "id": "EST",
+      "name": "Estação Curitiba",
+      "time": "13:10",
+      "scene": "estação curitiba plataforma",
+      "ambience": "cidade",
+      "pos": [
+        50,
+        40
+      ]
+    },
+    {
+      "id": "MAR",
+      "name": "Mirante do Marumbi",
+      "time": "14:20",
+      "scene": "mirante da serra",
+      "ambience": "parque",
+      "pos": [
+        130,
+        90
+      ]
+    },
+    {
+      "id": "TREM",
+      "name": "Vagão 2 (pátio da perícia)",
+      "time": "—",
+      "scene": "trem",
+      "ambience": "cidade",
+      "pos": [
+        60,
+        150
+      ],
+      "off_route": true
+    },
+    {
+      "id": "TUN",
+      "name": "Túnel Roça Nova",
+      "time": "14:52",
+      "scene": "túnel",
+      "ambience": "juri",
+      "pos": [
+        210,
+        130
+      ],
+      "danger": true
+    },
+    {
+      "id": "PON",
+      "name": "Ponte do Nhundiaquara",
+      "time": "15:15",
+      "scene": "rio",
+      "ambience": "agua",
+      "pos": [
+        290,
+        180
+      ]
+    },
+    {
+      "id": "MOR",
+      "name": "Estação Morretes",
+      "time": "16:30",
+      "scene": "estação",
+      "ambience": "parque",
+      "pos": [
+        350,
+        225
+      ]
+    }
+  ],
+  "hotspots": {
+    "EST": [
+      {
+        "nome": "Bilheteria da estação",
+        "desc": "O manifesto do Serra Verde fica com o despachante.",
+        "action": {
+          "type": "doc",
+          "id": "DOC103",
+          "toast": "📄 Manifesto do Serra Verde obtido (DOC103)",
+          "already": "O manifesto já está com você."
+        }
+      },
+      {
+        "nome": "Plataforma 1",
+        "desc": "Câmeras cobrem o embarque das 13:10.",
+        "action": {
+          "type": "note",
+          "toast": "As câmeras confirmam o manifesto: Marta Salles não aparece em nenhum quadro do embarque."
+        }
+      },
+      {
+        "nome": "Bilheteria",
+        "desc": "A janela dos fundos vende sem cadastro.",
+        "action": {
+          "type": "flag",
+          "flag": "bilhete43_visto",
+          "score": 5,
+          "reason": "Bilhete 43 rastreado",
+          "toast": "O bilhete 43 foi pago em dinheiro na véspera — o assento viajou vazio ao lado da vítima."
+        }
+      }
+    ],
+    "MAR": [
+      {
+        "nome": "Deque do mirante",
+        "desc": "A parada panorâmica das 14:20.",
+        "action": {
+          "type": "flag",
+          "flag": "discussao_vista",
+          "score": 5,
+          "reason": "Discussão registrada",
+          "toast": "Testemunhas ouviram Ernesto discutir com Heitor por causa de uma mala no bagageiro."
+        }
+      },
+      {
+        "nome": "Trilhos e composição",
+        "desc": "O trem parou aqui por 10 minutos.",
+        "action": {
+          "type": "note",
+          "toast": "Todos desceram para fotos — exceto a tripulação, que permaneceu a bordo."
+        }
+      }
+    ],
+    "TREM": [
+      {
+        "nome": "Assento 7 — cena do crime",
+        "desc": "Onde Heitor foi encontrado \"dormindo\".",
+        "action": {
+          "type": "doc",
+          "id": "DOC101",
+          "toast": "📄 Laudo cadavérico preliminar (DOC101): asfixia por garrote, sulco fino no pescoço.",
+          "already": "A cena já foi periciada e está lacrada."
+        }
+      },
+      {
+        "nome": "Compartimento técnico",
+        "desc": "Armário de serviço ao lado do painel.",
+        "action": {
+          "type": "evidence",
+          "id": "EV102",
+          "nome": "Luvas de serviço do pátio",
+          "toast": "🧾 EV102 Luvas de serviço coletadas — fibras aderidas às palmas!",
+          "already": "O compartimento já foi vasculhado."
+        }
+      },
+      {
+        "nome": "Painel de energia do vagão 2",
+        "desc": "O disjuntor da iluminação fica aqui.",
+        "action": {
+          "type": "evidence",
+          "id": "EV104",
+          "nome": "Registro do painel de energia",
+          "doc": "DOC104",
+          "toast": "🧾 EV104 Registro do painel coletado. Log técnico (DOC104) disponível.",
+          "already": "O registro já está na Central."
+        }
+      },
+      {
+        "nome": "Vão entre vagões",
+        "desc": "Fiapos presos na sanfona de borracha.",
+        "action": {
+          "type": "flag",
+          "flag": "fiapos_vistos",
+          "score": 5,
+          "reason": "Fiapos fotografados",
+          "sfx": "camera_shutter",
+          "toast": "📷 Fiapos de nylon presos no vão — algo foi atirado daqui em movimento."
+        }
+      },
+      {
+        "nome": "Vagão-restaurante",
+        "desc": "A chef viu o vagão 2 inteiro.",
+        "action": {
+          "type": "note",
+          "toast": "Olga: \"dezoito cafés e um chá antes do túnel — e um assento vazio depois dele\"."
+        }
+      }
+    ],
+    "TUN": [
+      {
+        "nome": "Boca do túnel",
+        "desc": "Quatro minutos de escuridão total.",
+        "action": {
+          "type": "flag",
+          "flag": "tunel_visto",
+          "toast": "📍 Travessia cronometrada: 14:52 → 14:56. Compare com o registro do painel no GEOINT."
+        }
+      },
+      {
+        "nome": "Nicho de manutenção",
+        "desc": "Acesso de serviço dentro do túnel.",
+        "action": {
+          "type": "note",
+          "toast": "O nicho é de uso exclusivo da tripulação. Um passageiro não saberia onde pisar no escuro."
+        }
+      }
+    ],
+    "PON": [
+      {
+        "nome": "Margem do rio",
+        "desc": "O pescador apontou onde algo caiu do trem.",
+        "action": {
+          "type": "evidence",
+          "id": "EV101",
+          "nome": "Corda de nylon",
+          "toast": "🧾 EV101 Corda de nylon recuperada na margem do Nhundiaquara!",
+          "already": "A margem já foi varrida pela equipe."
+        }
+      },
+      {
+        "nome": "Pescador",
+        "desc": "Estava sob a ponte às 15:15.",
+        "action": {
+          "type": "flag",
+          "flag": "pescador_ouvido",
+          "toast": "🎣 \"Vi um rolo escuro cair do trem e afundar. Uns quinze e quinze, pela luz.\""
+        }
+      }
+    ],
+    "MOR": [
+      {
+        "nome": "Guichê de achados",
+        "desc": "Os pertences da vítima foram recolhidos aqui.",
+        "action": {
+          "type": "doc",
+          "id": "DOC108",
+          "toast": "📄 Caderno de Heitor recolhido (DOC108) — a última página está cifrada.",
+          "already": "Os pertences já foram catalogados."
+        }
+      },
+      {
+        "nome": "Vestiário da tripulação",
+        "desc": "Armários de serviço da linha.",
+        "action": {
+          "type": "flag",
+          "flag": "armario_visto",
+          "toast": "O uniforme de Ivo está encharcado de suor — e a viagem inteira é feita em cabine climatizada."
+        }
+      },
+      {
+        "nome": "Plataforma de Morretes",
+        "desc": "Fim da linha, começo do caso.",
+        "action": {
+          "type": "flag",
+          "flag": "morretes_vista",
+          "toast": "O delegado Franco lacrou o vagão 2 em 12 minutos — cadeia de custódia impecável."
+        }
+      }
+    ]
+  },
+  "osint": [
+    {
+      "match": "funda[çc][ãa]o\\s*pinhal|pinhal",
+      "title": "Registro de ONG — Fundação Pinhal",
+      "source": "Empresas (SRC002) · Notícias (SRC001)",
+      "body": "ONG criada há 14 meses, sede de fachada em Morretes. Movimentação incompatível com a estrutura. Notas fiscais citam codinomes: MUSEU, JARDINEIRO, RODAS e MAQUINISTA — os mesmos da planilha do caso CWB-1447.",
+      "unlock": "DOC107",
+      "unlockLabel": "Notícia — Fundação Pinhal (DOC107)",
+      "enigma": "EN108"
+    },
+    {
+      "match": "ivo|rezende",
+      "title": "Ficha profissional — Ivo Rezende",
+      "source": "Registros (SRC002)",
+      "body": "Auxiliar ferroviário. Renegociou dívidas de jogo em março; transferido para a linha da serra semanas depois. A quitação não saiu do salário dele.",
+      "unlock": "DOC106",
+      "unlockLabel": "Ficha Funcional de Ivo Rezende (DOC106)"
+    },
+    {
+      "match": "heitor|salles",
+      "title": "Perfil — Heitor Salles",
+      "source": "Telefonia (SRC005) · Imprensa (SRC001)",
+      "body": "Contador. Metadados mostram três ligações para o gabinete do MP em Morretes na última semana. Levava um caderno a todos os lugares.",
+      "unlock": "DOC109",
+      "unlockLabel": "Extrato — Compra de Dívida (DOC109)"
+    },
+    {
+      "match": "camila|fontes",
+      "title": "Perfil profissional — Camila Fontes",
+      "source": "Redes Sociais (SRC004)",
+      "body": "Advogada da Fundação Pinhal. Bilhete do vagão 1, confirmado por 12 passageiros. Colabora — talvez até demais."
+    },
+    {
+      "match": "marta|salles",
+      "title": "Registro civil — Marta Salles",
+      "source": "Registros (SRC002)",
+      "body": "Única herdeira de Heitor. Comprou passagem, mas o cartão de embarque nunca foi validado."
+    },
+    {
+      "match": "ernesto|gruber",
+      "title": "Perfil — Ernesto Gruber",
+      "source": "Redes Sociais (SRC004)",
+      "body": "Colecionador de relógios. A \"mala valiosa\" da discussão continha catálogos de leilão. Sem ligação com a Fundação."
+    },
+    {
+      "match": "sofia|weber",
+      "title": "Perfil — Sofia Weber",
+      "source": "Redes (SRC001)",
+      "body": "Fotógrafa de longa exposição. O disparo de 30 segundos que atravessou o túnel captou mais do que trilhos: captou luz onde não devia haver nenhuma."
+    },
+    {
+      "match": "davi|prado|chefe de trem",
+      "title": "Ficha — Davi Prado",
+      "source": "Registros (SRC002)",
+      "body": "Chefe de trem há 21 anos, ficha limpa. Colegas dizem que protege a equipe 'como um pai' — até demais."
+    },
+    {
+      "match": "bilhete|assento 43",
+      "title": "Bilhete 43 — venda anômala",
+      "source": "Bilheteria (SRC002)",
+      "body": "Pago em espécie, sem cadastro, na janela dos fundos. O assento viajou vazio: alguém queria um lugar sobrando no vagão 2."
+    }
+  ],
+  "interrogatable": [
+    {
+      "key": "IVO_REZENDE",
+      "pid": "P103"
+    },
+    {
+      "key": "CAMILA_FONTES",
+      "pid": "P102"
+    },
+    {
+      "key": "DAVI_PRADO",
+      "pid": "P107"
+    },
+    {
+      "key": "SOFIA_WEBER",
+      "pid": "P104"
+    },
+    {
+      "key": "ERNESTO_GRUBER",
+      "pid": "P105"
+    },
+    {
+      "key": "MARTA_SALLES",
+      "pid": "P106"
+    },
+    {
+      "key": "OLGA_STEINER",
+      "pid": "P121"
+    },
+    {
+      "key": "NANDO_CRUZ",
+      "pid": "P122"
+    },
+    {
+      "key": "FRANZ_KELLER",
+      "pid": "P123"
+    },
+    {
+      "key": "ALUISIO_FRANCO",
+      "pid": "P124"
+    },
+    {
+      "key": "RUTE_CAMPOS",
+      "pid": "P125"
+    }
+  ],
+  "witness_statements": {
+    "SOFIA_WEBER": {
+      "intro": "Eu deixei a câmera em longa exposição no tripé quando entramos no túnel. Queria os faróis riscando a parede... levem o cartão, por favor.",
+      "flag": "sofia_foto",
+      "note": "Sofia entregou a foto de longa exposição do túnel.",
+      "gives_evidence": {
+        "id": "EV103",
+        "nome": "Foto de longa exposição"
+      }
+    },
+    "ERNESTO_GRUBER": {
+      "intro": "Discuti com o Salles pela mala, sim. Relógios raros não viajam no bagageiro comum! Depois disso, fiquei no meu assento — há dez testemunhas.",
+      "flag": "ernesto_discussao",
+      "note": "Ernesto admite a discussão; dez passageiros o viram no assento."
+    },
+    "MARTA_SALLES": {
+      "intro": "Eu ia nesse trem. Perdi o embarque por dez minutos — e agora vão dizer que foi de propósito, claro. Éramos só nós dois de família.",
+      "flag": "marta_ausente",
+      "note": "Marta comprou passagem, mas não validou o embarque."
+    },
+    "OLGA_STEINER": {
+      "intro": "Servi dezoito cafés e um chá antes do túnel. Quando as luzes voltaram, um assento do panorâmico estava vazio — e eu sei qual.",
+      "flag": "olga_assento",
+      "note": "Olga confirmou o assento vazio no vagão panorâmico após o túnel."
+    },
+    "NANDO_CRUZ": {
+      "intro": "A porta de comunicação do vagão 2 estava destravada — contra protocolo. Só a equipe tem a chave quadrada. Conferi as quatro que existem: uma passou a viagem 'esquecida' no gancho da cabine.",
+      "flag": "nando_porta",
+      "note": "O guarda-freios achou a porta destravada e uma chave de serviço fora do lugar."
+    },
+    "FRANZ_KELLER": {
+      "intro": "Mein Gott, a foto! Eu fotografava o vale quando ficou escuro. No vidro, o reflexo: alguém atravessou entre os vagões AGACHADO. Levem o cartão — só devolvam as fotos das orquídeas.",
+      "flag": "franz_reflexo",
+      "note": "O turista registrou um vulto agachado cruzando entre vagões no escuro."
+    },
+    "ALUISIO_FRANCO": {
+      "intro": "Lacrei o vagão 2 em doze minutos e não deixei ninguém descer antes da lista pronta. A cadeia de custódia desta ocorrência é de livro — usem-na.",
+      "flag": "franco_custodia",
+      "note": "O delegado de Morretes garantiu a custódia impecável do vagão."
+    },
+    "RUTE_CAMPOS": {
+      "intro": "O bilhete 43 foi pago em dinheiro, na janela dos fundos, por um homem de boné que não levantou a cabeça. Vendi milhares de bilhetes — quem esconde o rosto, esconde o resto.",
+      "flag": "rute_bilhete",
+      "note": "A bilheteira descreveu a compra anônima do assento 43."
+    }
+  },
+  "moods": {
+    "IVO_REZENDE": {
+      "neutro": "Eu cuido dos freios e da iluminação. Viagem tranquila, até o mirante.",
+      "pressionado": "Já falei: oscilação de rede acontece direto na serra.",
+      "confrontado": "Não lembro exatamente quando saí da cabine.",
+      "desmascarado": "Vocês não sabem o que é dever para eles. Ninguém diz não à Fundação."
+    },
+    "CAMILA_FONTES": {
+      "neutro": "A Fundação é auditada todo ano, detetive. Papel aceita tudo — auditoria também.",
+      "pressionado": "Advogados não suam. Transpiram estratégia.",
+      "confrontado": "Essa planilha não prova origem. Prova destino. Há uma diferença jurídica enorme.",
+      "desmascarado": "Eu montava as camadas. Quem ordenava tinha outro nome — e vocês ainda não chegaram nele."
+    },
+    "DAVI_PRADO": {
+      "neutro": "Vinte e um anos de linha. Nunca perdi um passageiro. Até ontem.",
+      "pressionado": "Minha equipe não. Procura em outro vagão.",
+      "confrontado": "A rasura... o senhor não entende o que é lealdade numa cabine.",
+      "desmascarado": "—"
+    }
+  },
+  "behavior_profiles": [
+    {
+      "character": "Ivo Rezende",
+      "baseline": {
+        "stress": 50,
+        "confidence": 60,
+        "cooperation": 40
+      },
+      "microexpressions": [
+        "Seca as mãos no uniforme",
+        "Olha para o painel"
+      ],
+      "triggers": [
+        {
+          "evidence": "Foto de longa exposição",
+          "effect": "+25 estresse"
+        },
+        {
+          "evidence": "Registro do painel de energia",
+          "effect": "+35 estresse"
+        },
+        {
+          "evidence": "Corda de nylon",
+          "effect": "Contradição desbloqueada"
+        }
+      ]
+    },
+    {
+      "character": "Camila Fontes",
+      "baseline": {
+        "stress": 25,
+        "confidence": 90,
+        "cooperation": 80
+      },
+      "microexpressions": [
+        "Sorri antes de responder"
+      ],
+      "triggers": []
+    }
+  ],
+  "contradiction": {
+    "character": "IVO_REZENDE",
+    "requiresTopic": "IVO_REZENDE:tunel",
+    "evidences": [
+      "EV104",
+      "EV101"
+    ],
+    "name": "Contradição 02",
+    "reaction": "Ivo jurou que nunca tocou no painel — o registro mostra acionamento manual às 14:52, e só a tripulação tem a chave. Contradição 02 registrada.",
+    "enigma": "EN105"
+  },
+  "lab": {
+    "tabs": [
+      {
+        "id": "fib",
+        "nome": "Fibras",
+        "test": {
+          "name": "Microscopia comparada (FIB001)",
+          "ms": 2000
+        },
+        "sample": {
+          "title": "EV101 Corda do rio × fibras das luvas EV102",
+          "needs": [
+            "ev:EV101",
+            "ev:EV102"
+          ],
+          "lockMsg": "Requer a corda do rio (EV101) e as luvas de serviço (EV102)."
+        },
+        "effects": {
+          "analyzed": "fib_done",
+          "unlockDoc": "DOC102"
+        },
+        "enigma": "EN107",
+        "results": [
+          "Nylon 6 trançado idêntico nos dois vestígios",
+          "Fuligem do túnel nas palmas das luvas"
+        ],
+        "note": "Laudo DOC102 emitido. Chave FIBRA registrada no dossiê da Perícia."
+      },
+      {
+        "id": "nos",
+        "nome": "Nós e Amarras",
+        "test": {
+          "name": "Análise morfológica de nós",
+          "ms": 1800
+        },
+        "sample": {
+          "title": "EV101 Corda de nylon — laço remanescente",
+          "needs": [
+            "ev:EV101"
+          ],
+          "lockMsg": "Requer a corda recuperada no rio."
+        },
+        "effects": {
+          "analyzed": "nos_done",
+          "score": 15,
+          "reason": "Nó identificado",
+          "toast": "🪢 Nó de amarração ferroviária (volta do fiel dupla) — ensinado no curso de pátio da companhia."
+        },
+        "results": [
+          "Volta do fiel dupla — padrão ferroviário",
+          "Aperto por trás, mão direita dominante"
+        ],
+        "note": "Restringe o autor a quem tem treinamento de pátio."
+      },
+      {
+        "id": "foto",
+        "nome": "Imagem Forense",
+        "test": {
+          "name": "Realce de longa exposição",
+          "ms": 2200
+        },
+        "sample": {
+          "title": "EV103 Foto de longa exposição — realce",
+          "needs": [
+            "ev:EV103"
+          ],
+          "lockMsg": "Requer a foto da Sofia (Interrogatórios)."
+        },
+        "effects": {
+          "analyzed": "foto_done",
+          "score": 15,
+          "reason": "Imagem realçada",
+          "toast": "📸 Realce concluído: o risco de luz é de uma lanterna de serviço — modelo da companhia ferroviária."
+        },
+        "results": [
+          "Rastro de lanterna de serviço às 14:53",
+          "Altura do vulto: 1,80 m ± 5 cm"
+        ],
+        "note": "Analise os quadros em Evidências (EN106)."
+      },
+      {
+        "id": "docsc",
+        "nome": "Documentoscopia",
+        "test": {
+          "name": "Luz UV + infravermelho",
+          "ms": 1600
+        },
+        "sample": {
+          "title": "DOC105 Diário de operação — rasura",
+          "needs": [
+            "doc:DOC105"
+          ],
+          "lockMsg": "Requer o Diário de Operação (fale com Davi nos Interrogatórios)."
+        },
+        "effects": {
+          "analyzed": "docsc_done",
+          "score": 15,
+          "reason": "Rasura revelada",
+          "toast": "📄 Sob UV, a rasura das 14:50 esconde: \"Ivo desceu ao vagão 2\". O diário foi adulterado depois."
+        },
+        "results": [
+          "Texto original: \"14:50 — Ivo desceu ao vagão 2\"",
+          "Tinta da rasura é posterior à viagem"
+        ],
+        "note": "A adulteração é prova de consciência de culpa."
+      }
+    ]
+  },
+  "geoint": {
+    "tach": {
+      "title": "PAINEL DE ENERGIA — TENSÃO DO VAGÃO 2 × HORA",
+      "needs": [
+        "ev:EV104"
+      ],
+      "lockMsg": "🔒 Colete o registro do painel de energia no vagão 2 (Mapa → Vagão 2).",
+      "hint": "Regra GEO001: queda de circuito com acionamento manual gera anomalia. Clique no intervalo anômalo.",
+      "doneMsg": "✔ EN103: desligamento manual às 14:52 identificado.",
+      "enigma": "EN103",
+      "points": [
+        [
+          "13:10",
+          55
+        ],
+        [
+          "13:40",
+          55
+        ],
+        [
+          "14:10",
+          55
+        ],
+        [
+          "14:20",
+          0
+        ],
+        [
+          "14:30",
+          55
+        ],
+        [
+          "14:45",
+          55
+        ],
+        [
+          "14:52",
+          0
+        ],
+        [
+          "14:56",
+          0
+        ],
+        [
+          "15:00",
+          55
+        ],
+        [
+          "15:15",
+          55
+        ],
+        [
+          "15:40",
+          0
+        ],
+        [
+          "16:00",
+          55
+        ],
+        [
+          "16:30",
+          0
+        ],
+        [
+          "16:50",
+          55
+        ],
+        [
+          "17:10",
+          55
+        ]
+      ],
+      "segments": [
+        {
+          "id": "mar",
+          "at": 2.7,
+          "w": 26
+        },
+        {
+          "id": "tun",
+          "at": 5.8,
+          "w": 30,
+          "correct": true,
+          "label": "4 MIN · MANUAL"
+        },
+        {
+          "id": "mir",
+          "at": 9.6,
+          "w": 26
+        },
+        {
+          "id": "mor",
+          "at": 11.7,
+          "w": 24
+        }
+      ],
+      "wrongMsg": "Queda normal: paradas programadas desligam o circuito pelo procedimento padrão. (-20)",
+      "okMsg": "🔓 EN103 resolvido! Desligamento MANUAL às 14:52 — exatamente a travessia do túnel."
+    },
+    "sat": {
+      "title": "IMAGEM DE SATÉLITE — FERROVIA DA SERRA DO MAR",
+      "hint": "Marque o ponto da linha onde o vagão 2 ficou às escuras.",
+      "doneMsg": "✔ EN104: Túnel Roça Nova marcado.",
+      "enigma": "EN104",
+      "terrain": "forest",
+      "route": "M30 30 L110 80 L180 110 L240 140 L300 185 L360 225",
+      "marks": [
+        {
+          "id": "est",
+          "x": 30,
+          "y": 30
+        },
+        {
+          "id": "mar",
+          "x": 110,
+          "y": 80
+        },
+        {
+          "id": "tun",
+          "x": 210,
+          "y": 128,
+          "correct": true,
+          "label": "⚠ TÚNEL"
+        },
+        {
+          "id": "pon",
+          "x": 300,
+          "y": 185
+        }
+      ],
+      "wrongMsg": "Céu aberto neste trecho — a foto da Sofia mostra escuridão total. (-20)",
+      "okMsg": "🔓 EN104 resolvido! Túnel Roça Nova: o único ponto cego da serra.",
+      "bonus": {
+        "token": "LUZES",
+        "flag": "circuito_visto",
+        "score": 15,
+        "reason": "Circuito de iluminação sobreposto",
+        "btn": "SOBREPOR CIRCUITO DE ILUMINAÇÃO (token LUZES)",
+        "btnDone": "✔ CIRCUITO DE ILUMINAÇÃO COMPARADO",
+        "lockMsg": "🔒 Sobreposição do circuito requer o token LUZES (Arquivo).",
+        "toast": "💡 O circuito do vagão 2 só pode ser seccionado do compartimento técnico — atrás de porta com chave de tripulação.",
+        "overlay": "M180 110 L210 128 L240 140",
+        "overlayLabel": "CIRCUITO VAGÃO 2"
+      }
+    }
+  },
+  "enigmas": {
+    "EN101": {
+      "type": "sequence",
+      "attach": {
+        "kind": "evidence",
+        "ref": "EV101"
+      },
+      "btn": "RECONSTITUIR ETIQUETA TÉCNICA",
+      "btnDone": "✔ ETIQUETA RECONSTITUÍDA",
+      "title": "EN101 — Etiqueta da Corda",
+      "prompt": "A etiqueta térmica da corda derreteu no rio. O espectro do laboratório recupera os fragmentos do material — reordene:",
+      "answer": "NYLON",
+      "okMsg": "🔓 EN101 resolvido! Material: NYLON 6 — lote de suprimento ferroviário.",
+      "wrongMsg": "Sequência incorreta. O espectro reinicia.",
+      "doneMsg": "A etiqueta já foi reconstituída: NYLON."
+    },
+    "EN102": {
+      "type": "input",
+      "attach": {
+        "kind": "document",
+        "ref": "DOC108"
+      },
+      "btn": "DECIFRAR (CÉSAR)",
+      "btnDone": "✔ CIFRA QUEBRADA",
+      "title": "EN102 — Caderno de Heitor",
+      "prompt": "Última página, sublinhado três vezes: <b class=\"mono\">ODYDJHP</b><br>Mesma cifra do caso CWB-1447 — deslocamento de 3 (O→L…):",
+      "submit": "DECIFRAR",
+      "answer": "LAVAGEM",
+      "okMsg": "🔓 EN102 resolvido! Heitor documentava a LAVAGEM da Fundação Pinhal.",
+      "wrongMsg": "Não confere. Tente outro deslocamento. (-20)",
+      "doneMsg": "A cifra já foi quebrada: LAVAGEM."
+    },
+    "EN105": {
+      "type": "choice",
+      "attach": {
+        "kind": "interrogation",
+        "ref": "IVO_REZENDE"
+      },
+      "btn": "REGISTRAR CONTRADIÇÃO NO DOSSIÊ (EN105)",
+      "title": "EN105 — Quebra de Álibi",
+      "prompt": "Qual par de declarações forma a <b>contradição decisiva</b> (a que coloca o suspeito no painel na hora do crime)?",
+      "options": [
+        "“Oscilação da rede na serra.”<br><span class=\"muted\">×</span> Registro: acionamento MANUAL do disjuntor.",
+        "“Eu estava na cabine com o Davi.”<br><span class=\"muted\">×</span> Davi: “ele disse que ia verificar um disjuntor”.",
+        "“Nunca toquei naquele painel.”<br><span class=\"muted\">×</span> Acionamento manual às 14:52 + acesso restrito à tripulação."
+      ],
+      "correct": 2,
+      "okMsg": "🔓 EN105 resolvido! Álibi de Ivo formalmente quebrado.",
+      "wrongMsg": "Contradição relevante, mas não decisiva. (-20)"
+    },
+    "EN106": {
+      "type": "frames",
+      "attach": {
+        "kind": "evidence",
+        "ref": "EV103"
+      },
+      "btn": "ANALISAR QUADRO A QUADRO",
+      "btnDone": "✔ VULTO LOCALIZADO",
+      "title": "EN106 — Foto de Longa Exposição",
+      "prompt": "A exposição de 4 minutos foi fatiada em 8 janelas. Uma mostra o <b>vulto com a lanterna de serviço</b>. Clique nela.",
+      "times": [
+        "14:52",
+        "14:52½",
+        "14:53",
+        "14:53½",
+        "14:54",
+        "14:54½",
+        "14:55",
+        "14:56"
+      ],
+      "correct": 2,
+      "markColor": "#E0B658",
+      "okMsg": "🔓 EN106 resolvido! O vulto cruza o vagão às 14:53 — um minuto após o desligamento.",
+      "wrongMsg": "Só escuridão nesta janela. (-20)",
+      "doneMsg": "O vulto já foi localizado na janela das 14:53."
+    },
+    "EN107": {
+      "type": "compare",
+      "attach": {
+        "kind": "lab",
+        "ref": "fib"
+      },
+      "btn": "COMPARAR PADRÕES (EN107)",
+      "title": "EN107 — Comparação de Fibras",
+      "prompt": "Microscópio: à esquerda, a <b>fibra da corda do rio</b>. Qual amostra das luvas tem o MESMO padrão (trama e cor)?",
+      "reference": {
+        "waves": 4,
+        "color": "#c9d4da"
+      },
+      "options": [
+        {
+          "waves": 4,
+          "color": "#7a5c3b"
+        },
+        {
+          "waves": 2,
+          "color": "#c9d4da"
+        },
+        {
+          "waves": 4,
+          "color": "#c9d4da"
+        }
+      ],
+      "correct": 2,
+      "okMsg": "🔓 EN107 resolvido! Fibras idênticas: as luvas seguraram a corda.",
+      "wrongMsg": "Padrões divergem. (-20)"
+    },
+    "EN108": {
+      "type": "choice",
+      "attach": {
+        "kind": "osint"
+      },
+      "btn": "IDENTIFICAR O \"MAQUINISTA\" (EN108)",
+      "btnDone": "✔ EN108: codinome identificado",
+      "title": "EN108 — Codinome MAQUINISTA",
+      "prompt": "A Fundação Pinhal quitou a dívida do codinome <b>MAQUINISTA</b> em março. Cruzando com as fichas funcionais: <b>quem é o MAQUINISTA?</b>",
+      "options": [
+        "Davi Prado",
+        "Ivo Rezende",
+        "Camila Fontes",
+        "Ernesto Gruber"
+      ],
+      "correct": 1,
+      "okMsg": "🔓 EN108 resolvido! MAQUINISTA = Ivo Rezende: a dívida quitada em março bate com a ficha dele.",
+      "wrongMsg": "A quitação não bate com essa ficha. (-20)"
+    },
+    "EN109": {
+      "type": "choice",
+      "attach": {
+        "kind": "document",
+        "ref": "DOC103"
+      },
+      "btn": "CRUZAR EMBARQUE",
+      "btnDone": "✔ AUSÊNCIA CONFIRMADA",
+      "title": "EN109 — Manifesto do Serra Verde",
+      "prompt": "Cruzando bilhetes vendidos × cartões validados: <b>quem comprou passagem mas NÃO embarcou?</b>",
+      "options": [
+        "Camila Fontes",
+        "Sofia Weber",
+        "Marta Salles",
+        "Ernesto Gruber"
+      ],
+      "correct": 2,
+      "okMsg": "🔓 EN109 resolvido! Marta nunca embarcou — sem oportunidade.",
+      "wrongMsg": "O manifesto diz o contrário. (-20)",
+      "doneMsg": "Já confirmado: Marta Salles não embarcou."
+    }
+  },
+  "doc_extras": {
+    "DOC108": "<div class=\"cipher\">Última página, sublinhado três vezes:<br><b class=\"mono\">DOHUWD: ODYDJHP</b></div>",
+    "DOC103": "<table class=\"manifest\"><tr><th>Passageiro</th><th>Vagão</th><th>Cartão validado 13:10</th></tr><tr><td>Heitor Salles</td><td>2</td><td>✔</td></tr><tr><td>Sofia Weber</td><td>2</td><td>✔</td></tr><tr><td>Ernesto Gruber</td><td>2</td><td>✔</td></tr><tr><td>Camila Fontes</td><td>1</td><td>✔</td></tr><tr><td>Marta Salles</td><td>2</td><td>—</td></tr></table>",
+    "DOC101_speak": "Asfixia mecânica por constrição. O sulco é fino, horizontal, sem sinais de luta. A vítima foi atacada por trás, no escuro.",
+    "DOC101": "<table class=\"manifest\"><tr><th>Exame</th><th>Achado</th></tr><tr><td>Causa mortis</td><td>Asfixia mecânica por constrição</td></tr><tr><td>Sulco</td><td>Fino, horizontal, contínuo — garrote</td></tr><tr><td>Hora estimada</td><td>14:52–14:56 (janela do túnel)</td></tr><tr><td>Defesa</td><td>Unhas limpas: ataque por trás, no escuro</td></tr></table><p class=\"muted\">Assina: IML de Morretes, com revisão da capital.</p>",
+    "DOC102": "<table class=\"manifest\"><tr><th>Amostra</th><th>Resultado</th></tr><tr><td>Fibras do sulco</td><td>Nylon 6 trançado, alma de 3 mm</td></tr><tr><td>Corda do rio</td><td>IDÊNTICA — mesmo lote de fabricação</td></tr><tr><td>Luvas do pátio</td><td>Resíduo de graxa ferroviária compatível</td></tr></table><p>Quem jogou a corda no Nhundiaquara conhecia o ponto cego da ponte.</p>",
+    "DOC104": "<div class=\"cipher\">PAINEL DO VAGÃO 2<br>14:52:07 — DISJUNTOR: <b>DESARME MANUAL</b><br>14:56:41 — RELIGAMENTO</div><p>Acesso ao painel exige chave quadrada de serviço. Passageiro não tem; equipe tem.</p>",
+    "DOC105": "<p>Diário de operação, letra do chefe de trem:</p><blockquote>\"Ivo na cabine durante toda a travessia da serra.\" <s>14:5—</s> (rasura funda, quase rasgando o papel)</blockquote><p>Davi protege alguém — ou apaga o próprio erro.</p>",
+    "DOC106": "<table class=\"manifest\"><tr><th>Ano</th><th>Registro</th></tr><tr><td>2019</td><td>Admitido — pátio de Curitiba</td></tr><tr><td>2023</td><td>Dívida de jogo registrada em cartório</td></tr><tr><td>03/2024</td><td><b>Dívida quitada por terceiro</b></td></tr><tr><td>04/2024</td><td>Transferência pedida: linha da serra</td></tr></table>",
+    "DOC107": "<p><b>DIÁRIO DO LITORAL — ECONOMIA</b></p><blockquote>\"Fundação Pinhal multiplica doações na serra: R$ 4,2 mi em 14 meses. Origem? 'Filantropos que preferem o anonimato', diz a diretoria.\"</blockquote><p class=\"muted\">O anonimato tem contador. Tinha.</p>",
+    "DOC109": "<table class=\"manifest\"><tr><th>Data</th><th>Operação</th><th>Valor</th></tr><tr><td>03/2024</td><td>Compra de dívida — funcionário ferroviário</td><td>R$ 38.500</td></tr><tr><td>03/2024</td><td>Origem: conta-espelho da Fundação Pinhal</td><td>—</td></tr></table><p>A rede não paga favores. Compra pessoas.</p>",
+    "DOC110": "<p><b>CHECKLIST DO JÚRI</b></p><table class=\"manifest\"><tr><th>Item</th><th>Status</th></tr><tr><td>4 evidências analisadas</td><td>—</td></tr><tr><td>Contradição registrada</td><td>—</td></tr><tr><td>Linha do tempo validada</td><td>—</td></tr><tr><td>4 códigos dos dossiês</td><td>—</td></tr></table>"
+  },
+  "deduction": {
+    "factors": {
+      "P103": {
+        "Motivo": [
+          "doc:DOC109",
+          "osint:pinhal"
+        ],
+        "Meios": [
+          "en:EN107",
+          "en:EN101"
+        ],
+        "Oportunidade": [
+          "en:EN103",
+          "en:EN104",
+          "en:EN106"
+        ],
+        "Alibi": [
+          "contradicao"
+        ]
+      },
+      "P102": {
+        "Motivo": [
+          "doc:DOC107"
+        ],
+        "Meios": [],
+        "Oportunidade": [],
+        "Alibi": []
+      },
+      "P105": {
+        "Motivo": [
+          "flag:discussao_vista"
+        ],
+        "Meios": [],
+        "Oportunidade": [],
+        "Alibi": []
+      },
+      "P106": {
+        "Motivo": [
+          "flag:marta_ausente"
+        ],
+        "Meios": [],
+        "Oportunidade": [
+          "en:EN109"
+        ],
+        "Alibi": []
+      },
+      "P107": {
+        "Motivo": [],
+        "Meios": [
+          "docsc_done"
+        ],
+        "Oportunidade": [],
+        "Alibi": []
+      }
+    },
+    "eliminations": [
+      {
+        "id": "R102",
+        "suspect": "P102",
+        "when": [
+          "doc:DOC103"
+        ],
+        "note": "Manifesto: Camila permaneceu no vagão 1 com outros 12 passageiros."
+      },
+      {
+        "id": "R103",
+        "suspect": "P105",
+        "when": [
+          "en:EN106"
+        ],
+        "note": "O vulto carrega lanterna de serviço — Ernesto não tem acesso ao equipamento."
+      },
+      {
+        "id": "R104",
+        "suspect": "P106",
+        "when": [
+          "en:EN109"
+        ],
+        "note": "Marta nunca embarcou — sem oportunidade."
+      },
+      {
+        "id": "R105",
+        "suspect": "P107",
+        "when": [
+          "docsc_done"
+        ],
+        "note": "A rasura no diário foi feita a pedido de Ivo; Davi assinava o ponto na cabine às 14:52."
+      }
+    ],
+    "critical_enigmas": [
+      "EN101",
+      "EN103",
+      "EN106",
+      "EN107"
+    ]
+  },
+  "knowledge_graph": [
+    {
+      "from": "EV102",
+      "to": "EV101",
+      "relation": "fibras_idênticas"
+    },
+    {
+      "from": "EV101",
+      "to": "P103",
+      "relation": "nó_de_ferroviário"
+    },
+    {
+      "from": "EV103",
+      "to": "P103",
+      "relation": "lanterna_de_serviço"
+    },
+    {
+      "from": "EV104",
+      "to": "TUN",
+      "relation": "desligamento_no_túnel"
+    },
+    {
+      "from": "DOC109",
+      "to": "P103",
+      "relation": "dívida_comprada"
+    }
+  ],
+  "mural_nodes": [
+    {
+      "id": "EV101",
+      "label": "Corda de nylon",
+      "need": "ev:EV101"
+    },
+    {
+      "id": "EV102",
+      "label": "Luvas de serviço",
+      "need": "ev:EV102"
+    },
+    {
+      "id": "EV103",
+      "label": "Foto do túnel",
+      "need": "ev:EV103"
+    },
+    {
+      "id": "EV104",
+      "label": "Registro do painel",
+      "need": "ev:EV104"
+    },
+    {
+      "id": "DOC109",
+      "label": "Dívida quitada",
+      "need": "doc:DOC109"
+    },
+    {
+      "id": "P103",
+      "label": "Ivo Rezende"
+    },
+    {
+      "id": "TUN",
+      "label": "Túnel Roça Nova"
+    }
+  ],
+  "jury": {
+    "suspects": [
+      "P102",
+      "P103",
+      "P104",
+      "P105",
+      "P106",
+      "P107"
+    ],
+    "locations": [
+      "Estação Curitiba",
+      "Mirante do Marumbi",
+      "Túnel Roça Nova / Vagão 2",
+      "Ponte do Nhundiaquara",
+      "Estação Morretes"
+    ],
+    "methods": [
+      "Garrote com corda de nylon no escuro",
+      "Veneno no lanche de bordo",
+      "Queda do vagão em movimento",
+      "Descarga elétrica do painel",
+      "Mal súbito natural"
+    ]
+  },
+  "opening_cinematic": "CIN101",
+  "victim_dossier": {
+    "resumo": "Heitor Salles, contador, encontrado no vagão 2 do Serra Verde Express após a travessia do túnel Roça Nova. Carregava um caderno com a contabilidade paralela da Fundação Pinhal — e um alerta cifrado na última página.",
+    "ligacoes": [
+      "Fundação Pinhal",
+      "Caderno em código",
+      "Túnel Roça Nova",
+      "Vagão 2",
+      "Lavagem de dinheiro"
+    ]
+  },
+  "organizations": [
+    {
+      "icone": "🚂",
+      "nome": "Serra Verde Express",
+      "desc": "Concessionária do trem turístico Curitiba–Morretes."
+    },
+    {
+      "icone": "🌲",
+      "nome": "Fundação Pinhal",
+      "desc": "ONG de fachada que multiplica doações na serra."
+    },
+    {
+      "icone": "👮",
+      "nome": "Polícia Civil — Morretes",
+      "desc": "Delegacia que recebeu a ocorrência na ponta da linha."
+    },
+    {
+      "icone": "🕸",
+      "nome": "Rede MUSEU",
+      "desc": "O dinheiro da serra sobe para alguém na capital."
+    }
+  ],
+  "briefing": {
+    "case_code": "SRR-0904",
+    "title": "Silêncio na Serra",
+    "local": "Serra Verde Express · Curitiba → Morretes",
+    "data": "04 de setembro, 14:56",
+    "scene": "trem",
+    "victim": "Heitor Salles — contador",
+    "synopsis": "O trem turístico mergulhou no túnel Roça Nova em plena travessia da Serra do Mar. Foram noventa segundos de escuridão. Quando a luz voltou, o contador Heitor Salles jazia no vagão panorâmico, um sulco fino marcando-lhe o pescoço. No colo, um caderno com a contabilidade secreta de uma fundação de fachada — e um alerta cifrado na última página.",
+    "howto": [
+      "Percorra as estações e vagões no <b>Mapa</b> e recolha vestígios.",
+      "Analise fibras e laudos no <b>Laboratório</b>.",
+      "Interrogue passageiros e equipe; apresente provas.",
+      "Investigue a fundação no <b>OSINT</b> e o painel de energia no <b>GEOINT</b>.",
+      "Monte o <b>Mural</b>, a <b>Linha do Tempo</b> e acuse na <b>Sala do Júri</b>."
+    ],
+    "victim_pid": "P101"
+  }
+}
