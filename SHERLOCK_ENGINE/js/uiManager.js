@@ -10,6 +10,7 @@ import { getCase } from './caseState.js';
 import { sfx, toggleMute, isMuted, ambience, musicBed } from './audioManager.js';
 import { requestHint, ariaSay } from './aria.js';
 import { startTutorial, maybeTutorial } from './tutorial.js';
+import { getDifficulty, setDifficulty, DIFFS, hintCost } from './difficulty.js';
 
 const app = () => document.getElementById('app');
 
@@ -56,7 +57,7 @@ function dock() {
       <div id="aria-panel" class="panel aria-panel" hidden>
         <div class="aria-head">◈ G.R.A.L.H.A.</div><div id="aria-text"></div>
         <div class="aria-actions">
-          <button class="btn btn-ghost" id="aria-hint">PEDIR DICA (-20)</button>
+          <button class="btn btn-ghost" id="aria-hint">PEDIR DICA (-${hintCost()})</button>
           <button class="btn btn-ghost" id="aria-close">FECHAR</button>
         </div>
       </div>`;
@@ -85,6 +86,7 @@ export function showAria(text) {
   const d = dock();
   d.querySelector('#aria-panel').hidden = false;
   d.querySelector('#aria-text').textContent = text;
+  d.querySelector('#aria-hint').textContent = `PEDIR DICA (-${hintCost()})`;
   // auto-oculta para não bloquear a interface (o jogador pode reabrir no botão G.R.A.L.H.A.)
   clearTimeout(ariaHideTimer);
   ariaHideTimer = setTimeout(() => { d.querySelector('#aria-panel').hidden = true; }, 7000);
@@ -162,7 +164,9 @@ export function screenShell(title, breadcrumb, accent) {
   header.append(crest);
   header.append(el('div', 'breadcrumb', breadcrumb));
   const hud = el('div', 'hud');
+  const diff = getDifficulty();
   hud.innerHTML = `
+    <span class="hud-item hud-diff" title="Dificuldade (muda o custo das dicas e o peso do erro)">${diff.icon} ${diff.label}</span>
     <span class="hud-item" title="Ato">ATO ${s.act}/4</span>
     <span class="hud-item" title="Hora do caso">🕑 ${ACT_TIME[s.act]}</span>
     <span class="hud-item hud-score" title="Pontuação">★ <b id="hud-score">${s.score}</b></span>`;
@@ -266,6 +270,24 @@ export function renderLogin(caseInfo) {
   const pass = el('input', 'input');
   pass.type = 'password';
   pass.placeholder = 'Senha';
+  // seletor de dificuldade (persistido globalmente; vale para toda a campanha)
+  const diffWrap = el('div', 'login-diff');
+  diffWrap.append(el('div', 'login-diff-lbl', 'DIFICULDADE'));
+  const seg = el('div', 'diff-seg');
+  const diffDesc = el('div', 'login-diff-desc');
+  const paint = () => {
+    const cur = getDifficulty().id;
+    [...seg.children].forEach((c) => c.classList.toggle('on', c.dataset.id === cur));
+    diffDesc.textContent = getDifficulty().desc;
+  };
+  Object.values(DIFFS).forEach((lv) => {
+    const b = el('button', 'diff-seg-btn', `${lv.icon} ${lv.label}`);
+    b.dataset.id = lv.id;
+    b.onclick = () => { sfx('click'); setDifficulty(lv.id); paint(); };
+    seg.append(b);
+  });
+  diffWrap.append(seg, diffDesc);
+  paint();
   const btn = el('button', 'btn btn-primary', 'ACESSAR CENTRAL');
   const status = el('div', 'login-status', 'Aguardando credenciais…');
   btn.onclick = () => {
@@ -276,7 +298,7 @@ export function renderLogin(caseInfo) {
   };
   pass.addEventListener('keydown', (e) => e.key === 'Enter' && btn.click());
   user.addEventListener('keydown', (e) => e.key === 'Enter' && btn.click());
-  panel.append(user, pass, btn, status);
+  panel.append(user, pass, diffWrap, btn, status);
   // rodapé: selo do caso com o Cavalo Babão (Fonte do Largo da Ordem, Curitiba)
   const selo = el('div', 'login-selo');
   selo.setAttribute('aria-hidden', 'true');

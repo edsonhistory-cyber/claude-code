@@ -7,10 +7,11 @@
  */
 import { getModule } from '../database.js';
 import { screenShell, el, toast, modal } from '../uiManager.js';
-import { getCase, getPack, getDossiers, openSafe, juryRequirementsMet, addScore, solveEnigma, rankForScore } from '../caseState.js';
+import { getCase, getPack, getDossiers, openSafe, juryRequirementsMet, addScore, solveEnigma, rankForScore, loseCredibility } from '../caseState.js';
 import { emit } from '../eventManager.js';
 import { portrait } from '../art.js';
 import { sfx, ambience, speak } from '../audioManager.js';
+import { getDifficulty, accusationPenalty } from '../difficulty.js';
 
 const pick = { suspect: null, location: null, method: null };
 
@@ -70,6 +71,18 @@ function renderAccusation(body, s) {
   body.append(wrap);
 
   const bar = el('div', 'panel jury-bar');
+  const d = getDifficulty();
+  const cred = s.credibility ?? 100;
+  const credCls = cred >= 70 ? 'ok' : cred >= 40 ? 'warn' : 'bad';
+  const meter = el('div', 'jury-meta');
+  meter.innerHTML = `
+    <span class="jury-diff" title="Nível de dificuldade">${d.icon} ${d.label.toUpperCase()}</span>
+    <span class="jury-cred ${credCls}" title="Credibilidade junto ao tribunal">
+      CREDIBILIDADE <b>${cred}</b>
+      <span class="cred-bar"><i style="width:${cred}%"></i></span>
+    </span>
+    ${s.verdictAttempts ? `<span class="jury-tries" title="Acusações já rejeitadas">${s.verdictAttempts} erro(s) · próximo custa ${accusationPenalty(s.verdictAttempts + 1)} pts</span>` : ''}`;
+  bar.append(meter);
   const resume = el('div', 'mono', `ACUSAÇÃO: ${pick.suspect ?? '________'} · ${pick.location ?? '________'} · ${pick.method ?? '________'}`);
   const btn = el('button', 'btn btn-primary', 'EMITIR VEREDITO');
   btn.onclick = () => {
@@ -92,8 +105,12 @@ function renderAccusation(body, s) {
 }
 
 function confirmVerdict() {
+  const s = getCase();
+  const d = getDifficulty();
+  const cost = accusationPenalty((s.verdictAttempts || 0) + 1);
   const content = el('div');
-  content.innerHTML = `<p>O tribunal aceitará <b>uma acusação por vez</b>. Errar custa pontos e credibilidade.</p>
+  content.innerHTML = `<p>O tribunal aceita <b>uma acusação por vez</b>. No nível <b>${d.icon} ${d.label}</b>,
+    um erro agora custa <b>−${cost} pts</b> e <b>−${d.credLoss}</b> de credibilidade — e o próximo erro pesa ainda mais.</p>
     <p class="mono">${pick.suspect} · ${pick.location} · ${pick.method}</p>`;
   modal('Confirmar veredito?', content, [
     { label: 'SUSTENTAR ACUSAÇÃO', primary: true, onClick: () => verdict() },
@@ -143,15 +160,39 @@ function verdict() {
       { label: 'VER RESULTADO', primary: true, onClick: () => emit('UI_GOTO', { state: 'RESULTADO' }) },
     ]);
   } else {
-    addScore(-(getModule('SHERLOCK_ENGINE_GAMEPLAY')?.score?.erro ?? 20), 'Acusação rejeitada');
+    // Consequência de errar: penalidade escala por tentativa e por dificuldade,
+    // e a credibilidade junto ao tribunal despenca.
+    const diff = getDifficulty();
+    const base = Math.abs(getModule('SHERLOCK_ENGINE_GAMEPLAY')?.score?.erro ?? 20);
+    const penalty = accusationPenalty(s.verdictAttempts, base);
+    addScore(-penalty, 'Acusação rejeitada');
+    const cred = loseCredibility(diff.credLoss);
     speak(dialogos.falha || 'As evidências ainda são insuficientes.', { pitch: 0.75 });
     sfx('error');
-    const hints = [];
-    if (!okSuspect) hints.push('o autor não corresponde às provas físicas');
-    if (!okLocation) hints.push('o local não bate com a cadeia de custódia');
-    if (!okMethod) hints.push('o método contradiz os laudos');
+
+    // O quanto o júri entrega depende da dificuldade (fieldHints).
+    const wrong = [
+      !okSuspect && 'o autor não corresponde às provas físicas',
+      !okLocation && 'o local não bate com a cadeia de custódia',
+      !okMethod && 'o método contradiz os laudos',
+    ].filter(Boolean);
+    let pista;
+    if (diff.fieldHints === 'all') {
+      pista = `O júri observa que ${wrong.join('; ')}.`;
+    } else if (diff.fieldHints === 'count') {
+      pista = `O júri sinaliza que <b>${wrong.length}</b> dos três pontos (quem/onde/como) não se sustenta${wrong.length > 1 ? 'm' : ''}.`;
+    } else {
+      pista = 'O júri não detalha o que faltou. Reveja as provas por conta própria.';
+    }
+    const credLine = cred <= 0
+      ? '<p class="row-tag bad">Credibilidade esgotada — o tribunal ainda ouve você, mas a patente final será severamente afetada.</p>'
+      : `<p class="muted">Credibilidade agora em <b>${cred}</b>. A próxima acusação errada custará <b>${accusationPenalty(s.verdictAttempts + 1, base)}</b> pts.</p>`;
     modal('⚖ ACUSAÇÃO REJEITADA', `<div class="verdict-stamp bad">REJEITADA</div>
       <p>"${dialogos.falha || 'Evidências insuficientes.'}"</p>
-      <p class="muted">O júri observa que ${hints.join('; ')}.</p>`, []);
+      <p class="muted">−${penalty} pts · −${diff.credLoss} credibilidade</p>
+      <p>${pista}</p>
+      ${credLine}`, [
+      { label: 'REVER O CASO', primary: true, onClick: () => render() },
+    ]);
   }
 }

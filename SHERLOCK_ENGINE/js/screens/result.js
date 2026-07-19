@@ -4,6 +4,7 @@
 import { getModule } from '../database.js';
 import { screenShell, el } from '../uiManager.js';
 import { getCase, rankForScore } from '../caseState.js';
+import { getDifficulty } from '../difficulty.js';
 import { episodes } from '../campaign.js';
 import { emit } from '../eventManager.js';
 import { ambience, speak, sfx } from '../audioManager.js';
@@ -12,6 +13,8 @@ export function render() {
   const { body } = screenShell('Resultado', 'CASO CWB-1447 · ENCERRADO');
   ambience('central');
   const s = getCase();
+  const diff = getDifficulty();
+  const cred = s.credibility ?? 100;
   const rank = rankForScore(s.score);
   speak(`Caso encerrado. Pontuação final: ${s.score}. Patente: ${rank}.`, { rate: 1.0 });
 
@@ -39,6 +42,8 @@ export function render() {
       <div><b>${s.contradictions.length}</b><span>contradições</span></div>
       <div><b>${s.hintsUsed}</b><span>dicas usadas</span></div>
       <div><b>${s.verdictAttempts}</b><span>vereditos</span></div>
+      <div><b>${cred}</b><span>credibilidade</span></div>
+      <div><b>${diff.icon}</b><span>${diff.label.toLowerCase()}</span></div>
     </div>
     <div class="result-ach">${achievements.map((a) => `<span class="row-tag ${a.ok ? 'ok' : ''}">${a.ok ? '🏅' : '·'} ${a.name}</span>`).join('')}</div>`;
   const btn = el('button', 'btn btn-primary', 'CRÉDITOS');

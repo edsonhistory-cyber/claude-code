@@ -1339,3 +1339,36 @@ html, body, #app { max-width: 100%; overflow-x: hidden; }
 }
 .central-help:hover { background: rgba(24,30,60,.95); transform: translateY(-2px); }
 @media (max-width: 680px) { .central-help { left: 12px; bottom: 12px; width: 42px; height: 42px; } }
+
+/* ── Dificuldade + consequência de errar ─────────────────────────────────── */
+/* HUD badge por dificuldade */
+.hud-diff { color: rgba(242,245,247,.9); font-weight: 600; }
+
+/* seletor de dificuldade no login */
+.login-diff { margin: 6px 0 2px; text-align: left; }
+.login-diff-lbl { font-family: var(--font-mono); font-size: .68rem; letter-spacing: .18em; color: rgba(242,245,247,.55); margin-bottom: 6px; }
+.diff-seg { display: flex; gap: 6px; }
+.diff-seg-btn { flex: 1; padding: 8px 4px; font-family: var(--font-mono); font-size: .78rem; letter-spacing: .04em;
+  color: rgba(242,245,247,.7); background: rgba(8,19,31,.55); border: 1px solid color-mix(in srgb, var(--accent) 22%, transparent);
+  border-radius: var(--radius); cursor: pointer; transition: all var(--transition); }
+.diff-seg-btn:hover { border-color: var(--accent); color: var(--text); }
+.diff-seg-btn.on { background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 32%, transparent), color-mix(in srgb, var(--accent) 12%, transparent));
+  border-color: var(--accent); color: #fff; box-shadow: 0 0 14px color-mix(in srgb, var(--accent) 32%, transparent); }
+.login-diff-desc { margin-top: 6px; font-size: .74rem; color: rgba(242,245,247,.6); min-height: 1.1em; }
+
+/* barra do júri: dificuldade + credibilidade */
+.jury-meta { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; width: 100%;
+  padding-bottom: 12px; margin-bottom: 4px; border-bottom: 1px solid rgba(255,255,255,.08);
+  font-family: var(--font-mono); font-size: .8rem; }
+.jury-diff { color: rgba(242,245,247,.85); font-weight: 600; letter-spacing: .04em; }
+.jury-cred { display: inline-flex; align-items: center; gap: 8px; color: rgba(242,245,247,.75); }
+.jury-cred b { color: var(--success); }
+.jury-cred.warn b { color: var(--warning); }
+.jury-cred.bad b { color: var(--danger); }
+.cred-bar { display: inline-block; width: 90px; height: 7px; border-radius: 4px; overflow: hidden;
+  background: rgba(255,255,255,.12); vertical-align: middle; }
+.cred-bar i { display: block; height: 100%; border-radius: 4px; background: var(--success); transition: width 400ms ease; }
+.jury-cred.warn .cred-bar i { background: var(--warning); }
+.jury-cred.bad .cred-bar i { background: var(--danger); }
+.jury-tries { color: var(--warning); opacity: .9; margin-left: auto; }
+.row-tag.bad { color: var(--danger); border-color: color-mix(in srgb, var(--danger) 55%, transparent); }

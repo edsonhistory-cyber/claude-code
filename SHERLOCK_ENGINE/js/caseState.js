@@ -5,6 +5,7 @@
  */
 import { getModule } from './database.js';
 import { emit } from './eventManager.js';
+import { hintCost } from './difficulty.js';
 
 // Dossiês, gates de enigma e regras de progressão vêm do CONTENT_PACK do caso
 // ativo (alias CASE_PACK) — a engine é multi-caso (CORE.supports_new_cases).
@@ -43,6 +44,7 @@ const EMPTY = () => ({
   safeOpened: false,
   juryUnlocked: false,
   verdictAttempts: 0,
+  credibility: 100,     // reputação junto ao tribunal; cai a cada acusação errada
   solved: false,
   hintsUsed: 0,
   searches: [],         // consultas OSINT
@@ -133,7 +135,14 @@ export function failEnigma(id) {
 
 export function useHint() {
   state.hintsUsed++;
-  addScore(-20, 'Dica usada');
+  addScore(-hintCost(), 'Dica usada');
+}
+
+/** Desconta credibilidade junto ao tribunal (0..100). Devolve o valor restante. */
+export function loseCredibility(points) {
+  state.credibility = Math.max(0, (state.credibility ?? 100) - points);
+  emit('UI_CREDIBILITY', { credibility: state.credibility });
+  return state.credibility;
 }
 
 export function completeTimeline() {
