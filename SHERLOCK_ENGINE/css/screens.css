@@ -1372,3 +1372,25 @@ html, body, #app { max-width: 100%; overflow-x: hidden; }
 .jury-cred.bad .cred-bar i { background: var(--danger); }
 .jury-tries { color: var(--warning); opacity: .9; margin-left: auto; }
 .row-tag.bad { color: var(--danger); border-color: color-mix(in srgb, var(--danger) 55%, transparent); }
+
+/* ── Polimento de toque / celular (item 3) ──────────────────────────────── */
+/* sem atraso de 300ms nem zoom de toque-duplo nos controles */
+.btn, .card, .nav-btn, .central-card, .jury-opt, .diff-seg-btn, .tab-btn, .chip { touch-action: manipulation; }
+/* respeita entalhes/ilhas do celular (viewport-fit=cover) */
+.screen-header { padding-left: max(14px, env(safe-area-inset-left)); padding-right: max(14px, env(safe-area-inset-right)); }
+.central-help { left: max(18px, env(safe-area-inset-left)); bottom: max(18px, env(safe-area-inset-bottom)); }
+#dock { padding-bottom: env(safe-area-inset-bottom); }
+
+@media (hover: none), (pointer: coarse) {
+  /* alvos de toque confortáveis (mín. ~44px, guia de acessibilidade) */
+  .jury-opt { min-height: 56px; padding: 14px; }
+  .jury-opt .suspect-portrait { width: 72px; }
+  .safe-slot { padding: 16px; }
+  .row-card { min-height: 52px; }
+  .diff-seg-btn { min-height: 46px; }
+  .central-help { width: 52px; height: 52px; font-size: 1.5rem; }
+  .nav-btn { min-height: 44px; min-width: 44px; }
+  .img-zoom-bar .btn { min-height: 48px; min-width: 48px; }
+  /* feedback de pressão no toque (sem hover) */
+  .card:active, .btn:active, .jury-opt:active, .central-card:active { transform: scale(.97); transition: transform .06s; }
+}

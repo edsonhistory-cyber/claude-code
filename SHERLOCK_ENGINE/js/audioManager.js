@@ -74,6 +74,13 @@ export function sfx(name) {
   try { (SFX[name] || SFX.click)(); } catch { /* áudio pode estar bloqueado antes do 1º gesto */ }
 }
 
+// Vibração tátil (celular): padrões curtos por tipo de evento. Silencioso e
+// seguro onde não houver suporte (desktop, iOS Safari) — nunca lança.
+const HAPTIC = { tap: 10, ok: [14, 40, 22], warn: 30, err: [40, 60, 40], collect: 18 };
+export function haptic(kind = 'tap') {
+  try { navigator.vibrate?.(HAPTIC[kind] ?? HAPTIC.tap); } catch { /* sem suporte */ }
+}
+
 /** Ambiente procedural por tela: ruído filtrado + pulsos discretos, em loop. */
 // Cada ambiente tem sua identidade sonora PROCEDURAL (offline, sem arquivos):
 // uma cama de ruído filtrado (room tone) + um drone tonal grave que "respira".

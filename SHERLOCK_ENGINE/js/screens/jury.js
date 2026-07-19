@@ -10,7 +10,7 @@ import { screenShell, el, toast, modal } from '../uiManager.js';
 import { getCase, getPack, getDossiers, openSafe, juryRequirementsMet, addScore, solveEnigma, rankForScore, loseCredibility } from '../caseState.js';
 import { emit } from '../eventManager.js';
 import { portrait } from '../art.js';
-import { sfx, ambience, speak } from '../audioManager.js';
+import { sfx, ambience, speak, haptic } from '../audioManager.js';
 import { getDifficulty, accusationPenalty } from '../difficulty.js';
 
 const pick = { suspect: null, location: null, method: null };
@@ -148,7 +148,7 @@ function verdict() {
     addScore(getModule('SHERLOCK_ENGINE_GAMEPLAY')?.score?.acusacao_correta ?? 300, 'Acusação correta');
     emit('CASE_SOLVED', { score: s.score });
     speak(dialogos.sucesso || 'O tribunal aceita a acusação.', { pitch: 0.75, rate: 0.95 });
-    sfx('success');
+    sfx('success'); haptic('ok');
     const content = el('div', 'verdict-reveal');
     content.innerHTML = `
       <div class="verdict-stamp ok">CULPADO</div>
@@ -168,7 +168,7 @@ function verdict() {
     addScore(-penalty, 'Acusação rejeitada');
     const cred = loseCredibility(diff.credLoss);
     speak(dialogos.falha || 'As evidências ainda são insuficientes.', { pitch: 0.75 });
-    sfx('error');
+    sfx('error'); haptic('err');
 
     // O quanto o júri entrega depende da dificuldade (fieldHints).
     const wrong = [

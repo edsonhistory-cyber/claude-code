@@ -273,7 +273,7 @@ function openImageZoom(src) {
       <button class="btn btn-ghost" data-z="in" title="Aumentar (+)">＋</button>
       <button class="btn btn-primary" data-z="close" title="Fechar (Esc)">✕ Fechar</button>
     </div>
-    <div class="img-zoom-hint">roda do mouse: zoom · arraste: mover · Esc: fechar</div>`;
+    <div class="img-zoom-hint">roda / pinça: zoom · arraste: mover · toque duplo: 2× · Esc: fechar</div>`;
   document.body.append(ov);
   const img = ov.querySelector('.img-zoom-img');
   const stage = ov.querySelector('.img-zoom-stage');
@@ -294,10 +294,36 @@ function openImageZoom(src) {
   ov.onclick = (e) => { if (e.target === ov || e.target === stage) close(); };
   document.addEventListener('keydown', onKey);
   stage.onwheel = (e) => { e.preventDefault(); zoom(e.deltaY < 0 ? 1.15 : 0.87); };
-  let drag = false, px = 0, py = 0;
-  img.onpointerdown = (e) => { drag = true; px = e.clientX; py = e.clientY; img.setPointerCapture?.(e.pointerId); e.preventDefault(); };
-  img.onpointermove = (e) => { if (!drag) return; tx += e.clientX - px; ty += e.clientY - py; px = e.clientX; py = e.clientY; apply(); };
-  img.onpointerup = () => { drag = false; };
+
+  // arraste (1 dedo/mouse) + pinça (2 dedos) + toque duplo (celular)
+  const pts = new Map();        // pointerId -> {x,y}
+  let px = 0, py = 0, pinchD = 0, lastTap = 0;
+  const dist = () => { const [a, b] = [...pts.values()]; return Math.hypot(a.x - b.x, a.y - b.y); };
+  img.onpointerdown = (e) => {
+    img.setPointerCapture?.(e.pointerId);
+    pts.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if (pts.size === 1) {
+      px = e.clientX; py = e.clientY;
+      const now = e.timeStamp;                 // toque duplo → alterna 1×/2×
+      if (now - lastTap < 300) { scale = scale > 1 ? 1 : 2.4; if (scale === 1) { tx = 0; ty = 0; } apply(); }
+      lastTap = now;
+    } else if (pts.size === 2) { pinchD = dist(); }
+    e.preventDefault();
+  };
+  img.onpointermove = (e) => {
+    if (!pts.has(e.pointerId)) return;
+    pts.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if (pts.size >= 2) {
+      const d = dist();
+      if (pinchD) zoom(d / pinchD);
+      pinchD = d;
+    } else {
+      tx += e.clientX - px; ty += e.clientY - py; px = e.clientX; py = e.clientY; apply();
+    }
+  };
+  const endPtr = (e) => { pts.delete(e.pointerId); pinchD = 0; if (pts.size === 1) { const p = [...pts.values()][0]; px = p.x; py = p.y; } };
+  img.onpointerup = endPtr;
+  img.onpointercancel = endPtr;
   sfx('camera_shutter'); apply();
 }
 

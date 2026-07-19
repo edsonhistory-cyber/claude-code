@@ -7,7 +7,7 @@ import { getModule, t } from './database.js';
 import { sceneMedia } from './art.js';
 import { emit, subscribe } from './eventManager.js';
 import { getCase } from './caseState.js';
-import { sfx, toggleMute, isMuted, ambience, musicBed } from './audioManager.js';
+import { sfx, toggleMute, isMuted, ambience, musicBed, haptic } from './audioManager.js';
 import { requestHint, ariaSay } from './aria.js';
 import { startTutorial, maybeTutorial } from './tutorial.js';
 import { getDifficulty, setDifficulty, DIFFS, hintCost } from './difficulty.js';
@@ -77,6 +77,7 @@ export function toast(text, kind = 'info') {
   const node = el('div', `toast toast-${kind}`, text);
   box.append(node);
   sfx(kind === 'success' ? 'success' : 'notification');
+  haptic(kind === 'success' ? 'ok' : kind === 'warn' ? 'warn' : 'tap');
   setTimeout(() => node.classList.add('toast-out'), 3600);
   setTimeout(() => node.remove(), 4100);
 }
@@ -362,3 +363,8 @@ subscribe('UI_SCORE', ({ total }) => {
 });
 subscribe('UI_TOAST', ({ text, kind }) => toast(text, kind));
 subscribe('UI_ARIA', ({ text }) => showAria(text));
+// vibração tátil no celular para marcos da investigação
+subscribe('EVIDENCE_COLLECTED', () => haptic('collect'));
+subscribe('DOSSIER_COMPLETED', () => haptic('ok'));
+subscribe('SAFE_OPENED', () => haptic('ok'));
+subscribe('CASE_SOLVED', () => haptic('ok'));
