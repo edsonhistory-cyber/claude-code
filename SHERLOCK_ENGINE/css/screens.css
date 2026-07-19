@@ -1250,3 +1250,56 @@ a.btn { text-decoration: none; display: inline-block; text-align: center; }
   border-color: var(--accent); color: #fff;
   box-shadow: 0 0 16px -4px color-mix(in srgb, var(--accent) 55%, transparent);
 }
+
+/* ============================================================================
+   RESPONSIVO — PC + CELULAR (layout adapta; suporte a toque)
+   ==========================================================================*/
+html, body, #app { max-width: 100%; overflow-x: hidden; }
+.screen { max-width: 100vw; }
+.nav-btn { display: inline-flex; align-items: center; gap: 6px; }
+.screen-header { flex-wrap: wrap; gap: 8px; }
+.breadcrumb { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* ---- TABLET / celular deitado (≤ 860px) ---- */
+@media (max-width: 860px) {
+  .two-col { grid-template-columns: 1fr; }
+  .screen-body { padding: 16px; }
+}
+
+/* ---- CELULAR (≤ 680px): topo compacto, ícone-only ---- */
+@media (max-width: 680px) {
+  .screen-header { padding: 8px 10px; gap: 6px; }
+  .header-crest { width: 24px; height: 24px; }
+  .breadcrumb { font-size: .82rem; letter-spacing: .1em; flex: 1 1 auto; }
+  .hud { gap: 8px; font-size: .72rem; }
+  .hud-item[title="Hora do caso"] { display: none; }          /* economiza espaço */
+  .screen-nav { gap: 4px; margin-left: auto; }
+  .nav-btn { padding: .5em .55em; font-size: .95rem; }
+  .nav-lbl { display: none; }                                  /* só ícones no celular */
+  .nav-ico { font-size: 1.15rem; }
+  .central-grid { grid-template-columns: 1fr; grid-template-rows: none; grid-auto-rows: minmax(176px, auto); }
+  .mural-suspects { grid-template-columns: repeat(2, 1fr) !important; }
+  .suspect-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .mural-status, .mural-tools, .postit-colors { flex-wrap: wrap; }
+  .cork-board { height: 62vh; min-height: 340px; }
+  .btn { padding: .55em 1em; }
+  .screen-body { padding: 12px; }
+}
+
+/* ---- CELULAR estreito (≤ 430px) ---- */
+@media (max-width: 430px) {
+  .breadcrumb { font-size: .74rem; }
+  .suspect-grid, .mural-suspects { grid-template-columns: 1fr 1fr !important; }
+  .login-logo { font-size: 1.5rem; }
+}
+
+/* ---- TOQUE (sem hover): afordâncias sempre visíveis + alvos maiores ---- */
+@media (hover: none), (pointer: coarse) {
+  .board-del { opacity: .95; transform: scale(1); }            /* deletar sempre visível */
+  .board-photo-zoom { opacity: 1; }                            /* dica de zoom visível */
+  .board-del { width: 26px; height: 26px; font-size: 16px; line-height: 22px; top: -11px; right: -11px; }
+  .btn { min-height: 42px; }
+  .central-card:hover, .episode-card:hover:not(.locked) { transform: none; } /* sem lift no toque */
+  .board-item:hover:not(.dragging) { transform: none !important; }
+  .img-zoom-hint { content: ""; }
+}

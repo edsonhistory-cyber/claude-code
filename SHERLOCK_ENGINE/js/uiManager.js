@@ -166,24 +166,26 @@ export function screenShell(title, breadcrumb, accent) {
     <span class="hud-item" title="Hora do caso">🕑 ${ACT_TIME[s.act]}</span>
     <span class="hud-item hud-score" title="Pontuação">★ <b id="hud-score">${s.score}</b></span>`;
   const nav = el('div', 'screen-nav');
-  const ariaBtn = el('button', 'btn btn-ghost', '◈ G.R.A.L.H.A.');
-  ariaBtn.onclick = () => { showAria('E aí, detetive, em que que eu te ajudo?'); sfx('radio_beep'); };
-  const mute = el('button', 'btn btn-ghost', isMuted() ? '🔇' : '🔊');
+  // botão do topo com ícone + rótulo (no celular, CSS esconde o rótulo)
+  const navBtn = (ico, lbl, on, title) => {
+    const b = el('button', 'btn btn-ghost nav-btn');
+    b.innerHTML = `<span class="nav-ico">${ico}</span><span class="nav-lbl">${lbl}</span>`;
+    b.title = title || lbl;
+    b.onclick = on;
+    return b;
+  };
+  const ariaBtn = navBtn('◈', 'G.R.A.L.H.A.', () => { showAria('E aí, detetive, em que que eu te ajudo?'); sfx('radio_beep'); });
+  const mute = el('button', 'btn btn-ghost nav-btn nav-icon-only', isMuted() ? '🔇' : '🔊');
+  mute.title = 'Som';
   mute.onclick = () => { mute.innerHTML = toggleMute() ? '🔇' : '🔊'; };
-  const brief = el('button', 'btn btn-ghost', '📋 Caso');
-  brief.title = 'Rever o briefing (a história e como proceder)';
-  brief.onclick = () => { sfx('paper_flip'); emit('UI_BRIEFING', {}); };
-  const back = el('button', 'btn btn-ghost', '← Voltar');
-  back.onclick = () => { sfx('click'); emit('UI_BACK', {}); };
-  const home = el('button', 'btn btn-ghost', '⌂ Central');
-  home.onclick = () => { sfx('click'); emit('UI_HOME', {}); };
-  const reset = el('button', 'btn btn-ghost', '⟳ Reiniciar');
-  reset.title = 'Recomeçar este caso do zero';
-  reset.onclick = () => {
+  const brief = navBtn('📋', 'Caso', () => { sfx('paper_flip'); emit('UI_BRIEFING', {}); }, 'Rever o briefing (a história e como proceder)');
+  const back = navBtn('←', 'Voltar', () => { sfx('click'); emit('UI_BACK', {}); });
+  const home = navBtn('⌂', 'Central', () => { sfx('click'); emit('UI_HOME', {}); });
+  const reset = navBtn('⟳', 'Reiniciar', () => {
     modal('Reiniciar caso?', 'Isto apaga todo o progresso <b>deste caso</b> (evidências, laudos, códigos e pontuação) e recomeça do zero na Central de Operações. A sua carreira é mantida. O briefing não reaparece — use 📋 Caso quando quiser revê-lo. Confirmar?', [
       { label: '⟳ Recomeçar do zero', primary: true, onClick: () => emit('UI_RESET_CASE', {}) },
     ]);
-  };
+  }, 'Recomeçar este caso do zero');
   nav.append(ariaBtn, mute, brief, reset, back, home);
   header.append(hud, nav);
   const body = el('main', 'screen-body');
