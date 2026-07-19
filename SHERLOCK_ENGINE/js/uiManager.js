@@ -11,6 +11,7 @@ import { sfx, toggleMute, isMuted, ambience, musicBed, haptic } from './audioMan
 import { requestHint, ariaSay } from './aria.js';
 import { startTutorial, maybeTutorial } from './tutorial.js';
 import { getDifficulty, setDifficulty, DIFFS, hintCost } from './difficulty.js';
+import { openPrintKit } from './printKit.js';
 
 const app = () => document.getElementById('app');
 
@@ -340,7 +341,10 @@ export function renderCentral(player) {
   const help = el('button', 'central-help', '❔');
   help.title = 'Como jogar (tutorial)';
   help.onclick = () => startTutorial();
-  body.append(help);
+  const print = el('button', 'central-print', '🖨');
+  print.title = 'Versão para imprimir / jogo híbrido (PDF)';
+  print.onclick = () => openPrintKit();
+  body.append(help, print);
   maybeTutorial();
 }
 
