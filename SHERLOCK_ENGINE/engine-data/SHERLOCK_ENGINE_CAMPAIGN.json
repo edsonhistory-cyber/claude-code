@@ -32,6 +32,11 @@
       "id": "CASE005",
       "title": "O Último Ato",
       "unlock": "Concluir CASE004"
+    },
+    {
+      "id": "CASE006",
+      "title": "Réquiem no Largo",
+      "unlock": "Concluir CASE005"
     }
   ],
   "global_story": {

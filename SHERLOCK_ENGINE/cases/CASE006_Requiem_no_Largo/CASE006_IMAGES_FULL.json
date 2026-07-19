@@ -1,0 +1,45 @@
+{
+  "schema": "CASE006_IMAGES_FULL",
+  "version": "1.0",
+  "case": "MPR-1876",
+  "style": {
+    "quality": "SVG procedural",
+    "look": "Gala noturna: dourado dos castiçais + veludo",
+    "aspect_default": "16:9"
+  },
+  "categories": {
+    "locations": [
+      {
+        "id": "IMG_C001",
+        "name": "Museu Paranaense",
+        "views": [
+          "fachada"
+        ]
+      },
+      {
+        "id": "IMG_C002",
+        "name": "Salão de leilões",
+        "views": [
+          "palco"
+        ]
+      },
+      {
+        "id": "IMG_C003",
+        "name": "Galeria",
+        "views": [
+          "quadros"
+        ]
+      },
+      {
+        "id": "IMG_C004",
+        "name": "Passeio Público",
+        "views": [
+          "vitrais"
+        ]
+      }
+    ]
+  },
+  "statistics": {
+    "total": 4
+  }
+}

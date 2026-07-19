@@ -15,6 +15,7 @@ const EPISODE_ART = {
   CASE003: 'fórum',
   CASE004: 'salão de leilões',
   CASE005: 'teatro',
+  CASE006: 'salão de leilões',
 };
 
 export function render(player) {

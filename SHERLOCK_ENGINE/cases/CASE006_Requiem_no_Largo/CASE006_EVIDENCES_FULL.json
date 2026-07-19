@@ -1,0 +1,110 @@
+{
+  "schema": "CASE006_EVIDENCES_FULL",
+  "version": "1.0",
+  "case": "MPR-1876",
+  "evidences": [
+    {
+      "id": "EV301",
+      "name": "Agulha oca no estofado",
+      "category": "Vestígio",
+      "collected_at": "Cadeira do palco — lote 77",
+      "collection_time": "23:05",
+      "collector": "Perícia",
+      "chain_of_custody": [
+        "Coleta",
+        "Lacre",
+        "Laboratório",
+        "Arquivo"
+      ],
+      "analysis": [
+        "Toxicologia",
+        "Mecanismo"
+      ],
+      "findings": [
+        "Agulha oca acoplada a reservatório no encosto",
+        "Disparo por pressão do próprio peso"
+      ],
+      "related": [
+        "EV302",
+        "P602"
+      ],
+      "value": "Crítica",
+      "used_in": [
+        "Interrogatório",
+        "Sala do Júri"
+      ]
+    },
+    {
+      "id": "EV302",
+      "name": "Catálogo anotado do leilão",
+      "category": "Documento",
+      "collected_at": "Escritório da anfitriã",
+      "collection_time": "23:20",
+      "collector": "Equipe de Campo",
+      "analysis": [
+        "Grafoscopia",
+        "Conteúdo"
+      ],
+      "findings": [
+        "Margens com a contabilidade da rede",
+        "Assinatura de codinome: MUSEU"
+      ],
+      "related": [
+        "P602",
+        "EV304"
+      ],
+      "value": "Crítica"
+    },
+    {
+      "id": "EV303",
+      "name": "Gravação do leilão",
+      "category": "Vídeo",
+      "collected_at": "Câmera oficial do evento",
+      "collection_time": "—",
+      "analysis": [
+        "Frame a frame",
+        "Áudio"
+      ],
+      "findings": [
+        "No blecaute do lote 77, uma única silhueta circula com desenvoltura",
+        "Perfume registrado pelo microfone de lapela: o mesmo da anfitriã"
+      ],
+      "related": [
+        "P602"
+      ],
+      "value": "Alta"
+    },
+    {
+      "id": "EV304",
+      "name": "Registro de lances",
+      "category": "Documento técnico",
+      "collected_at": "Sistema do leilão",
+      "collection_time": "23:30",
+      "analysis": [
+        "Cronologia",
+        "Origem dos lances"
+      ],
+      "findings": [
+        "Lance-fantasma de R$ 500 mil às 22:10, sem comprador real",
+        "Originado do tablet da mesa da anfitriã"
+      ],
+      "related": [
+        "P602",
+        "EV302"
+      ],
+      "value": "Alta"
+    }
+  ],
+  "evidence_levels": {
+    "Baixa": 10,
+    "Média": 30,
+    "Alta": 60,
+    "Crítica": 100
+  },
+  "jury_requirements": [
+    "EV301",
+    "EV302",
+    "EV303",
+    "EV304"
+  ]
+}

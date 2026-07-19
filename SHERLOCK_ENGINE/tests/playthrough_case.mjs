@@ -63,9 +63,37 @@ const SPECS = {
     timeline: ['Convidados chegam ao leilão', 'Gustavo confronta a anfitriã', 'Blecaute cênico do lote 77', 'Gustavo senta na cadeira', 'Lance-fantasma de meio milhão', 'Gustavo colapsa no martelo final', 'Convidados retidos para triagem', 'Sala do Júri'],
     nextEpisode: null,
   },
+  6: {
+    caseId: 'CASE006', title: 'Réquiem no Largo',
+    fullPath: ROOT + 'cases/CASE006_Requiem_no_Largo/CASE006_FULL.json',
+    seedHistory: { CASE001: { score: 1160, rank: 'Detetive de Elite' }, CASE002: { score: 1150, rank: 'Detetive de Elite' }, CASE003: { score: 1100, rank: 'Detetive de Elite' }, CASE004: { score: 1100, rank: 'Detetive de Elite' }, CASE005: { score: 1100, rank: 'Detetive de Elite' } },
+    map: [
+      ['Largo da Ordem — chegada', ['Portaria de gala']],
+      ['Museu Paranaense — galeria', ['Corredor das telas', 'Pertences da vítima']],
+      ['Sala da diretora', ['Cofre atrás do quadro', 'Escrivaninha']],
+      ['Salão nobre', ['Cadeira do palco', 'Mesa de som', 'Sistema de lances']],
+      ['Passeio Público', ['Convidados retidos', 'Vitrais e mesas']],
+    ],
+    witnesses: ['Dora Reis', 'Breno', 'Padre'],   // "Dora" sozinho casa com "coleciona(dora)"/"opera(dora)"
+    topicSessions: [
+      ['Célio', 'roteiro original'],      // → DOC305
+    ],
+    confront: { name: 'Regina', topic: 'revisou pessoalmente a cadeira', present: 'EV302', en5Correct: 1 },
+    labTabs: [['TOXICOLOGIA', 2600, { compare: 0 }], ['MECANISMOS', 2200], ['GRAFOSCOPIA', 2400], ['ÁUDIO FORENSE', 2000]],
+    geo: { seg: 'fantasma', mark: 'sal' },
+    seqEnigma: { row: 'Agulha oca', btn: 'RECONSTITUIR RÓTULO', word: 'DIGOXINA' },
+    osint: [
+      { q: 'MUSEU', arquivar: true, enigmaBtn: 'IDENTIFICAR O CODINOME', pick: 'Regina Valadares' },
+    ],
+    cipher: { row: 'Agenda de Otávio', answer: 'MUSEU' },
+    frames: { row: 'Gravação do leilão', idx: 4 },
+    docChoice: { row: 'Lista de Convidados', btn: 'CRUZAR ACESSO', pick: 'Regina Valadares' },
+    timeline: ['Convidados chegam ao leilão', 'Otávio confronta a anfitriã', 'Blecaute cênico do lote 77', 'Otávio senta na cadeira', 'Lance-fantasma de meio milhão', 'Otávio colapsa no martelo final', 'Convidados retidos para triagem', 'Sala do Júri'],
+    nextEpisode: null,
+  },
 };
 const S = SPECS[N];
-if (!S) { console.error('uso: node playthrough_case.mjs 3|4'); process.exit(1); }
+if (!S) { console.error('uso: node playthrough_case.mjs 3|4|6'); process.exit(1); }
 
 const CASE = JSON.parse(await readFile(S.fullPath, 'utf-8'));
 const SOL = JSON.parse(Buffer.from(CASE.final_solution.data, 'base64').toString('utf-8'));

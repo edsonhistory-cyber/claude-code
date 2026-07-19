@@ -1,0 +1,111 @@
+{
+  "schema": "CASE006_FULL",
+  "version": "1.0",
+  "case": {
+    "id": "MPR-1876",
+    "title": "Réquiem no Largo",
+    "status": "Playable",
+    "city": "Curitiba - PR (Largo da Ordem)",
+    "objective": "Descobrir quem matou o leiloeiro Otávio Prado e desmascarar MUSEU — a cabeça da rede de arte sacra."
+  },
+  "acts": [
+    {
+      "id": "ACT1",
+      "title": "O Leilão",
+      "goal": "Reconstituir a noite do leilão beneficente no Museu Paranaense.",
+      "unlock": [
+        "Mapa",
+        "Dossiês",
+        "Lista de convidados"
+      ]
+    },
+    {
+      "id": "ACT2",
+      "title": "O Lote 77",
+      "goal": "Explicar o blecaute cênico do lote final e a cadeira da vítima.",
+      "unlock": [
+        "Registro de lances",
+        "Gravação do leilão",
+        "Depoimentos"
+      ]
+    },
+    {
+      "id": "ACT3",
+      "title": "Laboratório",
+      "goal": "Ligar a agulha do estofado à toxina da rede.",
+      "unlock": [
+        "Laudo",
+        "Agulha",
+        "Catálogo"
+      ]
+    },
+    {
+      "id": "ACT4",
+      "title": "Sala do Júri",
+      "goal": "Apresentar suspeito, local e método — e encerrar a campanha."
+    }
+  ],
+  "critical_path": [
+    "Registro de lances",
+    "Salão nobre",
+    "Gravação do leilão",
+    "Agulha oca",
+    "Catálogo anotado",
+    "Codinome MUSEU",
+    "Sala do Júri"
+  ],
+  "red_herrings": [
+    {
+      "character": "Breno Valadares",
+      "reason": "Herdeiro endividado, mas ficou no bar do salão sob 30 testemunhas."
+    },
+    {
+      "character": "Padre Anselmo",
+      "reason": "Beneficiário do leilão, sem qualquer acesso ao palco."
+    },
+    {
+      "character": "Iara Bueno",
+      "reason": "Rival de Otávio em leilões, porém deu o lance vencedor à distância."
+    }
+  ],
+  "dependencies": [
+    {
+      "from": "PERICIA",
+      "to": "INTELIGENCIA",
+      "token": "TOXINA"
+    },
+    {
+      "from": "INTELIGENCIA",
+      "to": "ARQUIVO",
+      "token": "CATALOGO"
+    },
+    {
+      "from": "ARQUIVO",
+      "to": "CAMPO",
+      "token": "LANCE"
+    },
+    {
+      "from": "CAMPO",
+      "to": "PERICIA",
+      "token": "TROFEU"
+    }
+  ],
+  "final_solution": {
+    "sealed": true,
+    "encoding": "base64",
+    "note": "Solução lacrada. Decodificada apenas na Sala do Júri, no momento do veredito.",
+    "data": "eyJzdXNwZWN0IjoiUmVnaW5hIFZhbGFkYXJlcyIsImxvY2F0aW9uIjoiU2Fsw6NvIG5vYnJlIGRvIGxlaWzDo28gZGUgYXJ0ZSBzYWNyYSIsIm1ldGhvZCI6IkFndWxoYSBjb20gdG94aW5hIG5vIGVuY29zdG8gZGEgY2FkZWlyYSIsInByb29mcyI6WyJBZ3VsaGEgb2NhIG5vIGVzdG9mYWRvIGRhIGNhZGVpcmEgZG8gbGVpbG9laXJvIChsb3RlIDc3KSIsIkNhdMOhbG9nbyBhbm90YWRvOiBNVVNFVSBjb21hbmRhIGEgcmVkZSBkZSBhcnRlIHNhY3JhIiwiTGFuY2UtZmFudGFzbWEgY29icmluZG8gYSBtb3ZpbWVudGHDp8OjbyBkdXJhbnRlIG8gYmxlY2F1dGUiLCJHcmF2YcOnw6NvIGRvIGxlaWzDo286IGFwZW5hcyBlbGEgY2lyY3VsYSBubyBhcGFnw6NvIGRvIGxvdGUgZmluYWwiLCJUb3hpbmEgaWTDqm50aWNhIMOgIGRvIGNhc28gQ1dCLTE0NDciXX0="
+  },
+  "completion": {
+    "required": [
+      "4 códigos do cofre",
+      "Linha do tempo correta",
+      "Acusação correta"
+    ],
+    "score_rank": {
+      "360": "Caso Resolvido",
+      "460": "Investigador Sênior",
+      "560": "Detetive de Elite"
+    }
+  }
+}

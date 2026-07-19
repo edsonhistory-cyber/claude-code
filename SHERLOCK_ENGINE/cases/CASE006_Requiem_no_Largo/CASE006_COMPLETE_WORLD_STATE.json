@@ -1,0 +1,81 @@
+{
+  "schema": "CASE006_COMPLETE_WORLD_STATE",
+  "version": "1.0",
+  "case": "MPR-1876",
+  "global_state": {
+    "current_time": "19:30",
+    "weather_cycle": [
+      {
+        "time": "19:30",
+        "sky": "Noite de gala",
+        "light": "Candelabros"
+      },
+      {
+        "time": "21:55",
+        "sky": "Blecaute cênico",
+        "light": "Nenhuma"
+      },
+      {
+        "time": "22:25",
+        "sky": "Noite",
+        "light": "Plena"
+      }
+    ],
+    "game_flags": {
+      "crime_committed": false,
+      "body_found": false,
+      "jury_unlocked": false,
+      "case_closed": false
+    }
+  },
+  "state_timeline": [
+    {
+      "time": "21:55",
+      "characters": {
+        "Regina": "Palco (escuro)",
+        "Otávio": "Púlpito"
+      },
+      "objects": {
+        "Cadeira": "Armada"
+      },
+      "flags": {
+        "crime_committed": true
+      }
+    },
+    {
+      "time": "22:25",
+      "characters": {
+        "Otávio": "Vítima no palco"
+      },
+      "flags": {
+        "body_found": true
+      }
+    },
+    {
+      "time": "23:45",
+      "flags": {
+        "jury_unlocked": true
+      }
+    }
+  ],
+  "area_states": {
+    "SAL": {
+      "accessible": true,
+      "hidden_evidence": [
+        "Agulha oca"
+      ]
+    },
+    "ESC": {
+      "accessible": true,
+      "hidden_evidence": [
+        "Catálogo anotado"
+      ]
+    }
+  },
+  "simulation": {
+    "npc_updates": "every_30_seconds",
+    "weather_updates": "timeline",
+    "lighting_updates": "timeline",
+    "world_sync": "event_based"
+  }
+}
