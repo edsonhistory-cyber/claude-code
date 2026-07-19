@@ -9,6 +9,7 @@ import { emit, subscribe } from './eventManager.js';
 import { getCase } from './caseState.js';
 import { sfx, toggleMute, isMuted, ambience, musicBed } from './audioManager.js';
 import { requestHint, ariaSay } from './aria.js';
+import { startTutorial, maybeTutorial } from './tutorial.js';
 
 const app = () => document.getElementById('app');
 
@@ -312,6 +313,12 @@ export function renderCentral(player) {
     grid.append(card);
   });
   body.append(grid);
+  // botão ❔ (repetir tutorial) + tutorial automático na primeira vez
+  const help = el('button', 'central-help', '❔');
+  help.title = 'Como jogar (tutorial)';
+  help.onclick = () => startTutorial();
+  body.append(help);
+  maybeTutorial();
 }
 
 function badgeFor(name, s) {

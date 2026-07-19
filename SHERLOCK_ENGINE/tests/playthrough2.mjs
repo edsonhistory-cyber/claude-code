@@ -11,6 +11,7 @@ const words = (x) => new Set(norm(x).split(/[^A-Z0-9]+/).filter((w) => w.length 
 
 const browser = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH || '/opt/pw-browsers/chromium' });
 const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
+await page.addInitScript(() => { try { localStorage.setItem('sherlock_tutorial_v1', '1'); } catch (e) { /* */ } }); // não abrir o tutorial nos testes
 const errors = [];
 page.on('pageerror', (e) => errors.push(e.message));
 page.on('console', (m) => { if (m.type() === 'error' && !/favicon|Failed to load resource/.test(m.text())) errors.push(m.text()); });

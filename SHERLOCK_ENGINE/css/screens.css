@@ -1303,3 +1303,39 @@ html, body, #app { max-width: 100%; overflow-x: hidden; }
   .board-item:hover:not(.dragging) { transform: none !important; }
   .img-zoom-hint { content: ""; }
 }
+
+/* ============================================================================
+   TUTORIAL (onboarding) — spotlight + cartão-guia
+   ==========================================================================*/
+.tut-overlay { position: fixed; inset: 0; z-index: 300; }
+.tut-overlay--dim { background: rgba(6,8,18,.74); backdrop-filter: blur(2px); }
+.tut-spot {
+  position: fixed; display: none; border-radius: 12px; pointer-events: none;
+  box-shadow: 0 0 0 9999px rgba(6,8,18,.76), 0 0 0 3px var(--accent),
+              0 0 26px 6px color-mix(in srgb, var(--accent) 60%, transparent);
+  transition: left .25s ease, top .25s ease, width .25s ease, height .25s ease;
+}
+.tut-card {
+  position: fixed; width: min(300px, 88vw); z-index: 301;
+  background: linear-gradient(160deg, rgba(26,33,74,.98), rgba(20,26,58,.97));
+  border: 1px solid color-mix(in srgb, var(--accent) 48%, transparent);
+  border-radius: 12px; padding: 16px 16px 14px;
+  box-shadow: 0 24px 56px rgba(0,0,0,.6);
+  animation: modalOpen .3s cubic-bezier(.2,.8,.25,1) both;
+}
+.tut-title { font-family: var(--font-display); font-size: 1.24rem; letter-spacing: .06em; color: var(--accent); margin-bottom: 6px; }
+.tut-text { font-size: .9rem; line-height: 1.5; color: var(--text); }
+.tut-actions { display: flex; align-items: center; gap: 8px; margin-top: 14px; }
+.tut-count { font-size: .72rem; color: rgba(245,247,255,.5); margin-right: auto; }
+
+/* botão flutuante "como jogar" na Central */
+.central-help {
+  position: fixed; left: 16px; bottom: 16px; z-index: 40;
+  width: 46px; height: 46px; border-radius: 50%; cursor: pointer;
+  border: 1px solid color-mix(in srgb, var(--accent) 50%, transparent);
+  background: rgba(16,20,44,.85); color: var(--accent); font-size: 1.25rem;
+  box-shadow: 0 6px 18px rgba(0,0,0,.5); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  transition: transform .15s ease, background .15s ease;
+}
+.central-help:hover { background: rgba(24,30,60,.95); transform: translateY(-2px); }
+@media (max-width: 680px) { .central-help { left: 12px; bottom: 12px; width: 42px; height: 42px; } }
