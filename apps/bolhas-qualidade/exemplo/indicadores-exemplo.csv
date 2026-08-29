@@ -1,0 +1,19 @@
+Data;Turno;Posto;Descrição do problema;Quantidade;Peso;Classe
+02/06/2026;1;OP-30;Vazamento no tubo do freio;1;50;Vazamento
+03/06/2026;1;OP-45;Vazamento de óleo na tubulação de enchimento;6;20;Vazamento
+04/06/2026;2;OP-45;Vaza óleo na tubulacao do enchimento;4;20;Vazamento
+05/06/2026;1;OP-20;Parafuso do suporte sem torque;5;35;Torque / Fixação
+06/06/2026;1;OP-20;Parafusos da carcaça sem aperto;3;35;Torque / Fixação
+09/06/2026;1;OP-55;Conector do sensor de rotação solto;7;40;Elétrico
+10/06/2026;2;OP-55;Chicote elétrico mal fixado;4;40;Elétrico
+11/06/2026;1;OP-10;Falta arruela no suporte do chicote;2;45;Falta de componente
+12/06/2026;1;OP-60;Ruído na engrenagem da 3ª marcha;2;30;Ruído / Funcional
+15/06/2026;2;OP-70;Carcaça riscada na movimentação;6;20;Dano / Aparência
+16/06/2026;1;OP-70;Carcaça amassada no transporte;2;20;Dano / Aparência
+17/06/2026;1;OP-80;Etiqueta de identificação trocada;3;15;Identificação
+18/06/2026;2;OP-35;Vazamento na tampa traseira;2;50;Vazamento
+19/06/2026;1;OP-35;Falta parafuso da tampa lateral;3;45;Falta de componente
+22/06/2026;1;OP-25;Cavaco no alojamento do rolamento;4;10;Limpeza / Contaminação
+23/06/2026;2;OP-50;Mangueira do freio mal encaixada;1;50;Montagem incorreta
+24/06/2026;1;OP-40;Engrenagem travando ao girar;1;30;Ruído / Funcional
+25/06/2026;1;OP-15;Sensor de temperatura invertido;2;40;Elétrico

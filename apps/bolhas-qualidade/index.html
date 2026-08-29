@@ -1,0 +1,1294 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Indicadores de qualidade da linha TL em bolhas: agrupa os problemas por classe e semelhanca e dimensiona cada bolha por peso, casos ou impacto.">
+<title>Bolhas da Qualidade TL</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600&family=Saira+Condensed:wght@500;600;700&display=swap">
+<style>
+:root{
+  color-scheme: dark;
+  --chao:#12151a; --painel:#191d24; --painel2:#1f242c; --borda:#2a313b; --borda2:#3a434f;
+  --tinta:#eef1f5; --tinta2:#a3adba; --tinta3:#6f7b8a;
+  --acento:#5b8def; --acento-fraco:#1e2a41;
+  --bom:#0ca30c; --atencao:#fab219; --serio:#ec835a; --critico:#d03b3b;
+  --sombra:0 1px 0 rgba(255,255,255,.03), 0 12px 32px rgba(0,0,0,.45);
+  --fd:"Saira Condensed","Arial Narrow",system-ui,sans-serif;
+  --fc:"IBM Plex Sans",system-ui,-apple-system,Segoe UI,sans-serif;
+  --fm:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+}
+:root.tema-claro{
+  color-scheme: light;
+  --chao:#eef0f3; --painel:#ffffff; --painel2:#f5f6f8; --borda:#dde1e7; --borda2:#c7cdd6;
+  --tinta:#14171c; --tinta2:#4c5561; --tinta3:#78828f;
+  --acento:#2f6ede; --acento-fraco:#e4ecfb;
+  --sombra:0 1px 2px rgba(16,20,26,.06), 0 10px 24px rgba(16,20,26,.10);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--chao);color:var(--tinta);font-family:var(--fc);font-size:14px;line-height:1.45;-webkit-font-smoothing:antialiased}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--acento);outline-offset:2px;border-radius:4px}
+.num{font-family:var(--fm);font-variant-numeric:tabular-nums}
+.rot{font-family:var(--fd);text-transform:uppercase;letter-spacing:.09em;font-weight:600;color:var(--tinta3);font-size:11px}
+
+/* ---- cabecalho ---- */
+.topo{display:flex;align-items:center;gap:16px;flex-wrap:wrap;padding:12px 18px;background:var(--painel);border-bottom:1px solid var(--borda)}
+.marca{display:flex;align-items:baseline;gap:10px;margin-right:auto}
+.marca h1{font-family:var(--fd);font-weight:700;font-size:23px;letter-spacing:.02em;margin:0;text-transform:uppercase}
+.marca span{font-family:var(--fd);text-transform:uppercase;letter-spacing:.14em;font-size:11px;color:var(--tinta3)}
+.acoes{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.bt{background:var(--painel2);border:1px solid var(--borda);border-radius:6px;padding:7px 12px;font-size:13px;font-weight:500;color:var(--tinta);display:inline-flex;align-items:center;gap:7px}
+.bt:hover{border-color:var(--borda2);background:var(--chao)}
+.bt.primario{background:var(--acento);border-color:var(--acento);color:#fff}
+.bt.primario:hover{filter:brightness(1.08)}
+.bt[aria-pressed="true"]{background:var(--acento-fraco);border-color:var(--acento);color:var(--tinta)}
+
+/* ---- faixa de controles ---- */
+.controles{display:flex;gap:14px;flex-wrap:wrap;align-items:center;padding:10px 18px;background:var(--painel);border-bottom:1px solid var(--borda)}
+.grupo{display:flex;align-items:center;gap:8px}
+.segm{display:flex;border:1px solid var(--borda);border-radius:7px;overflow:hidden}
+.segm button{background:transparent;border:0;border-right:1px solid var(--borda);padding:6px 11px;font-size:13px;color:var(--tinta2)}
+.segm button:last-child{border-right:0}
+.segm button[aria-pressed="true"]{background:var(--acento-fraco);color:var(--tinta);font-weight:600;box-shadow:inset 0 -2px 0 var(--acento)}
+.busca{background:var(--painel2);border:1px solid var(--borda);border-radius:7px;padding:7px 11px;width:230px}
+.busca::placeholder{color:var(--tinta3)}
+input[type=range]{accent-color:var(--acento);width:130px}
+
+/* ---- kpis ---- */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--borda);border-bottom:1px solid var(--borda)}
+.kpi{background:var(--painel);padding:11px 18px;display:flex;flex-direction:column;gap:2px}
+.kpi b{font-family:var(--fm);font-variant-numeric:tabular-nums;font-size:25px;font-weight:600;letter-spacing:-.02em}
+.kpi small{color:var(--tinta3);font-size:12px}
+.kpi.destaque b{color:var(--critico)}
+
+/* ---- palco ---- */
+.palco{position:relative;height:calc(100vh - 190px);min-height:420px}
+#tela{display:block;width:100%;height:100%;touch-action:none}
+.legenda{position:absolute;left:14px;bottom:14px;display:flex;gap:14px;flex-wrap:wrap;background:color-mix(in srgb,var(--painel) 88%,transparent);border:1px solid var(--borda);border-radius:8px;padding:8px 12px;backdrop-filter:blur(6px)}
+.legenda .item{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--tinta2)}
+.pastilha{width:11px;height:11px;border-radius:50%;border:2px solid rgba(255,255,255,.25)}
+.dica{position:absolute;pointer-events:none;z-index:5;background:var(--painel);border:1px solid var(--borda2);border-radius:8px;padding:9px 11px;box-shadow:var(--sombra);max-width:280px;opacity:0;transform:translateY(4px);transition:opacity .12s}
+.dica.on{opacity:1;transform:none}
+.dica h4{margin:0 0 4px;font-size:13px;font-weight:600;line-height:1.3}
+.dica dl{margin:0;display:grid;grid-template-columns:auto auto;gap:2px 12px;font-size:12px}
+.dica dt{color:var(--tinta3)} .dica dd{margin:0;font-family:var(--fm);font-variant-numeric:tabular-nums;text-align:right}
+
+/* ---- estado vazio ---- */
+.vazio{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center;padding:24px}
+.vazio.escondido{display:none}
+.alvo{border:2px dashed var(--borda2);border-radius:14px;padding:34px 42px;max-width:620px;background:var(--painel)}
+.alvo h2{font-family:var(--fd);text-transform:uppercase;letter-spacing:.05em;font-size:22px;margin:0 0 6px}
+.alvo p{color:var(--tinta2);margin:0 0 16px;max-width:52ch}
+.alvo.pairando{border-color:var(--acento);background:var(--acento-fraco)}
+.passos{display:grid;gap:6px;text-align:left;margin:14px auto 0;max-width:44ch;color:var(--tinta2);font-size:13px}
+.passos b{color:var(--tinta);font-family:var(--fm);font-size:12px;margin-right:6px}
+
+/* ---- gaveta ---- */
+.gaveta{position:fixed;top:0;right:0;height:100vh;width:min(430px,92vw);background:var(--painel);border-left:1px solid var(--borda);box-shadow:var(--sombra);transform:translateX(100%);transition:transform .22s ease;z-index:20;display:flex;flex-direction:column}
+.gaveta.on{transform:none}
+.gaveta header{padding:16px 18px;border-bottom:1px solid var(--borda);display:flex;gap:12px;align-items:flex-start}
+.gaveta header h3{margin:0;font-size:17px;line-height:1.25;text-wrap:balance}
+.gaveta .corpo{overflow:auto;padding:16px 18px;display:flex;flex-direction:column;gap:18px}
+.selo{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:2px 9px;font-size:11px;font-family:var(--fd);text-transform:uppercase;letter-spacing:.08em;font-weight:600;border:1px solid}
+.fechar{margin-left:auto;background:none;border:0;color:var(--tinta3);font-size:22px;line-height:1;padding:0 4px}
+.linhas{display:flex;flex-direction:column;gap:6px}
+.linhas li{list-style:none;background:var(--painel2);border:1px solid var(--borda);border-radius:7px;padding:8px 10px;font-size:13px;display:flex;gap:10px;align-items:baseline}
+.linhas li span{color:var(--tinta3);font-family:var(--fm);font-size:11px;white-space:nowrap}
+.campo{display:flex;flex-direction:column;gap:5px}
+.campo input,.campo select{background:var(--painel2);border:1px solid var(--borda);border-radius:6px;padding:7px 9px;width:100%}
+
+/* ---- tabela ---- */
+.tabela{padding:0 18px 40px}
+.tabela.escondida{display:none}
+.rolagem{overflow:auto;max-height:70vh;border:1px solid var(--borda);border-radius:9px;background:var(--painel)}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th,td{padding:8px 12px;text-align:left;border-bottom:1px solid var(--borda);white-space:nowrap}
+th{font-family:var(--fd);text-transform:uppercase;letter-spacing:.07em;font-size:11px;color:var(--tinta3);position:sticky;top:0;background:var(--painel2)}
+td.n{font-family:var(--fm);font-variant-numeric:tabular-nums;text-align:right}
+tbody tr:hover{background:var(--painel2);cursor:pointer}
+td.desc{white-space:normal;max-width:420px}
+.barra-mini{height:6px;border-radius:3px;background:var(--borda);overflow:hidden;min-width:70px}
+.barra-mini i{display:block;height:100%;border-radius:3px}
+
+/* ---- config ---- */
+.config{position:fixed;inset:0;background:rgba(0,0,0,.55);display:none;align-items:center;justify-content:center;z-index:30;padding:20px}
+.config.on{display:flex}
+.cartao{background:var(--painel);border:1px solid var(--borda);border-radius:12px;width:min(760px,100%);max-height:88vh;overflow:auto;box-shadow:var(--sombra)}
+.cartao > header{padding:16px 20px;border-bottom:1px solid var(--borda);display:flex;align-items:center;gap:12px}
+.cartao > header h3{margin:0;font-family:var(--fd);text-transform:uppercase;letter-spacing:.05em;font-size:18px}
+.cartao .corpo{padding:18px 20px;display:grid;gap:20px}
+.malha{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+.pesos{display:grid;grid-template-columns:1fr 92px;gap:8px 12px;align-items:center}
+.pesos input{background:var(--painel2);border:1px solid var(--borda);border-radius:6px;padding:6px 8px;text-align:right;font-family:var(--fm)}
+.aviso{background:var(--acento-fraco);border:1px solid var(--acento);border-radius:8px;padding:10px 12px;font-size:13px;color:var(--tinta)}
+.erro{background:#3a1d1d;border-color:var(--critico);color:#ffd9d9}
+:root.tema-claro .erro{background:#fdeaea;color:#7a1c1c}
+@media (prefers-reduced-motion: reduce){*{animation-duration:.01ms !important;transition-duration:.01ms !important}}
+@media (max-width:720px){.palco{height:calc(100vh - 250px)}.busca{width:150px}}
+</style>
+</head>
+<body>
+
+<header class="topo">
+  <div class="marca">
+    <h1>Bolhas da Qualidade</h1>
+    <span>Linha TL &middot; Montagem de Transmiss&otilde;es</span>
+  </div>
+  <div class="acoes">
+    <input type="file" id="arquivo" accept=".xlsx,.xlsm,.csv,.txt,.tsv" hidden>
+    <button class="bt primario" id="btAbrir">Abrir planilha do BI</button>
+    <button class="bt" id="btConfig">Ajustes</button>
+    <button class="bt" id="btTabela" aria-pressed="false">Tabela</button>
+    <button class="bt" id="btTema" title="Alternar painel claro/escuro">Painel claro</button>
+  </div>
+</header>
+
+<div class="controles">
+  <div class="grupo">
+    <span class="rot">Tamanho da bolha</span>
+    <div class="segm" id="metrica">
+      <button data-m="peso" aria-pressed="true">Peso</button>
+      <button data-m="casos" aria-pressed="false">Casos</button>
+      <button data-m="impacto" aria-pressed="false">Impacto</button>
+      <button data-m="pct" aria-pressed="false">% dos casos</button>
+    </div>
+  </div>
+  <div class="grupo">
+    <label class="rot" for="limiar">Semelhan&ccedil;a</label>
+    <input type="range" id="limiar" min="20" max="80" step="5" value="40">
+    <span class="num" id="limiarVal" style="width:34px">40%</span>
+  </div>
+  <div class="grupo">
+    <label class="rot" for="filtroClasse">Classe</label>
+    <select id="filtroClasse" class="busca" style="width:auto"><option value="">Todas</option></select>
+  </div>
+  <div class="grupo" style="margin-left:auto">
+    <input type="search" id="busca" class="busca" placeholder="Filtrar por palavra (ex.: vazamento)" aria-label="Filtrar problemas">
+  </div>
+</div>
+
+<section class="kpis" id="kpis">
+  <div class="kpi"><b class="num" id="kCasos">&mdash;</b><small>Casos registrados</small></div>
+  <div class="kpi"><b class="num" id="kItens">&mdash;</b><small>Problemas distintos (agrupados)</small></div>
+  <div class="kpi destaque"><b class="num" id="kCriticos">&mdash;</b><small>Itens cr&iacute;ticos (peso &ge; 40)</small></div>
+  <div class="kpi"><b class="num" id="kPontos">&mdash;</b><small>Pontos de impacto (casos &times; peso)</small></div>
+  <div class="kpi"><b class="num" id="kTopo">&mdash;</b><small>Maior ofensor</small></div>
+</section>
+
+<main class="palco" id="palco">
+  <canvas id="tela"></canvas>
+  <div class="dica" id="dica" role="status"></div>
+  <div class="legenda" id="legenda">
+    <span class="item"><i class="pastilha" style="background:#d03b3b"></i>Cr&iacute;tico &ge; 40 pts</span>
+    <span class="item"><i class="pastilha" style="background:#ec835a"></i>Alto 25&ndash;39</span>
+    <span class="item"><i class="pastilha" style="background:#fab219"></i>M&eacute;dio 10&ndash;24</span>
+    <span class="item"><i class="pastilha" style="background:#0ca30c"></i>Baixo &lt; 10</span>
+    <span class="item" id="legTam">Tamanho &prop; peso</span>
+  </div>
+  <div class="vazio" id="vazio">
+    <div class="alvo" id="alvo">
+      <h2>Solte aqui a planilha do BI</h2>
+      <p>Arraste o arquivo <b>.xlsx</b> ou <b>.csv</b> exportado do BI. Nada sai deste computador: a leitura e o agrupamento acontecem no pr&oacute;prio navegador.</p>
+      <div class="acoes" style="justify-content:center">
+        <button class="bt primario" id="btAbrir2">Escolher arquivo</button>
+        <button class="bt" id="btExemplo">Ver com dados de exemplo</button>
+      </div>
+      <div class="passos">
+        <div><b>1</b>O app acha sozinho as colunas de descri&ccedil;&atilde;o, quantidade e peso.</div>
+        <div><b>2</b>Junta as ocorr&ecirc;ncias parecidas (&ldquo;vazamento tubo freio&rdquo; = &ldquo;vaza no tubo do freio&rdquo;).</div>
+        <div><b>3</b>Cada bolha &eacute; um problema: cor pelo peso, tamanho pela m&eacute;trica escolhida.</div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<section class="tabela escondida" id="tabela">
+  <div style="display:flex;align-items:center;gap:12px;padding:16px 0 10px">
+    <span class="rot">Tabela de itens</span>
+    <button class="bt" id="btCopiar" style="margin-left:auto">Copiar para o Excel</button>
+  </div>
+  <div class="rolagem">
+    <table>
+      <thead><tr>
+        <th>Problema (grupo)</th><th>Classe</th><th style="text-align:right">Casos</th>
+        <th style="text-align:right">% dos casos</th><th style="text-align:right">Peso</th>
+        <th style="text-align:right">Impacto</th><th>Participa&ccedil;&atilde;o no impacto</th>
+      </tr></thead>
+      <tbody id="corpoTabela"></tbody>
+    </table>
+  </div>
+</section>
+
+<aside class="gaveta" id="gaveta" aria-hidden="true">
+  <header>
+    <div>
+      <span class="selo" id="gSelo">&mdash;</span>
+      <h3 id="gTitulo" style="margin-top:8px">&mdash;</h3>
+    </div>
+    <button class="fechar" id="gFechar" aria-label="Fechar detalhe">&times;</button>
+  </header>
+  <div class="corpo">
+    <div class="malha">
+      <div class="kpi" style="padding:10px 12px;border:1px solid var(--borda);border-radius:8px"><b class="num" id="gCasos">&mdash;</b><small>Casos</small></div>
+      <div class="kpi" style="padding:10px 12px;border:1px solid var(--borda);border-radius:8px"><b class="num" id="gPct">&mdash;</b><small>% dos casos</small></div>
+      <div class="kpi" style="padding:10px 12px;border:1px solid var(--borda);border-radius:8px"><b class="num" id="gImpacto">&mdash;</b><small>Impacto</small></div>
+    </div>
+    <div class="campo">
+      <label class="rot" for="gPeso">Peso deste problema (pontos)</label>
+      <input type="number" id="gPeso" min="0" max="100" step="1">
+      <small style="color:var(--tinta3)">Alterar o peso reclassifica a bolha na hora e fica salvo neste navegador.</small>
+    </div>
+    <div>
+      <div class="rot" style="margin-bottom:8px">Ocorr&ecirc;ncias agrupadas <span id="gQtdVar"></span></div>
+      <ul class="linhas" id="gLinhas"></ul>
+    </div>
+  </div>
+</aside>
+
+<div class="config" id="config" role="dialog" aria-modal="true" aria-label="Ajustes">
+  <div class="cartao">
+    <header>
+      <h3>Ajustes</h3>
+      <button class="fechar" id="cFechar" aria-label="Fechar ajustes" style="margin-left:auto">&times;</button>
+    </header>
+    <div class="corpo">
+      <div>
+        <div class="rot" style="margin-bottom:8px">Colunas da planilha</div>
+        <div class="malha">
+          <div class="campo"><label for="colDesc">Descri&ccedil;&atilde;o do problema</label><select id="colDesc"></select></div>
+          <div class="campo"><label for="colQtd">Quantidade / casos</label><select id="colQtd"></select></div>
+          <div class="campo"><label for="colPeso">Peso / pontos</label><select id="colPeso"></select></div>
+          <div class="campo"><label for="colClasse">Classe / sistema</label><select id="colClasse"></select></div>
+        </div>
+        <p style="color:var(--tinta3);font-size:12px;margin:8px 0 0">Sem coluna de quantidade, cada linha vale 1 caso. Sem coluna de peso, vale o peso da classe abaixo.</p>
+      </div>
+      <div>
+        <div class="rot" style="margin-bottom:8px">Peso padr&atilde;o por classe (pontos)</div>
+        <div class="pesos" id="pesosClasse"></div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="bt primario" id="cAplicar">Aplicar</button>
+        <button class="bt" id="cRestaurar">Restaurar pesos padr&atilde;o</button>
+      </div>
+      <div class="aviso" id="cAviso" hidden></div>
+    </div>
+  </div>
+</div>
+<script>
+/* ============================================================
+   NUCLEO — funcoes puras (leitura, normalizacao, agrupamento)
+   ============================================================ */
+
+/* ---------- decodificacao de texto (Excel pt-BR salva em ANSI) ---------- */
+function decodificar(buffer){
+  const u8 = new Uint8Array(buffer);
+  try { return new TextDecoder('utf-8', {fatal:true}).decode(u8).replace(/^﻿/,''); }
+  catch(e){ return new TextDecoder('windows-1252').decode(u8); }
+}
+
+/* ---------- CSV / TSV ---------- */
+function detectarSeparador(linha){
+  const cand = [';', ',', '\t', '|'];
+  let melhor = ';', max = -1;
+  for (const c of cand){
+    let n = 0, aspas = false;
+    for (let i=0;i<linha.length;i++){
+      const ch = linha[i];
+      if (ch === '"') aspas = !aspas;
+      else if (!aspas && ch === c) n++;
+    }
+    if (n > max){ max = n; melhor = c; }
+  }
+  return max > 0 ? melhor : ';';
+}
+
+function lerCSV(texto){
+  texto = texto.replace(/\r\n?/g, '\n');
+  const primeira = texto.slice(0, texto.indexOf('\n') === -1 ? texto.length : texto.indexOf('\n'));
+  const sep = detectarSeparador(primeira);
+  const linhas = [];
+  let campo = '', linha = [], aspas = false;
+  for (let i=0;i<texto.length;i++){
+    const ch = texto[i];
+    if (aspas){
+      if (ch === '"'){ if (texto[i+1] === '"'){ campo += '"'; i++; } else aspas = false; }
+      else campo += ch;
+    } else if (ch === '"'){ aspas = true; }
+    else if (ch === sep){ linha.push(campo); campo = ''; }
+    else if (ch === '\n'){ linha.push(campo); linhas.push(linha); linha = []; campo = ''; }
+    else campo += ch;
+  }
+  if (campo.length || linha.length){ linha.push(campo); linhas.push(linha); }
+  return linhas.map(l => l.map(c => c.trim()));
+}
+
+/* ---------- XLSX nativo (zip + inflate do proprio navegador) ---------- */
+function lerZip(buffer){
+  const dv = new DataView(buffer), u8 = new Uint8Array(buffer);
+  let eocd = -1;
+  for (let i = u8.length - 22; i >= Math.max(0, u8.length - 66000); i--){
+    if (dv.getUint32(i, true) === 0x06054b50){ eocd = i; break; }
+  }
+  if (eocd < 0) throw new Error('Arquivo .xlsx invalido ou corrompido.');
+  const total = dv.getUint16(eocd + 10, true);
+  let p = dv.getUint32(eocd + 16, true);
+  const itens = {};
+  for (let i = 0; i < total; i++){
+    if (dv.getUint32(p, true) !== 0x02014b50) break;
+    const metodo = dv.getUint16(p + 10, true);
+    const tamComp = dv.getUint32(p + 20, true);
+    const tamNome = dv.getUint16(p + 28, true);
+    const tamExtra = dv.getUint16(p + 30, true);
+    const tamCom = dv.getUint16(p + 32, true);
+    const local = dv.getUint32(p + 42, true);
+    const nome = new TextDecoder().decode(u8.subarray(p + 46, p + 46 + tamNome));
+    itens[nome] = {metodo, tamComp, local};
+    p += 46 + tamNome + tamExtra + tamCom;
+  }
+  return {dv, u8, itens};
+}
+
+async function extrairTexto(zip, nome){
+  const it = zip.itens[nome];
+  if (!it) return null;
+  const nomeLen = zip.dv.getUint16(it.local + 26, true);
+  const extraLen = zip.dv.getUint16(it.local + 28, true);
+  const ini = it.local + 30 + nomeLen + extraLen;
+  const bruto = zip.u8.subarray(ini, ini + it.tamComp);
+  if (it.metodo === 0) return new TextDecoder().decode(bruto);
+  if (it.metodo !== 8) throw new Error('Compressao do .xlsx nao suportada. Salve como CSV.');
+  if (typeof DecompressionStream === 'undefined')
+    throw new Error('Este navegador nao descompacta .xlsx. Salve a planilha como CSV (separado por ponto e virgula).');
+  const fluxo = new Blob([bruto]).stream().pipeThrough(new DecompressionStream('deflate-raw'));
+  return new TextDecoder().decode(new Uint8Array(await new Response(fluxo).arrayBuffer()));
+}
+
+function refParaColuna(ref){
+  let n = 0;
+  for (let i = 0; i < ref.length; i++){
+    const c = ref.charCodeAt(i);
+    if (c < 65 || c > 90) break;
+    n = n * 26 + (c - 64);
+  }
+  return n - 1;
+}
+
+function serialParaData(n){
+  const ms = Math.round((n - 25569) * 86400000);
+  const d = new Date(ms);
+  if (isNaN(d)) return String(n);
+  return String(d.getUTCDate()).padStart(2,'0') + '/' + String(d.getUTCMonth()+1).padStart(2,'0') + '/' + d.getUTCFullYear();
+}
+
+async function lerXlsx(buffer){
+  const zip = lerZip(buffer);
+  const xmlWb = await extrairTexto(zip, 'xl/workbook.xml');
+  if (!xmlWb) throw new Error('Nao encontrei a planilha dentro do arquivo. Ele e mesmo um .xlsx?');
+  const dom = new DOMParser();
+  const wb = dom.parseFromString(xmlWb, 'application/xml');
+  const rels = dom.parseFromString(await extrairTexto(zip, 'xl/_rels/workbook.xml.rels') || '<x/>', 'application/xml');
+  const mapa = {};
+  rels.querySelectorAll('Relationship').forEach(r => { mapa[r.getAttribute('Id')] = r.getAttribute('Target'); });
+  const abas = [];
+  wb.querySelectorAll('sheets > sheet').forEach((s, i) => {
+    const rid = s.getAttribute('r:id') || s.getAttributeNS('http://schemas.openxmlformats.org/officeDocument/2006/relationships', 'id');
+    let alvo = mapa[rid] || ('worksheets/sheet' + (i + 1) + '.xml');
+    alvo = alvo.replace(/^\/?xl\//, '').replace(/^\//, '');
+    abas.push({nome: s.getAttribute('name') || ('Planilha' + (i + 1)), caminho: 'xl/' + alvo});
+  });
+  const compart = [];
+  const xmlSS = await extrairTexto(zip, 'xl/sharedStrings.xml');
+  if (xmlSS){
+    dom.parseFromString(xmlSS, 'application/xml').querySelectorAll('si').forEach(si => {
+      let t = '';
+      si.querySelectorAll('t').forEach(n => { t += n.textContent; });
+      compart.push(t);
+    });
+  }
+  const planilhas = [];
+  for (const aba of abas){
+    const xml = await extrairTexto(zip, aba.caminho);
+    if (!xml) continue;
+    const doc = dom.parseFromString(xml, 'application/xml');
+    const linhas = [];
+    doc.querySelectorAll('sheetData > row').forEach(r => {
+      const saida = [];
+      r.querySelectorAll('c').forEach(c => {
+        const ref = c.getAttribute('r') || '';
+        const idx = ref ? refParaColuna(ref) : saida.length;
+        const tipo = c.getAttribute('t');
+        let v = '';
+        if (tipo === 'inlineStr'){ c.querySelectorAll('is t').forEach(n => { v += n.textContent; }); }
+        else {
+          const no = c.querySelector('v');
+          v = no ? no.textContent : '';
+          if (tipo === 's') v = compart[Number(v)] ?? '';
+          else if (tipo === 'b') v = v === '1' ? 'VERDADEIRO' : 'FALSO';
+        }
+        while (saida.length < idx) saida.push('');
+        saida[idx] = String(v).trim();
+      });
+      linhas.push(saida);
+    });
+    if (linhas.length) planilhas.push({nome: aba.nome, linhas});
+  }
+  if (!planilhas.length) throw new Error('A planilha esta vazia.');
+  planilhas.sort((a, b) => b.linhas.length - a.linhas.length);
+  return planilhas[0].linhas;
+}
+
+/* ---------- descoberta de cabecalho e colunas ---------- */
+function acharCabecalho(linhas){
+  for (let i = 0; i < Math.min(linhas.length, 15); i++){
+    const preenchidas = linhas[i].filter(c => c !== '').length;
+    const textuais = linhas[i].filter(c => c !== '' && isNaN(Number(c.replace(',', '.')))).length;
+    if (preenchidas >= 2 && textuais >= Math.ceil(preenchidas * 0.6)) return i;
+  }
+  return 0;
+}
+
+const PADROES = {
+  descricao: /descri|problema|defeito|ocorren|anomal|reclama|nao ?conform|n[aã]o ?conform|falha|apontament|observ|detalhe/i,
+  quantidade: /^qtd|quant|casos|ocorren|repeti|volume|total|frequen|n[º°.]|contagem/i,
+  peso: /peso|ponto|pontua|gravid|severid|criticid|demerit|nota|impact/i,
+  classe: /classe|categor|fam[ií]lia|grupo|sistema|conjunto|tipo|componente|modo/i
+};
+
+function normalizarChave(s){
+  return String(s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
+}
+
+function detectarColunas(cabecalho, linhas){
+  const achar = re => {
+    for (let i = 0; i < cabecalho.length; i++) if (re.test(normalizarChave(cabecalho[i]))) return i;
+    return -1;
+  };
+  const mapa = {
+    descricao: achar(PADROES.descricao),
+    quantidade: achar(PADROES.quantidade),
+    peso: achar(PADROES.peso),
+    classe: achar(PADROES.classe)
+  };
+  if (mapa.classe === mapa.descricao) mapa.classe = -1;
+  if (mapa.descricao < 0){
+    let melhor = -1, maior = 0;
+    for (let c = 0; c < cabecalho.length; c++){
+      let soma = 0, n = 0;
+      for (const l of linhas.slice(0, 200)){
+        const v = l[c] || '';
+        if (v && isNaN(Number(v.replace(',', '.')))){ soma += v.length; n++; }
+      }
+      const media = n ? soma / n : 0;
+      if (media > maior && media >= 8){ maior = media; melhor = c; }
+    }
+    mapa.descricao = melhor;
+  }
+  for (const k of ['quantidade', 'peso']){
+    if (mapa[k] >= 0){
+      const temNumero = linhas.slice(0, 60).some(l => numero(l[mapa[k]]) !== null);
+      if (!temNumero) mapa[k] = -1;
+    }
+  }
+  return mapa;
+}
+
+function numero(v){
+  if (v === undefined || v === null || v === '') return null;
+  const s = String(v).replace(/\s|%/g, '').replace(/\.(?=\d{3}\b)/g, '').replace(',', '.');
+  const n = Number(s);
+  return isFinite(n) ? n : null;
+}
+
+/* ---------- normalizacao de texto e semelhanca ---------- */
+const PARADAS = new Set(['de','da','do','das','dos','em','no','na','nos','nas','com','para','por','pelo','pela','e','ou','a','o','os','as','um','uma','uns','umas','ao','aos','que','se','ser','esta','estao','foi','ate','apos','sobre','sob','entre','muito','pouco','bem','mal','obs','pc','peca','pcs','un','und','turno','linha','posto','operador','veiculo','maquina','sn','nr','num','numero','item','itens','problema','problemas','apresenta','apresentou','apresentando','encontrado','encontrada','verificado','verificada','constatado','identificado','durante','local','area','favor','ok','nao','sim']);
+
+const SINONIMOS = {
+  vaza:'vazamento', vazando:'vazamento', vazamentos:'vazamento', vazou:'vazamento', vazar:'vazamento',
+  fuga:'vazamento', gotejando:'vazamento', gotejamento:'vazamento', pingando:'vazamento', suor:'vazamento', suando:'vazamento', umidade:'vazamento',
+  parafusos:'parafuso', parafusado:'parafuso', torqueado:'torque', torquear:'torque', aperto:'torque', apertado:'torque', frouxo:'solto', folgado:'solto', soltando:'solto', soltos:'solto',
+  faltando:'falta', faltante:'falta', ausente:'falta', ausencia:'falta', faltou:'falta', sem:'falta',
+  quebrado:'quebra', quebrada:'quebra', trincado:'quebra', trincada:'quebra', rachado:'quebra', rompido:'quebra', partido:'quebra',
+  riscado:'risco', riscada:'risco', arranhado:'risco', arranhada:'risco', amassado:'amassado', amassada:'amassado', batida:'amassado',
+  ruido:'ruido', barulho:'ruido', ruidoso:'ruido', chiado:'ruido', estalo:'ruido',
+  oleo:'oleo', fluido:'oleo', lubrificante:'oleo', graxa:'oleo',
+  chicote:'chicote', cabo:'chicote', fiacao:'chicote', fio:'chicote', conector:'conector', plug:'conector', terminal:'conector',
+  mangueira:'tubulacao', tubulacao:'tubulacao', duto:'tubulacao', tubo:'tubo',
+  etiqueta:'etiqueta', adesivo:'etiqueta', identificacao:'etiqueta', plaqueta:'etiqueta',
+  trocado:'troca', trocada:'troca', invertido:'troca', invertida:'troca', errado:'troca', errada:'troca', incorreto:'troca', incorreta:'troca',
+  sujo:'sujeira', suja:'sujeira', sujeira:'sujeira', contaminado:'sujeira', residuo:'sujeira', cavaco:'sujeira',
+  desalinhado:'alinhamento', desalinhada:'alinhamento', empenado:'alinhamento', torto:'alinhamento',
+  travando:'trava', travado:'trava', emperrado:'trava', duro:'trava',
+  enchimento:'enchimento', abastecimento:'enchimento', enchendo:'enchimento',
+  freio:'freio', freios:'freio', frenagem:'freio'
+};
+
+function radical(t){
+  if (t.length > 5 && /(coes|çoes)$/.test(t)) return t.slice(0, -4) + 'cao';
+  if (t.length > 4 && /(oes|aes|ais|eis)$/.test(t)) return t.slice(0, -3) + 'ao';
+  if (t.length > 4 && /s$/.test(t) && !/ss$/.test(t)) return t.slice(0, -1);
+  return t;
+}
+
+function normalizarTexto(txt){
+  return String(txt || '')
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function tokenizar(txt){
+  const brutos = normalizarTexto(txt).split(' ');
+  const saida = [];
+  for (let t of brutos){
+    if (!t || t.length < 3) continue;
+    if (PARADAS.has(t)) continue;
+    if (/^\d+$/.test(t)) continue;
+    t = SINONIMOS[t] || radical(t);
+    t = SINONIMOS[t] || t;
+    if (PARADAS.has(t)) continue;
+    saida.push(t);
+  }
+  return saida;
+}
+
+function trigramas(s){
+  const t = ' ' + s + ' ';
+  const set = new Set();
+  for (let i = 0; i < t.length - 2; i++) set.add(t.slice(i, i + 3));
+  return set;
+}
+
+function interseccao(a, b){
+  let n = 0;
+  for (const x of a) if (b.has(x)) n++;
+  return n;
+}
+
+function semelhanca(a, b){
+  const ta = new Set(a.tokens), tb = new Set(b.tokens);
+  let jac = 0;
+  if (ta.size && tb.size){
+    const i = interseccao(ta, tb);
+    jac = i / (ta.size + tb.size - i);
+  }
+  const i2 = interseccao(a.tri, b.tri);
+  const dice = (a.tri.size + b.tri.size) ? (2 * i2) / (a.tri.size + b.tri.size) : 0;
+  return 0.6 * jac + 0.4 * dice;
+}
+
+function preparar(texto){
+  const norm = normalizarTexto(texto);
+  const tokens = tokenizar(texto);
+  return {texto, norm, tokens, tri: trigramas(tokens.join(' ') || norm)};
+}
+
+/* ---------- classes de falha e pesos ---------- */
+const CLASSES = [
+  {nome:'Vazamento',              peso:50, chaves:['vazament','oleo','fluido','gotej','umidad']},
+  {nome:'Falta de componente',    peso:45, chaves:['falta','ausen','incomplet']},
+  {nome:'Elétrico',               peso:40, chaves:['chicote','conector','sensor','eletric','bateria','rele','fusivel','lampada','luz','alternador','solenoid']},
+  {nome:'Torque / Fixação',       peso:35, chaves:['torque','parafuso','porca','arruela','presilha','abracadeira','fixa','solto','rosca','pino']},
+  {nome:'Montagem incorreta',     peso:30, chaves:['montagem','montad','posicao','invers','encaix','alinhament','troca','sentido','folga']},
+  {nome:'Ruído / Funcional',      peso:30, chaves:['ruido','vibra','aquecim','superaquec','funciona','desempenh','marcha','engrenagem','rotacao','patina','emperr','trava']},
+  {nome:'Dano / Aparência',       peso:20, chaves:['risco','amassad','quebra','pintura','corrosao','ferrugem','rebarba','deformad','danific','avaria']},
+  {nome:'Identificação',          peso:15, chaves:['etiqueta','codigo','serie','documenta','placa','marcacao']},
+  {nome:'Limpeza / Contaminação', peso:10, chaves:['sujeira','limpeza','residuo','cavaco','poeira','tinta']},
+  {nome:'Outros',                 peso:20, chaves:[]}
+];
+
+/* componentes de seguranca: piso de 50 pontos mesmo com 1 caso */
+const CRITICOS = /\bfreio|seguranc|direcao|cinto|estrutural|chassi|combustivel|inflamav/;
+
+/* a classe sai da contagem de palavras-chave nos tokens ja normalizados,
+   e nao da primeira expressao que casar - assim "etiqueta trocada" cai em
+   Identificacao (2 sinais) e nao em Montagem incorreta (1 sinal). */
+function classificar(textoNormalizado, tokens){
+  const toks = (tokens && tokens.length) ? tokens : tokenizar(textoNormalizado);
+  let melhorNome = 'Outros', melhorN = 0;
+  for (const c of CLASSES){
+    if (!c.chaves.length) continue;
+    let n = 0;
+    for (const t of toks) if (c.chaves.some(k => t.startsWith(k))) n++;
+    if (n > melhorN){ melhorN = n; melhorNome = c.nome; }
+  }
+  return melhorNome;
+}
+
+function pesoPadrao(classe){
+  const c = CLASSES.find(x => x.nome === classe);
+  return c ? c.peso : 20;
+}
+
+/* ---------- agrupamento por semelhanca ---------- */
+function agrupar(registros, limiar){
+  const porTexto = new Map();
+  for (const r of registros){
+    const chave = normalizarTexto(r.descricao);
+    if (!chave) continue;
+    if (!porTexto.has(chave)) porTexto.set(chave, {texto: r.descricao, casos: 0, pesos: [], linhas: []});
+    const v = porTexto.get(chave);
+    v.casos += r.quantidade;
+    if (r.peso !== null && r.peso !== undefined) v.pesos.push(r.peso);
+    v.linhas.push(r);
+  }
+  const variantes = [...porTexto.values()]
+    .map(v => Object.assign(v, preparar(v.texto)))
+    .sort((a, b) => b.casos - a.casos || a.texto.length - b.texto.length);
+
+  const grupos = [];
+  for (const v of variantes){
+    let alvo = null, melhor = limiar;
+    for (const g of grupos){
+      let s = 0;
+      for (const m of g.membros.slice(0, 8)) s = Math.max(s, semelhanca(v, m));
+      if (s >= melhor){ melhor = s; alvo = g; }
+    }
+    if (alvo) alvo.membros.push(v);
+    else grupos.push({membros: [v]});
+  }
+
+  return grupos.map((g, i) => {
+    const membros = g.membros.sort((a, b) => b.casos - a.casos);
+    const casos = membros.reduce((s, m) => s + m.casos, 0);
+    const pesos = membros.flatMap(m => m.pesos);
+    const norm = membros.map(m => m.norm).join(' ');
+    const classe = classificar(norm, membros.flatMap(m => m.tokens));
+    let peso;
+    if (pesos.length) peso = Math.round(pesos.reduce((a, b) => a + b, 0) / pesos.length);
+    else peso = pesoPadrao(classe);
+    if (CRITICOS.test(norm)) peso = Math.max(peso, 50);
+    return {
+      id: 'g' + i,
+      titulo: membros[0].texto,
+      chave: normalizarTexto(membros[0].texto),
+      classe, classeAuto: classe, casos, peso,
+      pesoDoArquivo: pesos.length > 0,
+      variantes: membros.map(m => ({texto: m.texto, casos: m.casos})),
+      linhas: membros.flatMap(m => m.linhas)
+    };
+  }).sort((a, b) => b.casos * b.peso - a.casos * a.peso);
+}
+
+function faixa(peso){
+  if (peso >= 40) return {nome:'Crítico', cor:'#d03b3b'};
+  if (peso >= 25) return {nome:'Alto',        cor:'#ec835a'};
+  if (peso >= 10) return {nome:'Médio',  cor:'#fab219'};
+  return {nome:'Baixo', cor:'#0ca30c'};
+}
+
+function valorMetrica(g, metrica, totalCasos){
+  if (metrica === 'casos') return g.casos;
+  if (metrica === 'impacto') return g.casos * g.peso;
+  if (metrica === 'pct') return totalCasos ? (g.casos / totalCasos) * 100 : 0;
+  return g.peso;
+}
+/* ==================== FIM DO NUCLEO ==================== */
+if (typeof module !== 'undefined' && module.exports) module.exports = {CLASSES, CRITICOS, pesoPadrao, lerCSV, detectarSeparador, acharCabecalho, detectarColunas, numero, normalizarTexto, tokenizar, semelhanca, preparar, agrupar, classificar, faixa, valorMetrica, decodificar};
+
+/* ============================================================
+   APP — estado, desenho e interacao
+   ============================================================ */
+const $ = s => document.querySelector(s);
+const CHAVE_ARM = 'bolhasTL.v1';
+
+const estado = {
+  cabecalho: [], linhas: [], mapa: {descricao:-1, quantidade:-1, peso:-1, classe:-1},
+  registros: [], grupos: [], visiveis: [],
+  metrica: 'peso', limiar: 0.40, busca: '', classe: '',
+  overrides: {}, pesosClasse: {}, arquivo: ''
+};
+
+/* ---------- armazenamento local (opcional, pode falhar) ---------- */
+function carregarPrefs(){
+  try {
+    const p = JSON.parse(localStorage.getItem(CHAVE_ARM) || '{}');
+    estado.overrides = p.overrides || {};
+    estado.pesosClasse = p.pesosClasse || {};
+    if (p.limiar) { estado.limiar = p.limiar; $('#limiar').value = Math.round(p.limiar * 100); $('#limiarVal').textContent = Math.round(p.limiar * 100) + '%'; }
+    if (p.tema === 'claro') aplicarTema('claro');
+  } catch(e){}
+}
+function salvarPrefs(){
+  try {
+    localStorage.setItem(CHAVE_ARM, JSON.stringify({
+      overrides: estado.overrides, pesosClasse: estado.pesosClasse,
+      limiar: estado.limiar, tema: document.documentElement.classList.contains('tema-claro') ? 'claro' : 'escuro'
+    }));
+  } catch(e){}
+}
+function aplicarTema(t){
+  document.documentElement.classList.toggle('tema-claro', t === 'claro');
+  $('#btTema').textContent = t === 'claro' ? 'Painel escuro' : 'Painel claro';
+  desenhar();
+}
+
+/* ---------- pipeline de dados ---------- */
+function montarRegistros(){
+  const m = estado.mapa;
+  const regs = [];
+  for (const l of estado.linhas){
+    const desc = m.descricao >= 0 ? (l[m.descricao] || '').trim() : '';
+    if (!desc || desc.length < 3) continue;
+    const q = m.quantidade >= 0 ? numero(l[m.quantidade]) : null;
+    const p = m.peso >= 0 ? numero(l[m.peso]) : null;
+    regs.push({
+      descricao: desc,
+      quantidade: (q === null || q <= 0) ? 1 : q,
+      peso: p,
+      classeArquivo: m.classe >= 0 ? (l[m.classe] || '').trim() : '',
+      bruto: l
+    });
+  }
+  estado.registros = regs;
+}
+
+function recalcular(refazerGrupos){
+  if (refazerGrupos !== false){
+    estado.grupos = agrupar(estado.registros, estado.limiar);
+    for (const g of estado.grupos){
+      if (estado.mapa.classe >= 0){
+        const contagem = {};
+        for (const l of g.linhas) if (l.classeArquivo) contagem[l.classeArquivo] = (contagem[l.classeArquivo] || 0) + l.quantidade;
+        const moda = Object.keys(contagem).sort((a, b) => contagem[b] - contagem[a])[0];
+        if (moda) g.classe = moda;
+      }
+      if (!g.pesoDoArquivo){
+        const p = estado.pesosClasse[g.classe] !== undefined ? estado.pesosClasse[g.classe] : estado.pesosClasse[g.classeAuto];
+        if (p !== undefined){
+          g.peso = p;
+          if (CRITICOS.test(normalizarTexto(g.titulo))) g.peso = Math.max(g.peso, 50);
+        }
+      }
+    }
+  }
+  for (const g of estado.grupos){
+    if (estado.overrides[g.chave] !== undefined) g.peso = estado.overrides[g.chave];
+    g.impacto = g.casos * g.peso;
+  }
+  aplicarFiltros();
+  atualizarKpis();
+  montarFiltroClasse();
+  montarTabela();
+  layout();
+}
+
+function aplicarFiltros(){
+  const b = normalizarTexto(estado.busca);
+  estado.visiveis = estado.grupos.filter(g => {
+    if (estado.classe && g.classe !== estado.classe) return false;
+    if (b && !g.variantes.some(v => normalizarTexto(v.texto).includes(b))) return false;
+    return true;
+  });
+}
+
+function atualizarKpis(){
+  const gs = estado.visiveis;
+  const casos = gs.reduce((s, g) => s + g.casos, 0);
+  const pontos = gs.reduce((s, g) => s + g.impacto, 0);
+  const criticos = gs.filter(g => g.peso >= 40).length;
+  const topo = gs.slice().sort((a, b) => b.impacto - a.impacto)[0];
+  $('#kCasos').textContent = casos.toLocaleString('pt-BR');
+  $('#kItens').textContent = gs.length.toLocaleString('pt-BR');
+  $('#kCriticos').textContent = criticos.toLocaleString('pt-BR');
+  $('#kPontos').textContent = Math.round(pontos).toLocaleString('pt-BR');
+  const el = $('#kTopo');
+  el.textContent = topo ? topo.titulo.slice(0, 26) : '—';
+  el.style.fontSize = '15px';
+  el.title = topo ? topo.titulo : '';
+}
+
+function montarFiltroClasse(){
+  const sel = $('#filtroClasse');
+  const atual = sel.value;
+  const classes = [...new Set(estado.grupos.map(g => g.classe))].sort();
+  sel.innerHTML = '<option value="">Todas as classes</option>' +
+    classes.map(c => '<option value="' + c + '">' + c + ' (' + estado.grupos.filter(g => g.classe === c).length + ')</option>').join('');
+  sel.value = classes.includes(atual) ? atual : '';
+}
+
+/* ---------- tabela ---------- */
+function montarTabela(){
+  const totalCasos = estado.visiveis.reduce((s, g) => s + g.casos, 0) || 1;
+  const maxImp = Math.max(1, ...estado.visiveis.map(g => g.impacto));
+  const totalImp = estado.visiveis.reduce((s, g) => s + g.impacto, 0) || 1;
+  $('#corpoTabela').innerHTML = estado.visiveis.slice().sort((a, b) => b.impacto - a.impacto).map(g => {
+    const f = faixa(g.peso);
+    return '<tr data-id="' + g.id + '">' +
+      '<td class="desc">' + esc(g.titulo) + (g.variantes.length > 1 ? ' <span style="color:var(--tinta3)">+' + (g.variantes.length - 1) + ' variação(ões)</span>' : '') + '</td>' +
+      '<td>' + esc(g.classe) + '</td>' +
+      '<td class="n">' + g.casos + '</td>' +
+      '<td class="n">' + (g.casos / totalCasos * 100).toFixed(1) + '%</td>' +
+      '<td class="n" style="color:' + f.cor + ';font-weight:600">' + g.peso + '</td>' +
+      '<td class="n">' + g.impacto + '</td>' +
+      '<td><div class="barra-mini"><i style="width:' + (g.impacto / maxImp * 100).toFixed(1) + '%;background:' + f.cor + '"></i></div>' +
+      '<span class="num" style="font-size:11px;color:var(--tinta3)">' + (g.impacto / totalImp * 100).toFixed(1) + '%</span></td>' +
+      '</tr>';
+  }).join('');
+}
+function esc(s){ return String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+
+/* ---------- bolhas ---------- */
+const tela = $('#tela'), ctx = tela.getContext('2d');
+let bolhas = [], vista = {x:0, y:0, k:1}, animando = false, sobre = null;
+const semMovimento = matchMedia('(prefers-reduced-motion: reduce)');
+
+function dimensionar(){
+  const r = tela.getBoundingClientRect(), dpr = Math.min(devicePixelRatio || 1, 2);
+  tela.width = Math.max(1, Math.round(r.width * dpr));
+  tela.height = Math.max(1, Math.round(r.height * dpr));
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  return r;
+}
+
+function layout(){
+  const r = dimensionar();
+  const gs = estado.visiveis;
+  $('#vazio').classList.toggle('escondido', estado.grupos.length > 0);
+  $('#legTam').textContent = 'Tamanho ∝ ' + ({peso:'peso', casos:'casos', impacto:'casos × peso', pct:'% dos casos'}[estado.metrica]);
+  if (!gs.length){ bolhas = []; desenhar(); return; }
+
+  const total = gs.reduce((s, g) => s + Math.max(0.0001, valorMetrica(g, estado.metrica, somaCasos())), 0);
+  const area = r.width * r.height * (gs.length > 60 ? 0.42 : 0.34);
+  const anteriores = new Map(bolhas.map(b => [b.g.id, b]));
+  bolhas = gs.map((g, i) => {
+    const v = Math.max(0.0001, valorMetrica(g, estado.metrica, somaCasos()));
+    let raio = Math.sqrt((v / total) * area / Math.PI);
+    raio = Math.max(16, Math.min(raio, Math.min(r.width, r.height) * 0.30));
+    const ant = anteriores.get(g.id);
+    const ang = i * 2.39996, d = 18 * Math.sqrt(i);
+    return {
+      g, raio,
+      x: ant ? ant.x : r.width / 2 + Math.cos(ang) * d,
+      y: ant ? ant.y : r.height / 2 + Math.sin(ang) * d,
+      vx: 0, vy: 0, cor: faixa(g.peso).cor
+    };
+  }).sort((a, b) => b.raio - a.raio);
+
+  if (semMovimento.matches){ for (let i = 0; i < 300; i++) passo(r); recentralizar(r); desenhar(); }
+  else if (!animando){ animando = true; requestAnimationFrame(quadro); }
+}
+
+function somaCasos(){ return estado.visiveis.reduce((s, g) => s + g.casos, 0); }
+
+function passo(r){
+  const cx = r.width / 2, cy = r.height / 2;
+  for (const b of bolhas){
+    b.vx += (cx - b.x) * 0.0016;
+    b.vy += (cy - b.y) * 0.0022;
+  }
+  for (let i = 0; i < bolhas.length; i++){
+    const a = bolhas[i];
+    for (let j = i + 1; j < bolhas.length; j++){
+      const c = bolhas[j];
+      const dx = c.x - a.x, dy = c.y - a.y;
+      const dist = Math.hypot(dx, dy) || 0.01;
+      const min = a.raio + c.raio + 3;
+      if (dist < min){
+        const f = (min - dist) / dist * 0.5;
+        const ox = dx * f, oy = dy * f;
+        a.vx -= ox * 0.5; a.vy -= oy * 0.5;
+        c.vx += ox * 0.5; c.vy += oy * 0.5;
+      }
+    }
+  }
+  let energia = 0;
+  for (const b of bolhas){
+    b.vx *= 0.78; b.vy *= 0.78;
+    b.x += b.vx; b.y += b.vy;
+    b.x = Math.max(b.raio + 4, Math.min(r.width - b.raio - 4, b.x));
+    b.y = Math.max(b.raio + 4, Math.min(r.height - b.raio - 4, b.y));
+    energia += Math.abs(b.vx) + Math.abs(b.vy);
+  }
+  return energia;
+}
+
+function recentralizar(r){
+  if (!bolhas.length) return;
+  let x1 = Infinity, y1 = Infinity, x2 = -Infinity, y2 = -Infinity;
+  for (const b of bolhas){
+    x1 = Math.min(x1, b.x - b.raio); x2 = Math.max(x2, b.x + b.raio);
+    y1 = Math.min(y1, b.y - b.raio); y2 = Math.max(y2, b.y + b.raio);
+  }
+  const dx = (r.width - (x1 + x2)) / 2, dy = (r.height - (y1 + y2)) / 2;
+  if (Math.abs(dx) < 0.5 && Math.abs(dy) < 0.5) return;
+  for (const b of bolhas){ b.x += dx; b.y += dy; }
+}
+
+function quadro(){
+  const r = tela.getBoundingClientRect();
+  const energia = passo(r);
+  if (energia <= bolhas.length * 0.04 + 0.3){ recentralizar(r); animando = false; }
+  else requestAnimationFrame(quadro);
+  desenhar();
+}
+
+function corTinta(v){ return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+
+function desenhar(){
+  const r = tela.getBoundingClientRect();
+  const dpr = Math.min(devicePixelRatio || 1, 2);
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  ctx.clearRect(0, 0, r.width, r.height);
+  ctx.save();
+  ctx.translate(vista.x, vista.y);
+  ctx.scale(vista.k, vista.k);
+  const claro = document.documentElement.classList.contains('tema-claro');
+  for (const b of bolhas){
+    const critico = b.g.peso >= 40;
+    const destaque = sobre === b;
+    const grad = ctx.createRadialGradient(b.x - b.raio * 0.35, b.y - b.raio * 0.4, b.raio * 0.1, b.x, b.y, b.raio);
+    grad.addColorStop(0, mistura(b.cor, claro ? '#ffffff' : '#ffffff', claro ? 0.55 : 0.28));
+    grad.addColorStop(1, mistura(b.cor, claro ? '#ffffff' : '#000000', claro ? 0.18 : 0.30));
+    ctx.beginPath();
+    ctx.arc(b.x, b.y, b.raio, 0, Math.PI * 2);
+    ctx.fillStyle = grad;
+    ctx.globalAlpha = destaque ? 1 : 0.92;
+    ctx.fill();
+    ctx.globalAlpha = 1;
+    ctx.lineWidth = destaque ? 3 : 2;
+    ctx.strokeStyle = b.cor;
+    ctx.stroke();
+    if (critico && b.raio > 20){
+      ctx.beginPath();
+      ctx.setLineDash([5, 4]);
+      ctx.arc(b.x, b.y, b.raio + 4, 0, Math.PI * 2);
+      ctx.lineWidth = 1.5;
+      ctx.strokeStyle = b.cor;
+      ctx.stroke();
+      ctx.setLineDash([]);
+    }
+    if (b.raio >= 30) rotulo(b, claro);
+  }
+  ctx.restore();
+}
+
+function rotulo(b, claro){
+  const tam = Math.max(9, Math.min(b.raio / 4.2, 19));
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillStyle = claro ? '#14171c' : '#ffffff';
+  ctx.font = '600 ' + tam.toFixed(1) + 'px "Saira Condensed", "Arial Narrow", sans-serif';
+  const maxLinhas = b.raio >= 56 ? 3 : 2;
+  const linhas = quebrar(b.g.titulo.toUpperCase(), b.raio * (maxLinhas === 3 ? 1.5 : 1.62), maxLinhas);
+  const alturaLinha = tam * 1.06;
+  const comNumeros = b.raio >= 44;
+  const totalLinhas = linhas.length + (comNumeros ? 2 : 0);
+  let y = b.y - ((totalLinhas - 1) / 2) * alturaLinha - (comNumeros ? alturaLinha * 0.12 : 0);
+  for (const t of linhas){ ctx.fillText(t, b.x, y); y += alturaLinha; }
+  if (comNumeros){
+    ctx.font = '600 ' + (tam * 0.92).toFixed(1) + 'px "IBM Plex Mono", ui-monospace, monospace';
+    ctx.fillStyle = claro ? 'rgba(20,23,28,.80)' : 'rgba(255,255,255,.84)';
+    ctx.fillText(b.g.casos + (b.g.casos === 1 ? ' caso' : ' casos'), b.x, y + alturaLinha * 0.25);
+    ctx.fillText(b.g.peso + ' pts', b.x, y + alturaLinha * 1.25);
+  }
+}
+
+function quebrar(txt, largura, maxLinhas){
+  const palavras = txt.split(' ');
+  const linhas = [];
+  let atual = '';
+  for (const p of palavras){
+    const teste = atual ? atual + ' ' + p : p;
+    if (ctx.measureText(teste).width > largura && atual){ linhas.push(atual); atual = p; }
+    else atual = teste;
+    if (linhas.length === maxLinhas) break;
+  }
+  if (linhas.length < maxLinhas && atual) linhas.push(atual);
+  if (linhas.length === maxLinhas){
+    let ultima = linhas[maxLinhas - 1];
+    const resto = palavras.join(' ');
+    if (linhas.join(' ').length < resto.length){
+      while (ctx.measureText(ultima + '…').width > largura && ultima.length > 2) ultima = ultima.slice(0, -1);
+      linhas[maxLinhas - 1] = ultima + '…';
+    }
+  }
+  return linhas;
+}
+
+function mistura(hex, alvo, t){
+  const p = h => [parseInt(h.slice(1,3),16), parseInt(h.slice(3,5),16), parseInt(h.slice(5,7),16)];
+  const [r1,g1,b1] = p(hex), [r2,g2,b2] = p(alvo);
+  const m = (a, b) => Math.round(a + (b - a) * t);
+  return 'rgb(' + m(r1,r2) + ',' + m(g1,g2) + ',' + m(b1,b2) + ')';
+}
+
+/* ---------- interacao no palco ---------- */
+function paraMundo(ev){
+  const r = tela.getBoundingClientRect();
+  return {x: (ev.clientX - r.left - vista.x) / vista.k, y: (ev.clientY - r.top - vista.y) / vista.k};
+}
+function achar(ev){
+  const p = paraMundo(ev);
+  for (let i = bolhas.length - 1; i >= 0; i--){
+    const b = bolhas[i];
+    if (Math.hypot(p.x - b.x, p.y - b.y) <= b.raio) return b;
+  }
+  return null;
+}
+
+let arrastando = null;
+tela.addEventListener('pointermove', ev => {
+  if (arrastando){
+    vista.x += ev.clientX - arrastando.x;
+    vista.y += ev.clientY - arrastando.y;
+    arrastando = {x: ev.clientX, y: ev.clientY};
+    desenhar();
+    return;
+  }
+  const b = achar(ev);
+  if (b !== sobre){ sobre = b; tela.style.cursor = b ? 'pointer' : 'grab'; desenhar(); }
+  const dica = $('#dica');
+  if (b){
+    const total = somaCasos() || 1;
+    const f = faixa(b.g.peso);
+    dica.innerHTML = '<h4>' + esc(b.g.titulo) + '</h4><dl>' +
+      '<dt>Classe</dt><dd>' + esc(b.g.classe) + '</dd>' +
+      '<dt>Casos</dt><dd>' + b.g.casos + '</dd>' +
+      '<dt>% dos casos</dt><dd>' + (b.g.casos / total * 100).toFixed(1) + '%</dd>' +
+      '<dt>Peso</dt><dd style="color:' + f.cor + '">' + b.g.peso + ' pts · ' + f.nome + '</dd>' +
+      '<dt>Impacto</dt><dd>' + b.g.impacto + '</dd></dl>' +
+      (b.g.variantes.length > 1 ? '<div style="color:var(--tinta3);font-size:11px;margin-top:5px">' + b.g.variantes.length + ' descrições agrupadas · clique para ver</div>' : '<div style="color:var(--tinta3);font-size:11px;margin-top:5px">clique para ver as ocorrências</div>');
+    const r = tela.getBoundingClientRect();
+    dica.style.left = Math.min(ev.clientX - r.left + 14, r.width - 300) + 'px';
+    dica.style.top = Math.min(ev.clientY - r.top + 14, r.height - 150) + 'px';
+    dica.classList.add('on');
+  } else dica.classList.remove('on');
+});
+tela.addEventListener('pointerdown', ev => { if (!achar(ev)){ arrastando = {x: ev.clientX, y: ev.clientY}; tela.style.cursor = 'grabbing'; } });
+addEventListener('pointerup', () => { arrastando = null; tela.style.cursor = sobre ? 'pointer' : 'grab'; });
+tela.addEventListener('pointerleave', () => { sobre = null; $('#dica').classList.remove('on'); desenhar(); });
+tela.addEventListener('click', ev => { const b = achar(ev); if (b) abrirGaveta(b.g); });
+tela.addEventListener('dblclick', () => { vista = {x:0, y:0, k:1}; desenhar(); });
+tela.addEventListener('wheel', ev => {
+  ev.preventDefault();
+  const r = tela.getBoundingClientRect();
+  const mx = ev.clientX - r.left, my = ev.clientY - r.top;
+  const antes = vista.k;
+  vista.k = Math.max(0.4, Math.min(4, vista.k * (ev.deltaY < 0 ? 1.12 : 1 / 1.12)));
+  vista.x = mx - (mx - vista.x) * (vista.k / antes);
+  vista.y = my - (my - vista.y) * (vista.k / antes);
+  desenhar();
+}, {passive:false});
+addEventListener('resize', () => { layout(); });
+
+/* ---------- gaveta ---------- */
+let grupoAberto = null;
+function abrirGaveta(g){
+  grupoAberto = g;
+  const f = faixa(g.peso), total = somaCasos() || 1;
+  $('#gTitulo').textContent = g.titulo;
+  const selo = $('#gSelo');
+  selo.textContent = f.nome + ' · ' + g.classe;
+  selo.style.color = f.cor; selo.style.borderColor = f.cor;
+  $('#gCasos').textContent = g.casos;
+  $('#gPct').textContent = (g.casos / total * 100).toFixed(1) + '%';
+  $('#gImpacto').textContent = g.impacto;
+  $('#gPeso').value = g.peso;
+  $('#gQtdVar').textContent = '(' + g.variantes.length + ')';
+  $('#gLinhas').innerHTML = g.variantes.map(v => '<li><span>' + v.casos + '×</span>' + esc(v.texto) + '</li>').join('');
+  $('#gaveta').classList.add('on');
+  $('#gaveta').setAttribute('aria-hidden', 'false');
+}
+function fecharGaveta(){ $('#gaveta').classList.remove('on'); $('#gaveta').setAttribute('aria-hidden', 'true'); grupoAberto = null; }
+$('#gFechar').onclick = fecharGaveta;
+$('#gPeso').addEventListener('change', ev => {
+  if (!grupoAberto) return;
+  const v = Math.max(0, Math.min(100, Number(ev.target.value) || 0));
+  estado.overrides[grupoAberto.chave] = v;
+  salvarPrefs();
+  recalcular(false);
+  abrirGaveta(estado.grupos.find(g => g.id === grupoAberto.id) || grupoAberto);
+});
+addEventListener('keydown', ev => { if (ev.key === 'Escape'){ fecharGaveta(); $('#config').classList.remove('on'); } });
+
+/* ---------- leitura de arquivo ---------- */
+async function carregarArquivo(file){
+  aviso('');
+  try {
+    const buf = await file.arrayBuffer();
+    let linhas;
+    if (/\.(xlsx|xlsm)$/i.test(file.name)) linhas = await lerXlsx(buf);
+    else linhas = lerCSV(decodificar(buf));
+    if (!linhas || linhas.length < 2) throw new Error('Não achei linhas de dados no arquivo.');
+    const iCab = acharCabecalho(linhas);
+    estado.cabecalho = linhas[iCab].map((c, i) => c || ('Coluna ' + (i + 1)));
+    estado.linhas = linhas.slice(iCab + 1).filter(l => l.some(c => c !== ''));
+    estado.mapa = detectarColunas(estado.cabecalho, estado.linhas);
+    estado.arquivo = file.name;
+    if (estado.mapa.descricao < 0){
+      montarConfig(); $('#config').classList.add('on');
+      aviso('Não identifiquei a coluna com a descrição do problema. Escolha-a aqui e clique em Aplicar.', true);
+      return;
+    }
+    montarRegistros();
+    if (!estado.registros.length) throw new Error('A coluna de descrição escolhida está vazia.');
+    recalcular();
+    montarConfig();
+  } catch (e){
+    mostrarErro(e.message || String(e));
+  }
+}
+
+function mostrarErro(msg){
+  const texto = 'Não consegui ler o arquivo: ' + msg;
+  if (estado.grupos.length){
+    let t = document.querySelector('.torrada');
+    if (!t){
+      t = document.createElement('div');
+      t.className = 'aviso erro torrada';
+      t.style.cssText = 'position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:40;max-width:min(560px,92vw);box-shadow:var(--sombra)';
+      document.body.appendChild(t);
+    }
+    t.textContent = texto;
+    clearTimeout(t.tempo);
+    t.tempo = setTimeout(() => t.remove(), 9000);
+    return;
+  }
+  const alvo = $('#alvo');
+  $('#vazio').classList.remove('escondido');
+  let box = alvo.querySelector('.aviso');
+  if (!box){ box = document.createElement('div'); box.style.marginTop = '14px'; alvo.appendChild(box); }
+  box.className = 'aviso erro';
+  box.textContent = texto;
+}
+
+/* arrastar e soltar */
+const alvo = $('#alvo');
+['dragenter','dragover'].forEach(e => addEventListener(e, ev => { ev.preventDefault(); alvo.classList.add('pairando'); }));
+['dragleave','drop'].forEach(e => addEventListener(e, ev => { ev.preventDefault(); if (e === 'drop' || ev.clientX === 0) alvo.classList.remove('pairando'); }));
+addEventListener('drop', ev => { const f = ev.dataTransfer.files[0]; if (f) carregarArquivo(f); });
+
+$('#arquivo').addEventListener('change', ev => { const f = ev.target.files[0]; if (f) carregarArquivo(f); });
+$('#btAbrir').onclick = $('#btAbrir2').onclick = () => $('#arquivo').click();
+
+/* ---------- ajustes ---------- */
+function montarConfig(){
+  const ops = (sel, vazio) => '<option value="-1">' + vazio + '</option>' +
+    estado.cabecalho.map((c, i) => '<option value="' + i + '"' + (estado.mapa[sel] === i ? ' selected' : '') + '>' + esc(c) + '</option>').join('');
+  $('#colDesc').innerHTML = ops('descricao', '— escolher —');
+  $('#colQtd').innerHTML = ops('quantidade', 'cada linha = 1 caso');
+  $('#colPeso').innerHTML = ops('peso', 'usar peso da classe');
+  $('#colClasse').innerHTML = ops('classe', 'classificar pelo texto');
+  $('#pesosClasse').innerHTML = CLASSES.map(c => {
+    const nome = c.nome;
+    const v = estado.pesosClasse[nome] !== undefined ? estado.pesosClasse[nome] : c.peso;
+    return '<label for="pc-' + esc(nome) + '">' + esc(nome) + '</label><input id="pc-' + esc(nome) + '" type="number" min="0" max="100" data-classe="' + esc(nome) + '" value="' + v + '">';
+  }).join('');
+}
+function aviso(txt, mostrar){
+  const el = $('#cAviso');
+  el.textContent = txt;
+  el.hidden = !mostrar;
+}
+$('#btConfig').onclick = () => {
+  if (!estado.cabecalho.length){ mostrarErro('abra primeiro uma planilha (ou clique em “Ver com dados de exemplo”).'); return; }
+  montarConfig(); $('#config').classList.add('on');
+};
+$('#cFechar').onclick = () => $('#config').classList.remove('on');
+$('#config').addEventListener('click', ev => { if (ev.target === $('#config')) $('#config').classList.remove('on'); });
+$('#cAplicar').onclick = () => {
+  estado.mapa = {
+    descricao: Number($('#colDesc').value),
+    quantidade: Number($('#colQtd').value),
+    peso: Number($('#colPeso').value),
+    classe: Number($('#colClasse').value)
+  };
+  if (estado.mapa.descricao < 0){ aviso('Escolha a coluna com a descrição do problema.', true); return; }
+  $('#pesosClasse').querySelectorAll('input').forEach(i => { estado.pesosClasse[i.dataset.classe] = Number(i.value) || 0; });
+  salvarPrefs();
+  montarRegistros();
+  recalcular();
+  $('#config').classList.remove('on');
+};
+$('#cRestaurar').onclick = () => {
+  estado.pesosClasse = {}; estado.overrides = {};
+  salvarPrefs(); montarConfig(); recalcular();
+};
+
+/* ---------- controles ---------- */
+$('#metrica').addEventListener('click', ev => {
+  const bt = ev.target.closest('button'); if (!bt) return;
+  estado.metrica = bt.dataset.m;
+  $('#metrica').querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(b === bt)));
+  layout();
+});
+$('#limiar').addEventListener('input', ev => {
+  estado.limiar = Number(ev.target.value) / 100;
+  $('#limiarVal').textContent = ev.target.value + '%';
+});
+$('#limiar').addEventListener('change', () => { salvarPrefs(); if (estado.registros.length) recalcular(); });
+$('#busca').addEventListener('input', ev => { estado.busca = ev.target.value; aplicarFiltros(); atualizarKpis(); montarTabela(); layout(); });
+$('#filtroClasse').addEventListener('change', ev => { estado.classe = ev.target.value; aplicarFiltros(); atualizarKpis(); montarTabela(); layout(); });
+$('#btTabela').onclick = () => {
+  const on = $('#tabela').classList.toggle('escondida');
+  $('#btTabela').setAttribute('aria-pressed', String(!on));
+  if (!on) $('#tabela').scrollIntoView({behavior: semMovimento.matches ? 'auto' : 'smooth'});
+};
+$('#btTema').onclick = () => { aplicarTema(document.documentElement.classList.contains('tema-claro') ? 'escuro' : 'claro'); salvarPrefs(); };
+$('#corpoTabela').addEventListener('click', ev => {
+  const tr = ev.target.closest('tr'); if (!tr) return;
+  const g = estado.grupos.find(x => x.id === tr.dataset.id);
+  if (g) abrirGaveta(g);
+});
+$('#btCopiar').onclick = async () => {
+  const total = somaCasos() || 1;
+  const linhas = [['Problema','Classe','Casos','% dos casos','Peso','Impacto'].join('\t')]
+    .concat(estado.visiveis.slice().sort((a,b) => b.impacto - a.impacto)
+      .map(g => [g.titulo, g.classe, g.casos, (g.casos/total*100).toFixed(1).replace('.',',') + '%', g.peso, g.impacto].join('\t')));
+  const txt = linhas.join('\n');
+  try { await navigator.clipboard.writeText(txt); $('#btCopiar').textContent = 'Copiado ✓'; }
+  catch(e){
+    const ta = document.createElement('textarea');
+    ta.value = txt; document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); $('#btCopiar').textContent = 'Copiado ✓'; } catch(e2){ $('#btCopiar').textContent = 'Não consegui copiar'; }
+    ta.remove();
+  }
+  setTimeout(() => { $('#btCopiar').textContent = 'Copiar para o Excel'; }, 2200);
+};
+
+/* ---------- exemplo ---------- */
+const EXEMPLO = `Data;Turno;Posto;Descrição do problema;Quantidade
+02/06/2026;1;OP-30;Vazamento no tubo do freio;1
+03/06/2026;1;OP-45;Vazamento de óleo na tubulação de enchimento;6
+04/06/2026;2;OP-45;Vaza óleo na tubulacao do enchimento;4
+05/06/2026;1;OP-20;Parafuso do suporte sem torque;5
+06/06/2026;1;OP-20;Parafusos da carcaça sem aperto;3
+09/06/2026;1;OP-55;Conector do sensor de rotação solto;7
+10/06/2026;2;OP-55;Chicote elétrico mal fixado;4
+11/06/2026;1;OP-10;Falta arruela no suporte do chicote;2
+12/06/2026;1;OP-60;Ruído na engrenagem da 3ª marcha;2
+15/06/2026;2;OP-70;Carcaça riscada na movimentação;6
+16/06/2026;1;OP-70;Carcaça amassada no transporte;2
+17/06/2026;1;OP-80;Etiqueta de identificação trocada;3
+18/06/2026;2;OP-35;Vazamento na tampa traseira;2
+19/06/2026;1;OP-35;Falta parafuso da tampa lateral;3
+22/06/2026;1;OP-25;Cavaco no alojamento do rolamento;4
+23/06/2026;2;OP-50;Mangueira do freio mal encaixada;1
+24/06/2026;1;OP-40;Engrenagem travando ao girar;1
+25/06/2026;1;OP-15;Sensor de temperatura invertido;2`;
+
+$('#btExemplo').onclick = () => {
+  const linhas = lerCSV(EXEMPLO);
+  estado.cabecalho = linhas[0];
+  estado.linhas = linhas.slice(1);
+  estado.mapa = detectarColunas(estado.cabecalho, estado.linhas);
+  estado.arquivo = 'exemplo';
+  montarRegistros();
+  recalcular();
+  montarConfig();
+};
+
+/* ---------- inicio ---------- */
+carregarPrefs();
+dimensionar();
+desenhar();
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => desenhar());
+</script>
+
+</body>
+</html>
