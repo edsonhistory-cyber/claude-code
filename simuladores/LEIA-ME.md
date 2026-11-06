@@ -94,3 +94,17 @@ Para gerar o vídeo (num PC com placa de vídeo, na pasta `.claude/skills/teardo
 - O lado de fora segue as fotos da linha; o interior é construção típica (não é o desenho oficial).
   A versão com comando eletro-hidráulico (bloco de válvula, tubos, solenoide) fica para a próxima.
 - Correção nas 4 lições: o corte agora acompanha o lado da câmera em todas as peças.
+
+## Treinamento de montagem: levantador hidráulico (TL80)
+
+- `levante-tl80-montagem.html` (no trator) e `levante-tl80-bancada.html` (só na bancada). 15 passos: carcaça do
+  levante; camisa do cilindro e O-ring; anel de vedação e anel de encosto do pistão; pistão no cilindro (com ar
+  comprimido para segurar na posição, se precisar); buchas, eixo do levante e braço interno com parafuso-trava; biela
+  e pino; retentores; came de posição, alavanca e mola de realimentação; válvula de controle com carretel e mola;
+  junta e levante sobre a carcaça central; 8 parafusos em cruz numerada; braços externos; hastes de levante até as
+  barras inferiores; haste de comando e ajuste de altura.
+  FUNCIONAMENTO: SUBIR, PARAR, DESCER (setas ↑ ↓) e a ALAVANCA DE POSIÇÃO: o levante vai até a altura pedida e o
+  came fecha a válvula ali (controle de posição). Mostra altura, ângulo dos braços, curso do pistão e estado da válvula.
+- Referências: vídeo "2º Levantador Hidráulico – Ajuste de Altura" (Unapel New Holland) e "Câmbio TL 75" (Trator
+  Peças), vistos só pelos quadros de capa, como referência do arranjo; nada copiado deles. Construção típica;
+  medidas e ajustes: manual de serviço.
