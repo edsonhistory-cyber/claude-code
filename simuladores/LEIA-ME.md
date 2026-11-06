@@ -40,3 +40,17 @@ Para gerar o vídeo (num PC com placa de vídeo, na pasta `.claude/skills/teardo
 - Freio hidráulico: pistão anular com anel quadrado pequeno e grande (210×80 mm).
 - Câmbio: eixo piloto 23 dentes, 264 mm; engrenagem sincronizada 23 dentes, 100×80×20 (para o próximo módulo).
 - TL80 brasileiro: Iveco 8045, 4 cil., 82 cv, aspirado; câmbio 12×4 sincronizado de série, 12×12 com inversor mecânico opcional.
+
+## Treinamento de montagem: caixa de câmbio 4 marchas (TL80)
+
+- `cambio-tl80-montagem.html`: no TRATOR (aberto entre motor e câmbio; a frente volta no último passo). DESTACAR
+  esconde o trator. 24 passos, peça por peça: eixo intermediário e rolamentos; eixo secundário com buchas de agulhas,
+  engrenagens 1ª/2ª/3ª, 4 anéis sincronizadores de bronze, cubos 1–2 e 3–4 com chavetas e molas, luvas, arruela,
+  anel-trava, rolamento-guia e rolamento traseiro; eixo piloto 23 dentes (264 mm) com rolamento e anel; tampa
+  dianteira com junta, retentor e 6 parafusos em cruz numerada; tampa de comando com trilhos, garfos, parafusos-trava,
+  esferas e molas de trava, pino de intertravamento, junta e 8 parafusos em cruz numerada.
+  FUNCIONAMENTO: botões N, 1ª, 2ª, 3ª, 4ª (ou teclas N 1 2 3 4): a luva sai, o anel de bronze sincroniza (brilha),
+  a luva engata, o garfo e o trilho andam junto, o caminho da força acende e as rotações aparecem.
+- `cambio-tl80-bancada.html`: a mesma lição só na bancada.
+- Dados do site de peças usados: eixo piloto 23 dentes, 264 mm; engrenagem sincronizada 23 dentes. Demais dentes,
+  formas e sequência: construção típica (não é o desenho oficial). Torques: manual de serviço.
