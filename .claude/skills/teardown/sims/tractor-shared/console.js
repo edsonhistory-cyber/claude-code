@@ -63,7 +63,7 @@ export function createConsole(app) {
   add(`<div class="mo" style="position:absolute;left:86px;top:28px;color:#fff;font-size:11px;font-weight:600;letter-spacing:2px;line-height:15px">12×12<br>4×4</div>`);
   add(`<div class="sm" style="position:absolute;left:182px;top:22px;letter-spacing:2.4px">TRATOR AGRÍCOLA · NEW HOLLAND TL80</div>`);
   add(`<div style="position:absolute;left:181px;top:37px;font-size:33px;font-weight:700;letter-spacing:-.6px;line-height:1">Transmissão 12×12 · reversor mecânico <span style="color:${C.or};font-weight:400">/</span></div>`);
-  add(`<div class="mo" style="position:absolute;left:182px;top:77px;font-size:11.2px;letter-spacing:2.2px;color:#5d6068">MOTOR 8045 3,9 L TURBO 80 CV · REVERSOR MECÂNICO · 4 MARCHAS × 3 GAMAS · TDP 540 · 4×4</div>`);
+  add(`<div class="mo" style="position:absolute;left:182px;top:77px;font-size:11.2px;letter-spacing:2.2px;color:#5d6068">MOTOR IVECO 8045 3,9 L 82 CV · REVERSOR MECÂNICO (12×12) · 4 MARCHAS × 3 GAMAS · TDP 540 · 4×4</div>`);
   add(`<div class="sm" style="position:absolute;left:1150px;top:40px;letter-spacing:2.2px;line-height:15px;text-align:right;right:28px">ESTUDO INTERATIVO · NÃO OFICIAL<br>DADOS PÚBLICOS DO TL80<br>DENTES DAS ENGRENAGENS: MODELO PRÓPRIO</div>`);
 
   // ------------------------------------------------------------ 01 state
@@ -99,7 +99,7 @@ export function createConsole(app) {
   panel(1313, 126, 258, 196, 'VISÃO GERAL', '03');
   add(`<div class="mo" style="position:absolute;left:1327px;top:160px;width:232px;font-size:9.2px;line-height:1.7;color:#4f535b">O motor gira o primário pela embreagem. O reversor escolhe o sentido, o câmbio a marcha e a gama a faixa: 4 × 3 = 12 para frente e 12 para trás, cada troca por um sincronizador. Embreagem de disco duplo: o 2º disco toca a TDP. A PDM puxa a frente 2 % adiantada.</div>`);
   add(`<div style="position:absolute;left:1327px;top:262px;width:232px;height:1px;background:${C.line}"></div>`);
-  [['12×12', 'MARCHAS'], ['5', 'SINCRON.'], ['32', 'KM/H MÁX']].forEach(([v, n], i) => {
+  [['12×12', 'MARCHAS'], ['5', 'SINCRON.'], ['28,9', 'KM/H MÁX']].forEach(([v, n], i) => {
     const x = 1327 + i * 82;
     if (i) add(`<div style="position:absolute;left:${x - 8}px;top:272px;width:1px;height:38px;background:${C.line}"></div>`);
     add(`<div style="position:absolute;left:${x}px;top:273px;font-size:19px;font-weight:700">${v}</div>`);

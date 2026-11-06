@@ -11,7 +11,7 @@ Dados públicos do TL80 (1999–2004; TractorData, Tractorista, fichas OCDE): mo
 3,9 L, 104 × 115 mm, 80 cv a 2.500 rpm; embreagem de disco duplo a seco; 12 marchas com reversor mecânico; TDP
 independente 540 rpm a 2.199 rpm do motor; redução final planetária; freios em banho de óleo; pneus 380/70R24 e
 480/70R34 (4×4); entre-eixos 2.310 mm; cerca de 3.500 kg. As contagens de dentes e a tabela de velocidades NÃO são
-publicadas: as do modelo são próprias (pares de 60 dentes, módulo 4 mm) e dão de 3 a 32 km/h a 2.500 rpm.
+publicadas: as do modelo são próprias (pares de 60 dentes, módulo 4 mm) e dão de 2,6 a 28,9 km/h a 2.500 rpm.
 Mande fotos do catálogo de peças para afinar as peças pelo desenho real.
 
 Para gerar o vídeo (num PC com placa de vídeo, na pasta `.claude/skills/teardown`):
@@ -33,3 +33,10 @@ Para gerar o vídeo (num PC com placa de vídeo, na pasta `.claude/skills/teardo
   AUTO, DESMONTAR TUDO, MONTAR TUDO e a barra de passos para ir e voltar (a volta é a desmontagem).
   FUNCIONAMENTO: gire o semieixo e segure FREIO (ou espaço) para ver a redução 6:1 e o freio atuando.
 - Construção típica, não o desenho oficial. Torques, pré-carga e folgas: manual de serviço.
+
+### Dados de peças usados (lojas de peças da linha TL, como referência de nomes e medidas; desenhos não copiados)
+- Coroa e pinhão do eixo traseiro 9 × 43 (TL60…TL100); semieixo da ponta do eixo traseiro TL80/90/100 Iveco, 24 estrias.
+- Rolamentos do eixo traseiro 6212 (60×110×22) e 6215 (75×130×25), de esferas.
+- Freio hidráulico: pistão anular com anel quadrado pequeno e grande (210×80 mm).
+- Câmbio: eixo piloto 23 dentes, 264 mm; engrenagem sincronizada 23 dentes, 100×80×20 (para o próximo módulo).
+- TL80 brasileiro: Iveco 8045, 4 cil., 82 cv, aspirado; câmbio 12×4 sincronizado de série, 12×12 com inversor mecânico opcional.

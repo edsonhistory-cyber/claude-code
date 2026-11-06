@@ -3,12 +3,13 @@
 // wheel with the differential, planetary final drives, the front drive axle (4WD) with its own bevel and planetary
 // hubs, and an independent PTO with its own disc of the double clutch.
 //
-// Published (TractorData, Tractorista, OECD-based sheets): Iveco/NH 8045 diesel, turbo, 4 cylinders, 3.9 L, bore x
-// stroke 104 x 115 mm, compression 16.5:1, 80 hp at 2500 rpm; dual dry disc clutch; 12-speed with mechanical shuttle;
+// Published (TractorData, Tractorista, OECD-based sheets; Brazilian dealer pages): Iveco 8045 diesel, 4 cylinders,
+// 3.9 L, bore x stroke 104 x 115 mm, 82 cv (Brazilian TL80, naturally aspirated) at 2500 rpm; rear crown and pinion
+// 9 x 43; 12x4 synchronised as standard, 12x12 with the mechanical reverser as an option; dual dry disc clutch; 12-speed with mechanical shuttle;
 // independent PTO 540 rpm at 2199 engine rpm (1000 optional); planetary final drives; wet brakes; tyres 380/70R24 front
 // (4WD), 480/70R34 rear; wheelbase 2310 mm (4WD); about 3500 kg operating. NOT published: the tooth counts or the
 // speed table. The ones below are this model's own: every pair on a 120 mm centre distance (tooth sum 60 at a 4 mm
-// module), speeds from 3 km/h in L1 to 32 km/h in H4 at 2500 rpm.
+// module), speeds from 2.6 km/h in L1 to 28.9 km/h in H4 at 2500 rpm.
 //
 // Shaft line (front to rear, top and bottom alternate): S0 primary (top, from the clutch) -> reverser -> S1 (bottom)
 // -> 4-speed -> S2 (top) -> ranges -> S3 (bottom, the pinion shaft) -> crown wheel -> differential -> final drives.
@@ -28,7 +29,7 @@ export const Z = {
   sR: 27, s1R: 30, idR: 20, // reverser reverse pair through an idler
   c1: 19, m1: 41, c2: 23, m2: 37, c3: 28, m3: 32, c4: 32, m4: 28, // 4-speed: S1 fixed c, S2 free m
   dL: 11, gL: 49, dM: 18, gM: 42, dH: 30, gH: 30, // ranges: S2 fixed d, S3 free g
-  pin: 10, crown: 43, // spiral bevel
+  pin: 9, crown: 43, // spiral bevel, 9 x 43 as listed for the TL60...TL100 rear axle
   sun: 18, planet: 36, ring: 90, // final drive, carrier output: 1 + 90/18 = 6
   fPin: 9, fCrown: 34, fSun: 18, fPlanet: 26, fRing: 70, // PDM: bevel 34/9, hubs 1 + 70/18; 4 planets
   ptoA: 19, ptoB: 77, // PTO reduction at the rear: 2199 / (77/19) = 543, the published 540 at 2199

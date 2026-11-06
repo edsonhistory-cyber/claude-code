@@ -199,7 +199,7 @@ export function makeCursor(ui) {
 
 // ------------------------------------------------------------ the labels
 const PARTS = [
-  {key: 'engine', name: 'MOTOR IVECO/NH 8045', sub: '3,9 L TURBO · 80 CV A 2.500 RPM'},
+  {key: 'engine', name: 'MOTOR IVECO/NH 8045', sub: '3,9 L · 82 CV A 2.500 RPM'},
   {key: 'pistons', name: 'PISTÕES E BIELAS', sub: '104 × 115 MM · ORDEM 1-3-4-2'},
   {key: 'timing', name: 'DISTRIBUIÇÃO POR ENGRENAGENS', sub: 'VIRABREQUIM 30 → COMANDO 60'},
   {key: 'pump', name: 'BOMBA INJETORA MECÂNICA', sub: 'BOMBA DE INJEÇÃO · 4 BICOS'},
@@ -212,7 +212,7 @@ const PARTS = [
   {key: 'gears', name: 'CÂMBIO 4 MARCHAS', sub: '19/41 · 23/37 · 28/32 · 32/28'},
   {key: 'hub12', name: 'SINCRONIZADOR 1–2', sub: 'LUVA DESLIZA NO CUBO'},
   {key: 'range', name: 'GAMAS L · M · H', sub: '11/49 · 18/42 · 30/30'},
-  {key: 'crown', name: 'PINHÃO E COROA', sub: '10/43 · DIFERENCIAL'},
+  {key: 'crown', name: 'PINHÃO E COROA', sub: '9/43 · DIFERENCIAL'},
   {key: 'trumpet', name: 'EIXO DA TROMBETA', sub: 'SEMIEIXO ATÉ O SOL'},
   {key: 'brakes', name: 'FREIOS EM BANHO DE ÓLEO', sub: 'DISCOS NO SEMIEIXO'},
   {key: 'final', name: 'SATÉLITES DA TROMBETA', sub: 'SOL 18 · 3 × 36 · ANEL 90 = 6 : 1'},

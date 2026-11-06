@@ -160,7 +160,7 @@ function createConsole(app) {
   add(`<div class="mo" style="position:absolute;left:28px;top:62px;color:#fff;font-size:9px;letter-spacing:2px">TREINAMENTO</div>`);
   add(`<div class="sm" style="position:absolute;left:182px;top:22px;letter-spacing:2.4px">TRATOR AGRÍCOLA · EIXO TRASEIRO</div>`);
   add(`<div style="position:absolute;left:181px;top:37px;font-size:31px;font-weight:700;letter-spacing:-.6px;line-height:1">Trombeta e redução final <span style="color:${C.or};font-weight:400">/</span> montagem peça por peça</div>`);
-  add(`<div class="mo" style="position:absolute;left:182px;top:77px;font-size:10.6px;letter-spacing:2px;color:#5d6068">REDUÇÃO PLANETÁRIA ${Z.sun}/${Z.planet}/${Z.ring} = ${RATIO}:1 · FREIO A DISCO EM BANHO DE ÓLEO · ROLAMENTOS CÔNICOS</div>`);
+  add(`<div class="mo" style="position:absolute;left:182px;top:77px;font-size:10.6px;letter-spacing:2px;color:#5d6068">REDUÇÃO PLANETÁRIA ${Z.sun}/${Z.planet}/${Z.ring} = ${RATIO}:1 · FREIO HIDRÁULICO A DISCO EM ÓLEO · ROLAMENTOS 6212 / 6215 · SEMIEIXO 24 ESTRIAS</div>`);
   add(`<div class="sm" style="position:absolute;right:28px;top:40px;letter-spacing:2px;line-height:15px;text-align:right">CONSTRUÇÃO TÍPICA · NÃO É O DESENHO OFICIAL<br>TORQUES E FOLGAS: MANUAL DE SERVIÇO</div>`);
   // 01 the step card
   panel(28, 110, 340, 482, 'PASSO', '01');
@@ -257,7 +257,7 @@ function createConsole(app) {
         stNum.textContent = 'FUNCIONAMENTO';
         stTitle.textContent = 'Redução planetária e freio';
         stText.textContent = 'O semieixo gira a engrenagem solar. A coroa interna está parada, presa entre a carcaça e a trombeta: os três satélites rolam por dentro dela e levam o porta-satélites, que é o eixo da roda.';
-        stWhy.textContent = `A roda gira ${RATIO}× mais devagar que o semieixo e recebe ${RATIO}× mais torque (1 + ${Z.ring}/${Z.sun} = ${RATIO}). Freio: ao pisar, as placas do atuador giram, as esferas sobem nas rampas e apertam os discos.`;
+        stWhy.textContent = `A roda gira ${RATIO}× mais devagar que o semieixo e recebe ${RATIO}× mais torque (1 + ${Z.ring}/${Z.sun} = ${RATIO}). Freio: ao pisar, o óleo empurra o pistão anular, que aperta os discos contra a placa e a contraplaca.`;
         stTool.textContent = 'Arraste o controle do semieixo; segure FREIO.';
         stCare.textContent = 'Como o freio age no semieixo, antes da redução, ele precisa de 6× menos força para segurar a roda.';
         stParts.innerHTML = '';
@@ -338,7 +338,7 @@ function createConsole(app) {
 }
 
 // ------------------------------------------------------------ labels
-const FUNC_LABELS = [['semieixo', 'SEMIEIXO (ENTRADA)'], ['sol', 'SOLAR 18 D'], ['satelite0', 'SATÉLITE 36 D'], ['coroa', 'COROA INTERNA 90 D (PARADA)'], ['portaSat', 'PORTA-SATÉLITES (SAÍDA)'], ['eixoRoda', 'EIXO DA RODA'], ['disco2', 'DISCOS DE FREIO'], ['esferas', 'ESFERAS NAS RAMPAS'], ['coneExt', 'ROLAMENTO CÔNICO']];
+const FUNC_LABELS = [['semieixo', 'SEMIEIXO (ENTRADA)'], ['sol', 'SOLAR 18 D'], ['satelite0', 'SATÉLITE 36 D'], ['coroa', 'COROA INTERNA 90 D (PARADA)'], ['portaSat', 'PORTA-SATÉLITES (SAÍDA)'], ['eixoRoda', 'EIXO DA RODA'], ['disco2', 'DISCOS DE FREIO'], ['pistao', 'PISTÃO HIDRÁULICO DO FREIO'], ['coneExt', 'ROLAMENTO 6215']];
 function makeLabels(st) {
   return (s, o) => {
     if (o < 0.02) return [];

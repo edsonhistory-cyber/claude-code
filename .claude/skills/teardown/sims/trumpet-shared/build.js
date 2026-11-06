@@ -1,7 +1,7 @@
 // Every part of the final drive as its own mesh group, built from code in metres from model.js: the centre housing
-// stub with its 10 studs, the half shaft, two wet brake discs, the ball-ramp actuator (two plates, 5 balls, 3 return
-// springs), the reaction plate, the 18 T sun and its snap ring, the gasket, the dowels, the 90 T ring gear; on the
-// trumpet side the casting, both tapered bearings (cups, cones, rollers), the seal, the wheel axle with hub and studs,
+// stub with its 10 studs, the half shaft (24 splines), the annular hydraulic brake piston with its two square rings,
+// two wet brake discs, the intermediate plate and 3 return springs, the reaction plate, the 18 T sun and its snap ring, the gasket, the dowels, the 90 T ring gear; on the
+// trumpet side the casting, the 6212 and 6215 ball bearings and the bearing snap ring, the seal, the wheel axle with hub and studs,
 // the tab washer and ring nut, the planet carrier with its snap ring, and for each of the 3 planets 24 needle rollers,
 // two thrust washers, the planet, its pin and roll pin; 10 plain washers, 10 nuts, two plugs. update(st) places each
 // part between its exploded and installed pose, turns what turns, opens the brake, cuts the castings.
@@ -138,33 +138,29 @@ export function buildFinalDrive() {
         add(R, gearGeo(22, 0.03, {m: 0.0026}).translate(0, 0, 0.112), M.steel);
         break;
       case 'brakeDisc': {
-        const zc = p.id === 'disco1' ? 0.015 : 0.065;
+        const zc = p.id === 'disco1' ? 0.03 : 0.056;
         add(R, holedDisc(0.03, 0.118, 0.0025, []).translate(0, 0, zc - 0.00125), M.dark);
         for (const s of [-1, 1]) add(R, holedDisc(0.07, 0.118, 0.0018, []).translate(0, 0, zc + s * 0.0021 - 0.0009), M.friction);
         add(R, gearGeo(24, 0.006, {m: 0.0024, internal: 0.036}).translate(0, 0, zc), M.dark);
         break;
       }
-      case 'actuatorPlate': {
-        const zc = p.side < 0 ? 0.028 : 0.052;
-        add(R, holedDisc(0.035, 0.122, 0.01, []).translate(0, 0, zc - 0.005), M.dark);
-        // the lug the pedal linkage pulls, and the five ramps (shallow pockets) facing the balls
-        add(R, new RoundedBoxGeometry(0.03, 0.04, 0.01, 2, 0.004).translate(0, 0.135, zc), M.dark);
-        for (let i = 0; i < 5; i++) {
-          const a = (i / 5) * Math.PI * 2;
-          add(R, new THREE.CylinderGeometry(0.009, 0.009, 0.002, 20).rotateX(Math.PI / 2).translate(0.085 * Math.cos(a), 0.085 * Math.sin(a), zc - p.side * 0.0055), M.bright);
-        }
+      case 'piston': {
+        // the annular piston: a ring with a groove on its inner and outer face for the square rings
+        add(R, lathe([[0.04, 0.004], [0.105, 0.004], [0.105, 0.009], [0.1, 0.009], [0.1, 0.017], [0.105, 0.017], [0.105, 0.022], [0.04, 0.022], [0.04, 0.017], [0.045, 0.017], [0.045, 0.009], [0.04, 0.009], [0.04, 0.004]], 96), M.dark);
         break;
       }
-      case 'balls':
-        for (let i = 0; i < 5; i++) {
-          const a = (i / 5) * Math.PI * 2;
-          add(R, new THREE.SphereGeometry(0.0075, 20, 14).translate(0.085 * Math.cos(a), 0.085 * Math.sin(a), 0.04), M.bright);
-        }
+      case 'squareRing': {
+        const r = p.side < 0 ? 0.0425 : 0.1025;
+        add(R, tube(r - 0.0028, r + 0.0028, 0.0102, 0.0158, 72), M.rubber);
+        break;
+      }
+      case 'midPlate':
+        add(R, holedDisc(0.035, 0.125, 0.004, [[0.118, 0, 0.004], [-0.118, 0, 0.004]]).translate(0, 0, 0.041), M.dark);
         break;
       case 'springs':
         for (let i = 0; i < 3; i++) {
           const a = (i / 3) * Math.PI * 2 + 0.6;
-          add(R, spring(0.004, 0.03, 0.05).translate(0.106 * Math.cos(a), 0.106 * Math.sin(a), 0), M.bright);
+          add(R, spring(0.004, 0.022, 0.04).translate(0.116 * Math.cos(a), 0.116 * Math.sin(a), 0), M.bright);
         }
         break;
       case 'reactionPlate':
@@ -196,34 +192,38 @@ export function buildFinalDrive() {
         break;
       }
       case 'trumpet': {
-        add(R, lathe([[0.13, 0.128], [0.232, 0.128], [0.232, 0.148], [0.165, 0.152], [0.112, 0.2], [0.097, 0.26], [0.097, 0.43], [0.12, 0.44], [0.12, 0.5], [0.0805, 0.5], [0.0805, 0.46], [0.065, 0.455], [0.065, 0.205], [0.0705, 0.2], [0.0705, 0.172], [0.13, 0.168], [0.13, 0.128]], 96), M.cut, {cut: true});
+        add(R, lathe([[0.13, 0.128], [0.232, 0.128], [0.232, 0.148], [0.165, 0.152], [0.112, 0.2], [0.097, 0.26], [0.097, 0.43], [0.12, 0.44], [0.12, 0.5], [0.065, 0.5], [0.065, 0.46], [0.05, 0.455], [0.05, 0.205], [0.055, 0.2], [0.055, 0.172], [0.13, 0.168], [0.13, 0.128]], 96), M.cut, {cut: true});
         for (const [x, y] of boltHoles(0)) add(R, cyl(0.02, 0.146, 0.15, 16).translate(x, y, 0), M.cut, {cut: true}); // spot faces
         add(R, new RoundedBoxGeometry(0.05, 0.03, 0.05, 2, 0.008).translate(0, -0.1, 0.35), M.cut, {cut: true}); // drain boss
         add(R, new RoundedBoxGeometry(0.03, 0.05, 0.05, 2, 0.008).translate(-0.1, 0, 0.3), M.cut, {cut: true}); // level boss
         break;
       }
-      case 'cupInner':
-        add(R, lathe([[0.058, 0.172], [0.0705, 0.172], [0.0705, 0.197], [0.062, 0.197], [0.058, 0.172]], 64), M.bright);
-        break;
-      case 'cupOuter':
-        add(R, lathe([[0.066, 0.465], [0.0805, 0.465], [0.0805, 0.49], [0.07, 0.49], [0.066, 0.465]], 64), M.bright);
-        break;
       case 'seal':
-        add(R, lathe([[0.041, 0.49], [0.0805, 0.49], [0.0805, 0.5], [0.05, 0.5], [0.043, 0.497], [0.041, 0.49]], 64), M.rubber);
-        add(R, tube(0.07, 0.08, 0.4985, 0.5, 64), M.bright);
+        add(R, lathe([[0.0385, 0.49], [0.065, 0.49], [0.065, 0.5], [0.045, 0.5], [0.04, 0.497], [0.0385, 0.49]], 64), M.rubber);
+        add(R, tube(0.057, 0.065, 0.4985, 0.5, 64), M.bright);
         break;
-      case 'coneOuter':
-        add(R, lathe([[0.04, 0.465], [0.052, 0.465], [0.056, 0.49], [0.04, 0.49], [0.04, 0.465]], 64), M.bright);
-        for (const g of taperRollers(18, 0.06, 0.467, 0.488, 0.0055, 0.0065)) add(R, g, M.steel);
+      case 'ballOuter':
+      case 'ballInner': {
+        // a deep-groove ball bearing: inner ring, outer ring, the balls between
+        const [ri, ro, z0, z1, nb] = p.kind === 'ballOuter' ? [0.0375, 0.065, 0.465, 0.49, 12] : [0.03, 0.055, 0.172, 0.194, 10];
+        const t = (ro - ri) * 0.3;
+        add(R, tube(ri, ri + t, z0, z1, 64), M.bright);
+        add(R, tube(ro - t, ro, z0, z1, 64), M.bright);
+        const rb = (ro - ri) * 0.19;
+        for (let i = 0; i < nb; i++) {
+          const a = (i / nb) * Math.PI * 2;
+          add(R, new THREE.SphereGeometry(rb, 14, 10).translate(((ri + ro) / 2) * Math.cos(a), ((ri + ro) / 2) * Math.sin(a), (z0 + z1) / 2), M.steel);
+        }
         break;
-      case 'coneInner':
-        add(R, lathe([[0.04, 0.172], [0.05, 0.172], [0.047, 0.197], [0.04, 0.197], [0.04, 0.172]], 64), M.bright);
-        for (const g of taperRollers(16, 0.0545, 0.174, 0.195, 0.0055, 0.0048)) add(R, g, M.steel);
+      }
+      case 'snapBore':
+        add(R, snapRing(0.055, 0.061, 0.0018).translate(0, 0, 0.1695), M.bright);
         break;
       case 'axle':
-        add(R, cyl(0.04, 0.134, 0.535, 48), M.steel);
-        add(R, gearGeo(40, 0.02, {m: 0.002}).translate(0, 0, 0.145), M.steel);
-        for (let i = 0; i < 6; i++) add(R, tube(0.04, 0.0412, 0.157 + i * 0.0018, 0.1578 + i * 0.0018, 40), M.dark); // thread
+        add(R, cyl(0.03, 0.134, 0.2, 40), M.steel);
+        add(R, cyl(0.0375, 0.2, 0.535, 48), M.steel);
+        add(R, gearGeo(28, 0.02, {m: 0.002}).translate(0, 0, 0.145), M.steel);
+        for (let i = 0; i < 6; i++) add(R, tube(0.03, 0.0312, 0.157 + i * 0.0018, 0.1578 + i * 0.0018, 40), M.dark); // thread
         add(R, lathe([[0.03, 0.53], [0.17, 0.53], [0.17, 0.555], [0.06, 0.555], [0.06, 0.575], [0.03, 0.575], [0.03, 0.53]], 96), M.steel);
         for (let i = 0; i < 8; i++) {
           const a = (i / 8) * Math.PI * 2;
@@ -231,31 +231,31 @@ export function buildFinalDrive() {
         }
         break;
       case 'tabWasher':
-        add(R, tube(0.0405, 0.062, 0.1685, 0.171, 48), M.bright);
-        add(R, new THREE.BoxGeometry(0.012, 0.012, 0.0025).translate(0, 0.066, 0.1697), M.bright);
+        add(R, tube(0.0305, 0.048, 0.1685, 0.171, 48), M.bright);
+        add(R, new THREE.BoxGeometry(0.01, 0.01, 0.0025).translate(0, 0.051, 0.1697), M.bright);
         break;
       case 'ringNut': {
-        add(R, tube(0.0405, 0.06, 0.157, 0.168, 48), M.dark);
+        add(R, tube(0.0305, 0.048, 0.157, 0.168, 48), M.dark);
         for (let i = 0; i < 4; i++) {
-          const s = add(R, new THREE.BoxGeometry(0.008, 0.012, 0.0115).translate(0, 0.056, 0.1625), M.cast);
+          const s = add(R, new THREE.BoxGeometry(0.007, 0.01, 0.0115).translate(0, 0.045, 0.1625), M.cast);
           s.rotation.z = (i / 4) * Math.PI * 2;
         }
         break;
       }
       case 'carrier': {
         add(R, holedDisc(0.033, 0.1, 0.006, [0, 1, 2].map((k) => [PLANET_R * Math.cos((2 * Math.PI * k) / 3), PLANET_R * Math.sin((2 * Math.PI * k) / 3), 0.0133])).translate(0, 0, 0.088), M.steel, {});
-        add(R, holedDisc(0.0405, 0.1, 0.006, [0, 1, 2].map((k) => [PLANET_R * Math.cos((2 * Math.PI * k) / 3), PLANET_R * Math.sin((2 * Math.PI * k) / 3), 0.0133])).translate(0, 0, 0.13), M.steel);
+        add(R, holedDisc(0.0305, 0.1, 0.006, [0, 1, 2].map((k) => [PLANET_R * Math.cos((2 * Math.PI * k) / 3), PLANET_R * Math.sin((2 * Math.PI * k) / 3), 0.0133])).translate(0, 0, 0.13), M.steel);
         for (let k = 0; k < 3; k++) {
           const a = (2 * Math.PI * k) / 3 + Math.PI / 3;
           const b = add(R, new RoundedBoxGeometry(0.028, 0.03, 0.036, 2, 0.006).translate(0.077, 0, 0.112), M.steel);
           b.rotation.z = a;
         }
-        add(R, tube(0.0405, 0.056, 0.136, 0.155, 48), M.steel);
-        add(R, gearGeo(40, 0.019, {m: 0.002, internal: 0.05}).translate(0, 0, 0.1455), M.steel);
+        add(R, tube(0.0305, 0.05, 0.136, 0.155, 48), M.steel);
+        add(R, gearGeo(28, 0.019, {m: 0.002, internal: 0.05}).translate(0, 0, 0.1455), M.steel);
         break;
       }
       case 'snapCarrier':
-        add(R, snapRing(0.04, 0.047, 0.0018).translate(0, 0, 0.1335), M.bright);
+        add(R, snapRing(0.03, 0.037, 0.0018).translate(0, 0, 0.1335), M.bright);
         break;
       case 'needles':
       case 'thrust':
@@ -352,7 +352,7 @@ export function buildFinalDrive() {
     }
     M.cap.visible = (st.cut ?? 0) > 0.001;
     const E = epicyclic(st.th ?? 0);
-    const sep = (st.brake ?? 0) * 0.004; // the actuator plates spread (drawn 2x)
+    const sep = (st.brake ?? 0) * 0.004; // the piston's stroke (drawn about 2x)
     for (const r of Object.values(G)) {
       const p = r.p;
       const k = installed(p, u);
@@ -364,7 +364,7 @@ export function buildFinalDrive() {
       // turning parts: the half shaft side turns with the sun, the wheel side with the carrier
       r.spin.rotation.z = 0;
       if (['semieixo', 'disco1', 'disco2', 'sol', 'anelSol'].includes(p.id)) r.spin.rotation.z = E.sun;
-      if (['portaSat', 'anelPorta', 'eixoRoda', 'coneInt', 'coneExt', 'arruelaTrava', 'porcaAjuste'].includes(p.id) || p.kind === 'wheelNut') r.spin.rotation.z = E.carrier;
+      if (['portaSat', 'anelPorta', 'eixoRoda', 'arruelaTrava', 'porcaAjuste'].includes(p.id) || p.kind === 'wheelNut') r.spin.rotation.z = E.carrier;
       if (p.planet !== undefined) {
         // planet parts orbit with the carrier; the planet spins on its pin as it rolls round the fixed ring, the
         // needle cage at about half that
@@ -377,9 +377,13 @@ export function buildFinalDrive() {
         if (p.kind === 'needles') r.spin.rotation.z = E.carrier + E.planets[p.planet] * 0.5;
       }
       // the brake: plate A back, plate B forward, the discs pressed with them
-      if (p.id === 'atuadorA' || p.id === 'disco1') r.spin.position.z = -sep;
-      if (p.id === 'atuadorB' || p.id === 'disco2') r.spin.position.z = sep;
-      if (p.id === 'atuadorA') r.spin.rotation.z = (st.brake ?? 0) * 0.05;
+      // the hydraulic piston pushes the pack together against the reaction plate
+      if (['pistao', 'anelQPequeno', 'anelQGrande'].includes(p.id)) r.spin.position.z = sep;
+      if (p.id === 'disco1') r.spin.position.z = sep * 0.7;
+      if (p.id === 'placaInt') r.spin.position.z = sep * 0.45;
+      if (p.id === 'disco2') r.spin.position.z = sep * 0.2;
+      // the bearings' inner rings and balls turn with the axle (drawn whole: the balls at half speed would not read)
+      if (p.kind === 'ballOuter' || p.kind === 'ballInner') r.spin.rotation.z = E.carrier * 0.5;
       const hot = st.active?.has(p.id) ? 1 : 0;
       const fade = k < 0.02 && !hot ? st.ghost ?? 0 : 0;
       setLook(r, hot, fade);

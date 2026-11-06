@@ -3,7 +3,9 @@
 // care point. No three.js here. Typical construction (Fiat/New Holland family): wet disc brakes on the half shaft inside
 // the centre housing, an epicyclic reduction at the inner end of the trumpet (sun on the half shaft, planets on a
 // carrier splined to the wheel axle, ring gear clamped between centre housing and trumpet), the wheel axle on two
-// tapered roller bearings, a seal at the outer end. NOT the factory drawing: generic shapes and a typical sequence.
+// ball bearings (6212 inside, 6215 outside, as listed for the TL family by parts sellers), a seal at the outer end;
+// the wet brake applied by an annular hydraulic piston sealed by two square rings (210 x 80 mm); the half shaft with 24
+// splines. NOT the factory drawing: generic shapes and a typical sequence around those listed parts.
 // Torques, preloads and clearances are not published here; the steps say "conforme manual de serviço".
 //
 // Axis z points outboard (toward the wheel). The centre housing face is at z = 0.095. Metres throughout.
@@ -28,14 +30,13 @@ part({id: 'carcaca', kind: 'centreHousing', grp: 'base', name: 'Carcaça central
 part({id: 'prisioneiros', kind: 'studs', grp: 'base', name: 'Prisioneiros M16', qty: 10, step: 0, ex: [0, 0, 0]});
 // --- the trumpet sub-assembly (on the bench)
 part({id: 'trombeta', kind: 'trumpet', grp: 'sub', name: 'Trombeta (carcaça do eixo)', qty: 1, step: 1, ex: [0, 0, 0]});
-part({id: 'capaInt', kind: 'cupInner', grp: 'sub', name: 'Capa do rolamento interno', qty: 1, step: 2, ex: [0, 0, -0.32]});
-part({id: 'capaExt', kind: 'cupOuter', grp: 'sub', name: 'Capa do rolamento externo', qty: 1, step: 2, ex: [0, 0, 0.42]});
-part({id: 'retentor', kind: 'seal', grp: 'sub', name: 'Retentor do eixo da roda', qty: 1, step: 3, ex: [0, 0, 0.5]});
-part({id: 'coneExt', kind: 'coneOuter', grp: 'sub', name: 'Cone do rolamento externo (rolos cônicos)', qty: 1, step: 4, ex: [0, 0.18, 0.62]});
-part({id: 'eixoRoda', kind: 'axle', grp: 'sub', name: 'Eixo da roda com cubo e 8 prisioneiros', qty: 1, step: 5, ex: [0, 0, 0.62]});
-part({id: 'coneInt', kind: 'coneInner', grp: 'sub', name: 'Cone do rolamento interno (rolos cônicos)', qty: 1, step: 6, ex: [0, 0, -0.42]});
+part({id: 'retentor', kind: 'seal', grp: 'sub', name: 'Retentor do eixo da roda', qty: 1, step: 2, ex: [0, 0, 0.5]});
+part({id: 'coneExt', kind: 'ballOuter', grp: 'sub', name: 'Rolamento externo 6215 (75×130×25)', qty: 1, step: 3, ex: [0, 0.18, 0.62]});
+part({id: 'eixoRoda', kind: 'axle', grp: 'sub', name: 'Eixo da roda com cubo e 8 prisioneiros', qty: 1, step: 4, ex: [0, 0, 0.62]});
+part({id: 'coneInt', kind: 'ballInner', grp: 'sub', name: 'Rolamento interno 6212 (60×110×22)', qty: 1, step: 5, ex: [0, 0, -0.42]});
+part({id: 'anelRol', kind: 'snapBore', grp: 'sub', name: 'Anel elástico do rolamento', qty: 1, step: 6, ex: [0, 0, -0.46]});
 part({id: 'arruelaTrava', kind: 'tabWasher', grp: 'sub', name: 'Arruela-trava com aba', qty: 1, step: 7, ex: [0, 0, -0.5]});
-part({id: 'porcaAjuste', kind: 'ringNut', grp: 'sub', name: 'Porca de ajuste do rolamento', qty: 1, step: 7, ex: [0, 0, -0.56]});
+part({id: 'porcaAjuste', kind: 'ringNut', grp: 'sub', name: 'Porca de retenção do rolamento', qty: 1, step: 7, ex: [0, 0, -0.56]});
 part({id: 'portaSat', kind: 'carrier', grp: 'sub', name: 'Porta-satélites', qty: 1, step: 8, ex: [0, 0, -0.66]});
 part({id: 'anelPorta', kind: 'snapCarrier', grp: 'sub', name: 'Anel-trava do porta-satélites', qty: 1, step: 8, ex: [0, 0, -0.74]});
 for (let i = 0; i < 3; i++) {
@@ -49,12 +50,13 @@ for (let i = 0; i < 3; i++) {
   part({id: `pinoTrava${i}`, kind: 'rollPin', grp: 'sub', planet: i, name: 'Pino-trava elástico', qty: 1, step: 12, ex: [out[0] * 0.8, out[1] * 0.8, -0.95]});
 }
 // --- the centre housing side
-part({id: 'semieixo', kind: 'halfShaft', grp: 'base', name: 'Semieixo (vem do diferencial)', qty: 1, step: 13, ex: [0, 0, -0.55]});
-part({id: 'disco1', kind: 'brakeDisc', grp: 'base', name: 'Disco de freio interno', qty: 1, step: 14, ex: [0, 0, 0.3]});
-part({id: 'atuadorA', kind: 'actuatorPlate', grp: 'base', side: -1, name: 'Placa do atuador (interna)', qty: 1, step: 15, ex: [0, 0, 0.42]});
-part({id: 'esferas', kind: 'balls', grp: 'base', name: 'Esferas do atuador', qty: 5, step: 15, ex: [0, 0.2, 0.5]});
-part({id: 'molas', kind: 'springs', grp: 'base', name: 'Molas de retorno do atuador', qty: 3, step: 15, ex: [0, -0.2, 0.52]});
-part({id: 'atuadorB', kind: 'actuatorPlate', grp: 'base', side: 1, name: 'Placa do atuador (externa)', qty: 1, step: 15, ex: [0, 0, 0.58]});
+part({id: 'semieixo', kind: 'halfShaft', grp: 'base', name: 'Semieixo 24 estrias (vem do diferencial)', qty: 1, step: 13, ex: [0, 0, -0.55]});
+part({id: 'anelQPequeno', kind: 'squareRing', grp: 'base', side: -1, name: 'Anel quadrado pequeno do freio', qty: 1, step: 14, ex: [0, 0.16, 0.2]});
+part({id: 'anelQGrande', kind: 'squareRing', grp: 'base', side: 1, name: 'Anel quadrado grande do freio (210×80)', qty: 1, step: 14, ex: [0, -0.16, 0.24]});
+part({id: 'pistao', kind: 'piston', grp: 'base', name: 'Pistão anular do freio', qty: 1, step: 14, ex: [0, 0, 0.32]});
+part({id: 'disco1', kind: 'brakeDisc', grp: 'base', name: 'Disco de freio interno', qty: 1, step: 15, ex: [0, 0, 0.42]});
+part({id: 'placaInt', kind: 'midPlate', grp: 'base', name: 'Placa intermediária do freio', qty: 1, step: 15, ex: [0, 0, 0.5]});
+part({id: 'molas', kind: 'springs', grp: 'base', name: 'Molas de retorno do pistão', qty: 3, step: 15, ex: [0, -0.2, 0.56]});
 part({id: 'disco2', kind: 'brakeDisc', grp: 'base', name: 'Disco de freio externo', qty: 1, step: 16, ex: [0, 0, 0.66]});
 part({id: 'contraplaca', kind: 'reactionPlate', grp: 'base', name: 'Contraplaca do freio', qty: 1, step: 17, ex: [0, 0, 0.74]});
 part({id: 'sol', kind: 'sun', grp: 'base', name: 'Engrenagem solar 18 dentes', qty: 1, step: 18, ex: [0, 0, 0.86]});
@@ -86,20 +88,20 @@ export const setBench = (b) => Object.assign(BENCH, b);
 export const STEPS = [
   {title: 'Peças separadas na bancada', text: 'Todas as peças da trombeta e do freio, limpas e conferidas pela lista. A carcaça central já está no trator, com os 10 prisioneiros.', why: 'Montagem começa pela conferência: peça faltando ou danificada se descobre aqui, não depois de fechar.', tool: 'Bancada limpa, pano sem fiapo, óleo de transmissão', care: 'Não reaproveite junta, retentor, arruelas-trava nem pinos elásticos.', view: 'geral'},
   {title: 'Trombeta na bancada', text: 'Apoie a trombeta com o flange para baixo, na bancada.', why: 'A trombeta é a carcaça que segura o eixo da roda e prende tudo na carcaça central.', tool: 'Apoio de madeira', care: 'Confira se as faces de assento estão limpas e sem rebarba.', view: 'sub'},
-  {title: 'Prensar as capas dos rolamentos', text: 'Prense a capa interna e a capa externa nos alojamentos da trombeta, até encostar no ressalto.', why: 'As capas são as pistas externas dos rolamentos cônicos: o eixo vai girar dentro delas.', tool: 'Prensa ou batedor de capas', care: 'Capa torta prende o rolamento. Bata por igual, nunca na pista.', view: 'sub'},
-  {title: 'Instalar o retentor', text: 'Monte o retentor no alojamento externo com o lábio voltado para dentro (para o óleo).', why: 'O retentor segura o óleo dentro da trombeta e não deixa entrar barro.', tool: 'Batedor de retentor, graxa no lábio', care: 'Lábio virado ao contrário = vazamento.', view: 'subOut'},
-  {title: 'Cone externo no eixo da roda', text: 'Prense o cone do rolamento externo no eixo da roda até o encosto do cubo.', why: 'O cone, com os rolos cônicos, roda sobre a capa externa e aguenta o peso do trator e o empuxo lateral.', tool: 'Prensa, bucha de apoio no anel interno', care: 'Apoie só no anel interno do cone, nunca nos rolos.', view: 'subOut'},
-  {title: 'Passar o eixo da roda pela trombeta', text: 'Lubrifique o rolamento e passe o eixo de fora para dentro, até o cone assentar na capa externa.', why: 'O eixo da roda leva a força da redução até o cubo onde a roda é presa.', tool: 'Talha ou ajudante: o eixo é pesado', care: 'Entre reto para não cortar o lábio do retentor.', view: 'sub'},
-  {title: 'Cone interno', text: 'Pelo lado de dentro, monte o cone do rolamento interno no eixo, até assentar na capa interna.', why: 'Dois rolamentos cônicos opostos seguram o eixo nos dois sentidos.', tool: 'Batedor tubular', care: 'Lubrifique os rolos com óleo de transmissão.', view: 'subIn'},
-  {title: 'Arruela-trava e porca de ajuste', text: 'Monte a arruela-trava e a porca. Aperte girando o eixo até eliminar a folga, com a pré-carga conforme o manual de serviço. Dobre uma aba da arruela no rasgo da porca.', why: 'A porca aperta os dois cones contra as capas: sem folga o eixo não bate; com aperto demais o rolamento esquenta.', tool: 'Chave de porca ranhurada, torquímetro', care: 'Pré-carga: conforme manual de serviço. Sempre arruela-trava nova.', view: 'subIn'},
+  {title: 'Instalar o retentor', text: 'Monte o retentor no alojamento externo da trombeta com o lábio voltado para dentro (para o óleo).', why: 'O retentor segura o óleo dentro da trombeta e não deixa entrar barro.', tool: 'Batedor de retentor, graxa no lábio', care: 'Lábio virado ao contrário = vazamento.', view: 'subOut'},
+  {title: 'Rolamento 6215 no eixo da roda', text: 'Prense o rolamento de esferas 6215 (75 × 130 × 25 mm) no eixo da roda até encostar no ressalto do cubo.', why: 'O rolamento externo aguenta o peso do trator sobre a roda.', tool: 'Prensa, bucha de apoio no anel interno', care: 'Empurre só pelo anel interno: força no anel externo marca as pistas.', view: 'subOut'},
+  {title: 'Eixo da roda na trombeta', text: 'Lubrifique e passe o eixo, com o rolamento, de fora para dentro até o rolamento assentar no alojamento.', why: 'O eixo da roda leva a força da redução até o cubo onde a roda é presa.', tool: 'Prensa ou talha; o eixo é pesado', care: 'Entre reto para não cortar o lábio do retentor.', view: 'sub'},
+  {title: 'Rolamento 6212 interno', text: 'Pelo lado de dentro, monte o rolamento de esferas 6212 (60 × 110 × 22 mm) no eixo e no alojamento da trombeta.', why: 'Dois rolamentos, um em cada ponta, mantêm o eixo alinhado.', tool: 'Batedor tubular', care: 'Lubrifique com óleo de transmissão.', view: 'subIn'},
+  {title: 'Anel elástico do rolamento', text: 'Trave o rolamento interno com o anel elástico no canal do alojamento.', why: 'O anel segura o rolamento no lugar contra o empuxo lateral.', tool: 'Alicate de anel interno', care: 'Anel todo dentro do canal.', view: 'subIn'},
+  {title: 'Arruela-trava e porca de retenção', text: 'Monte a arruela-trava e a porca na rosca do eixo. Aperte com o torque do manual de serviço e dobre uma aba da arruela no rasgo da porca.', why: 'A porca prende o eixo nos rolamentos: o eixo não pode andar para os lados.', tool: 'Chave de porca ranhurada, torquímetro', care: 'Torque: conforme manual de serviço. Sempre arruela-trava nova.', view: 'subIn'},
   {title: 'Porta-satélites nas estrias', text: 'Encaixe o porta-satélites nas estrias da ponta do eixo e trave com o anel-trava.', why: 'O porta-satélites é a saída da redução: quando os satélites rodam em volta do sol, ele gira e leva o eixo da roda junto.', tool: 'Alicate de anel-trava', care: 'Anel-trava todo dentro do canal.', view: 'subIn'},
   {title: 'Roletes-agulha nos satélites', text: 'Passe graxa no furo de cada satélite e cole os 24 roletes-agulha em volta, como uma gaiola.', why: 'Os roletes deixam o satélite girar livre no seu eixo, sem atrito.', tool: 'Graxa', care: 'Conte: 24 por satélite. Faltando um, os outros quebram.', view: 'planets'},
   {title: 'Satélites e arruelas de encosto', text: 'Coloque cada satélite no porta-satélites entre as duas arruelas de encosto.', why: 'As arruelas impedem o satélite de raspar nas paredes do porta-satélites.', tool: '—', care: 'Face lisa da arruela voltada para o satélite.', view: 'planets'},
   {title: 'Eixos dos satélites', text: 'Passe o eixo de cada satélite pelo porta-satélites, pelas arruelas e pelos roletes, alinhando o furo do pino-trava.', why: 'Cada satélite gira no seu eixo; os três eixos são presos no porta-satélites.', tool: 'Martelo de borracha', care: 'Furo do eixo alinhado com o furo do porta-satélites.', view: 'planets'},
   {title: 'Pinos-trava', text: 'Bata um pino elástico em cada eixo de satélite.', why: 'O pino não deixa o eixo do satélite sair nem girar.', tool: 'Saca-pino, martelo', care: 'Pino novo, rente à face.', view: 'planets'},
   {title: 'Semieixo', text: 'Do lado do diferencial, passe o semieixo até as estrias aparecerem na saída da carcaça central.', why: 'O semieixo traz a força do diferencial; ele gira junto com a engrenagem solar.', tool: '—', care: 'Estrias limpas, sem batida.', view: 'base'},
-  {title: 'Disco de freio interno', text: 'Encaixe o primeiro disco de freio nas estrias do semieixo.', why: 'Os discos giram com o semieixo; o freio trava o semieixo antes da redução, por isso precisa de 6× menos força.', tool: '—', care: 'Disco molhado em óleo de transmissão antes de montar.', view: 'brake'},
-  {title: 'Atuador: placas, esferas e molas', text: 'Monte a placa interna, as 5 esferas nas rampas, as 3 molas de retorno e a placa externa.', why: 'Ao pisar no pedal, as placas giram uma contra a outra; as esferas sobem nas rampas e afastam as placas, apertando os discos.', tool: 'Graxa para segurar as esferas', care: 'Cada esfera no fundo da sua rampa.', view: 'brake'},
+  {title: 'Pistão do freio e anéis quadrados', text: 'Lubrifique e monte o anel quadrado pequeno e o grande (210 × 80 mm) nos canais do pistão anular. Encaixe o pistão no alojamento da carcaça, por igual.', why: 'O freio é hidráulico: ao pisar no pedal, o óleo sob pressão empurra o pistão contra os discos. Os anéis quadrados vedam e, ao soltar o pedal, puxam o pistão de volta.', tool: 'Óleo de transmissão nos anéis', care: 'Anel torcido no canal = freio vazando ou preso. Anéis sempre novos.', view: 'brake'},
+  {title: 'Disco interno, placa intermediária e molas', text: 'Encaixe o primeiro disco nas estrias do semieixo, a placa intermediária e as 3 molas de retorno.', why: 'Os discos giram com o semieixo e a placa fica parada: o atrito entre eles segura o semieixo antes da redução, por isso precisa de 6× menos força.', tool: '—', care: 'Discos molhados em óleo antes de montar.', view: 'brake'},
   {title: 'Disco de freio externo', text: 'Encaixe o segundo disco nas estrias do semieixo.', why: 'Dois discos = o dobro da área de atrito.', tool: '—', care: 'Disco molhado em óleo.', view: 'brake'},
   {title: 'Contraplaca', text: 'Monte a contraplaca fixa contra o disco externo.', why: 'É a parede onde o disco externo é apertado.', tool: '—', care: 'Confira a folga do freio conforme o manual de serviço.', view: 'brake'},
   {title: 'Engrenagem solar e anel-trava', text: 'Encaixe a engrenagem solar nas estrias da ponta do semieixo e trave com o anel-trava.', why: 'A solar é a entrada da redução: ela empurra os três satélites.', tool: 'Alicate de anel-trava', care: 'Anel todo no canal.', view: 'base'},
