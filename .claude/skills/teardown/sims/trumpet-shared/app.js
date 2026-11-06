@@ -5,13 +5,20 @@
 // toggles, the step bar or the drive controls, labels with leaders on the parts that matter now.
 import {runSim} from '../kit/runtime.js';
 import {warmComposer} from '../kit/warm.js';
-import {activeParts, CROSS, ease, installed, N, NUTS, PARTS, RATIO, stepAt, STEPS, Z} from './model.js';
+import {activeParts, CROSS, ease, installed, N, NUTS, PARTS, RATIO, setBench, stepAt, STEPS, Z} from './model.js';
+import {AXLE_Y} from '../tractor-shared/kin.js';
 import {createStage} from './stage.js';
 
 const W = 1600;
 const H = 900;
 const D2R = Math.PI / 180;
 export const ROT = 1 / 6; // drawn rotation vs real
+// 'trator': the lesson on the whole tractor (its left side); 'bancada': the assembly alone on the bench
+let CTX = 'trator';
+const HUB_X = 0.72 + 0.06 - 0.012 - 0.555;
+/** a view in the lesson's frame (z out along the axle) to the world's frame */
+const toWorld = (c) => c;
+void HUB_X;
 const C = {ink: '#23262c', mute: '#8c8f96', faint: '#d6d8dc', line: '#e3e4e7', panel: 'rgba(250,250,251,.96)', or: '#f2661c', blue: '#1c46bd', green: '#2a9d61'};
 const clamp = (x, a, b) => Math.min(b, Math.max(a, x));
 const ss = (a, b, t) => ease((t - a) / (b - a));
@@ -29,7 +36,25 @@ export const VIEW_FN = {
   join: (u) => ({tx: 0, ty: 0.3, tz: 0.45, az: 70 + 1.2 * u, el: 14, d: 2.4}),
   nuts: (u) => ({tx: 0, ty: 0.0, tz: 0.2, az: 22 + 1.2 * u, el: 14, d: 1.5}),
   func: (u) => ({tx: 0, ty: 0.02, tz: 0.24, az: 58 + 3 * u, el: 22, d: 1.25}),
+  wheel: (u) => ({tx: 0, ty: 0.1, tz: 0.75, az: 26 + 1.2 * u, el: 12, d: 2.6}),
 };
+
+// on the tractor: world views from behind and to the left, outside the tractor (the wheel is off), under the fender
+const AY = AXLE_Y;
+export const VIEW_T = {
+  geral: (u) => ({tx: 1.0, ty: AY + 0.35, tz: 0, az: 132 + 1.2 * u, el: 13, d: 4.6}),
+  sub: (u) => ({tx: 1.45, ty: AY + 1.05, tz: 0, az: 122 + 1.2 * u, el: 9, d: 2.3}),
+  subOut: (u) => ({tx: 1.75, ty: AY + 1.05, tz: 0, az: 108 + 1.2 * u, el: 9, d: 1.7}),
+  subIn: (u) => ({tx: 1.25, ty: AY + 1.05, tz: 0, az: 150 + 1.2 * u, el: 11, d: 1.8}),
+  planets: (u) => ({tx: 1.15, ty: AY + 1.08, tz: 0, az: 145 + 1.2 * u, el: 15, d: 2.0}),
+  base: (u) => ({tx: 0.62, ty: AY, tz: 0, az: 150 + 1.2 * u, el: 8, d: 2.3}),
+  brake: (u) => ({tx: 0.4, ty: AY, tz: 0, az: 140 + 1.2 * u, el: 7, d: 1.7}),
+  join: (u) => ({tx: 0.95, ty: AY + 0.5, tz: 0, az: 138 + 1.2 * u, el: 9, d: 3.2}),
+  nuts: (u) => ({tx: 0.5, ty: AY, tz: 0, az: 108 + 1.2 * u, el: 6, d: 1.8}),
+  wheel: (u) => ({tx: 1.15, ty: AY + 0.1, tz: -0.4, az: 124 + 1.2 * u, el: 9, d: 3.4}),
+  func: (u) => ({tx: 0.55, ty: AY + 0.05, tz: 0, az: 148 + 2.5 * u, el: 18, d: 1.9}),
+};
+const viewFn = (k) => (CTX === 'trator' ? VIEW_T : VIEW_FN)[k];
 
 // ------------------------------------------------------------ the film's script
 export const T0 = 3;
@@ -390,7 +415,8 @@ const blend = (a, b, k) => {
 /** the shared frame: pose the parts, draw, fill the console */
 function drawFrame(st, ui, labels, s, cam) {
   const active = new Set(s.mode === 'func' ? [] : activeParts(s.u).filter(() => stepAt(s.u).p < 1).map((p) => p.id));
-  st.frame({u: s.u, active, th: s.th, brake: s.brake, cut: s.cut, ghost: s.disp.ghost ? 0.72 : 0}, {...cam, az: cam.az * D2R, el: cam.el * D2R, sx: 0, sy: -18});
+  const wc = toWorld(cam);
+  st.frame({u: s.u, active, th: s.th, brake: s.brake, cut: s.cut, ghost: CTX === 'bancada' && s.disp.ghost ? 0.72 : 0, isolate: s.isolate ?? 0}, {...wc, az: wc.az * D2R, el: wc.el * D2R, sx: 0, sy: -18});
   const inst = {};
   for (const p of PARTS) inst[p.id] = installed(p, s.u);
   // the tightening order, numbered on each stud, while the nuts go on
@@ -400,23 +426,29 @@ function drawFrame(st, ui, labels, s, cam) {
 }
 
 // ------------------------------------------------------------ film
-export function runFilm() {
+export function runFilm(ctx = 'trator') {
+  CTX = ctx;
+  if (CTX === 'trator') setBench({y: 1.05, z: 0.9});
   runSim({duration: DURATION, fps: 60, theme: 'light', hud: {enabled: false, title: 'trombeta TL80', subtitle: ''}, director: {enabled: false}}, async ({canvas, capture}) => {
-    const st = createStage({canvas});
+    const st = createStage({canvas, tractor: CTX === 'trator'});
+    const ui = null;
+    void ui;
     const resize = () => st.resize(W, H, capture ? devicePixelRatio || 1 : Math.min(devicePixelRatio || 1, 2));
     resize();
-    const ui = createConsole(document.getElementById('app'));
+    const con = createConsole(document.getElementById('app'));
     const labels = makeLabels(st);
-    const cursorAt = makeCursor(ui.spots());
+    const cursorAt = makeCursor(con.spots());
     return {
       resize,
       render(t) {
         const f = filmState(t);
         const [v, v0] = filmView(t);
-        let cam = VIEW_FN[v](t - v0);
+        let cam = viewFn(v)(t - v0);
         const [pv, pv0] = filmView(Math.max(0, v0 - 0.01));
-        if (v0 > 0) cam = blend(VIEW_FN[pv](t - pv0), cam, ss(v0, v0 + 1.3, t));
-        drawFrame(st, ui, labels, {...f, wSet: f.mode === 'func' ? 450 : 0, auto: false, disp: {labels: 1, cut: f.cut > 0.5, ghost: 0, orbit: 0}, cursor: cursorAt(t)}, cam);
+        if (v0 > 0) cam = blend(viewFn(pv)(t - pv0), cam, ss(v0, v0 + 1.3, t));
+        // on the tractor the film isolates the trumpet while it is open and running, and shows the whole tractor around it
+        const iso = CTX === 'trator' ? ss(T_FUNC + 0.2, T_FUNC + 1.2, t) * (1 - ss(DURATION - 3.5, DURATION - 2.5, t)) : 0;
+        drawFrame(st, con, labels, {...f, isolate: iso, wSet: f.mode === 'func' ? 450 : 0, auto: false, disp: {labels: 1, cut: f.cut > 0.5, ghost: 0, orbit: 0}, cursor: cursorAt(t)}, cam);
         return {};
       },
     };
@@ -424,7 +456,9 @@ export function runFilm() {
 }
 
 // ------------------------------------------------------------ live
-export function runLive() {
+export function runLive(ctx = 'trator') {
+  CTX = ctx;
+  if (CTX === 'trator') setBench({y: 1.05, z: 0.9});
   const style = document.createElement('style');
   style.textContent = `html,body{background:#ecebe8;overflow:hidden}#app{position:absolute!important;inset:auto!important;left:0;top:0;width:${W}px;height:${H}px;transform-origin:0 0}#gl{touch-action:none;cursor:grab}
   .tourchip{position:absolute;left:800px;top:104px;transform:translateX(-50%);display:flex;align-items:center;gap:7px;height:22px;padding:0 11px;border:1px solid #e3e4e7;border-radius:4px;background:rgba(250,250,251,.95);font:700 9px 'JetBrains Mono',monospace;letter-spacing:1.3px;white-space:nowrap;cursor:pointer;pointer-events:auto}
@@ -434,8 +468,9 @@ export function runLive() {
   const canvas = document.createElement('canvas');
   canvas.id = 'gl';
   app.appendChild(canvas);
-  const st = createStage({canvas});
+  const st = createStage({canvas, tractor: CTX === 'trator'});
   const ui = createConsole(app);
+  if (CTX === 'trator') ui.btn.ghost.textContent = 'DESTACAR';
   const labels = makeLabels(st);
   let spots = null;
   let tourCursor = null;
@@ -464,7 +499,7 @@ export function runLive() {
   let T = 0;
   const S = {u: 0, uT: 0, auto: false, mode: 'mont', w: 0, wSet: 250, th: 0, brake: 0, cut: 0, disp: {labels: 1, cut: 0, ghost: 0, orbit: 0}};
   const off = {az: 0, el: 0, k: 1};
-  const cam = {...VIEW_FN.geral(0)};
+  const cam = {...viewFn('geral')(0)};
   let view = 'geral';
   let viewT = 0;
   let orbitT = 0;
@@ -483,6 +518,9 @@ export function runLive() {
     const f = filmState((T - AP.t0) % DURATION);
     Object.assign(S, {u: f.u, uT: Math.round(f.u), mode: f.mode, w: f.w, th: f.th, brake: 0, cut: f.cut, auto: false});
     S.disp.cut = f.cut > 0.5 ? 1 : 0;
+    const tt = (T - AP.t0) % DURATION;
+    S.iso = CTX === 'trator' ? ss(T_FUNC + 0.2, T_FUNC + 1.2, tt) * (1 - ss(DURATION - 3.5, DURATION - 2.5, tt)) : 0;
+    S.disp.ghost = S.iso > 0.5 ? 1 : 0;
   };
   chip.addEventListener('pointerdown', (e) => {
     e.stopPropagation();
@@ -649,8 +687,9 @@ export function runLive() {
       const t = (T - AP.t0) % DURATION;
       const f = filmState(t);
       const [v, v0] = filmView(t);
-      tgt = VIEW_FN[v](t - v0);
-      s = {...f, wSet: f.mode === 'func' ? 450 : S.wSet, auto: false, disp: {labels: 1, cut: f.cut > 0.5, ghost: 0, orbit: 0}, cursor: tourCursor(t)};
+      tgt = viewFn(v)(t - v0);
+      const iso = CTX === 'trator' ? ss(T_FUNC + 0.2, T_FUNC + 1.2, t) * (1 - ss(DURATION - 3.5, DURATION - 2.5, t)) : 0;
+      s = {...f, isolate: iso, wSet: f.mode === 'func' ? 450 : S.wSet, auto: false, disp: {labels: 1, cut: f.cut > 0.5, ghost: iso > 0.5 ? 1 : 0, orbit: 0}, cursor: tourCursor(t)};
     } else {
       if (T - lastInput > 25 && !S.auto) startTour();
       if (S.auto && Math.abs(S.u - S.uT) < 1e-3) {
@@ -676,12 +715,13 @@ export function runLive() {
         view = key;
         viewT = T;
       }
-      tgt = VIEW_FN[view](T - viewT);
+      tgt = viewFn(view)(T - viewT);
       tgt.az += off.az + (S.disp.orbit ? 14 * (T - orbitT) : 0);
       tgt.el = clamp(tgt.el + off.el, -25, 85);
       tgt.d *= off.k;
       const rk = Math.max(0, 1 - (T - ring.t) / 0.55);
-      s = {...S, labels: S.disp.labels, cursor: {x: -99, y: -99, press: false, ring: rk, ringX: ring.x, ringY: ring.y}};
+      S.iso = (S.iso ?? 0) + ((CTX === 'trator' && S.disp.ghost ? 1 : 0) - (S.iso ?? 0)) * Math.min(1, dt / 0.4);
+      s = {...S, isolate: S.iso, labels: S.disp.labels, cursor: {x: -99, y: -99, press: false, ring: rk, ringX: ring.x, ringY: ring.y}};
     }
     const k = 1 - Math.exp(-dt / (AP.on ? 0.25 : 0.4));
     cam.az += ((((tgt.az - cam.az + 540) % 360) + 360) % 360 - 180) * k;

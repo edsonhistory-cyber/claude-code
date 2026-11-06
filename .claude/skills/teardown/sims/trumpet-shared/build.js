@@ -284,6 +284,13 @@ export function buildFinalDrive() {
         }
         break;
       }
+      case 'wheelRef':
+        break; // the tractor's own wheel stands in for it (stage.js moves it by this part's progress)
+      case 'wheelNut': {
+        const a = (p.stud / 8) * Math.PI * 2;
+        add(R, hexNut(0.015, 0.014, 0.009).translate(0.135 * Math.cos(a), 0.135 * Math.sin(a), 0.596), M.zinc);
+        break;
+      }
       case 'plug': {
         const g = new THREE.Group();
         R.spin.add(g);
@@ -336,8 +343,13 @@ export function buildFinalDrive() {
     const S = subAt(u);
     sub.position.set(0, S.y, S.z);
     // the cut: a quarter on the camera side, above the axis, dropping in
-    CUT[0].normal.set((st.camX ?? 1) >= 0 ? -1 : 1, 0, 0);
-    CUT[1].constant = 0.6 + (0.0 - 0.6) * (st.cut ?? 0);
+    if (st.setCut) st.setCut(CUT, st.cut ?? 0);
+    else {
+      CUT[0].normal.set((st.camX ?? 1) >= 0 ? -1 : 1, 0, 0);
+      CUT[0].constant = 0;
+      CUT[1].normal.set(0, -1, 0);
+      CUT[1].constant = 0.6 + (0.0 - 0.6) * (st.cut ?? 0);
+    }
     M.cap.visible = (st.cut ?? 0) > 0.001;
     const E = epicyclic(st.th ?? 0);
     const sep = (st.brake ?? 0) * 0.004; // the actuator plates spread (drawn 2x)
@@ -352,7 +364,7 @@ export function buildFinalDrive() {
       // turning parts: the half shaft side turns with the sun, the wheel side with the carrier
       r.spin.rotation.z = 0;
       if (['semieixo', 'disco1', 'disco2', 'sol', 'anelSol'].includes(p.id)) r.spin.rotation.z = E.sun;
-      if (['portaSat', 'anelPorta', 'eixoRoda', 'coneInt', 'coneExt', 'arruelaTrava', 'porcaAjuste'].includes(p.id)) r.spin.rotation.z = E.carrier;
+      if (['portaSat', 'anelPorta', 'eixoRoda', 'coneInt', 'coneExt', 'arruelaTrava', 'porcaAjuste'].includes(p.id) || p.kind === 'wheelNut') r.spin.rotation.z = E.carrier;
       if (p.planet !== undefined) {
         // planet parts orbit with the carrier; the planet spins on its pin as it rolls round the fixed ring, the
         // needle cage at about half that
@@ -377,8 +389,9 @@ export function buildFinalDrive() {
   const centreOf = (id) => {
     const r = G[id];
     const box = new THREE.Box3().setFromObject(r.g);
+    if (box.isEmpty()) return r.g.getWorldPosition(tmp).clone();
     return box.getCenter(tmp).clone();
   };
   update({u: 0});
-  return {root, update, G, M, centreOf, base, sub};
+  return {root, update, G, M, centreOf, base, sub, epicyclic};
 }

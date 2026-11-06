@@ -16,6 +16,8 @@ export const BOLT_R = 0.175;
 export const NUTS = 10;
 // tightening order across the flange (star pattern for 10 bolts)
 export const CROSS = [0, 5, 2, 7, 4, 9, 1, 6, 3, 8];
+// the wheel nuts, a star across 8 studs
+export const CROSS8 = [0, 4, 2, 6, 1, 5, 3, 7];
 
 // ------------------------------------------------------------ the parts (kind -> geometry in build.js)
 // grp: 'base' (stays at the centre housing) or 'sub' (the trumpet sub-assembly, built on the bench first)
@@ -66,11 +68,19 @@ for (let i = 0; i < NUTS; i++) {
   part({id: `arruela${i}`, kind: 'washer', grp: 'base', bolt: i, name: 'Arruela lisa M16', qty: 1, step: 22, ex: [Math.cos(a) * 0.13, Math.sin(a) * 0.13, 0.2], stagger: i});
   part({id: `porca${i}`, kind: 'nut', grp: 'base', bolt: i, name: 'Porca sextavada M16', qty: 1, step: 23, ex: [Math.cos(a) * 0.17, Math.sin(a) * 0.17, 0.28], stagger: CROSS.indexOf(i)});
 }
+part({id: 'roda', kind: 'wheelRef', grp: 'sub', name: 'Roda traseira 480/70R34', qty: 1, step: 25, ex: [0, 0, 1.5]});
+for (let i = 0; i < 8; i++) {
+  const a = (i / 8) * Math.PI * 2;
+  part({id: `porcaRoda${i}`, kind: 'wheelNut', grp: 'sub', stud: i, name: 'Porca da roda M18', qty: 1, step: 25, ex: [Math.cos(a) * 0.12, Math.sin(a) * 0.12, 0.42], stagger: CROSS8.indexOf(i)});
+}
 part({id: 'bujaoDreno', kind: 'plug', grp: 'sub', at: 'drain', name: 'Bujão de dreno com arruela de vedação', qty: 1, step: 24, ex: [0, -0.2, 0]});
 part({id: 'bujaoNivel', kind: 'plug', grp: 'sub', at: 'level', name: 'Bujão de nível com arruela de vedação', qty: 1, step: 24, ex: [-0.2, 0, 0]});
 export const PARTS = P;
-// the trumpet sub-assembly is built on the bench: above the centre housing row, a little outboard
+// the trumpet sub-assembly is built on the bench: above the centre housing row, a little outboard (higher and further
+// out when the lesson runs on the whole tractor, clear of the fender)
 export const BENCH = {y: 0.62, z: 0.5};
+export const setBench = (b) => Object.assign(BENCH, b);
+
 
 // ------------------------------------------------------------ the steps
 export const STEPS = [
@@ -99,6 +109,7 @@ export const STEPS = [
   {title: 'Arruelas', text: 'Coloque as 10 arruelas lisas nos prisioneiros.', why: 'A arruela espalha a força da porca e protege o flange.', tool: '—', care: 'Uma por prisioneiro.', view: 'nuts'},
   {title: 'Porcas, em cruz', text: 'Rosqueie as 10 porcas e aperte em cruz, na ordem mostrada, em duas passadas, com o torque do manual de serviço.', why: 'Apertar em cruz assenta o flange por igual: sem empenar e sem vazar.', tool: 'Chave 24 mm, torquímetro', care: 'Torque: conforme manual de serviço.', view: 'nuts'},
   {title: 'Bujões de dreno e nível', text: 'Monte o bujão de dreno (embaixo) e o de nível (lado) com arruelas de vedação novas. Complete o óleo até o nível.', why: 'Os satélites e os freios trabalham banhados em óleo.', tool: 'Chave do bujão', care: 'Óleo especificado no manual.', view: 'geral'},
+  {title: 'Roda traseira, porcas em cruz', text: 'Encoste a roda no cubo, passando os 8 prisioneiros pelos furos do disco. Rosqueie as 8 porcas e aperte em cruz, na ordem mostrada, com o torque do manual de serviço. Só então baixe o trator do cavalete.', why: 'A roda recebe a força do eixo da roda pelo cubo. Aperto em cruz centraliza o disco no cubo.', tool: 'Chave de roda, torquímetro, macaco e cavalete', care: 'Torque: conforme manual de serviço. Reaperte depois das primeiras horas de uso.', view: 'wheel'},
 ];
 export const N = STEPS.length - 1; // the last step index; u runs 0..N
 

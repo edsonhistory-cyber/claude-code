@@ -7,6 +7,9 @@ import {OutputPass} from 'three/addons/postprocessing/OutputPass.js';
 import {Pass} from 'three/addons/postprocessing/Pass.js';
 import {RenderPass} from 'three/addons/postprocessing/RenderPass.js';
 import {buildFinalDrive} from './build.js';
+import {buildTractor} from '../tractor-shared/tractor.js';
+import {AXLE_Y} from '../tractor-shared/kin.js';
+import {installed, PARTS} from './model.js';
 
 const V3 = THREE.Vector3;
 export const COL = {bg: '#ecebe8', ground: '#e3e1dc', mark: '#cfccc5', shadow: '#3d3a35'};
@@ -26,7 +29,8 @@ const GROUND_FRAG = /* glsl */ `uniform vec3 uG; uniform vec3 uM; uniform vec3 u
     gl_FragColor = vec4(mix(col, uBg, smoothstep(1.2, 4.5, d)), 1.0);
   }`;
 
-export function createStage({canvas}) {
+export function createStage({canvas, tractor: withTractor = false}) {
+  const floorY = withTractor ? 0 : FLOOR;
   const renderer = new THREE.WebGLRenderer({canvas, antialias: false, preserveDrawingBuffer: true, powerPreference: 'high-performance'});
   renderer.toneMapping = THREE.NeutralToneMapping;
   renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -110,20 +114,63 @@ export function createStage({canvas}) {
   });
   const ground = new THREE.Mesh(new THREE.PlaneGeometry(120, 120), groundMat);
   ground.rotation.x = -Math.PI / 2;
-  ground.position.y = FLOOR;
+  ground.position.y = floorY;
   scene.add(ground);
   const shade = new THREE.Mesh(
     new THREE.PlaneGeometry(120, 120),
     new THREE.ShadowMaterial({color: COL.shadow, opacity: 0.32, polygonOffset: true, polygonOffsetFactor: -4, polygonOffsetUnits: -8}),
   );
   shade.rotation.x = -Math.PI / 2;
-  shade.position.y = FLOOR;
+  shade.position.y = floorY;
   shade.receiveShadow = true;
   scene.add(shade);
 
   let aoWanted = true;
   const box = buildFinalDrive();
-  scene.add(box.root);
+  // ---- on the whole tractor: the lesson's axis (z) along the tractor's left half shaft (+x), its hub flange on the
+  // wheel's disc face; the tractor's own left trumpet, brake and final drive are taken out for it; a jack stand under
+  // the axle housing; the left rear wheel comes off and goes back on in the last step
+  const HUB_X = 0.72 + 0.06 - 0.012 - 0.555;
+  let trac = null;
+  let leftWheel = null;
+  const wrap = new THREE.Group();
+  wrap.add(box.root);
+  scene.add(wrap);
+  if (withTractor) {
+    trac = buildTractor();
+    scene.add(trac.root);
+    wrap.position.set(HUB_X, AXLE_Y, 0);
+    wrap.rotation.y = Math.PI / 2;
+    trac.root.updateMatrixWorld(true);
+    const bb = new THREE.Box3();
+    for (const g of [trac.P.diff, trac.P.axleHousing])
+      g.traverse((m) => {
+        if (!m.isMesh) return;
+        bb.setFromObject(m);
+        const c = bb.getCenter(new V3());
+        if (c.x > 0.12) m.visible = false;
+      });
+    leftWheel = trac.P.rearWheels[0];
+    const stand = new THREE.Group();
+    const mat = new THREE.MeshStandardMaterial({color: '#4a4f57', metalness: 0.5, roughness: 0.5});
+    const leg = new THREE.CylinderGeometry(0.02, 0.03, 0.62, 12);
+    for (let i = 0; i < 3; i++) {
+      const a = (i / 3) * Math.PI * 2;
+      const m = new THREE.Mesh(leg, mat);
+      m.position.set(Math.cos(a) * 0.1, 0.3, Math.sin(a) * 0.1);
+      m.rotation.set(Math.sin(a) * 0.3, 0, -Math.cos(a) * 0.3);
+      m.castShadow = true;
+      stand.add(m);
+    }
+    const post = new THREE.Mesh(new THREE.CylinderGeometry(0.03, 0.03, 0.2, 16).translate(0, 0.62, 0), mat);
+    post.castShadow = true;
+    stand.add(post);
+    stand.position.set(0.18, 0, 0.26);
+    scene.add(stand);
+    trac.stand = stand;
+  } else box.root.position.y = 0;
+  const WHEEL = PARTS.find((p) => p.id === 'roda');
+  const TH0 = {eng: 0, s0: 0, s1: 0, s2: 0, s3: 0, wheel: 0, front: 0, prop: 0, pto: 0, ptoL: 0};
 
   const size = {w: 1600, h: 900};
   const resize = (w, h, pr) => {
@@ -144,7 +191,29 @@ export function createStage({canvas}) {
     groundMat.uniforms.uD.value = st.dist ?? 0;
     const {tx, ty, tz} = cam;
     camera.position.set(tx + cam.d * Math.cos(cam.el) * Math.sin(cam.az), ty + cam.d * Math.sin(cam.el), tz + cam.d * Math.cos(cam.el) * Math.cos(cam.az));
-    box.update({...st, camX: camera.position.x});
+    if (trac) {
+      // the cut, in tractor space: the quarter on the camera's side (+-z) above the axle
+      const side = camera.position.z >= 0 ? 1 : -1;
+      box.update({
+        ...st,
+        setCut: (CUT, k) => {
+          CUT[0].normal.set(0, 0, -side);
+          CUT[0].constant = 0;
+          CUT[1].normal.set(0, -1, 0);
+          CUT[1].constant = AXLE_Y + 0.6 * (1 - k);
+        },
+      });
+      const hl = st.isolate ?? 0;
+      trac.update({th: TH0, pose: null, body: Math.max(hl, st.bodyFade ?? 0), housing: hl * 0.9, cut: 0, power: 0, fwd4: 0, ptoOn: 0});
+      trac.root.visible = hl < 0.985;
+      trac.stand.visible = trac.root.visible;
+      // the left wheel: off to the side until its step, then rolled in; turning with the hub once on
+      const k = installed(WHEEL, st.u);
+      leftWheel.w.visible = trac.root.visible;
+      // waiting off to the front-left, out of the cameras' way (they look from behind), rolled back to the hub
+      leftWheel.w.position.set(0.72 + 1.0 * (1 - Math.min(1, k / 0.6)), AXLE_Y, 1.5 * (1 - k));
+      leftWheel.spin.rotation.x = k > 0.99 ? box.epicyclic(st.th ?? 0).carrier : 0;
+    } else box.update({...st, camX: camera.position.x});
     gtao.enabled = aoWanted && !((st.cut ?? 0) > 0.001);
     camera.lookAt(tx, ty, tz);
     camera.setViewOffset(size.w, size.h, -(cam.sx ?? 0), -(cam.sy ?? 0), size.w, size.h);
@@ -171,5 +240,5 @@ export function createStage({canvas}) {
       sun.shadow.map = null;
     }
   };
-  return {renderer, scene, camera, fd: box, box, composer, gtao, sun, resize, frame, project, size, setQuality};
+  return {renderer, scene, camera, fd: box, box, trac, wrap, composer, gtao, sun, resize, frame, project, size, setQuality};
 }
