@@ -107,6 +107,7 @@ export function buildFinalDrive() {
   };
   const add = (rec, geo, mat, {cut = false} = {}) => {
     const material = mat.clone();
+    if (material.clippingPlanes) material.clippingPlanes = CUT;
     const m = new THREE.Mesh(geo, material);
     m.castShadow = true;
     m.receiveShadow = true;

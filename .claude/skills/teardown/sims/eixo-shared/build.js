@@ -63,6 +63,7 @@ export function buildAxle() {
   const G = {};
   const add = (R, geo, mat, cut = false, parent = null) => {
     const m = new THREE.Mesh(geo, mat.clone());
+    if (m.material.clippingPlanes) m.material.clippingPlanes = CUT;
     m.castShadow = true;
     m.receiveShadow = true;
     (parent ?? R.spin).add(m);

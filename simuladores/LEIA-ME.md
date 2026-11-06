@@ -78,3 +78,19 @@ Para gerar o vídeo (num PC com placa de vídeo, na pasta `.claude/skills/teardo
   marchas, gamas, acelerador, freio, TDP, 4×4). DESTACAR: TUDO · MOTOR · REVERSOR · 4 MARCHAS · GAMAS ·
   COROA · DIFERENCIAL · TROMBETAS · PDM · TDP deixa só aquele conjunto girando dentro da carcaça.
 - As lições de montagem (trombeta, câmbio, eixo traseiro) ganharam o mesmo acabamento.
+
+## Treinamento de montagem: caixa da PDM (tração 4×4), comando mecânico
+
+- `pdm-tl80-montagem.html`: a caixa de transferência laranja que fica sob a transmissão e manda força ao cardã do
+  eixo dianteiro (como nas fotos da linha). No trator ou só na bancada (`pdm-tl80-bancada.html`). 19 passos: carcaça;
+  eixo de saída estriado com rolamento traseiro, cubo e anel-trava, luva de engate, bucha de agulhas e engrenagem de
+  entrada 30 D com arruela e anel; eixo na carcaça; rolamento dianteiro e anel; retentor, tampa dianteira usinada e
+  3 parafusos; eixo seletor com O-ring, garfo e pino elástico; esfera, mola e bujão da trava; junta, tampa traseira
+  e 4 parafusos; por fora, disco de comando com entalhes, mola de torção, braço dobrado com parafuso de aperto e
+  alavanca com olhal; pinos-guia, junta e 6 parafusos em cruz numerada na transmissão; haste de comando com pino e
+  contrapino; bujão de dreno de latão.
+  FUNCIONAMENTO: LIGAR 4×4 / DESLIGAR (tecla Q): a alavanca, o disco e o garfo giram, a luva prende a engrenagem
+  no cubo e o eixo de saída e o cardã passam a girar.
+- O lado de fora segue as fotos da linha; o interior é construção típica (não é o desenho oficial).
+  A versão com comando eletro-hidráulico (bloco de válvula, tubos, solenoide) fica para a próxima.
+- Correção nas 4 lições: o corte agora acompanha o lado da câmera em todas as peças.

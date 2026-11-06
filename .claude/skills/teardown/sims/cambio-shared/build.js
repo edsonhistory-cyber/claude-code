@@ -83,6 +83,7 @@ export function buildGearbox() {
   const G = {};
   const add = (R, geo, mat, cut = false) => {
     const m = new THREE.Mesh(geo, mat.clone());
+    if (m.material.clippingPlanes) m.material.clippingPlanes = CUT;
     m.castShadow = true;
     m.receiveShadow = true;
     R.spin.add(m);
@@ -269,6 +270,7 @@ export function buildGearbox() {
         const grp = new THREE.Group();
         for (const [geo, mat, dz] of [[head, M.zinc, 0.0018], [wsh, M.zinc, 0], [shank, M.dark, 0]]) {
           const m = new THREE.Mesh(geo, mat.clone());
+    if (m.material.clippingPlanes) m.material.clippingPlanes = CUT;
           m.position.z = dz;
           m.castShadow = true;
           grp.add(m);
