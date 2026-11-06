@@ -75,13 +75,13 @@ for (let i = 0; i < FRONT_BOLTS; i++) {
 // the shift cover (built on the bench)
 part({id: 'tampaC', kind: 'shiftCover', grp: 'cover', name: 'Tampa de comando', qty: 1, step: 20, ex: [0, 0, 0]});
 for (const [i, n] of [[0, '1–2'], [1, '3–4']]) {
-  part({id: `trilho${i}`, kind: 'rail', grp: 'cover', rail: i, name: `Trilho seletor ${n}`, qty: 1, step: 20, ex: [0, 0, 0.55 + i * 0.06]});
-  part({id: `garfo${i}`, kind: 'fork', grp: 'cover', rail: i, name: `Garfo ${n}`, qty: 1, step: 20, ex: [0, -0.12, 0.3 + i * 0.06]});
-  part({id: `parGarfo${i}`, kind: 'forkScrew', grp: 'cover', rail: i, name: 'Parafuso-trava do garfo', qty: 1, step: 20, ex: [0, 0.12, 0.3 + i * 0.06]});
-  part({id: `esfera${i}`, kind: 'detentBall', grp: 'cover', rail: i, name: 'Esfera de trava', qty: 1, step: 21, ex: [0, 0.2, 0.1 + i * 0.04]});
-  part({id: `molaT${i}`, kind: 'detentSpring', grp: 'cover', rail: i, name: 'Mola da esfera de trava', qty: 1, step: 21, ex: [0, 0.28, 0.1 + i * 0.04]});
+  part({id: `trilho${i}`, kind: 'rail', grp: 'case', rail: i, name: `Trilho seletor ${n}`, qty: 1, step: 20, ex: [0.3, 0, 0.55 + i * 0.06]});
+  part({id: `garfo${i}`, kind: 'fork', grp: 'case', rail: i, name: `Garfo ${n}`, qty: 1, step: 20, ex: [0, 0.32, 0.2 + i * 0.06]});
+  part({id: `parGarfo${i}`, kind: 'forkScrew', grp: 'case', rail: i, name: 'Parafuso-trava do garfo', qty: 1, step: 20, ex: [0.3, 0.2, 0.2 + i * 0.06]});
+  part({id: `esfera${i}`, kind: 'detentBall', grp: 'case', rail: i, name: 'Esfera de trava', qty: 1, step: 21, ex: [0.32, 0.1, 0.1 + i * 0.04]});
+  part({id: `molaT${i}`, kind: 'detentSpring', grp: 'case', rail: i, name: 'Mola da esfera de trava', qty: 1, step: 21, ex: [0.4, 0.1, 0.1 + i * 0.04]});
 }
-part({id: 'pinoInter', kind: 'interlock', grp: 'cover', name: 'Pino de intertravamento', qty: 1, step: 21, ex: [0.15, 0.1, 0.15]});
+part({id: 'pinoInter', kind: 'interlock', grp: 'case', name: 'Pino de intertravamento', qty: 1, step: 21, ex: [0.15, 0.1, 0.15]});
 part({id: 'juntaC', kind: 'coverGasket', grp: 'case', name: 'Junta da tampa de comando', qty: 1, step: 22, ex: [0, 0.45, 0]});
 for (let i = 0; i < COVER_BOLTS; i++) part({id: `parafC${i}`, kind: 'bolt', grp: 'case', bolt: i, face: 'top', name: 'Parafuso M10 com arruela (tampa de comando)', qty: 1, step: 23, ex: [0, 0.32, 0], stagger: CROSS8.indexOf(i)});
 export const PARTS = P;
@@ -108,9 +108,9 @@ export const STEPS = [
   {title: 'Secundário na carcaça', text: 'Desça o eixo secundário montado, engrenando as marchas no intermediário, e trave o rolamento traseiro com o anel elástico.', why: 'Agora cada engrenagem livre do secundário está engrenada com a sua no intermediário: todas giram, mas só a engatada pela luva passa força.', tool: 'Talha', care: 'Não force: gire o intermediário até engrenar.', view: 'case'},
   {title: 'Eixo piloto com rolamento', text: 'Pela frente, passe o eixo piloto (23 dentes, 264 mm) com o rolamento, encaixando a ponta do secundário no rolamento-guia, e trave com o anel.', why: 'O eixo piloto recebe a força do motor pela embreagem e engrena no intermediário. Na 4ª ele é preso direto no secundário.', tool: 'Batedor', care: 'Ponta do secundário bem centrada no rolamento-guia.', view: 'front'},
   {title: 'Tampa dianteira, retentor e parafusos', text: 'Junta nova, tampa dianteira com o retentor e os 6 parafusos com arruela, apertados em cruz na ordem mostrada.', why: 'A tampa segura o rolamento do piloto e serve de guia para o rolamento da embreagem.', tool: 'Chave 16 mm, torquímetro', care: 'Torque: manual de serviço. Lábio do retentor para dentro.', view: 'front'},
-  {title: 'Trilhos e garfos na tampa de comando', text: 'Na bancada, passe os 2 trilhos pela tampa e pelos garfos e trave cada garfo com o parafuso-trava.', why: 'A alavanca empurra um trilho; o garfo preso nele empurra a luva.', tool: 'Chave, trava-rosca', care: 'Garfo 1–2 no trilho 1–2.', view: 'cover'},
-  {title: 'Esferas, molas e pino de intertravamento', text: 'Monte as esferas e molas de trava sobre os trilhos e o pino de intertravamento entre eles.', why: 'As esferas seguram o trilho em neutro ou na marcha (o "clique"). O pino impede engatar duas marchas ao mesmo tempo.', tool: 'Graxa', care: 'Teste: só um trilho pode sair do neutro por vez.', view: 'cover'},
-  {title: 'Junta e tampa de comando', text: 'Com câmbio e luvas em neutro, coloque a junta e desça a tampa: os garfos entram nos canais das luvas.', why: 'Agora a alavanca comanda as luvas pelos trilhos e garfos.', tool: '—', care: 'Tudo em neutro antes de baixar a tampa.', view: 'case'},
+  {title: 'Trilhos e garfos na carcaça', text: 'Encaixe cada garfo no canal da sua luva e passe o trilho pela parede da carcaça, ao lado do eixo, e pelo garfo; trave cada garfo no trilho com o parafuso-trava.', why: 'Os trilhos correm ao lado do eixo, paralelos a ele. A alavanca empurra um trilho; o garfo preso nele empurra a luva.', tool: 'Chave, trava-rosca', care: 'Garfo 1–2 no trilho 1–2; luvas em neutro.', view: 'rails'},
+  {title: 'Esferas, molas e pino de intertravamento', text: 'Monte as esferas e molas de trava nos furos ao lado dos trilhos e o pino de intertravamento entre os dois trilhos.', why: 'As esferas seguram o trilho em neutro ou na marcha (o "clique"). O pino impede engatar duas marchas ao mesmo tempo.', tool: 'Graxa', care: 'Teste: só um trilho pode sair do neutro por vez.', view: 'rails'},
+  {title: 'Junta e tampa de comando', text: 'Com câmbio e luvas em neutro, coloque a junta e desça a tampa com a torre da alavanca: o dedo seletor entra nos rasgos dos trilhos.', why: 'Agora a alavanca escolhe um trilho e o empurra: trilho, garfo e luva andam juntos.', tool: '—', care: 'Tudo em neutro antes de baixar a tampa.', view: 'case'},
   {title: 'Parafusos da tampa, em cruz', text: 'Os 8 parafusos com arruela, apertados em cruz na ordem mostrada.', why: 'Aperto em cruz assenta a tampa por igual, sem vazar.', tool: 'Chave 16 mm, torquímetro', care: 'Torque: manual de serviço.', view: 'top'},
   {title: 'Fechar o trator', text: 'Aproxime o motor do câmbio, encaixando as estrias do eixo piloto no disco da embreagem, e aperte os parafusos da união.', why: 'O motor volta a tocar o câmbio pela embreagem.', tool: 'Carrinho, talha, pinos-guia', care: 'Nunca deixe o peso pendurado no eixo piloto.', view: 'geral'},
 ];

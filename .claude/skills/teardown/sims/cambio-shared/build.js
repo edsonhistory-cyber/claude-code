@@ -15,7 +15,8 @@ const HELIX = (22 * Math.PI) / 180;
 const SH = 0.022;
 const CASE = {x: 0.15, y0: BOT - 0.13, y1: TOP + 0.11, z0: 0.655, z1: 1.02, t: 0.012};
 const TOPB = [[-0.12, 0.71], [-0.12, 0.79], [-0.12, 0.89], [-0.12, 0.97], [0.12, 0.97], [0.12, 0.89], [0.12, 0.79], [0.12, 0.71]];
-export const RAIL = [[-0.03, TOP + 0.085], [0.03, TOP + 0.085]];
+// the rails run beside the main shaft, along it, on the case's side wall (as in the open TL box)
+export const RAIL = [[0.095, TOP + 0.03], [0.095, TOP - 0.03]];
 const HUBZ = [ZP.hub12, ZP.hub34];
 
 function hexNut(r, h, bore = 0) {
@@ -132,6 +133,13 @@ export function buildGearbox() {
         for (const s of [-1, 1]) add(R, new THREE.BoxGeometry(0.04, t, z1 - z0).translate(s * (x - 0.02), y1 - t / 2, (z0 + z1) / 2), M.cut, true);
         add(R, new THREE.BoxGeometry(W, t, 0.045).translate(0, y1 - t / 2, z0 + 0.0225), M.cut, true);
         add(R, new THREE.BoxGeometry(W, t, 0.04).translate(0, y1 - t / 2, z1 - 0.02), M.cut, true);
+        // the inside is painted red, as on the line: a thin lining on the inner faces
+        const red = new THREE.MeshStandardMaterial({color: '#b8372a', metalness: 0.1, roughness: 0.6, clippingPlanes: CUT, clipIntersection: true});
+        const li = 0.0015;
+        add(R, new THREE.BoxGeometry(W - 2 * t, li, z1 - z0 - 0.07).translate(0, y0 + t + li / 2, (z0 + z1) / 2 + 0.0025), red);
+        for (const sx of [-1, 1]) add(R, new THREE.BoxGeometry(li, Hh - 2 * t, z1 - z0 - 0.07).translate(sx * (x - t - li / 2), (y0 + y1) / 2, (z0 + z1) / 2 + 0.0025), red);
+        add(R, new THREE.BoxGeometry(W - 2 * t, Hh - 2 * t, li).translate(0, (y0 + y1) / 2, z1 - 0.03 - li / 2), red);
+        add(R, new THREE.BoxGeometry(W - 2 * t, Hh - 2 * t, li).translate(0, (y0 + y1) / 2, z0 + 0.035 + li / 2), red);
         // ribs
         for (const z of [0.76, 0.88]) for (const s of [-1, 1]) add(R, new THREE.BoxGeometry(0.012, Hh * 0.8, 0.012).translate(s * (x + 0.006), (y0 + y1) / 2, z), M.cut, true);
         break;
@@ -330,7 +338,8 @@ export function buildGearbox() {
         break;
       }
       case 'interlock':
-        add(R, cyl(0.004, -0.024, 0.024, 10).rotateY(Math.PI / 2).translate(0, RAIL[0][1], 0.925), M.bright);
+        // a short pin between the two rails: one rail out of neutral pushes it into the other's notch
+        add(R, cyl(0.004, -0.024, 0.024, 10).rotateX(Math.PI / 2).translate(RAIL[0][0] + 0.012, TOP, 0.925), M.bright);
         break;
     }
   }

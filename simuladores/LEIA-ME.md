@@ -108,3 +108,6 @@ Para gerar o vídeo (num PC com placa de vídeo, na pasta `.claude/skills/teardo
 - Referências: vídeo "2º Levantador Hidráulico – Ajuste de Altura" (Unapel New Holland) e "Câmbio TL 75" (Trator
   Peças), vistos só pelos quadros de capa, como referência do arranjo; nada copiado deles. Construção típica;
   medidas e ajustes: manual de serviço.
+- Câmbio, pelo vídeo "Câmbio TL 75" (caixa aberta): os trilhos seletores e os garfos passaram para o lado do eixo,
+  presos na carcaça (passos 20–21), a tampa de comando é só a tampa com a torre da alavanca, e o interior da carcaça
+  é vermelho. A caixa do modelo tem 2 trilhos (1–2 e 3–4); a do vídeo, de mais grupos, mostra 3.
