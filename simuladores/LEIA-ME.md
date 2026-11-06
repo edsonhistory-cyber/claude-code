@@ -21,3 +21,13 @@ Para gerar o vídeo (num PC com placa de vídeo, na pasta `.claude/skills/teardo
     node sims/capture.mjs tractor-film --size 1600x900 --dpr 1.2 --out teardown-out/tl80-mudo.mp4
     python run_sfx.py sims/tractor-shared/score.py
     ffmpeg -y -i teardown-out/tl80-mudo.mp4 -i teardown-out/tractor-score.wav -map 0:v -map 1:a -c:v copy -c:a aac -b:a 256k -shortest -movflags +faststart teardown-out/tl80.mp4
+
+## Treinamento de montagem: trombeta e redução final (TL80)
+
+- `trombeta-tl80-montagem.html`: 24 passos, peça por peça (66 peças: rolamentos, rolos, retentor, porca e
+  arruela-trava, porta-satélites, 72 roletes-agulha, arruelas de encosto, satélites, eixos e pinos-trava,
+  semieixo, discos e atuador do freio com esferas e molas, solar, junta, pinos-guia, coroa, 10 arruelas e
+  10 porcas apertadas em cruz numerada, bujões). Botões ◀ ANTERIOR / PRÓXIMO ▶ (ou setas do teclado),
+  AUTO, DESMONTAR TUDO, MONTAR TUDO e a barra de passos para ir e voltar (a volta é a desmontagem).
+  FUNCIONAMENTO: gire o semieixo e segure FREIO (ou espaço) para ver a redução 6:1 e o freio atuando.
+- Construção típica, não o desenho oficial. Torques, pré-carga e folgas: manual de serviço.
