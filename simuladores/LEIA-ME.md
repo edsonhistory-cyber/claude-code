@@ -54,3 +54,18 @@ Para gerar o vídeo (num PC com placa de vídeo, na pasta `.claude/skills/teardo
 - `cambio-tl80-bancada.html`: a mesma lição só na bancada.
 - Dados do site de peças usados: eixo piloto 23 dentes, 264 mm; engrenagem sincronizada 23 dentes. Demais dentes,
   formas e sequência: construção típica (não é o desenho oficial). Torques: manual de serviço.
+
+## Treinamento de montagem: eixo traseiro e diferencial (TL80)
+
+- `eixo-traseiro-tl80-montagem.html`: no TRATOR (no cavalete, sem roda/trombeta esquerda e sem o engate de 3 pontos).
+  DESTACAR esconde o trator. 17 passos: pinhão 9 D com cone traseiro; calço de altura e capas na carcaça; carcaça do
+  diferencial em 2 metades, arruelas de encosto de bronze, planetárias 16 D (24 estrias), cruzeta com 2 satélites e
+  arruelas esféricas de bronze; coroa 43 D com 12 parafusos em cruz numerada; cones do diferencial; luva do bloqueio;
+  pinhão na carcaça com cone dianteiro, arruela-trava e porca; capas e calços de ajuste da folga; garfo, haste e mola
+  do bloqueio; semieixo esquerdo.
+  FUNCIONAMENTO: RETA (satélites parados, rodas iguais), CURVA (satélites giram, uma roda +30 %, a outra −30 %),
+  BLOQUEIO (a luva trava: rodas iguais mesmo na curva). Teclas R, C, B.
+- `eixo-traseiro-tl80-bancada.html`: a mesma lição só na bancada.
+- Dados do site de peças: coroa e pinhão 9 × 43; carcaça do diferencial, planetárias, satélites e arruelas de
+  encosto de bronze da linha TL; semieixo 24 estrias. Dentes de planetária/satélite (16/10), formas e sequência:
+  construção típica. Torques, pré-carga e folga: manual de serviço.
