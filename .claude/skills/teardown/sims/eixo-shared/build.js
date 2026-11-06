@@ -39,11 +39,11 @@ function taper(ri, ro, z0, z1, n) {
 export function buildAxle() {
   const std = (color, metalness, roughness, env = 1) => new THREE.MeshStandardMaterial({color, metalness, roughness, envMapIntensity: env});
   const M = {
-    steel: std('#c6cacf', 0.95, 0.28),
+    steel: std('#d0d4d9', 1, 0.22, 1.2),
     dark: std('#7f868d', 0.9, 0.35),
-    bright: std('#dfe3e7', 1, 0.18),
+    bright: std('#e6e9ec', 1, 0.14, 1.2),
     bronze: std('#c4974a', 0.9, 0.32),
-    cast: new THREE.MeshPhysicalMaterial({color: '#3d4a57', metalness: 0.35, roughness: 0.55, clearcoat: 0.35, clearcoatRoughness: 0.4}),
+    cast: new THREE.MeshPhysicalMaterial({color: '#3f6f7c', metalness: 0.3, roughness: 0.42, clearcoat: 0.55, clearcoatRoughness: 0.3}),
     zinc: std('#d6cfa8', 0.9, 0.35),
     fork: std('#596069', 0.6, 0.5),
   };
@@ -54,7 +54,9 @@ export function buildAxle() {
   M.caseCut = M.steel.clone();
   M.caseCut.clippingPlanes = CUT;
   M.caseCut.clipIntersection = true;
-  M.cap = new THREE.MeshBasicMaterial({color: '#b3b9bf', side: THREE.BackSide, clippingPlanes: CUT, clipIntersection: true});
+  M.cap = new THREE.MeshBasicMaterial({color: '#e4e1d8', side: THREE.BackSide, clippingPlanes: CUT, clipIntersection: true});
+  // the outlines of a cutaway drawing on every casting (clipped with it)
+  M.line = new THREE.LineBasicMaterial({color: '#14232b', transparent: true, opacity: 0.6, clippingPlanes: CUT, clipIntersection: true});
   const root = new THREE.Group();
   const groups = {base: new THREE.Group(), pin: new THREE.Group(), diff: new THREE.Group()};
   for (const g of Object.values(groups)) root.add(g);
@@ -69,6 +71,7 @@ export function buildAxle() {
       const c = new THREE.Mesh(geo, M.cap);
       c.renderOrder = -1;
       m.add(c);
+      m.add(new THREE.LineSegments(new THREE.EdgesGeometry(geo, 28), M.line));
     }
     return m;
   };

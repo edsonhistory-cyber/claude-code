@@ -58,7 +58,7 @@ function rimGeo(rim, W, disc) {
   return mergeGeometries(g.map((x) => x.toNonIndexed()));
 }
 
-export function buildTractor() {
+export function buildTractor(opts = {}) {
   const std = (color, metalness, roughness, env = 0.6) => new THREE.MeshStandardMaterial({color, metalness, roughness, envMapIntensity: env});
   const phys = (color, o = {}) => new THREE.MeshPhysicalMaterial({color, metalness: 0.1, roughness: 0.35, clearcoat: 0.6, clearcoatRoughness: 0.25, ...o});
   const M = {
@@ -623,10 +623,31 @@ export function buildTractor() {
   M.cap = new THREE.MeshBasicMaterial({color: '#aeb4ba', side: THREE.BackSide, clippingPlanes: CUT, clipIntersection: true});
   M.capLine = new THREE.MeshBasicMaterial({color: '#f2661c', side: THREE.BackSide, clippingPlanes: CUT, clipIntersection: true});
   const castings = all.filter((m) => m.material === M.housing);
+  // the cutaway-drawing look (the whole-transmission page): petrol-blue castings, a light section face, outlines
+  if (opts.cutaway) {
+    M.housing.color.set('#3f6f7c');
+    M.housing.roughness = 0.42;
+    M.housing.clearcoat = 0.55;
+    M.cap.color.set('#e4e1d8');
+    M.gear.color.set('#d0d4d9');
+    M.gear.roughness = 0.22;
+    M.gear.metalness = 1;
+    // the gears already cloned from the old gear material take the new shade too
+    const old = new THREE.Color('#c4c8cd').getHex();
+    for (const t of tint)
+      if (t.base.getHex() === old) {
+        t.base.set('#d0d4d9');
+        t.mesh.material.color.set('#d0d4d9');
+        t.mesh.material.roughness = 0.22;
+        t.mesh.material.metalness = 1;
+      }
+    M.line = new THREE.LineBasicMaterial({color: '#14232b', transparent: true, opacity: 0.6, clippingPlanes: CUT, clipIntersection: true});
+  }
   for (const m of castings) {
     const c = new THREE.Mesh(m.geometry, M.cap);
     c.renderOrder = -1;
     m.add(c);
+    if (M.line) m.add(new THREE.LineSegments(new THREE.EdgesGeometry(m.geometry, 28), M.line));
   }
 
   // ================================================================ display modes and the power path
@@ -694,7 +715,35 @@ export function buildTractor() {
    * st: th (angles from kin.step), pose (kin.poseOf), fwd4 (0/1), ptoOn, body 0..1 (ghost the body),
    * housing 0..1 (ghost the housings), power 0..1, levers {sh, g, r} as poses
    */
+  // DESTACAR: each assembly of the powertrain as a set of meshes; with a focus, everything else that moves is hidden
+  // and only the castings (cut) stay around it
+  const castSet = new Set(castings);
+  const meshesIn = (...objs) => {
+    const out = [];
+    for (const o of objs) o?.traverse((m) => m.isMesh && !castSet.has(m) && out.push(m));
+    return out;
+  };
+  const FOCUS = {
+    motor: meshesIn(engine, P.bell),
+    reversor: [...meshesIn(free.sF, free.sR, idl, hubs[0].sl, forks[0]), hubs[0].hub, ...hubs[0].blockers, fx.s1F, fx.s1R, shafts[0].children[0], shafts[0].children[1], ...meshesIn(clutch)],
+    cambio: [...meshesIn(free.m1, free.m2, free.m3, free.m4, hubs[1].sl, hubs[2].sl, forks[1], forks[2], P.cover), hubs[1].hub, hubs[2].hub, ...hubs[1].blockers, ...hubs[2].blockers, fx.c1, fx.c2, fx.c3, fx.c4, shafts[1].children[0], shafts[2].children[0], shafts[2].children[1]],
+    gamas: [...meshesIn(free.gL, free.gM, free.gH, hubs[3].sl, hubs[4].sl, forks[3], forks[4]), hubs[3].hub, hubs[4].hub, ...hubs[3].blockers, ...hubs[4].blockers, fx.dL, fx.dM, fx.dH, shafts[3].children[0]],
+    diferencial: meshesIn(pinion, crownSpin),
+    trombetas: meshesIn(...halfShafts, ...fds.map((f) => f.fd)),
+    pdm: [...meshesIn(fAxle, prop, drop), fx.tr],
+    tdp: meshesIn(P.ptoParts.ptoDrive, P.ptoParts.ptoIdl, P.ptoParts.ptoIn, P.ptoParts.ptoLine, pto),
+  };
+  P.FOCUS = FOCUS;
+  const ptMeshes = meshesIn(pt);
+  let focusNow = null;
+  const setFocus = (f) => {
+    if (f === focusNow) return;
+    focusNow = f;
+    const keep = f && FOCUS[f] ? new Set(FOCUS[f]) : null;
+    for (const m of ptMeshes) m.visible = !keep || keep.has(m);
+  };
   const update = (st) => {
+    setFocus(st.focus ?? null);
     const th = st.th;
     const A = gearAngles(th);
     crank.rotation.z = th.eng;

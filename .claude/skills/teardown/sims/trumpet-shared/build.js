@@ -72,10 +72,10 @@ function taperRollers(n, rc, z0, z1, rA, rB) {
 export function buildFinalDrive() {
   const std = (color, metalness, roughness, env = 1) => new THREE.MeshStandardMaterial({color, metalness, roughness, envMapIntensity: env});
   const M = {
-    steel: std('#c6cacf', 0.95, 0.28),
+    steel: std('#d0d4d9', 1, 0.22, 1.2),
     dark: std('#7f868d', 0.9, 0.35),
-    bright: std('#dfe3e7', 1, 0.18),
-    cast: new THREE.MeshPhysicalMaterial({color: '#3d4a57', metalness: 0.35, roughness: 0.55, clearcoat: 0.35, clearcoatRoughness: 0.4}),
+    bright: std('#e6e9ec', 1, 0.14, 1.2),
+    cast: new THREE.MeshPhysicalMaterial({color: '#3f6f7c', metalness: 0.3, roughness: 0.42, clearcoat: 0.55, clearcoatRoughness: 0.3}),
     friction: std('#8a5a32', 0.2, 0.75, 0.6),
     rubber: std('#1d1e20', 0, 0.7, 0.5),
     gasket: std('#c9b27c', 0, 0.85, 0.5),
@@ -89,7 +89,9 @@ export function buildFinalDrive() {
     m.clippingPlanes = CUT;
     m.clipIntersection = true;
   }
-  M.cap = new THREE.MeshBasicMaterial({color: '#b3b9bf', side: THREE.BackSide, clippingPlanes: CUT, clipIntersection: true});
+  M.cap = new THREE.MeshBasicMaterial({color: '#e4e1d8', side: THREE.BackSide, clippingPlanes: CUT, clipIntersection: true});
+  // the outlines of a cutaway drawing on every casting (clipped with it)
+  M.line = new THREE.LineBasicMaterial({color: '#14232b', transparent: true, opacity: 0.6, clippingPlanes: CUT, clipIntersection: true});
   const root = new THREE.Group();
   const base = new THREE.Group();
   const sub = new THREE.Group();
@@ -114,6 +116,7 @@ export function buildFinalDrive() {
       const c = new THREE.Mesh(geo, M.cap);
       c.renderOrder = -1;
       m.add(c);
+      m.add(new THREE.LineSegments(new THREE.EdgesGeometry(geo, 28), M.line));
     }
     return m;
   };

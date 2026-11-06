@@ -34,7 +34,9 @@ html,body{background:#e9e6df;overflow:hidden}
 @media (orientation:portrait) and (max-width:820px){.turn{display:block}}
 `;
 
-export function runLive() {
+export function runLive(opts = {}) {
+  // full: the whole transmission in cutaway (no body, the castings cut and painted, the power path on) with DESTACAR
+  const FULL = !!opts.full;
   const style = document.createElement('style');
   style.textContent = CSS;
   document.head.appendChild(style);
@@ -42,7 +44,7 @@ export function runLive() {
   const canvas = document.createElement('canvas');
   canvas.id = 'gl';
   app.appendChild(canvas);
-  const st = createStage({canvas});
+  const st = createStage({canvas, cutaway: FULL});
   const ui = createConsole(app);
   const tourCursor = makeCursor(ui);
   const frameConsole = makeConsoleFrame(ui, st);
@@ -94,6 +96,38 @@ export function runLive() {
   let view = 'geral';
   let viewAt0 = 0;
   const disp = Object.fromEntries(DISPLAY.map((k) => [k, {on: 0, t: -9}]));
+  if (FULL) for (const k of ['body', 'cut', 'labels', 'power']) disp[k].on = 1;
+  let focus = null;
+  if (FULL) {
+    const FOCI = [[null, 'TUDO'], ['motor', 'MOTOR'], ['reversor', 'REVERSOR'], ['cambio', '4 MARCHAS'], ['gamas', 'GAMAS'], ['diferencial', 'COROA · DIFERENCIAL'], ['trombetas', 'TROMBETAS'], ['pdm', 'PDM'], ['tdp', 'TDP']];
+    const row = document.createElement('div');
+    row.style.cssText = 'position:absolute;left:800px;top:100px;transform:translateX(-50%);display:flex;gap:6px;align-items:center;pointer-events:auto';
+    row.innerHTML = '<span style="font:700 9px JetBrains Mono,monospace;letter-spacing:1.4px;color:#8c8f96;margin-right:4px">DESTACAR</span>';
+    const fbtn = [];
+    for (const [k, l] of FOCI) {
+      const b = document.createElement('div');
+      b.className = 'bt';
+      b.style.cssText = 'position:relative;height:22px;padding:0 9px';
+      b.textContent = l;
+      b.addEventListener('click', () => {
+        takeOver();
+        focus = k;
+        paintFocus();
+      });
+      row.appendChild(b);
+      fbtn.push([b, k]);
+    }
+    function paintFocus() {
+      for (const [bb, kk] of fbtn) {
+        const on = kk === focus;
+        bb.style.background = on ? '#f2661c' : '#fff';
+        bb.style.color = on ? '#fff' : '#23262c';
+        bb.style.borderColor = on ? '#f2661c' : '#d6d8dc';
+      }
+    }
+    paintFocus();
+    ui.root.appendChild(row);
+  }
   const off = {az: 0, el: 0, k: 1};
   const cam = {...VIEW_FN.geral(0)};
   let ring = {t: -9, x: 0, y: 0};
@@ -142,6 +176,7 @@ export function runLive() {
   const syncDisplay = (cyc) => {
     const want = displayAt(cyc);
     for (const k of DISPLAY) {
+      if (FULL && ['body', 'cut', 'labels', 'power'].includes(k)) continue;
       if (disp[k].on !== want[k]) {
         disp[k].on = want[k];
         disp[k].t = T;
@@ -337,7 +372,7 @@ export function runLive() {
     const k = 1 - Math.exp(-dt / (AP.on ? 0.18 : 0.4));
     cam.az += wrap(tgt.az - cam.az) * k;
     for (const key of ['tx', 'ty', 'tz', 'el', 'd', 'sx', 'sy']) cam[key] += (tgt[key] - cam[key]) * k;
-    st.frame(stageState(x, {body: eased('body'), cut: eased('cut', 1.0), housing: eased('housing') * 0.86, power: eased('power')}), {...cam, az: cam.az * D2R, el: cam.el * D2R});
+    st.frame(stageState(x, {body: eased('body'), cut: eased('cut', 1.0), housing: eased('housing') * 0.86, power: eased('power'), focus}), {...cam, az: cam.az * D2R, el: cam.el * D2R});
     const display = Object.fromEntries(DISPLAY.map((d) => [d, disp[d].on]));
     frameConsole(x, {trace: tr, view, display, labels: eased('labels', 0.5) * ss(1.1, 1.7, since), cursor, toast, gPlane});
     if (tourChip.classList.contains('on') !== AP.on || !tourChip.firstChild) {

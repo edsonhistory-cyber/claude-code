@@ -69,3 +69,12 @@ Para gerar o vídeo (num PC com placa de vídeo, na pasta `.claude/skills/teardo
 - Dados do site de peças: coroa e pinhão 9 × 43; carcaça do diferencial, planetárias, satélites e arruelas de
   encosto de bronze da linha TL; semieixo 24 estrias. Dentes de planetária/satélite (16/10), formas e sequência:
   construção típica. Torques, pré-carga e folga: manual de serviço.
+
+## Transmissão completa em corte (TL80)
+
+- `transmissao-completa-tl80.html`: o trem de força inteiro em corte, no acabamento de desenho técnico (carcaças
+  azul-petróleo, face de corte clara, contornos): motor, embreagem dupla, reversor, 4 marchas, gamas, coroa e
+  diferencial, trombetas com redução final, PDM e TDP, tudo funcionando com os mesmos comandos do trator (reversor,
+  marchas, gamas, acelerador, freio, TDP, 4×4). DESTACAR: TUDO · MOTOR · REVERSOR · 4 MARCHAS · GAMAS ·
+  COROA · DIFERENCIAL · TROMBETAS · PDM · TDP deixa só aquele conjunto girando dentro da carcaça.
+- As lições de montagem (trombeta, câmbio, eixo traseiro) ganharam o mesmo acabamento.

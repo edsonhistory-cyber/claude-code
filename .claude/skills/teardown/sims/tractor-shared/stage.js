@@ -34,7 +34,7 @@ const GROUND_FRAG = /* glsl */ `uniform vec3 uG; uniform vec3 uM; uniform vec3 u
     gl_FragColor = vec4(mix(col, uBg, smoothstep(4.0, 16.0, d)), 1.0);
   }`;
 
-export function createStage({canvas}) {
+export function createStage({canvas, cutaway = false}) {
   const renderer = new THREE.WebGLRenderer({canvas, antialias: false, preserveDrawingBuffer: true, powerPreference: 'high-performance'});
   renderer.toneMapping = THREE.NeutralToneMapping;
   renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -130,7 +130,7 @@ export function createStage({canvas}) {
   scene.add(shade);
 
   let aoWanted = true;
-  const box = buildTractor();
+  const box = buildTractor({cutaway});
   scene.add(box.root);
 
   const size = {w: 1600, h: 900};
