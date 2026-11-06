@@ -61,10 +61,10 @@ export function createConsole(app) {
   add(`<div style="position:absolute;left:0;top:0;width:160px;height:89px;background:${C.blue}"></div>`);
   add(`<div style="position:absolute;left:28px;top:22px;color:#fff;font-size:40px;font-weight:800;letter-spacing:-1px;line-height:1">TL</div>`);
   add(`<div class="mo" style="position:absolute;left:86px;top:28px;color:#fff;font-size:11px;font-weight:600;letter-spacing:2px;line-height:15px">12×12<br>4×4</div>`);
-  add(`<div class="sm" style="position:absolute;left:182px;top:22px;letter-spacing:2.4px">TRATOR AGRÍCOLA · NEW HOLLAND TL5.90</div>`);
-  add(`<div style="position:absolute;left:181px;top:37px;font-size:33px;font-weight:700;letter-spacing:-.6px;line-height:1">Transmissão 12×12 sincronizada <span style="color:${C.or};font-weight:400">/</span></div>`);
-  add(`<div class="mo" style="position:absolute;left:182px;top:77px;font-size:11.2px;letter-spacing:2.2px;color:#5d6068">MOTOR S8000 3,9 L TURBO 90 CV · REVERSOR F/R · 4 MARCHAS × 3 GAMAS · TDP 540 · PDM</div>`);
-  add(`<div class="sm" style="position:absolute;left:1150px;top:40px;letter-spacing:2.2px;line-height:15px;text-align:right;right:28px">ESTUDO INTERATIVO · NÃO OFICIAL<br>DADOS PÚBLICOS DO TL5<br>DENTES DAS ENGRENAGENS: MODELO PRÓPRIO</div>`);
+  add(`<div class="sm" style="position:absolute;left:182px;top:22px;letter-spacing:2.4px">TRATOR AGRÍCOLA · NEW HOLLAND TL80</div>`);
+  add(`<div style="position:absolute;left:181px;top:37px;font-size:33px;font-weight:700;letter-spacing:-.6px;line-height:1">Transmissão 12×12 · reversor mecânico <span style="color:${C.or};font-weight:400">/</span></div>`);
+  add(`<div class="mo" style="position:absolute;left:182px;top:77px;font-size:11.2px;letter-spacing:2.2px;color:#5d6068">MOTOR 8045 3,9 L TURBO 80 CV · REVERSOR MECÂNICO · 4 MARCHAS × 3 GAMAS · TDP 540 · 4×4</div>`);
+  add(`<div class="sm" style="position:absolute;left:1150px;top:40px;letter-spacing:2.2px;line-height:15px;text-align:right;right:28px">ESTUDO INTERATIVO · NÃO OFICIAL<br>DADOS PÚBLICOS DO TL80<br>DENTES DAS ENGRENAGENS: MODELO PRÓPRIO</div>`);
 
   // ------------------------------------------------------------ 01 state
   panel(28, 126, 282, 262, 'ESTADO DA TRANSMISSÃO', '01');
@@ -78,7 +78,7 @@ export function createConsole(app) {
   // ------------------------------------------------------------ 02 speeds
   panel(28, 402, 282, 330, 'ROTAÇÕES', '02');
   const ROWS = [['MOTOR', 'rpm', 2600], ['PRIMÁRIO', 'rpm', 2600], ['SAÍDA CÂMBIO', 'rpm', 2600], ['PINHÃO', 'rpm', 3000], ['RODA TRAS.', 'rpm', 120], ['TDP', 'rpm', 600]];
-  // (MOTOR: FPT S8000, 90 cv a 2.400 rpm, 330 Nm a 1.400 rpm)
+  // (MOTOR: Iveco/NH 8045, 80 cv a 2.500 rpm)
   const bars = ROWS.map(([n], i) => {
     const y = 438 + i * 24;
     add(`<div class="sm" style="position:absolute;left:42px;top:${y}px">${n}</div>`);
@@ -99,7 +99,7 @@ export function createConsole(app) {
   panel(1313, 126, 258, 196, 'VISÃO GERAL', '03');
   add(`<div class="mo" style="position:absolute;left:1327px;top:160px;width:232px;font-size:9.2px;line-height:1.7;color:#4f535b">O motor gira o primário pela embreagem. O reversor escolhe o sentido, o câmbio a marcha e a gama a faixa: 4 × 3 = 12 para frente e 12 para trás, cada troca por um sincronizador. Embreagem de disco duplo: o 2º disco toca a TDP. A PDM puxa a frente 2 % adiantada.</div>`);
   add(`<div style="position:absolute;left:1327px;top:262px;width:232px;height:1px;background:${C.line}"></div>`);
-  [['12×12', 'MARCHAS'], ['5', 'SINCRON.'], ['30,5', 'KM/H MÁX']].forEach(([v, n], i) => {
+  [['12×12', 'MARCHAS'], ['5', 'SINCRON.'], ['32', 'KM/H MÁX']].forEach(([v, n], i) => {
     const x = 1327 + i * 82;
     if (i) add(`<div style="position:absolute;left:${x - 8}px;top:272px;width:1px;height:38px;background:${C.line}"></div>`);
     add(`<div style="position:absolute;left:${x}px;top:273px;font-size:19px;font-weight:700">${v}</div>`);
@@ -138,7 +138,7 @@ export function createConsole(app) {
   btnRow(DISPLAY, DISPLAY_LABEL, 1327, 709);
 
   // ------------------------------------------------------------ 07 speed table, throttle, brake
-  panel(430, 752, 740, 116, 'VELOCIDADES A 2.400 RPM (KM/H, FRENTE)', '07');
+  panel(430, 752, 740, 116, 'VELOCIDADES A 2.500 RPM (KM/H, FRENTE)', '07');
   const cells = {};
   add(`<div class="sm" style="position:absolute;left:448px;top:790px">GAMA</div>`);
   [1, 2, 3, 4].forEach((g, j) => add(`<div class="sm" style="position:absolute;left:${500 + j * 74}px;top:790px">${g}ª</div>`));
@@ -159,7 +159,7 @@ export function createConsole(app) {
 
   // ------------------------------------------------------------ footer
   add(`<div class="sm" style="position:absolute;left:27px;top:882px;letter-spacing:2.1px">ESTUDO DE MECANISMO · MODELO PROCEDURAL · UMA ENTRADA: MOTOR + ALAVANCAS</div>`);
-  add(`<div class="sm" style="position:absolute;right:28px;top:882px;letter-spacing:2.1px">PNEUS 12.4-24 / 18.4-30 · ENTRE-EIXOS 2.350 MM <span style="color:${C.or}">//////</span></div>`);
+  add(`<div class="sm" style="position:absolute;right:28px;top:882px;letter-spacing:2.1px">PNEUS 380/70R24 / 480/70R34 · ENTRE-EIXOS 2.310 MM <span style="color:${C.or}">//////</span></div>`);
 
   const callSvg = add(`<svg data-callouts style="position:absolute;inset:0;overflow:visible" width="1600" height="900"></svg>`);
   const callG = add(`<div data-callouts style="position:absolute;inset:0"></div>`);

@@ -1,14 +1,14 @@
-// The tractor's numbers: the New Holland TL5 (TL5.90 shown) with its 12x12 transmission: a synchronised in-line
-// reverser (F/R), four synchronised gears and three ranges (L/M/H), a spiral-bevel pinion and crown wheel with the
-// differential, planetary final drives in the trumpets, the PDM (front drive axle) with its own bevel, differential
-// and planetary hubs, and an independent 540 PTO with its own clutch.
+// The tractor's numbers: the New Holland TL80 (series 1999-2004) with its 12-speed transmission and mechanical
+// shuttle: an in-line reverser (F/R), four synchronised gears and three ranges (L/M/H), a spiral-bevel pinion and crown
+// wheel with the differential, planetary final drives, the front drive axle (4WD) with its own bevel and planetary
+// hubs, and an independent PTO with its own disc of the double clutch.
 //
-// Published (New Holland TL5 page, dealer sheets, Revista Cultivar): FPT S8000 turbo, 4 cylinders, 3908 cm3; TL5.90
-// 90 cv at 2400 rpm, 330 Nm at 1400 rpm; 12 forward x 12 reverse, synchronised, mechanical reverser; 540 rpm PTO,
-// mechanical engagement; 4x2 with TDA (front-wheel assist); lift 3600 kgf; about 3470 kg. From the TL line sheets:
-// top speed 30-31 km/h, reverse about 10 % slower, tyres 12.4-24 / 18.4-30, wheelbase 2350 mm. NOT published: the
-// tooth counts. The ones below are this model's own, chosen so every pair runs on a 120 mm centre distance (tooth sum
-// 60 at a 4 mm module) and the speeds land on the published span: 2.8 km/h in L1 to 30.5 km/h in H4 at 2400 rpm.
+// Published (TractorData, Tractorista, OECD-based sheets): Iveco/NH 8045 diesel, turbo, 4 cylinders, 3.9 L, bore x
+// stroke 104 x 115 mm, compression 16.5:1, 80 hp at 2500 rpm; dual dry disc clutch; 12-speed with mechanical shuttle;
+// independent PTO 540 rpm at 2199 engine rpm (1000 optional); planetary final drives; wet brakes; tyres 380/70R24 front
+// (4WD), 480/70R34 rear; wheelbase 2310 mm (4WD); about 3500 kg operating. NOT published: the tooth counts or the
+// speed table. The ones below are this model's own: every pair on a 120 mm centre distance (tooth sum 60 at a 4 mm
+// module), speeds from 3 km/h in L1 to 32 km/h in H4 at 2500 rpm.
 //
 // Shaft line (front to rear, top and bottom alternate): S0 primary (top, from the clutch) -> reverser -> S1 (bottom)
 // -> 4-speed -> S2 (top) -> ranges -> S3 (bottom, the pinion shaft) -> crown wheel -> differential -> final drives.
@@ -16,10 +16,10 @@
 export const MOD = 0.004;
 export const CD = 0.12;
 export const rp = (z, m = MOD) => (m * z) / 2;
-export const AXLE_Y = 0.76; // rear axle centre = the 18.4-30 loaded radius
-export const RW = 0.76; // rear rolling radius
-export const RF = 0.555; // front rolling radius, 12.4-24
-export const WHEELBASE = 2.35;
+export const AXLE_Y = 0.77; // rear axle centre = the 480/70R34 loaded radius
+export const RW = 0.77; // rear rolling radius
+export const RF = 0.57; // front rolling radius, 380/70R24
+export const WHEELBASE = 2.31;
 export const TOP = AXLE_Y + CD; // S0, S2 and the crank
 export const BOT = AXLE_Y; // S1, S3: the pinion meets the crown on the axle centre
 
@@ -31,21 +31,21 @@ export const Z = {
   pin: 10, crown: 43, // spiral bevel
   sun: 18, planet: 36, ring: 90, // final drive, carrier output: 1 + 90/18 = 6
   fPin: 9, fCrown: 34, fSun: 18, fPlanet: 26, fRing: 70, // PDM: bevel 34/9, hubs 1 + 70/18; 4 planets
-  ptoA: 18, ptoB: 80, // PTO reduction at the rear: 2400 / (80/18) = 540
+  ptoA: 19, ptoB: 77, // PTO reduction at the rear: 2199 / (77/19) = 543, the published 540 at 2199
 };
-// the engine: FPT S8000, bore 104 x stroke 115 mm, 4 inline, firing 1-3-4-2
+// the engine: Iveco/NH 8045, bore 104 x stroke 115 mm, 4 inline, firing 1-3-4-2
 export const ENGINE = {bore: 0.104, stroke: 0.115, rod: 0.19, cyl: 4, pitch: 0.125, z0: 1.6725};
 export const SHUTTLE = {F: Z.s1F / Z.sF, R: Z.s1R / Z.sR, N: 0}; // S0 turns this many times per S1 turn
 export const GEAR = {1: Z.m1 / Z.c1, 2: Z.m2 / Z.c2, 3: Z.m3 / Z.c3, 4: Z.m4 / Z.c4};
 export const RANGE = {L: Z.gL / Z.dL, M: Z.gM / Z.dM, H: Z.gH / Z.dH};
 export const BEVEL = Z.crown / Z.pin;
 export const FINAL = 1 + Z.ring / Z.sun;
-export const PTO_RATIO = Z.ptoB / Z.ptoA; // 4.44: 2400 rpm -> 540
+export const PTO_RATIO = Z.ptoB / Z.ptoA; // 4.05: 2199 rpm -> 543
 export const FRONT_TOTAL = (Z.fCrown / Z.fPin) * (1 + Z.fRing / Z.fSun); // prop turns per front wheel turn
 // the front wheels are geared about 2 % faster than the rear (the usual lead of a front-wheel assist)
 export const LEAD = (BEVEL * FINAL * (RF / RW)) / FRONT_TOTAL - 1;
 export const IDLE = 850;
-export const RATED = 2400;
+export const RATED = 2500;
 export const total = (sh, g, r) => SHUTTLE[sh] * GEAR[g] * RANGE[r] * BEVEL * FINAL;
 export const kmhAt = (rpm, sh, g, r) => (sh === 'N' ? 0 : ((rpm / total(sh, g, r)) * 2 * Math.PI * RW * 3.6) / 60);
 

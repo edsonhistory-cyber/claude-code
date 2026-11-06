@@ -176,7 +176,7 @@ export function buildTractor() {
   }
   const pumpG = group(engine, PUMP[0], TOP + PUMP[1], 0);
   add(pumpG, gearGeo(60, 0.02, {m: TM, bore: 0.012}).translate(0, 0, 2.285), M.gear, true);
-  // the rotary injection pump (Delphi, mechanical) on the side of the block, its lines up to the four injectors
+  // the injection pump (mechanical) on the side of the block, its lines up to the four injectors
   add(engine, new RoundedBoxGeometry(0.09, 0.12, 0.2, 3, 0.03).translate(0.24, TOP + 0.02, 2.12), M.dark);
   add(engine, cyl(0.04, 2.02, 2.26, 20).translate(0.24, TOP - 0.03, 0), M.dark);
   for (let i = 0; i < 4; i++) {
@@ -186,7 +186,7 @@ export function buildTractor() {
     add(engine, cyl(0.009, -0.03, 0.03, 10).rotateX(Math.PI / 2).translate(0.06, TOP + 0.3, z), M.rail); // injector
   }
   P.timing = {cam, pumpG};
-  // starter, alternator, oil filter, air cleaner, the intercooler ahead of the radiator
+  // starter, alternator, oil filter, air cleaner, the radiator top tank
   add(engine, cyl(0.045, 1.42, 1.62, 20).translate(-0.22, TOP - 0.12, 0), M.dark);
   add(engine, cyl(0.06, -0.04, 0.04, 24).rotateZ(Math.PI / 2).translate(-0.22, TOP + 0.25, 2.25), M.dark);
   add(engine, cyl(0.045, -0.07, 0.07, 20).rotateX(Math.PI / 2).translate(-0.2, TOP - 0.1, 1.9), M.blue);
@@ -471,10 +471,10 @@ export function buildTractor() {
   }
 
   // ================================================================ wheels
-  const rearT = tyreGeo(RW, 0.47, 0.381, 24, 0.032, 0.07);
-  const frontT = tyreGeo(RF, 0.315, 0.305, 21, 0.028, 0.05);
-  const rearRim = rimGeo(0.381, 0.47, 0.06);
-  const frontRim = rimGeo(0.305, 0.315, 0.04);
+  const rearT = tyreGeo(RW, 0.48, 0.432, 24, 0.032, 0.07); // 480/70R34
+  const frontT = tyreGeo(RF, 0.38, 0.305, 21, 0.028, 0.055); // 380/70R24
+  const rearRim = rimGeo(0.432, 0.48, 0.06);
+  const frontRim = rimGeo(0.305, 0.38, 0.04);
   const wheel = (parent, x, R, T, rim, side) => {
     const w = group(parent, x, R, 0);
     const spin = group(w);
@@ -530,42 +530,20 @@ export function buildTractor() {
     add(body, new RoundedBoxGeometry(0.66, 0.05, 0.08, 2, 0.015).translate(0, 0.6, 3.07), M.black);
   }
   // cab: floor, four posts, roof, glass, seat, wheel, dash, exhaust and the beacon
-  const CAB = {z0: -0.38, z1: 1.18, x: 0.56, floor: 1.22, roof: 2.62};
-  add(body, new RoundedBoxGeometry(1.14, 0.08, 1.56, 2, 0.02).translate(0, CAB.floor, (CAB.z0 + CAB.z1) / 2), M.black);
-  for (const [x, z] of [[CAB.x, CAB.z1], [-CAB.x, CAB.z1], [CAB.x, CAB.z0], [-CAB.x, CAB.z0]]) add(body, new RoundedBoxGeometry(0.06, CAB.roof - CAB.floor, 0.06, 2, 0.015).translate(x, (CAB.roof + CAB.floor) / 2, z), M.black);
-  add(body, new RoundedBoxGeometry(1.24, 0.17, 1.78, 4, 0.05).translate(0, CAB.roof + 0.08, (CAB.z0 + CAB.z1) / 2 - 0.02), M.blue);
-  add(body, new RoundedBoxGeometry(1.18, 0.05, 1.7, 3, 0.02).translate(0, CAB.roof - 0.02, (CAB.z0 + CAB.z1) / 2), M.black);
+  const CAB = {z0: -0.38, z1: 1.18, x: 0.56, floor: 1.22, roof: 2.62}; // (the floor and the column; the TL80 shown has no cab)
+  // TL80 operator platform: an open floor with the rear two-post ROPS arch (no cab), the lamps on the fenders
+  add(body, new RoundedBoxGeometry(1.14, 0.06, 1.3, 2, 0.02).translate(0, CAB.floor, 0.35), M.black);
+  for (let i = 0; i < 8; i++) add(body, new THREE.BoxGeometry(0.9, 0.006, 0.02).translate(0, CAB.floor + 0.033, -0.15 + i * 0.13), M.dark);
   for (const s of [-1, 1]) {
-    // front work lamps in the roof, mirrors on arms, the amber turn lamps
-    add(body, cyl(0.045, CAB.z1 + 0.02, CAB.z1 + 0.06, 24).translate(s * 0.34, CAB.roof + 0.1, 0), M.lamp);
-    const arm = new THREE.CylinderGeometry(0.008, 0.008, 0.34, 8).rotateZ(Math.PI / 2).translate(s * (CAB.x + 0.17), CAB.roof - 0.28, CAB.z1 - 0.02);
-    add(body, arm, M.black);
-    add(body, new THREE.CylinderGeometry(0.008, 0.008, 0.16, 8).translate(s * (CAB.x + 0.33), CAB.roof - 0.36, CAB.z1 - 0.02), M.black);
-    add(body, new RoundedBoxGeometry(0.035, 0.24, 0.15, 2, 0.015).translate(s * (CAB.x + 0.36), CAB.roof - 0.46, CAB.z1 - 0.02), M.black);
-    add(body, new THREE.PlaneGeometry(0.13, 0.22).rotateY(Math.PI).translate(s * (CAB.x + 0.36), CAB.roof - 0.46, CAB.z1 - 0.1), M.mirror);
-    add(body, new THREE.CylinderGeometry(0.007, 0.007, 0.2, 8).rotateZ(Math.PI / 2).translate(s * (CAB.x + 0.1), CAB.floor + 0.7, CAB.z1 + 0.02), M.black);
-    add(body, new THREE.SphereGeometry(0.04, 16, 10).scale(1, 0.8, 0.7).translate(s * (CAB.x + 0.2), CAB.floor + 0.7, CAB.z1 + 0.03), M.amber);
-    // rear tail lamps on the fenders
+    // the ROPS posts bolted to the rear axle housing, up past the operator
+    add(body, new RoundedBoxGeometry(0.08, 1.5, 0.08, 2, 0.02).translate(s * 0.58, 1.3 + 0.75 - 0.15, -0.5), M.black);
+    add(body, new RoundedBoxGeometry(0.2, 0.08, 0.14, 2, 0.02).translate(s * 0.56, 0.98, -0.5), M.black);
+    // fender lamps: amber turn lamp to the front, red tail lamp to the back, a work lamp on the post
+    add(body, new THREE.SphereGeometry(0.04, 16, 10).scale(1, 0.8, 0.7).translate(s * (REAR_X + 0.05), 1.58, 0.2), M.amber);
     add(body, new RoundedBoxGeometry(0.16, 0.07, 0.05, 2, 0.015).translate(s * REAR_X, 1.06, -0.8), M.red);
+    add(body, cyl(0.045, -0.48, -0.44, 24).translate(s * 0.58, 2.2, 0), M.lamp);
   }
-  // the rear light bar over the roof: two lamps on a hoop
-  add(body, new THREE.TorusGeometry(0.46, 0.012, 8, 40, Math.PI).scale(1, 0.32, 1).translate(0, CAB.roof + 0.17, CAB.z0 + 0.06), M.black);
-  for (const s of [-1, 1]) add(body, cyl(0.05, CAB.z0 - 0.03, CAB.z0 + 0.02, 24).translate(s * 0.27, CAB.roof + 0.3, 0), M.lamp);
-  // the wiper and the door handle
-  add(body, new THREE.BoxGeometry(0.012, 0.5, 0.01).rotateZ(0.5).translate(0.1, CAB.floor + 0.7, CAB.z1 + 0.012), M.black);
-  add(body, new THREE.BoxGeometry(0.02, 0.02, 0.12).translate(CAB.x + 0.02, CAB.floor + 0.75, 0.3), M.black);
-  add(body, cyl(0.03, -0.03, 0.03).rotateX(Math.PI / 2).translate(0.5, CAB.roof + 0.24, CAB.z1 - 0.1), M.amber);
-  const gl = (w, h, x, y, z, ry) => {
-    const m = add(body, new THREE.PlaneGeometry(w, h), M.glass);
-    m.position.set(x, y, z);
-    m.rotation.y = ry;
-    m.castShadow = false;
-    m.renderOrder = 5;
-  };
-  const GH = CAB.roof - CAB.floor - 0.06;
-  gl(1.08, GH, 0, CAB.floor + GH / 2 + 0.03, CAB.z1, 0);
-  gl(1.08, GH, 0, CAB.floor + GH / 2 + 0.03, CAB.z0, 0);
-  for (const s of [-1, 1]) gl(CAB.z1 - CAB.z0 - 0.06, GH, s * CAB.x, CAB.floor + GH / 2 + 0.03, (CAB.z0 + CAB.z1) / 2, Math.PI / 2);
+  add(body, new THREE.TorusGeometry(0.58, 0.04, 12, 40, Math.PI).translate(0, 2.4, -0.5), M.black);
   add(body, new RoundedBoxGeometry(0.5, 0.12, 0.48, 3, 0.04).translate(0, CAB.floor + 0.42, 0.05), M.seat);
   add(body, new RoundedBoxGeometry(0.5, 0.55, 0.12, 3, 0.04).translate(0, CAB.floor + 0.72, -0.2).rotateX(0), M.seat);
   add(body, new RoundedBoxGeometry(0.06, 0.4, 0.06, 2, 0.02).translate(0, CAB.floor + 0.2, 0.05), M.dark);

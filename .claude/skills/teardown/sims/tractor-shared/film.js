@@ -11,7 +11,7 @@ import {createStage} from './stage.js';
 export const ROT = 1 / 12;
 export const SLOW = '1/12';
 export const DURATION = 36;
-export const DEFAULTS = {duration: DURATION, fps: 60, theme: 'light', hud: {enabled: false, title: 'trator TL', subtitle: ''}, director: {enabled: false}, watermark: ''};
+export const DEFAULTS = {duration: DURATION, fps: 60, theme: 'light', hud: {enabled: false, title: 'trator TL80', subtitle: ''}, director: {enabled: false}, watermark: ''};
 const D2R = Math.PI / 180;
 
 export const SCRIPT = [
@@ -199,11 +199,11 @@ export function makeCursor(ui) {
 
 // ------------------------------------------------------------ the labels
 const PARTS = [
-  {key: 'engine', name: 'MOTOR FPT S8000', sub: '3,9 L TURBO INTERCOOLER · 90 CV · 330 NM'},
+  {key: 'engine', name: 'MOTOR IVECO/NH 8045', sub: '3,9 L TURBO · 80 CV A 2.500 RPM'},
   {key: 'pistons', name: 'PISTÕES E BIELAS', sub: '104 × 115 MM · ORDEM 1-3-4-2'},
   {key: 'timing', name: 'DISTRIBUIÇÃO POR ENGRENAGENS', sub: 'VIRABREQUIM 30 → COMANDO 60'},
-  {key: 'pump', name: 'BOMBA INJETORA MECÂNICA', sub: 'ROTATIVA DELPHI · 4 BICOS'},
-  {key: 'bolster', name: 'SUPORTE DIANTEIRO', sub: 'MOTOR É O CHASSI · PDM OSCILA 11°'},
+  {key: 'pump', name: 'BOMBA INJETORA MECÂNICA', sub: 'BOMBA DE INJEÇÃO · 4 BICOS'},
+  {key: 'bolster', name: 'SUPORTE DIANTEIRO', sub: 'MOTOR É O CHASSI · EIXO DIANTEIRO OSCILA'},
   {key: 'clutch', name: 'EMBREAGEM DUPLA', sub: '1º DISCO: CÂMBIO · 2º DISCO: TDP'},
   {key: 'shuttle', name: 'REVERSOR SINCRONIZADO', sub: 'F 30/30 · R 27→20→30'},
   {key: 'idler', name: 'ENGRENAGEM INTERMEDIÁRIA', sub: 'INVERTE O SENTIDO NA RÉ'},
@@ -220,7 +220,7 @@ const PARTS = [
   {key: 'pdm', name: 'PDM · DIFERENCIAL DIANTEIRO', sub: 'COROA 34/9'},
   {key: 'pdmHub', name: 'SATÉLITES DO CUBO', sub: 'SOL 18 · 4 × 26 · ANEL 70'},
   {key: 'ptoClutch', name: 'EIXO DA TDP', sub: 'DO 2º DISCO À TRASEIRA'},
-  {key: 'ptoRed', name: 'REDUÇÃO DA TDP', sub: '18/80 → 540 RPM A 2.400'},
+  {key: 'ptoRed', name: 'REDUÇÃO DA TDP', sub: '19/77 → 540 RPM A 2.199'},
   {key: 'pto', name: 'PONTA DA TDP', sub: '6 ESTRIAS · 1 3/8"'},
   {key: 'levers', name: 'ALAVANCAS', sub: 'MARCHA · GAMA · REVERSOR'},
 ];
