@@ -120,7 +120,7 @@ TY.keywordMarker = (c, x, y, w, size, t, tHit, sc, col) => { if (t < tHit) retur
 
 // ---------- 数字 ----------
 // 千分位格式；负号用真减号「−」
-TY.fmt = (v, dec = 0, sep = true) => { const s = Math.abs(v).toFixed(dec); const [i, f] = s.split('.'); const ii = sep ? i.replace(/\B(?=(\d{3})+(?!\d))/g, ',') : i; return (v < 0 ? '−' : '') + ii + (f ? '.' + f : ''); };
+TY.fmt = (v, dec = 0, sep = true) => { const [ts, ds] = window.NUM_SEP || [',', '.']; const s = Math.abs(v).toFixed(dec); const [i, f] = s.split('.'); const ii = sep ? i.replace(/\B(?=(\d{3})+(?!\d))/g, ts) : i; return (v < 0 ? '−' : '') + ii + (f ? ds + f : ''); };
 // 计数：[start, start+dur] 内从 a 滚到 b；默认 expoOut（先快后慢，最后一位落定）。数字和动画只改「怎么出现」，不改口径。
 TY.count = (lt, start, dur, a, b, ease = MO.expoOut) => lerp(a, b, ease(clamp((lt - start) / dur)));
 // 等宽数字排布：canvas 开不了 tnum，滚动时数字宽度会抖，必须每个数字占同宽格子自己排。用调用方设好的 font/fillStyle。返回总宽

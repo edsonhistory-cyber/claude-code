@@ -42,6 +42,7 @@ async function boot() {
   }
   if (location.search.includes('render=1')) document.body.classList.add('render');
   const W = spec.width || 1920, H = spec.height || 1080, FPS = spec.fps || 30;
+  if (spec.locale === 'pt-BR' || spec.locale === 'de-DE') window.NUM_SEP = ['.', ','];   // separador de milhar / decimal
   if (!spec.grammar) return fail('spec 缺 grammar');
   if (!(spec.duration > 0)) return fail('spec.duration 必须 > 0');
   cv.width = W; cv.height = H; U.setStage(W, H);
