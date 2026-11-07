@@ -1,7 +1,7 @@
 # Skills de motion design para Claude
 
-Cópias de 5 skills open source (todas com licença MIT, cada pasta mantém o `LICENSE` original).
-Galerias de demonstração (GIFs/JPGs renderizados) foram removidas para manter o repositório leve.
+Cópias de 11 skills open source (todas com licença MIT, cada pasta mantém o `LICENSE` original).
+Galerias de demonstração (GIFs/vídeos de README) foram removidas ou reduzidas para manter o repositório leve; o código, os guias e as licenças originais estão intactos.
 
 | Pasta | Origem | Commit | O que faz |
 |---|---|---|---|
@@ -10,6 +10,12 @@ Galerias de demonstração (GIFs/JPGs renderizados) foram removidas para manter 
 | `huashu-art-motion/` | [alchaincyf/huashu-art-motion](https://github.com/alchaincyf/huashu-art-motion) | `8a0d7d7` | Pinturas animadas em 35+ estilos de arte (sem `assets/showcase`) |
 | `claude-drawing-skill/` | [cloveric/claude-drawing-skill](https://github.com/cloveric/claude-drawing-skill) | `4220b2d` | Ilustração procedural que se desenha traço a traço (GIFs) — `examples/` só com os `.py` |
 | `lemo-opuscar/` | [lemomo-ai/lemo-opuscar](https://github.com/lemomo-ai/lemo-opuscar) | `5c05490` | Caixa de 66 estilos de filme feitos em código (óleo, aquarela, ukiyo-e, briefing de satélite, telejornal…). Imagens de referência >200 KB removidas |
+| `video-talkcraft/` | [Vincentwei1021/video-talkcraft](https://github.com/Vincentwei1021/video-talkcraft) | `a7c29ed` | Vídeo guiado pela narração: sincronia palavra a palavra, 108 receitas de animação, efeitos presos à voz. ⚠️ Licença **PolyForm Noncommercial**: gratuita só para uso não comercial. Galeria removida |
+| `video-illustrator/` | [axtonliu/video-illustrator](https://github.com/axtonliu/video-illustrator) | `f02ecf4` | Sua narração + seu material real (capa, desenhos) → curta de 20–60 s em vários estilos (papel recortado, nanquim, 3D…). MIT |
+| `ClaudeAnimationBase/` | [JohnHeibel/ClaudeAnimationBase](https://github.com/JohnHeibel/ClaudeAnimationBase) | `0ac8bf2` | Kit para animar personagens pintados à mão (p5.js + p5.brush), 31 emoções. MIT |
+| `story-to-handdrawn-video/` | [gnipbao/story-to-handdrawn-video](https://github.com/gnipbao/story-to-handdrawn-video) | `198aefa` | História ou imagens em ordem → animação estilo diário/quadrinho desenhado à mão. MIT. Exemplos de estilo reduzidos (676 MB → 37 MB) |
+| `anidoodle/` | [alexgreensh/anidoodle](https://github.com/alexgreensh/anidoodle) | `4ae27d2` | Arte e animação em código, dezenas de estilos, filmes com trilha. Apache-2.0 |
+| `b-roll-skills/` | [iart-ai/b-roll-skills](https://github.com/iart-ai/b-roll-skills) | `a51e34b` | Animações geradas a partir do que é dito, com transcrição temporizada por palavra. MIT |
 
 ## Instalar no Claude Code
 
