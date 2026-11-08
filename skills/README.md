@@ -1,6 +1,6 @@
 # Skills de motion design para Claude
 
-Cópias de 11 skills open source (todas com licença MIT, cada pasta mantém o `LICENSE` original).
+Cópias de 13 skills open source (todas com licença MIT, cada pasta mantém o `LICENSE` original).
 Galerias de demonstração (GIFs/vídeos de README) foram removidas ou reduzidas para manter o repositório leve; o código, os guias e as licenças originais estão intactos.
 
 | Pasta | Origem | Commit | O que faz |
@@ -16,6 +16,8 @@ Galerias de demonstração (GIFs/vídeos de README) foram removidas ou reduzidas
 | `story-to-handdrawn-video/` | [gnipbao/story-to-handdrawn-video](https://github.com/gnipbao/story-to-handdrawn-video) | `198aefa` | História ou imagens em ordem → animação estilo diário/quadrinho desenhado à mão. MIT. Exemplos de estilo reduzidos (676 MB → 37 MB) |
 | `anidoodle/` | [alexgreensh/anidoodle](https://github.com/alexgreensh/anidoodle) | `4ae27d2` | Arte e animação em código, dezenas de estilos, filmes com trilha. Apache-2.0 |
 | `b-roll-skills/` | [iart-ai/b-roll-skills](https://github.com/iart-ai/b-roll-skills) | `a51e34b` | Animações geradas a partir do que é dito, com transcrição temporizada por palavra. MIT |
+| `sfx/` | [sxhzju/sfx](https://github.com/sxhzju/sfx) | `fb4ae3c` | Skill `sfx-sources`: busca e baixa efeitos sonoros gratuitos no Mixkit, Pixabay, Kenney e Freesound (indica quando o som precisa de crédito). MIT |
+| `soundfetch/` | [Losera/soundfetch](https://github.com/Losera/soundfetch) | `ea25a14` | CLI, API Python e servidor MCP para buscar e baixar áudio com licença aberta (Internet Archive, Openverse, Freesound), registrando licença e atribuição de cada arquivo. MIT |
 
 ## Instalar no Claude Code
 
@@ -25,6 +27,9 @@ cp -r skills/bang-motion skills/vox-explainer-skill skills/huashu-art-motion ski
 # lemo-opuscar: a skill fica em plugin/skills/lemo-opuscar e usa a biblioteca inteira como $LIB
 cp -r skills/lemo-opuscar ~/lemo-opuscar
 cp -r skills/lemo-opuscar/plugin/skills/lemo-opuscar ~/.claude/skills/
+# sfx: a skill fica em skills/sfx/skills/sfx-sources
+cp -r skills/sfx/skills/sfx-sources ~/.claude/skills/
+# soundfetch: ferramenta de linha de comando (pip install soundfetch, ou pip install -e skills/soundfetch)
 ```
 
 Veja o `README.md` de cada skill para dependências (ex.: ffmpeg, Playwright, chaves de API).

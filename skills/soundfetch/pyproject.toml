@@ -1,0 +1,82 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "soundfetch"
+version = "0.5.0"
+description = "License-aware audio dataset collection across Openverse, Freesound, Internet Archive, and video."
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.10"
+authors = [{name = "Juan Naranjo"}]
+keywords = ["audio", "datasets", "openverse", "freesound", "internet-archive", "webdataset", "mcp"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Typing :: Typed",
+    "Topic :: Multimedia :: Sound/Audio",
+]
+dependencies = [
+    "click>=8.1",
+    "requests>=2.31",
+    "python-dotenv>=1.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "mypy>=1.10",
+    "pytest>=8",
+    "requests-mock>=1.11",
+]
+video = [
+    "yt-dlp>=2024.1",
+]
+mcp = [
+    "mcp>=1.29,<2",
+]
+export = [
+    "webdataset>=0.2",
+    "soundfile>=0.12",
+]
+bench = [
+    "matplotlib>=3.8",
+    "pandas>=2",
+]
+
+[project.urls]
+Homepage = "https://github.com/Losera/soundfetch"
+Documentation = "https://github.com/Losera/soundfetch#readme"
+Changelog = "https://github.com/Losera/soundfetch/blob/main/CHANGELOG.md"
+Repository = "https://github.com/Losera/soundfetch"
+Issues = "https://github.com/Losera/soundfetch/issues"
+
+[project.scripts]
+soundfetch = "soundfetch.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+soundfetch = ["py.typed"]
+
+[tool.pytest.ini_options]
+markers = [
+    "live: requires real network access (Freesound tests also need FREESOUND_API_KEY; video tests also need yt-dlp installed). Run manually with `pytest -m live`; skipped by default.",
+]
+addopts = "-m 'not live'"
+testpaths = ["tests"]
+
+[tool.mypy]
+python_version = "3.10"
+check_untyped_defs = true
+ignore_missing_imports = true

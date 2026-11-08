@@ -1,0 +1,10 @@
+{
+  "name": "sfx-sources",
+  "description": "Find and download free sound effects (SFX) from Mixkit, Kenney, Freesound and Pixabay.",
+  "version": "1.1.1",
+  "author": { "name": "sxhzju" },
+  "homepage": "https://github.com/sxhzju/sfx",
+  "repository": "https://github.com/sxhzju/sfx",
+  "license": "MIT",
+  "keywords": ["sfx", "sound-effects", "audio", "freesound", "mixkit", "kenney", "pixabay"]
+}

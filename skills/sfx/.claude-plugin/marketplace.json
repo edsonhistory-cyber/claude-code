@@ -1,0 +1,17 @@
+{
+  "name": "sfx",
+  "owner": {
+    "name": "sxhzju"
+  },
+  "metadata": {
+    "description": "Claude Code skill for finding and downloading free sound effects."
+  },
+  "plugins": [
+    {
+      "name": "sfx-sources",
+      "source": "./",
+      "description": "Find and download free sound effects (SFX) from Mixkit, Kenney, Freesound and Pixabay.",
+      "version": "1.1.1"
+    }
+  ]
+}
