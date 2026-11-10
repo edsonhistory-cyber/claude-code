@@ -1,0 +1,513 @@
+<title>Safra Mecanizada</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600&family=Barlow+Condensed:wght@600;700&display=swap">
+<style>
+/* Layout: lavoura em tela cheia; painéis escuros de cabine flutuam nos cantos. Visual único (escuro) por escolha. */
+:root{
+  color-scheme:dark;
+  --solo:#1b1712;         /* fundo atrás do mapa */
+  --painel:rgba(24,22,18,.88);
+  --borda:#4a4335;
+  --texto:#f3ecdc;
+  --fraco:#b5ab95;
+  --grao:#e2b33c;         /* destaque: dinheiro e grão */
+  --nh:#1d5fb4;           /* azul New Holland */
+  --case:#c41a2b;         /* vermelho Case IH */
+  --ok:#5fae4a;
+  --display:"Barlow Condensed","Arial Narrow",sans-serif;
+  --corpo:"Barlow",system-ui,sans-serif;
+}
+html,body{height:100%;margin:0}
+[hidden]{display:none!important}
+body{background:var(--solo);color:var(--texto);font-family:var(--corpo);overflow:hidden;
+  touch-action:none;user-select:none;-webkit-user-select:none;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+#jogo{position:fixed;inset:0;width:100%;height:100%;display:block}
+.painel{background:var(--painel);border:1px solid var(--borda);border-radius:6px}
+#status{position:fixed;top:calc(8px + env(safe-area-inset-top,0px));left:max(8px,env(safe-area-inset-left,0px));
+  padding:8px 12px;display:grid;gap:4px;min-width:170px;max-width:56vw}
+#dinheiro{font:700 26px/1 var(--display);color:var(--grao);font-variant-numeric:tabular-nums}
+#maquina{font:600 15px/1.1 var(--display);letter-spacing:.03em;text-transform:uppercase}
+.linha{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--fraco)}
+.barra{flex:1;height:7px;background:#3a3429;border-radius:4px;overflow:hidden}
+.barra i{display:block;height:100%;width:50%;background:var(--ok)}
+#bGrao i{background:var(--grao)}
+#canto{position:fixed;top:calc(8px + env(safe-area-inset-top,0px));right:max(8px,env(safe-area-inset-right,0px));
+  display:grid;gap:6px;justify-items:end}
+#mini{width:126px;height:84px;display:block;border-radius:5px;border:1px solid var(--borda);image-rendering:pixelated}
+button{font:600 15px/1 var(--display);letter-spacing:.04em;text-transform:uppercase;color:var(--texto);
+  background:var(--painel);border:1px solid var(--borda);border-radius:6px;padding:10px 12px;cursor:pointer;touch-action:none}
+button:focus-visible{outline:2px solid var(--grao);outline-offset:2px}
+button.ativo,button:active{background:#3b3526;border-color:var(--grao)}
+button.dest{background:var(--grao);color:#231c08;border-color:var(--grao)}
+#acoes{position:fixed;right:max(8px,env(safe-area-inset-right,0px));bottom:calc(128px + env(safe-area-inset-bottom,0px));
+  display:grid;gap:6px;justify-items:end}
+.pad{position:fixed;bottom:calc(14px + env(safe-area-inset-bottom,0px));display:flex;gap:10px}
+#padE{left:max(12px,env(safe-area-inset-left,0px))}
+#padD{right:max(12px,env(safe-area-inset-right,0px))}
+.pad button{width:68px;height:68px;font-size:26px;border-radius:50%;padding:0}
+#aviso{position:fixed;left:50%;top:calc(96px + env(safe-area-inset-top,0px));transform:translateX(-50%);
+  padding:8px 14px;font-size:14px;max-width:80vw;text-align:center;pointer-events:none;transition:opacity .25s}
+#aviso.some{opacity:0}
+.modal{position:fixed;inset:0;background:rgba(10,8,5,.6);display:grid;place-items:center;padding:16px;z-index:5}
+.caixa{width:min(520px,100%);max-height:86%;display:flex;flex-direction:column;padding:14px;gap:10px;background:#211d17}
+.caixa h2{margin:0;font:700 24px/1 var(--display);letter-spacing:.03em;text-transform:uppercase;text-wrap:balance}
+.abas{display:flex;gap:6px;flex-wrap:wrap}
+.abas button{padding:8px 10px;font-size:14px}
+#lista{overflow-y:auto;display:grid;gap:6px;touch-action:pan-y;min-height:0}
+.item{display:grid;grid-template-columns:8px 1fr auto;gap:10px;align-items:center;padding:8px 10px 8px 0;
+  border:1px solid var(--borda);border-radius:6px;background:#2a251d}
+.item .cor{align-self:stretch;border-radius:5px 0 0 5px}
+.item b{font:600 17px/1.1 var(--display);letter-spacing:.02em;display:block}
+.item small{color:var(--fraco);font-size:12px}
+.item button{font-size:14px;padding:8px 10px;font-variant-numeric:tabular-nums}
+.item button:disabled{opacity:.45;cursor:default}
+.rodape{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.rodape small{color:var(--fraco);font-size:11px;flex:1;min-width:160px}
+.caixa p{margin:0;font-size:14px;line-height:1.45;color:var(--texto)}
+.caixa ol{margin:0;padding-left:20px;font-size:14px;line-height:1.5;display:grid;gap:2px}
+kbd{font:600 12px var(--corpo);background:#3a3429;border-radius:3px;padding:1px 5px}
+@media (hover:hover) and (pointer:fine){.pad{opacity:.55}}
+</style>
+
+<canvas id="jogo"></canvas>
+
+<div id="status" class="painel">
+  <div id="dinheiro">R$ 0</div>
+  <div id="maquina">—</div>
+  <div class="linha"><span>Diesel</span><span class="barra" id="bDiesel"><i></i></span></div>
+  <div class="linha" id="lGrao"><span>Graneleiro</span><span class="barra" id="bGrao"><i></i></span></div>
+  <div class="linha" id="lInfo"></div>
+</div>
+
+<div id="canto">
+  <canvas id="mini" width="72" height="48"></canvas>
+  <button id="btLoja" class="dest">Loja</button>
+</div>
+
+<div id="acoes">
+  <button id="btTroca">Trocar máquina</button>
+  <button id="btFerr">Arado</button>
+  <button id="btBaixa">Baixar</button>
+</div>
+
+<div class="pad" id="padE">
+  <button data-k="left" aria-label="Virar à esquerda">◀</button>
+  <button data-k="right" aria-label="Virar à direita">▶</button>
+</div>
+<div class="pad" id="padD">
+  <button data-k="down" aria-label="Ré">▼</button>
+  <button data-k="up" aria-label="Acelerar">▲</button>
+</div>
+
+<div id="aviso" class="painel some"></div>
+
+<div class="modal" id="ajuda">
+  <div class="caixa painel">
+    <h2>Safra Mecanizada</h2>
+    <p>Você começa com um trator New Holland TL5.80 e uma colheitadeira Case IH Axial-Flow 4150.</p>
+    <ol>
+      <li>Com o trator, baixe o <b>arado</b> e passe na palhada do Talhão 1.</li>
+      <li>Troque para a <b>plantadeira</b> e semeie a terra arada.</li>
+      <li>Quando a lavoura dourar, troque para a colheitadeira e colha.</li>
+      <li>Descarregue no <b>silo</b> para vender. Abasteça na bomba de diesel.</li>
+      <li>Na <b>Loja</b>, compre máquinas maiores e novos talhões.</li>
+    </ol>
+    <p>Teclado: <kbd>WASD</kbd> ou setas dirigem, <kbd>Espaço</kbd> baixa o implemento, <kbd>Q</kbd> troca a ferramenta, <kbd>E</kbd> troca de máquina, <kbd>L</kbd> abre a loja.</p>
+    <div class="rodape"><small>Jogo de fã, sem vínculo com as marcas citadas.</small><button id="btComecar" class="dest">Começar</button></div>
+  </div>
+</div>
+
+<div class="modal" id="loja" hidden>
+  <div class="caixa painel">
+    <h2>Concessionária</h2>
+    <div class="abas" id="abas">
+      <button data-aba="t">Tratores</button>
+      <button data-aba="c">Colheitadeiras</button>
+      <button data-aba="f">Talhões</button>
+      <button data-aba="s">Sementes</button>
+    </div>
+    <div id="lista"></div>
+    <div class="rodape">
+      <button id="btReset">Recomeçar</button>
+      <button id="btFechar" class="dest">Fechar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(() => {
+const T = 32, MW = 72, MH = 48, N = MW * MH;
+const NH = '#1d5fb4', NHY = '#f0c419', CA = '#c41a2b';
+const MODELS = {
+  nh_tl5:   {b:'New Holland', n:'TL5.80',        k:'t', hp:80,  w:2, spd:92,  price:0},
+  ci_far:   {b:'Case IH',     n:'Farmall 110A',  k:'t', hp:110, w:3, spd:100, price:45000},
+  ci_puma:  {b:'Case IH',     n:'Puma 230',      k:'t', hp:230, w:4, spd:112, price:110000},
+  nh_t7:    {b:'New Holland', n:'T7.245',        k:'t', hp:245, w:4, spd:116, price:120000},
+  ci_mag:   {b:'Case IH',     n:'Magnum 400',    k:'t', hp:400, w:6, spd:124, price:255000},
+  nh_t8:    {b:'New Holland', n:'T8.435',        k:'t', hp:435, w:6, spd:128, price:270000},
+  ci_stg:   {b:'Case IH',     n:'Steiger 620',   k:'t', hp:620, w:8, spd:130, price:480000},
+  nh_t9:    {b:'New Holland', n:'T9.700',        k:'t', hp:700, w:9, spd:132, price:530000},
+  ci_4150:  {b:'Case IH',     n:'Axial-Flow 4150', k:'c', hp:215, w:3, spd:80, tank:150, price:0},
+  nh_tc5:   {b:'New Holland', n:'TC5.90',        k:'c', hp:258, w:3, spd:86,  tank:180, price:65000},
+  nh_cr7:   {b:'New Holland', n:'CR7.90',        k:'c', hp:449, w:5, spd:94,  tank:330, price:190000},
+  ci_7250:  {b:'Case IH',     n:'Axial-Flow 7250', k:'c', hp:468, w:5, spd:96, tank:350, price:200000},
+  ci_9250:  {b:'Case IH',     n:'Axial-Flow 9250', k:'c', hp:625, w:8, spd:104, tank:520, price:410000},
+  nh_cr10:  {b:'New Holland', n:'CR10.90',       k:'c', hp:653, w:8, spd:106, tank:540, price:430000},
+};
+const CROPS = [
+  {n:'Soja',  t:70,  y:1.0, p:130, seed:20, c:'#c9a646'},
+  {n:'Milho', t:110, y:2.6, p:62,  seed:28, c:'#e0ac2e'},
+  {n:'Trigo', t:50,  y:1.3, p:78,  seed:14, c:'#ead892'},
+];
+const FIELDS = [
+  {n:'Talhão 1', x:18, y:3,  w:22, h:14, price:0},
+  {n:'Talhão 2', x:44, y:3,  w:24, h:14, price:60000},
+  {n:'Talhão 3', x:4,  y:24, w:64, h:20, price:150000},
+];
+const SILO = {x:5.5*T, y:8.5*T}, BOMBA = {x:11.5*T, y:8.5*T};
+const DIESEL = 8; // R$ por 1% de tanque
+
+// st: 0 pasto, 1 palhada, 2 arado, 3 semeado, 4 chão batido
+const st = new Uint8Array(N), cr = new Uint8Array(N), gr = new Float32Array(N), fid = new Int8Array(N).fill(-1);
+let G;
+
+function novoMundo() {
+  st.fill(0); cr.fill(0); gr.fill(0); fid.fill(-1);
+  for (let y = 0; y < MH; y++) for (let x = 0; x < MW; x++) {
+    if ((x >= 2 && x <= 15 && y >= 2 && y <= 17) || (y >= 19 && y <= 21) || (x >= 41 && x <= 42 && y >= 3 && y <= 21) || (x >= 8 && x <= 9 && y >= 17 && y <= 19)) st[y*MW+x] = 4;
+  }
+  FIELDS.forEach((f, k) => { for (let y = f.y; y < f.y+f.h; y++) for (let x = f.x; x < f.x+f.w; x++) { st[y*MW+x] = 1; fid[y*MW+x] = k; } });
+}
+function novaMaq(m, i) { return {m, x:(4+i*2.4)*T, y:(i < 5 ? 15 : 12.5)*T, a:-Math.PI/2, s:0, fuel:100, tank:0, val:0, tool:0, down:false}; }
+function novoJogo() {
+  novoMundo();
+  G = {money:10000, crop:0, owned:[true,false,false], veh:[novaMaq('nh_tl5',0), novaMaq('ci_4150',1)], cur:0};
+}
+function salvar() {
+  try {
+    localStorage.setItem('safra1', JSON.stringify({G, st:Array.from(st).join(''), cr:Array.from(cr).join(''), gr:Array.from(gr, v => Math.round(v*100))}));
+  } catch (e) {}
+}
+function carregar() {
+  try {
+    const d = JSON.parse(localStorage.getItem('safra1'));
+    if (!d || !d.G || d.st.length !== N) return false;
+    novoMundo();
+    for (let i = 0; i < N; i++) { st[i] = +d.st[i]; cr[i] = +d.cr[i]; gr[i] = d.gr[i]/100; }
+    G = d.G; G.veh = G.veh.filter(v => MODELS[v.m]); G.veh.forEach(v => { v.down = false; v.s = 0; });
+    if (!G.veh.length) return false;
+    G.cur = Math.min(G.cur, G.veh.length-1);
+    return true;
+  } catch (e) { return false; }
+}
+const jaJogou = carregar();
+if (!jaJogou) novoJogo();
+
+// ---------- entrada ----------
+const K = {up:0, down:0, left:0, right:0};
+const MAPA = {ArrowUp:'up', w:'up', ArrowDown:'down', s:'down', ArrowLeft:'left', a:'left', ArrowRight:'right', d:'right'};
+addEventListener('keydown', e => {
+  const k = e.key.length === 1 ? e.key.toLowerCase() : e.key;
+  if (MAPA[k]) { K[MAPA[k]] = 1; e.preventDefault(); return; }
+  if (e.repeat) return;
+  if (k === ' ') { alternarBaixa(); e.preventDefault(); }
+  else if (k === 'q') alternarFerr();
+  else if (k === 'e' || k === 'Tab') { trocar(); e.preventDefault(); }
+  else if (k === 'l') abrirLoja(lojaEl.hidden);
+  else if (k === 'Escape') abrirLoja(false);
+});
+addEventListener('keyup', e => { const k = e.key.length === 1 ? e.key.toLowerCase() : e.key; if (MAPA[k]) K[MAPA[k]] = 0; });
+addEventListener('blur', () => { K.up = K.down = K.left = K.right = 0; });
+document.querySelectorAll('[data-k]').forEach(b => {
+  const k = b.dataset.k;
+  const on = e => { e.preventDefault(); K[k] = 1; b.classList.add('ativo'); try { b.setPointerCapture(e.pointerId); } catch (_) {} };
+  const off = () => { K[k] = 0; b.classList.remove('ativo'); };
+  b.addEventListener('pointerdown', on); b.addEventListener('pointerup', off); b.addEventListener('pointercancel', off); b.addEventListener('lostpointercapture', off);
+  b.addEventListener('contextmenu', e => e.preventDefault());
+});
+const $ = id => document.getElementById(id);
+const lojaEl = $('loja');
+$('btTroca').onclick = trocar; $('btFerr').onclick = alternarFerr; $('btBaixa').onclick = alternarBaixa;
+$('btLoja').onclick = () => abrirLoja(true); $('btFechar').onclick = () => abrirLoja(false);
+$('btComecar').onclick = () => { $('ajuda').hidden = true; };
+if (jaJogou) $('ajuda').hidden = true;
+
+const cur = () => G.veh[G.cur];
+function trocar() { cur().s = 0; G.cur = (G.cur+1) % G.veh.length; const m = MODELS[cur().m]; avisar(m.b + ' ' + m.n); }
+function alternarFerr() { const v = cur(); if (MODELS[v.m].k !== 't') return; v.tool = 1 - v.tool; avisar(v.tool ? 'Plantadeira engatada: ' + CROPS[G.crop].n : 'Arado engatado'); }
+function alternarBaixa() { const v = cur(); v.down = !v.down; }
+
+let avisoT = 0;
+function avisar(t, seg) { const a = $('aviso'); a.textContent = t; a.classList.remove('some'); avisoT = seg || 2.2; }
+const reais = v => 'R$ ' + Math.round(v).toLocaleString('pt-BR');
+
+// ---------- loja ----------
+let aba = 't', resetArmado = false;
+function abrirLoja(sim) { lojaEl.hidden = !sim; resetArmado = false; $('btReset').textContent = 'Recomeçar'; if (sim) desenharLoja(); }
+$('abas').onclick = e => { const b = e.target.closest('[data-aba]'); if (b) { aba = b.dataset.aba; desenharLoja(); } };
+$('btReset').onclick = () => {
+  if (!resetArmado) { resetArmado = true; $('btReset').textContent = 'Apagar tudo? Toque de novo'; return; }
+  novoJogo(); salvar(); abrirLoja(false); avisar('Fazenda reiniciada');
+};
+function desenharLoja() {
+  document.querySelectorAll('#abas button').forEach(b => b.classList.toggle('ativo', b.dataset.aba === aba));
+  const L = $('lista'); L.innerHTML = '';
+  const item = (cor, titulo, sub, rotulo, pode, acao) => {
+    const d = document.createElement('div'); d.className = 'item';
+    d.innerHTML = '<span class="cor"></span><span><b></b><small></small></span>';
+    d.querySelector('.cor').style.background = cor;
+    d.querySelector('b').textContent = titulo; d.querySelector('small').textContent = sub;
+    const bt = document.createElement('button'); bt.textContent = rotulo; bt.disabled = !pode;
+    if (pode) bt.onclick = () => { acao(); salvar(); desenharLoja(); };
+    d.appendChild(bt); L.appendChild(d);
+  };
+  if (aba === 't' || aba === 'c') {
+    Object.entries(MODELS).filter(([, m]) => m.k === aba).forEach(([id, m]) => {
+      const tem = G.veh.some(v => v.m === id);
+      const cor = m.b === 'Case IH' ? CA : (m.k === 'c' ? NHY : NH);
+      const sub = m.hp + ' cv · ' + (m.k === 'c' ? 'plataforma ' : 'implemento ') + (m.w*3) + ' m' + (m.k === 'c' ? ' · ' + m.tank + ' sc' : '');
+      item(cor, m.b + ' ' + m.n, sub, tem ? 'Na frota' : reais(m.price), !tem && G.money >= m.price, () => {
+        G.money -= m.price; G.veh.push(novaMaq(id, G.veh.length)); avisar(m.n + ' entregue no pátio');
+      });
+    });
+  } else if (aba === 'f') {
+    FIELDS.forEach((f, k) => item('#8a6b3a', f.n, (f.w*f.h*0.09).toFixed(0) + ' ha', G.owned[k] ? 'Seu' : reais(f.price), !G.owned[k] && G.money >= f.price, () => {
+      G.money -= f.price; G.owned[k] = true; avisar(f.n + ' comprado');
+    }));
+  } else {
+    CROPS.forEach((c, k) => item(c.c, c.n, 'Semente ' + reais(c.seed) + '/quadra · ciclo ' + c.t + ' s · saca a ' + reais(c.p),
+      G.crop === k ? 'Em uso' : 'Plantar', G.crop !== k, () => { G.crop = k; }));
+  }
+}
+
+// ---------- simulação ----------
+let cheioT = 0;
+function trabalhar(v, m) {
+  const off = m.k === 't' ? -30 : 38;
+  const cx = v.x + Math.cos(v.a)*off, cy = v.y + Math.sin(v.a)*off;
+  const px = -Math.sin(v.a), py = Math.cos(v.a), n = m.w*2 + 1;
+  for (let i = 0; i < n; i++) {
+    const d = (i/(n-1) - 0.5) * (m.w*T - 6);
+    const tx = Math.floor((cx + px*d)/T), ty = Math.floor((cy + py*d)/T);
+    if (tx < 0 || ty < 0 || tx >= MW || ty >= MH) continue;
+    const k = ty*MW + tx, f = fid[k];
+    if (f < 0 || !G.owned[f]) continue;
+    if (m.k === 't') {
+      if (v.tool === 0 && st[k] === 1) st[k] = 2;
+      else if (v.tool === 1 && st[k] === 2) {
+        const c = CROPS[G.crop];
+        if (G.money - c.seed < -20000) { if (cheioT <= 0) { avisar('Crédito rural esgotado: venda grão antes de plantar'); cheioT = 3; } continue; }
+        G.money -= c.seed; st[k] = 3; cr[k] = G.crop; gr[k] = 0;
+      }
+    } else if (st[k] === 3 && gr[k] >= 1) {
+      const c = CROPS[cr[k]];
+      if (v.tank + c.y > m.tank) { if (cheioT <= 0) { avisar('Graneleiro cheio: descarregue no silo'); cheioT = 3; } continue; }
+      v.tank += c.y; v.val += c.y*c.p; st[k] = 1; gr[k] = 0;
+    }
+  }
+}
+function atualizar(dt) {
+  for (let i = 0; i < N; i++) if (st[i] === 3 && gr[i] < 1) gr[i] = Math.min(1, gr[i] + dt/CROPS[cr[i]].t);
+  if (cheioT > 0) cheioT -= dt;
+  if (avisoT > 0) { avisoT -= dt; if (avisoT <= 0) $('aviso').classList.add('some'); }
+  const v = cur(), m = MODELS[v.m];
+  const parado = !lojaEl.hidden || !$('ajuda').hidden;
+  const ac = parado ? 0 : K.up - K.down, dir = parado ? 0 : K.right - K.left;
+  const max = m.spd * (v.down ? 0.72 : 1) * (v.fuel <= 0 ? 0.25 : 1);
+  if (ac > 0) v.s += 170*dt; else if (ac < 0) v.s -= 230*dt; else v.s -= v.s*Math.min(1, 2.5*dt);
+  v.s = Math.max(-max*0.5, Math.min(max, v.s));
+  v.a += dir * 1.9 * dt * Math.max(-1, Math.min(1, v.s/55));
+  v.x = Math.max(24, Math.min(MW*T-24, v.x + Math.cos(v.a)*v.s*dt));
+  v.y = Math.max(24, Math.min(MH*T-24, v.y + Math.sin(v.a)*v.s*dt));
+  const mov = Math.abs(v.s)/m.spd;
+  if (v.fuel > 0) { v.fuel = Math.max(0, v.fuel - mov*(v.down ? 0.36 : 0.16)*dt); if (v.fuel === 0) avisar('Sem diesel: vá devagar até a bomba', 4); }
+  if (v.down && Math.abs(v.s) > 8) trabalhar(v, m);
+  // silo
+  if (m.k === 'c' && v.tank > 0 && Math.hypot(v.x-SILO.x, v.y-SILO.y) < 2.6*T) {
+    const q = Math.min(v.tank, 70*dt), valor = v.val*q/v.tank;
+    G.money += valor; v.val -= valor; v.tank -= q;
+    if (v.tank < 0.01) { v.tank = 0; v.val = 0; avisar('Carga vendida no silo'); }
+  }
+  // bomba
+  if (v.fuel < 100 && Math.hypot(v.x-BOMBA.x, v.y-BOMBA.y) < 2.2*T && Math.abs(v.s) < 30) {
+    const q = Math.min(100 - v.fuel, 30*dt); v.fuel += q; G.money -= q*DIESEL;
+  }
+}
+
+// ---------- desenho ----------
+const cv = $('jogo'), ctx = cv.getContext('2d');
+let W = 0, H = 0, dpr = 1, zoom = 1;
+function ajustar() {
+  dpr = Math.min(2, devicePixelRatio || 1); W = cv.clientWidth; H = cv.clientHeight;
+  cv.width = Math.round(W*dpr); cv.height = Math.round(H*dpr);
+  zoom = Math.max(0.62, Math.min(1.3, Math.min(W, H*1.5)/680));
+}
+addEventListener('resize', ajustar); ajustar();
+const ruido = (x, y) => ((x*73856093 ^ y*19349663) >>> 0) % 7;
+const PASTO = ['#5f8f3c','#5a8a39','#639340','#5c8c3a','#5f8f3c','#588737','#61913e'];
+
+function desenharTile(x, y) {
+  const k = y*MW + x, s = st[k], X = x*T, Y = y*T;
+  if (s === 0) { ctx.fillStyle = PASTO[ruido(x, y)]; ctx.fillRect(X, Y, T, T); return; }
+  if (s === 4) { ctx.fillStyle = ruido(x, y) < 3 ? '#b39665' : '#b89b6a'; ctx.fillRect(X, Y, T, T); return; }
+  if (s === 1) {
+    ctx.fillStyle = '#bca25e'; ctx.fillRect(X, Y, T, T);
+    ctx.fillStyle = '#a98f4f'; ctx.fillRect(X, Y+7, T, 2); ctx.fillRect(X, Y+23, T, 2); return;
+  }
+  ctx.fillStyle = '#5c3f27'; ctx.fillRect(X, Y, T, T);
+  ctx.fillStyle = '#4c331f'; ctx.fillRect(X, Y+6, T, 3); ctx.fillRect(X, Y+22, T, 3);
+  if (s === 3) {
+    const g = gr[k];
+    if (g >= 1) {
+      ctx.fillStyle = CROPS[cr[k]].c; ctx.fillRect(X, Y, T, T);
+      ctx.fillStyle = 'rgba(90,60,10,.22)'; ctx.fillRect(X, Y+14, T, 2); ctx.fillRect(X, Y+30, T, 2);
+    } else if (g > 0.04) {
+      const h = 3 + g*12;
+      ctx.fillStyle = g > 0.8 ? '#8fa53a' : '#4f9a3a';
+      ctx.fillRect(X, Y+8-h/2, T, h); ctx.fillRect(X, Y+24-h/2, T, h);
+    }
+  }
+}
+function rot(texto, x, y, tam, cor) {
+  ctx.font = '700 ' + tam + 'px "Barlow Condensed","Arial Narrow",sans-serif'; ctx.textAlign = 'center';
+  ctx.fillStyle = 'rgba(0,0,0,.45)'; ctx.fillText(texto, x+1, y+1); ctx.fillStyle = cor || '#fff'; ctx.fillText(texto, x, y);
+}
+function predios() {
+  // silos
+  for (let i = 0; i < 3; i++) {
+    const x = (3.6 + i*1.9)*T, y = 4.4*T;
+    ctx.fillStyle = 'rgba(0,0,0,.25)'; ctx.beginPath(); ctx.arc(x+5, y+6, 28, 0, 7); ctx.fill();
+    ctx.fillStyle = '#c9ccd0'; ctx.beginPath(); ctx.arc(x, y, 28, 0, 7); ctx.fill();
+    ctx.fillStyle = '#e6e8ea'; ctx.beginPath(); ctx.arc(x-5, y-5, 16, 0, 7); ctx.fill();
+    ctx.fillStyle = '#8d9196'; ctx.beginPath(); ctx.arc(x, y, 4, 0, 7); ctx.fill();
+  }
+  area(SILO, 2.2*T, '#e2b33c'); rot('SILO · DESCARGA', SILO.x, SILO.y+5, 15, '#f6dc8c');
+  // bomba
+  ctx.fillStyle = 'rgba(0,0,0,.25)'; ctx.fillRect(BOMBA.x-26, BOMBA.y-118, 60, 44);
+  ctx.fillStyle = '#e9e4d6'; ctx.fillRect(BOMBA.x-30, BOMBA.y-124, 60, 44);
+  ctx.fillStyle = '#2f7d3a'; ctx.fillRect(BOMBA.x-30, BOMBA.y-124, 60, 10);
+  ctx.fillStyle = '#333'; ctx.fillRect(BOMBA.x-8, BOMBA.y-106, 16, 20);
+  area(BOMBA, 1.8*T, '#7fc76a'); rot('DIESEL', BOMBA.x, BOMBA.y+5, 15, '#c9f0bd');
+  // concessionária
+  const cx = 12.5*T, cy = 13*T;
+  ctx.fillStyle = 'rgba(0,0,0,.25)'; ctx.fillRect(cx-74, cy-34, 160, 80);
+  ctx.fillStyle = NH; ctx.fillRect(cx-80, cy-40, 80, 80);
+  ctx.fillStyle = CA; ctx.fillRect(cx, cy-40, 80, 80);
+  ctx.fillStyle = 'rgba(255,255,255,.18)'; ctx.fillRect(cx-80, cy-3, 160, 6);
+  rot('CONCESSIONÁRIA', cx, cy-46, 14);
+}
+function area(p, r, cor) {
+  ctx.strokeStyle = cor; ctx.lineWidth = 3; ctx.setLineDash([10, 8]);
+  ctx.beginPath(); ctx.arc(p.x, p.y, r, 0, 7); ctx.stroke(); ctx.setLineDash([]);
+}
+function roda(x, y, w, h) { ctx.fillStyle = '#1c1b1a'; ctx.fillRect(x, y, w, h); ctx.fillStyle = '#35332f'; for (let i = 2; i < w; i += 5) ctx.fillRect(x+i, y, 2, h); }
+function desenharMaq(v, ativo) {
+  const m = MODELS[v.m], caseih = m.b === 'Case IH', wp = m.w*T;
+  ctx.save(); ctx.translate(v.x, v.y); ctx.rotate(v.a);
+  if (ativo) { ctx.strokeStyle = 'rgba(255,255,255,.55)'; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(0, 0, m.k === 'c' ? 46 : 34, 0, 7); ctx.stroke(); }
+  if (m.k === 't') {
+    // implemento
+    ctx.globalAlpha = v.down ? 1 : 0.7;
+    ctx.fillStyle = '#3a3835'; ctx.fillRect(-30, -2, 14, 4);
+    if (v.tool === 0) {
+      ctx.fillStyle = '#6d6f72'; ctx.fillRect(-36, -wp/2+3, 6, wp-6);
+      ctx.fillStyle = '#3d3f42'; for (let y = -wp/2+6; y < wp/2-4; y += 10) ctx.fillRect(-44, y, 9, 4);
+    } else {
+      ctx.fillStyle = caseih ? CA : NH; ctx.fillRect(-42, -wp/2+3, 12, wp-6);
+      ctx.fillStyle = '#f1e9d2'; for (let y = -wp/2+6; y < wp/2-10; y += 14) ctx.fillRect(-40, y, 8, 9);
+    }
+    ctx.globalAlpha = 1;
+    const e = 1 + (m.w-2)*0.07; ctx.scale(e, e);
+    ctx.fillStyle = 'rgba(0,0,0,.25)'; ctx.fillRect(-16, -12, 44, 28);
+    roda(-20, -17, 18, 8); roda(-20, 9, 18, 8); roda(12, -13, 11, 6); roda(12, 7, 11, 6);
+    if (m.hp >= 600) { roda(-20, -25, 18, 7); roda(-20, 18, 18, 7); roda(12, -20, 11, 6); roda(12, 14, 11, 6); }
+    ctx.fillStyle = caseih ? CA : NH; ctx.fillRect(-2, -6, 28, 12);
+    ctx.fillStyle = caseih ? '#1b1b1b' : '#0f3a75'; ctx.fillRect(22, -6, 4, 12);
+    ctx.fillStyle = caseih ? '#1b1b1b' : '#f2f2f2'; ctx.fillRect(-16, -10, 16, 20);
+    ctx.fillStyle = '#7fb6d6'; ctx.fillRect(-3, -8, 3, 16); ctx.fillRect(-16, -8, 2, 16);
+    ctx.fillStyle = caseih ? CA : NH; ctx.fillRect(-13, -7, 9, 14);
+  } else {
+    const corpo = caseih ? CA : NHY;
+    // plataforma
+    ctx.fillStyle = corpo; ctx.fillRect(30, -wp/2+2, 14, wp-4);
+    ctx.fillStyle = v.down ? '#2a2a2a' : '#555'; ctx.fillRect(40, -wp/2+2, 5, wp-4);
+    ctx.fillStyle = '#d9d2bd'; for (let y = -wp/2+6; y < wp/2-4; y += 8) ctx.fillRect(44, y, 5, 2);
+    ctx.fillStyle = '#3a3835'; ctx.fillRect(22, -8, 10, 16);
+    ctx.fillStyle = 'rgba(0,0,0,.25)'; ctx.fillRect(-28, -14, 54, 34);
+    roda(0, -24, 22, 9); roda(0, 15, 22, 9); roda(-28, -17, 12, 6); roda(-28, 11, 12, 6);
+    ctx.fillStyle = corpo; ctx.fillRect(-32, -15, 56, 30);
+    ctx.fillStyle = caseih ? '#1b1b1b' : '#1d5fb4'; ctx.fillRect(-32, -15, 6, 30);
+    ctx.fillStyle = '#2a2622'; ctx.fillRect(-20, -10, 24, 20);
+    if (v.tank > 0) { const p = v.tank/m.tank; ctx.fillStyle = '#e2b33c'; ctx.fillRect(-18, -8, 20*p, 16); }
+    ctx.fillStyle = '#7fb6d6'; ctx.fillRect(10, -9, 12, 18);
+    ctx.fillStyle = caseih ? '#1b1b1b' : '#f2f2f2'; ctx.fillRect(10, -9, 8, 18);
+    ctx.fillStyle = corpo; ctx.fillRect(-24, -21, 30, 5);
+  }
+  ctx.restore();
+}
+function desenhar() {
+  const v = cur(), z = zoom*dpr, vw = W/zoom, vh = H/zoom;
+  let cx = v.x - vw/2, cy = v.y - vh/2;
+  cx = vw >= MW*T ? (MW*T - vw)/2 : Math.max(0, Math.min(MW*T - vw, cx));
+  cy = vh >= MH*T ? (MH*T - vh)/2 : Math.max(0, Math.min(MH*T - vh, cy));
+  ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.fillStyle = '#1b1712'; ctx.fillRect(0, 0, cv.width, cv.height);
+  ctx.setTransform(z, 0, 0, z, -Math.round(cx*z), -Math.round(cy*z));
+  const x0 = Math.max(0, Math.floor(cx/T)), x1 = Math.min(MW-1, Math.floor((cx+vw)/T));
+  const y0 = Math.max(0, Math.floor(cy/T)), y1 = Math.min(MH-1, Math.floor((cy+vh)/T));
+  for (let y = y0; y <= y1; y++) for (let x = x0; x <= x1; x++) desenharTile(x, y);
+  FIELDS.forEach((f, k) => {
+    ctx.strokeStyle = 'rgba(60,40,20,.6)'; ctx.lineWidth = 3; ctx.strokeRect(f.x*T, f.y*T, f.w*T, f.h*T);
+    if (!G.owned[k]) {
+      ctx.fillStyle = 'rgba(20,16,10,.5)'; ctx.fillRect(f.x*T, f.y*T, f.w*T, f.h*T);
+      rot(f.n + ' À VENDA · ' + reais(f.price), (f.x+f.w/2)*T, (f.y+f.h/2)*T, 26);
+    }
+  });
+  predios();
+  G.veh.forEach((o, i) => { if (i !== G.cur) desenharMaq(o, false); });
+  desenharMaq(v, true);
+}
+// minimapa
+const mini = $('mini'), mc = mini.getContext('2d'), img = mc.createImageData(MW, MH);
+const MC = [[95,143,60],[188,162,94],[92,63,39],[79,154,58],[181,152,104]];
+function desenharMini() {
+  for (let i = 0; i < N; i++) {
+    let c = MC[st[i]];
+    if (st[i] === 3 && gr[i] >= 1) c = [226,179,60];
+    const f = fid[i], esc = f >= 0 && !G.owned[f] ? 0.55 : 1;
+    img.data[i*4] = c[0]*esc; img.data[i*4+1] = c[1]*esc; img.data[i*4+2] = c[2]*esc; img.data[i*4+3] = 255;
+  }
+  mc.putImageData(img, 0, 0);
+  G.veh.forEach((o, i) => { mc.fillStyle = i === G.cur ? '#fff' : (MODELS[o.m].b === 'Case IH' ? CA : NH); mc.fillRect(o.x/T-1, o.y/T-1, 3, 3); });
+  mc.fillStyle = '#ffe9a8'; mc.fillRect(SILO.x/T-1, SILO.y/T-4, 2, 2);
+}
+// painel
+let ult = {};
+function txt(id, t) { if (ult[id] !== t) { ult[id] = t; $(id).textContent = t; } }
+function painel() {
+  const v = cur(), m = MODELS[v.m];
+  txt('dinheiro', reais(G.money)); txt('maquina', m.b + ' ' + m.n);
+  $('bDiesel').firstChild.style.width = v.fuel + '%';
+  $('bDiesel').firstChild.style.background = v.fuel < 20 ? '#d6452f' : '';
+  const col = m.k === 'c';
+  $('lGrao').hidden = !col; $('btFerr').hidden = col;
+  if (col) { $('bGrao').firstChild.style.width = (100*v.tank/m.tank) + '%'; txt('lInfo', Math.round(v.tank) + ' / ' + m.tank + ' sacas'); }
+  else txt('lInfo', v.tool ? 'Plantando ' + CROPS[G.crop].n : 'Arando');
+  txt('btFerr', v.tool ? 'Plantadeira' : 'Arado');
+  txt('btBaixa', col ? (v.down ? 'Parar colheita' : 'Colher') : (v.down ? 'Erguer' : 'Baixar'));
+  $('btBaixa').classList.toggle('dest', v.down);
+}
+
+let antes = performance.now(), tMini = 0, tSalvar = 0;
+function quadro(agora) {
+  const dt = Math.min(0.05, (agora - antes)/1000); antes = agora;
+  atualizar(dt); desenhar(); painel();
+  if ((tMini -= dt) <= 0) { desenharMini(); tMini = 0.5; }
+  if ((tSalvar -= dt) <= 0) { salvar(); tSalvar = 8; }
+  requestAnimationFrame(quadro);
+}
+addEventListener('pagehide', salvar);
+requestAnimationFrame(quadro);
+window.__safra = {get G() { return G; }, st, gr, K};
+})();
+</script>
