@@ -66,6 +66,18 @@ object Analise {
         }.sortedBy { it.pontos }
     }
 
+    /** Nota A–F do atraso extra com a rede cheia (<=5 A, <=15 B, <=30 C, <=60 D, >60 F). */
+    fun notaTravamento(carregado: Double, ocioso: Double): String {
+        val extra = max(0.0, carregado - ocioso)
+        return when {
+            extra <= 5 -> "A"
+            extra <= 15 -> "B"
+            extra <= 30 -> "C"
+            extra <= 60 -> "D"
+            else -> "F"
+        }
+    }
+
     fun qualidadeSinal(rssi: Int): Pair<Int, String> = when {
         rssi >= -60 -> 0 to "Ótimo"
         rssi >= -70 -> 0 to "Bom"
@@ -157,15 +169,16 @@ object Analise {
                 r += Achado(0, "Tempo de resposta da internet: ${f0(net.media)} ms", "Bom para jogos, chamadas de vídeo e streaming.")
             }
 
+            // Nota de "bufferbloat" (escala DSLReports / RFC 8289, igual à skill transmission-jitter-reduction)
             val carga = vel.pingCarregado
             if (carga != null && carga.ok && net.ok) {
-                val aumento = carga.media - net.media
-                if (aumento > 100) {
-                    r += Achado(2, "Internet trava quando alguém baixa algo (+${f0(aumento)} ms)",
-                        "Quando a rede está cheia, o tempo de resposta vai de ${f0(net.media)} para ${f0(carga.media)} ms. Isso trava vídeo-chamadas e jogos. Ative QoS / Controle de banda no roteador ou limite downloads grandes.",
-                        "Abrir roteador", "roteador")
-                } else if (aumento > 40) {
-                    r += Achado(1, "Rede fica um pouco lenta sob uso (+${f0(aumento)} ms)", "Normal em muitas casas. Se jogos ou chamadas travarem quando alguém assiste vídeo, ative QoS no roteador.")
+                val nota = notaTravamento(carga.media, net.media)
+                val aumento = max(0.0, carga.media - net.media)
+                val base = "Com a rede cheia, o tempo de resposta vai de ${f0(net.media)} para ${f0(carga.media)} ms (+${f0(aumento)} ms)."
+                r += when (nota) {
+                    "A", "B" -> Achado(0, "Nota $nota para travamentos com a rede cheia", "$base Excelente: chamadas e jogos não travam quando alguém assiste vídeo.")
+                    "C" -> Achado(1, "Nota C para travamentos com a rede cheia", "$base Moderado. Se chamadas ou jogos travarem quando alguém assiste vídeo, ative QoS / Controle de banda no roteador.", "Abrir roteador", "roteador")
+                    else -> Achado(2, "Nota $nota: internet trava quando alguém usa muito", "$base Isso trava vídeo-chamadas e jogos. Ative QoS / Controle de banda no roteador e limite a banda dos aparelhos que baixam muito (TV, videogame, computador).", "Abrir roteador", "roteador")
                 }
             }
 

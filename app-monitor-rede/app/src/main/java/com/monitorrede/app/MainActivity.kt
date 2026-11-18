@@ -503,7 +503,8 @@ class MainActivity : Activity() {
         val n = r.pingInternet
         corpoVelocidade.addView(texto("Celular → internet: ${f0(n.media)} ms (variação ${f0(n.jitter)} ms, perda ${n.perda}%)", 14f, corTexto), lp(4))
         r.pingCarregado?.let {
-            corpoVelocidade.addView(texto("Com a rede cheia (durante o download): ${f0(it.media)} ms", 14f, corTexto), lp(4))
+            val nota = if (n.ok && it.ok) " • nota ${Analise.notaTravamento(it.media, n.media)}" else ""
+            corpoVelocidade.addView(texto("Com a rede cheia (durante o download): ${f0(it.media)} ms$nota", 14f, corTexto), lp(4))
         }
         dns?.let { lista ->
             corpoVelocidade.addView(texto("Rapidez do DNS (abre sites mais rápido):", 14f, corTexto, true), lp(10))
